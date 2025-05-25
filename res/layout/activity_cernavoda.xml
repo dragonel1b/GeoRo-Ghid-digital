@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/card_background"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cernavodă"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Attractions ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonBack"
+        app:layout_constraintTop_toBottomOf="@id/headerCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Podul de la Cernavodă -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardPodulCernavoda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titlePodulCernavoda"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Podul de la Cernavodă (Podul lui Anghel Saligny)"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkPodulCernavoda"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkPodulCernavoda"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descPodulCernavoda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Unul dintre cele mai importante obiective din Cernavodă, realizat de inginerul Anghel Saligny la sfârșitul secolului XIX."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titlePodulCernavoda" />
+
+                <ImageView
+                    android:id="@+id/imagePodulCernavoda"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descPodulCernavoda" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutPodulCernavoda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imagePodulCernavoda">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/notePodulCernavoda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/recommendationLayoutPodulCernavoda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutPodulCernavoda">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationPodulCernavoda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Muzeul Civilizației Dacice și Romane -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardMuzeulDaciei"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleMuzeulDaciei"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Muzeul Civilizației Dacice și Romane"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkMuzeulDaciei"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkMuzeulDaciei"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descMuzeulDaciei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Adăpostește o colecție importantă de artefacte care ilustrează istoria dacilor și a romanilor."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleMuzeulDaciei" />
+
+                <ImageView
+                    android:id="@+id/imageMuzeulDaciei"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descMuzeulDaciei" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutMuzeulDaciei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageMuzeulDaciei">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteMuzeulDaciei"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/recommendationLayoutMuzeulDaciei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutMuzeulDaciei">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationMuzeulDaciei"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Biserica „Sf. Nicolae” -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardBisericaSfNicolae"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleBisericaSfNicolae"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Biserica „Sf. Nicolae”"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkBisericaSfNicolae"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkBisericaSfNicolae"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descBisericaSfNicolae"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="O biserică de tradiție ortodoxă, construită în stil brâncovenesc."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleBisericaSfNicolae" />
+
+                <ImageView
+                    android:id="@+id/imageBisericaSfNicolae"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descBisericaSfNicolae" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutBisericaSfNicolae"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageBisericaSfNicolae">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteBisericaSfNicolae"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/recommendationLayoutBisericaSfNicolae"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutBisericaSfNicolae">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationBisericaSfNicolae"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Faleza Dunării -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardFalezaDunarii"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleFalezaDunarii"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Faleza Dunării"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkFalezaDunarii"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkFalezaDunarii"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descFalezaDunarii"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Pe malul Dunării, există o faleză unde poți face o plimbare relaxantă, admirând peisajul fluviului."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleFalezaDunarii" />
+
+                <ImageView
+                    android:id="@+id/imageFalezaDunarii"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descFalezaDunarii" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutFalezaDunarii"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageFalezaDunarii">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteFalezaDunarii"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/recommendationLayoutFalezaDunarii"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutFalezaDunarii">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationFalezaDunarii"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Canalul Dunăre-Marea Neagră -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardCanalDunareMareaNeagra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleCanalDunareMareaNeagra"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Canalul Dunăre-Marea Neagră"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkCanalDunareMareaNeagra"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkCanalDunareMareaNeagra"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descCanalDunareMareaNeagra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Canalul Dunăre-Marea Neagră trece prin apropierea Cernavodei și este un obiectiv important din punct de vedere al infrastructurii."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleCanalDunareMareaNeagra" />
+
+                <ImageView
+                    android:id="@+id/imageCanalDunareMareaNeagra"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descCanalDunareMareaNeagra" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutCanalDunareMareaNeagra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageCanalDunareMareaNeagra">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteCanalDunareMareaNeagra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/recommendationLayoutCanalDunareMareaNeagra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutCanalDunareMareaNeagra">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationCanalDunareMareaNeagra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#002B7F"
+        android:onClick="goBack"
+        android:text="Înapoi"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

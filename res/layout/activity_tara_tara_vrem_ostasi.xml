@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground">
+
+    <!-- Header Section with Game Title -->
+    <LinearLayout
+        android:id="@+id/headerSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_background"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/gameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/game_title"
+            style="@style/GameText.Title"/>
+
+        <TextView
+            android:id="@+id/gameSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/game_subtitle"
+            style="@style/GameText.Subtitle"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <!-- Team Status Cards -->
+    <LinearLayout
+        android:id="@+id/teamStatusSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerSection"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:baselineAligned="false">
+
+        <!-- Player Team Card -->
+        <LinearLayout
+            style="@style/GameCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/teamBlueLight">
+
+            <LinearLayout
+                android:id="@+id/playerTeamStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/playerTeamName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player_team_1"
+                    android:textColor="@color/teamBlueDark"
+                    style="@style/GameText"/>
+
+                <TextView
+                    android:id="@+id/playerSoldierCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/soldiers_count"
+                    android:textColor="@color/teamBlue"
+                    style="@style/GameText.Status"
+                    android:layout_marginTop="4dp"/>
+
+                <ProgressBar
+                    android:id="@+id/playerMoraleBar"
+                    style="@style/GameProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:progress="100"/>
+
+                <TextView
+                    android:id="@+id/playerMorale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/morale_level"
+                    android:textColor="@color/teamBlue"
+                    style="@style/GameText.Status"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Enemy Team Card -->
+        <LinearLayout
+            style="@style/GameCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/teamRedLight">
+
+            <LinearLayout
+                android:id="@+id/enemyTeamStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/enemyTeamName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enemy_team"
+                    android:textColor="@color/teamRedDark"
+                    style="@style/GameText"/>
+
+                <TextView
+                    android:id="@+id/enemySoldierCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/soldiers_count"
+                    android:textColor="@color/teamRed"
+                    style="@style/GameText.Status"
+                    android:layout_marginTop="4dp"/>
+
+                <ProgressBar
+                    android:id="@+id/enemyMoraleBar"
+                    style="@style/GameProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:progress="100"/>
+
+                <TextView
+                    android:id="@+id/enemyMorale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/resistance_level"
+                    android:textColor="@color/teamRed"
+                    style="@style/GameText.Status"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Game Message TextView -->
+    <TextView
+        android:id="@+id/gameMessageText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teamStatusSection"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        style="@style/GameText.Title"
+        android:visibility="gone"/>
+
+    <!-- Avatar Lines Container -->
+    <LinearLayout
+        android:id="@+id/avatarLinesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gameMessageText"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Blue Team Avatars -->
+        <LinearLayout
+            android:id="@+id/blueTeamAvatars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@color/teamBlueLight"
+            android:padding="4dp">
+
+            <!-- Avatar placeholders will be added dynamically -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamBlue"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamBlue"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamBlue"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamBlue"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamBlue"/>
+        </LinearLayout>
+
+        <!-- Break Zone Indicator -->
+        <View
+            android:id="@+id/breakZoneIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/teamRed"
+            android:layout_marginVertical="8dp"/>
+
+        <!-- Red Team Avatars -->
+        <LinearLayout
+            android:id="@+id/redTeamAvatars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@color/teamRedLight"
+            android:padding="4dp">
+
+            <!-- Avatar placeholders will be added dynamically -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamRed"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamRed"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamRed"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamRed"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_player_character1"
+                android:layout_margin="2dp"
+                android:tint="@color/teamRed"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Game View Container -->
+    <FrameLayout
+        android:id="@+id/gameViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/controlsSection"
+        android:layout_below="@id/avatarLinesContainer"
+        android:layout_margin="4dp"
+        android:background="@drawable/game_container_background"/>
+
+    <!-- Controls Section -->
+    <LinearLayout
+        android:id="@+id/controlsSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/controls_background"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:elevation="8dp">
+
+        <!-- Game Action Controls -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/shoutButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/shout_button"
+                android:layout_marginEnd="8dp"
+                style="@style/GameButton"/>
+
+            <Button
+                android:id="@+id/answerButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/answer_button"
+                style="@style/GameButton"
+                android:background="@android:color/holo_red_dark"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Victory/Defeat Overlay -->
+    <RelativeLayout
+        android:id="@+id/gameOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/overlayBackground"
+        android:visibility="gone">
+
+        <LinearLayout
+            style="@style/GameCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/overlayMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/GameText.Title"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/restartButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/play_again"
+                style="@style/GameButton"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

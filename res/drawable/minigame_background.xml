@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base background color - light beige -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFF5E6"/>
+        </shape>
+    </item>
+
+    <!-- Traditional pattern - using drawable directly instead of bitmap -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#F5DEB3"/>
+            <stroke
+                android:width="1dp"
+                android:color="#8B4513"
+                android:dashWidth="4dp"
+                android:dashGap="4dp"/>
+        </shape>
+    </item>
+
+    <!-- Decorative border -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#CD853F"/>
+            <padding
+                android:left="2dp"
+                android:top="2dp"
+                android:right="2dp"
+                android:bottom="2dp"/>
+        </shape>
+    </item>
+
+    <!-- Corner decorations -->
+    <item android:gravity="top|left">
+        <rotate
+            android:fromDegrees="45"
+            android:pivotX="0%"
+            android:pivotY="0%">
+            <shape android:shape="line">
+                <stroke
+                    android:width="2dp"
+                    android:color="#8B4513"/>
+                <size
+                    android:width="20dp"
+                    android:height="20dp"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <item android:gravity="top|right">
+        <rotate
+            android:fromDegrees="-45"
+            android:pivotX="100%"
+            android:pivotY="0%">
+            <shape android:shape="line">
+                <stroke
+                    android:width="2dp"
+                    android:color="#8B4513"/>
+                <size
+                    android:width="20dp"
+                    android:height="20dp"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <item android:gravity="bottom|left">
+        <rotate
+            android:fromDegrees="-45"
+            android:pivotX="0%"
+            android:pivotY="100%">
+            <shape android:shape="line">
+                <stroke
+                    android:width="2dp"
+                    android:color="#8B4513"/>
+                <size
+                    android:width="20dp"
+                    android:height="20dp"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <item android:gravity="bottom|right">
+        <rotate
+            android:fromDegrees="45"
+            android:pivotX="100%"
+            android:pivotY="100%">
+            <shape android:shape="line">
+                <stroke
+                    android:width="2dp"
+                    android:color="#8B4513"/>
+                <size
+                    android:width="20dp"
+                    android:height="20dp"/>
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

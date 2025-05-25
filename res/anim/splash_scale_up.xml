@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true"
+    android:repeatMode="reverse"
+    android:repeatCount="infinite">
+
+    <!-- Subtle wave effect -->
+    <scale
+        android:duration="1500"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="0%"
+        android:pivotY="50%"
+        android:toXScale="1.05"
+        android:toYScale="1.0"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+
+    <!-- Slight vertical movement -->
+    <translate
+        android:duration="1500"
+        android:fromYDelta="0"
+        android:toYDelta="-3"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+
+    <!-- Subtle rotation for wave-like effect -->
+    <rotate
+        android:duration="1500"
+        android:fromDegrees="0"
+        android:toDegrees="2"
+        android:pivotX="0%"
+        android:pivotY="50%"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+
+</set>

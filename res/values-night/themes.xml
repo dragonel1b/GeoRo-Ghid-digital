@@ -1,0 +1,36 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+    <style name="Theme.Romania" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Colors -->
+        <item name="colorPrimary">@color/rom_flag_blue</item>
+        <item name="colorPrimaryVariant">@color/rom_flag_blue_dark</item>
+        <item name="colorSecondary">@color/rom_flag_yellow</item>
+        <item name="colorSecondaryVariant">@color/rom_flag_red</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@drawable/bg_gradient1</item>
+        <item name="backgroundColor">@color/rom_background</item>
+        <item name="colorSurface">@color/rom_surface</item>
+
+        <!-- System bars -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- Font -->
+        <item name="android:fontFamily">@font/poppins</item>
+
+        <!-- Custom styles -->
+        <item name="textInputStyle">@style/RomanianInputLayout</item>
+        <item name="materialButtonStyle">@style/RomanianButton</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/rom_error</item>
+        <item name="colorErrorContainer">@color/rom_error_dark</item>
+    </style>
+</resources>

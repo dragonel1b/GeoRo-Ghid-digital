@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainWelcome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient1"
+    android:animateLayoutChanges="true"
+    tools:context=".RomApp.UserActivity">
+
+    <!-- Welcome Card with enhanced styling -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/welcomeCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/enhanced_card_background"
+        android:elevation="8dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/flagIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_flag_romania"
+                android:contentDescription="Romanian flag icon"/>
+
+            <TextView
+                android:id="@+id/textViewWelcome"
+                style="@style/RomanianText.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to Romania"
+                android:textSize="28sp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Subtitle with consistent styling -->
+    <TextView
+        android:id="@+id/textViewSubtitle"
+        style="@style/RomanianText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Choose your region to explore"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/welcomeCard" />
+
+    <!-- Grid Layout for Region Buttons -->
+    <GridLayout
+        android:id="@+id/gridLayoutRegions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:columnCount="2"
+        android:rowCount="6"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewSubtitle">
+
+        <!-- Region Buttons - Reordered to avoid same colors being adjacent -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonTransilvania"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Transilvania region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Transilvania"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonOltenia"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Oltenia region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Oltenia"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonBanat"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Banat region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Banat"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonMoldova"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Moldova region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Moldova"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDobrogea"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Dobrogea region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Dobrogea"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCrisana"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Crișana region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Crișana"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonBucovina"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Bucovina region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Bucovina"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonMuntenia"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Muntenia region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Muntenia"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonMaramures"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Select Maramureș region"
+            android:drawableStart="@drawable/ic_flag_romania"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Maramureș"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <!-- Minigame Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonRom"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical|start"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/button_mini_background"
+            android:contentDescription="Play minigame"
+            android:drawableStart="@drawable/ic_game_controller"
+            android:drawablePadding="24dp"
+            android:drawableTint="@android:color/white"
+            android:text="Joc"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:elevation="8dp"
+            app:rippleColor="#40FFFFFF" />
+
+    </GridLayout>
+
+    <!-- Enhanced logout button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonWelcome"
+        style="@style/RomanianButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_vertical|start"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/logout_button_enhanced"
+        android:contentDescription="Log out from the application"
+        android:drawableStart="@drawable/ic_logout_small"
+        android:drawablePadding="24dp"
+        android:drawableTint="@android:color/white"
+        android:text="DECONECTARE"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:elevation="4dp"
+        app:rippleColor="#40FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Traditional Romanian hat -->
+    <path
+        android:fillColor="#2B1700"
+        android:pathData="M24,8C18,8 14,12 14,16C14,20 19,22 24,22C29,22 34,20 34,16C34,12 30,8 24,8Z"/>
+
+    <!-- Face -->
+    <path
+        android:fillColor="#FDB797"
+        android:pathData="M24,14C20,14 17,17 17,22C17,27 20,32 24,32C28,32 31,27 31,22C31,17 28,14 24,14Z"/>
+
+    <!-- Traditional vest -->
+    <path
+        android:fillColor="#CD0000"
+        android:pathData="M18,22L30,22L32,32L16,32Z"/>
+
+    <!-- Traditional shirt -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16,32L32,32L34,40L14,40Z"/>
+
+    <!-- Traditional belt -->
+    <path
+        android:fillColor="#2B1700"
+        android:pathData="M14,38L34,38L34,40L14,40Z"/>
+
+    <!-- Traditional embroidery pattern -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M20,24L28,24L28,26L20,26Z"/>
+
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M19,28L21,28L21,30L19,30Z"/>
+
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M27,28L29,28L29,30L27,30Z"/>
+
+    <!-- Eyes -->
+    <path
+        android:fillColor="#2B1700"
+        android:pathData="M21,20C20.4,20 20,20.4 20,21C20,21.6 20.4,22 21,22C21.6,22 22,21.6 22,21C22,20.4 21.6,20 21,20Z"/>
+
+    <path
+        android:fillColor="#2B1700"
+        android:pathData="M27,20C26.4,20 26,20.4 26,21C26,21.6 26.4,22 27,22C27.6,22 28,21.6 28,21C28,20.4 27.6,20 27,20Z"/>
+
+    <!-- Smile -->
+    <path
+        android:strokeColor="#2B1700"
+        android:strokeWidth="1"
+        android:strokeLineCap="round"
+        android:pathData="M22,24Q24,26 26,24"/>
+
+</vector>

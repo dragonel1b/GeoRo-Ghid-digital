@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/attractionCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/RomCityCard">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:gravity="center_vertical">
+
+            <!-- Attraction Icon -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/attractionIcon"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/rom_primary"
+                android:padding="12dp"
+                android:src="@drawable/ic_attraction"
+                app:tint="@color/rom_card_background"
+                android:contentDescription="Atracție turistică"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.MediumComponent" />
+
+            <!-- Attraction Text -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/attractionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/RomTextSubtitle"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textAlignment="viewStart"
+                    android:gravity="start" />
+
+                <TextView
+                    android:id="@+id/attractionDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/rom_text_secondary"
+                    android:textAlignment="viewStart"
+                    android:gravity="start"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Visit Status -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/visitStatus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:background="@color/rom_success"
+                android:padding="6dp"
+                android:src="@drawable/ic_check"
+                app:tint="@color/rom_background_light"
+                android:visibility="gone"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent" />
+
+        </LinearLayout>
+
+        <!-- Progress Indicator -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/visitProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/RomProgressBar"
+            android:progress="0"
+            android:visibility="gone" />
+
+        <!-- Action Buttons (Initially Gone) -->
+        <LinearLayout
+            android:id="@+id/actionButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/learnMoreButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Află mai multe"
+                android:textSize="12sp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textColor="@color/rom_primary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/visitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vizitează"
+                android:textSize="12sp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textColor="@color/rom_primary" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Ripple Effect Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground" />
+
+</com.google.android.material.card.MaterialCardView>

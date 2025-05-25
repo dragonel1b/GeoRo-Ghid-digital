@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+
+    <!-- Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/card_background"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Palatul Culturii"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Attractions ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/buttonBack"
+        app:layout_constraintTop_toBottomOf="@id/headerCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Palatul Culturii -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardPalatulCulturii"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titlePalatulCulturii"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Palatul Culturii"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkPalatulCulturii"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkPalatulCulturii"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descPalatulCulturii"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Simbol al orașului, acest palat impresionant găzduiește patru muzee: Muzeul de Istorie, Muzeul de Artă, Muzeul Etnografic și Muzeul Științei și Tehnicii."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titlePalatulCulturii" />
+
+                <ImageView
+                    android:id="@+id/imagePalatulCulturii"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descPalatulCulturii" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutPalat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imagePalatulCulturii">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/notePalatulCulturii"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutPalat">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationPalatulCulturii"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardManastireaTreiIerarhi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleManastireaTreiIerarhi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Mănăstirea Trei Ierarhi"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkManastireaTreiIerarhi"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkManastireaTreiIerarhi"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descManastireaTreiIerarhi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Un monument deosebit prin arhitectura sa, cu fațade bogat ornamentate. Aici sunt înmormântați domnitori precum Alexandru Ioan Cuza și Dimitrie Cantemir."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleManastireaTreiIerarhi" />
+
+                <ImageView
+                    android:id="@+id/imageManastireaTreiIerarhi"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descManastireaTreiIerarhi" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutManastire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageManastireaTreiIerarhi">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteManastireaTreiIerarhi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutManastire">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationManastireaTreiIerarhi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardCatedralaMitropolitana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleCatedralaMitropolitana"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Catedrala Mitropolitană"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkCatedralaMitropolitana"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkCatedralaMitropolitana"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descCatedralaMitropolitana"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Cea mai mare biserică ortodoxă din România, adăpostește moaștele Sfintei Parascheva, atrăgând mii de pelerini anual."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleCatedralaMitropolitana" />
+
+                <ImageView
+                    android:id="@+id/imageCatedralaMitropolitana"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descCatedralaMitropolitana" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutCatedrala"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageCatedralaMitropolitana">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteCatedralaMitropolitana"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutCatedrala">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationCatedralaMitropolitana"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardBojdeucaIonCreanga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleBojdeucaIonCreanga"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Bojdeuca lui Ion Creangă"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkBojdeucaIonCreanga"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkBojdeucaIonCreanga"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descBojdeucaIonCreanga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Casa memorială a celebrului scriitor Ion Creangă, situată în cartierul Țicău, un loc plin de farmec și istorie."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleBojdeucaIonCreanga" />
+
+                <ImageView
+                    android:id="@+id/imageBojdeucaIonCreanga"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descBojdeucaIonCreanga" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutBojdeuca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageBojdeucaIonCreanga">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteBojdeucaIonCreanga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutBojdeuca">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationBojdeucaIonCreanga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardParculCopou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titleParculCopou"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Parcul Copou și Teiul lui Eminescu"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkParculCopou"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkParculCopou"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descParculCopou"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Un parc liniștit, unde se află faimosul tei sub care Mihai Eminescu obișnuia să mediteze. Tot aici se găsește și Obeliscul cu Lei."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titleParculCopou" />
+
+                <ImageView
+                    android:id="@+id/imageParculCopou"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descParculCopou" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutParcul"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imageParculCopou">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/noteParculCopou"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutParcul">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationParculCopou"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardPalatulRoznovanu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_background"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/titlePalatulRoznovanu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Palatul Roznovanu (Primăria Iași)"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/checkPalatulRoznovanu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/checkPalatulRoznovanu"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_check"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/descPalatulRoznovanu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="O clădire elegantă, fostă reședință a familiei Roznovanu, astăzi sediul Primăriei Iași."
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toBottomOf="@id/titlePalatulRoznovanu" />
+
+                <ImageView
+                    android:id="@+id/imagePalatulRoznovanu"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#20000000"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/descPalatulRoznovanu" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/opinionLayoutRoznovanu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Ce părere ai despre acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/imagePalatulRoznovanu">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/notePalatulRoznovanu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:elevation="2dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#000000"
+                    app:hintTextColor="#000000"
+                    android:textColorHint="#000000"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="De ce ai recomanda acest loc?"
+                    app:layout_constraintTop_toBottomOf="@id/opinionLayoutRoznovanu">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recommendationPalatulRoznovanu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:padding="12dp"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#002B7F"
+        android:onClick="goBack"
+        android:text="Înapoi"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

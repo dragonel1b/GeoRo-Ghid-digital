@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name and general strings -->
+    <string name="romania_app_name">Romania Game</string>
+    <string name="romania_select_location">Select a Location</string>
+    <string name="romania_location_detail">Location Details</string>
+    <string name="romania_error_no_location">No location data provided</string>
+    <string name="location_image_desc">Location Image</string>
+
+    <!-- Location Names -->
+    <string name="romania_location_bran_castle">Bran Castle</string>
+    <string name="romania_location_parliament_palace">Palace of Parliament</string>
+    <string name="romania_location_voronet">Voroneț Monastery</string>
+    <string name="romania_location_peles">Peleș Castle</string>
+    <string name="romania_location_transfagarasan">Transfăgărășan</string>
+
+    <!-- Location Descriptions -->
+    <string name="romania_desc_bran_castle">Often associated with Dracula, Bran Castle is a national monument and landmark in Romania. The fortress is situated on the border between Transylvania and Wallachia.</string>
+    <string name="romania_desc_parliament_palace">The Palace of Parliament in Bucharest is the world\'s largest civilian building with an administrative function and the most expensive administrative building.</string>
+    <string name="romania_desc_voronet">Known as the \"Sistine Chapel of the East\", the Voroneț Monastery is famous for its unique shade of blue used in its frescoes, known as \"Voroneț Blue\".</string>
+    <string name="romania_desc_peles">A Neo-Renaissance castle in the Carpathian Mountains, built between 1873 and 1914. It was the summer residence of the Romanian royal family.</string>
+    <string name="romania_desc_transfagarasan">One of the most spectacular roads in the world, the Transfăgărășan is the second-highest paved road in Romania, crossing the Făgăraș Mountains.</string>
+</resources>

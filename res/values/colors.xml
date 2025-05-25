@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base colors -->
+    <color name="rom_primary_new">#00796B</color>
+    <color name="rom_primary_dark">#1976D2</color>
+    <color name="rom_accent_new">#FFAB00</color>
+    <color name="rom_background_new">#E0F7FA</color>
+    <color name="rom_text_primary_new">#FFFFFF</color>
+    <color name="rom_text_secondary_new">#BDBDBD</color>
+
+    <!-- Resource colors -->
+    <color name="rom_fuel_color">#FF9800</color>
+    <color name="rom_money_color">#4CAF50</color>
+    <color name="rom_food_color">#F44336</color>
+
+
+    <color name="YELLOW">#EF5350</color>
+    <color name="ORANGE">#29B6F6</color>
+    <!-- Theme Colors -->
+    <color name="colorPrimary">@color/rom_primary</color>
+    <color name="colorPrimaryDark">@color/rom_primary_dark</color>
+    <color name="colorAccent">@color/rom_accent</color>
+    <color name="white">#FFFFFF</color>
+    <!-- Vibrant Primary Colors -->
+    <color name="rom_primary">#0D47A1</color>
+    <color name="rom_primary_light">#5472D3</color>
+    <color name="rom_accent">#FFC107</color>
+
+    <!-- Rich Background Colors -->
+    <color name="rom_background_light">#E8EAF6</color>
+    <color name="rom_background_dark">#C5CAE9</color>
+    <color name="rom_text_button">#FFFFFF</color>
+
+    <!-- Modern Status Colors -->
+    <color name="rom_success">#66BB6A</color>
+    <color name="rom_warning">#FFB74D</color>
+
+    <!-- Modern Resource Colors -->
+    <color name="rom_culture_points_color">#7986CB</color>
+
+    <!-- Achievement Colors -->
+    <color name="rom_achievement_locked">#9E9E9E</color>
+    <color name="rom_achievement_border_locked">#BDBDBD</color>
+    <color name="rom_achievement_unlocked">#4CAF50</color>
+    <color name="rom_achievement_border_unlocked">#81C784</color>
+
+    <!-- Rich Gradient Colors -->
+    <color name="rom_gradient_start">#E8EAF6</color>
+    <color name="rom_gradient_center">#C5CAE9</color>
+    <color name="rom_gradient_end">#9FA8DA</color>
+
+    <!-- Modern Button Colors -->
+    <color name="rom_button_enabled">@color/rom_primary</color>
+    <color name="rom_button_disabled">#CFD8DC</color>
+    <color name="rom_button_text_color">#FFFFFF</color>
+
+    <!-- Modern Quiz Colors -->
+    <color name="rom_correct_answer">#66BB6A</color>
+    <color name="rom_wrong_answer">#EF5350</color>
+    <color name="rom_quiz_option_background">#F5F5F5</color>
+
+    <!-- Legacy color mappings for backward compatibility -->
+    <color name="primary">@color/rom_primary</color>
+    <color name="primary_dark">@color/rom_primary_dark</color>
+    <color name="primary_light">@color/rom_primary_light</color>
+    <color name="accent">@color/rom_accent</color>
+    <color name="background_light">@color/rom_background_light</color>
+    <color name="background_dark">@color/rom_background_dark</color>
+    <color name="card_background">@color/rom_card_background</color>
+    <color name="text_primary">@color/rom_text_primary</color>
+    <color name="text_secondary">@color/rom_text_secondary</color>
+    <color name="text_hint">@color/rom_text_hint</color>
+    <color name="success">@color/rom_success</color>
+    <color name="warning">@color/rom_warning</color>
+    <color name="error">@color/rom_error</color>
+    <color name="fuel_color">@color/rom_fuel_color</color>
+    <color name="money_color">@color/rom_money_color</color>
+    <color name="food_color">@color/rom_food_color</color>
+    <color name="culture_points_color">@color/rom_culture_points_color</color>
+    <color name="button_enabled">@color/rom_button_enabled</color>
+    <color name="button_disabled">@color/rom_button_disabled</color>
+    <color name="button_text_color">@color/rom_button_text_color</color>
+    <color name="correct_answer">@color/rom_correct_answer</color>
+    <color name="wrong_answer">@color/rom_wrong_answer</color>
+    <color name="quiz_option_background">@color/rom_quiz_option_background</color>
+
+
+
+    <!-- Legacy Flag Color Aliases -->
+    <color name="rom_blue">@color/rom_flag_blue</color>
+    <color name="rom_yellow">@color/rom_flag_yellow</color>
+    <color name="rom_red">@color/rom_flag_red</color>
+
+    <!-- Map Region Colors -->
+    <color name="rom_region_banat">#995902</color>
+    <color name="rom_region_crisana">#CC3939</color>
+    <color name="rom_region_maramures">#AD770C</color>
+    <color name="rom_region_bucovina">#8E24AA</color>
+    <color name="rom_region_transilvania">#3949AB</color>
+    <color name="rom_region_moldova">#43A047</color>
+    <color name="rom_region_oltenia">#2E454D</color>
+    <color name="rom_region_muntenia">#BC401A</color>
+    <color name="rom_region_dobrogea">#067367</color>
+
+    <!-- Map Interaction Colors -->
+    <color name="rom_region_highlight">#80FFFFFF</color>
+    <color name="rom_region_selected">#4D000000</color>
+    <color name="rom_marker_background">#FFFFFF</color>
+    <color name="rom_marker_stroke">#000000</color>
+    <color name="rom_highlight">#335472D3</color>  <!-- 20% opacity primary light color for highlighting -->
+
+    <!-- UI Element Colors -->
+    <color name="rom_button_background">@color/rom_primary</color>
+    <color name="rom_card_stroke">#DDDDDD</color>
+    <color name="rom_divider">#E0E0E0</color>
+
+    <!-- Base Colors -->
+    <color name="textSecondary">#757575</color>
+
+    <!-- Button Colors -->
+    <color name="buttonEnabled">#2196F3</color>
+    <color name="buttonDisabled">#BDBDBD</color>
+    <color name="buttonText">#FFFFFF</color>
+    <color name="formationButtonBackground">#FFFFFF</color>
+    <color name="formationButtonText">#212121</color>
+    <color name="formationButtonStroke">#BDBDBD</color>
+
+    <!-- Progress Bar Colors -->
+    <color name="progressBackground">#E0E0E0</color>
+    <color name="progressForeground">#4CAF50</color>
+
+    <!-- Card Colors -->
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="cardStroke">#E0E0E0</color>
+
+    <!-- Game Area Colors -->
+    <color name="gameAreaBackground">#FFFFFF</color>
+    <color name="gameAreaGrid">#20000000</color>
+    <color name="gameAreaBorder">#BDBDBD</color>
+
+    <color name="windowBackground">#F5F5F5</color>
+    <color name="textPrimary">#212121</color>
+    <color name="overlayBackground">#CC000000</color>
+
+    <!-- Team Colors -->
+    <color name="teamBlue">#2196F3</color>
+    <color name="teamBlueLight">#BBDEFB</color>
+    <color name="teamBlueDark">#1976D2</color>
+
+    <color name="teamGreen">#4CAF50</color>
+    <color name="teamGreenLight">#C8E6C9</color>
+    <color name="teamGreenDark">#388E3C</color>
+
+    <color name="teamRed">#F44336</color>
+    <color name="teamRedLight">#FFCDD2</color>
+    <color name="teamRedDark">#D32F2F</color>
+
+    <!-- Light Theme Colors -->
+    <color name="light_background_start">#FFFFFF</color>
+    <color name="light_background_end">#F5F5F5</color>
+    <color name="light_text">#000000</color>
+    <color name="light_text_secondary">#757575</color>
+    <color name="light_input_background">#FFFFFF</color>
+    <color name="light_input_stroke">#E0E0E0</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="dark_background_start">#121212</color>
+    <color name="dark_background_end">#1E1E1E</color>
+    <color name="dark_text">#FFFFFF</color>
+    <color name="dark_text_secondary">#B0B0B0</color>
+    <color name="dark_input_background">#2D2D2D</color>
+    <color name="dark_input_stroke">#404040</color>
+
+    <!-- Button Colors -->
+    <color name="rom_button_start">#3949AB</color>
+    <color name="rom_button_end">#1A237E</color>
+
+    <!-- Romanian Flag Colors with variations -->
+    <color name="rom_flag_blue">#002B7F</color>
+    <color name="rom_flag_blue_dark">#1A237E</color>
+    <color name="rom_flag_blue_light">#3949AB</color>
+    <color name="rom_flag_yellow">#FCD116</color>
+    <color name="rom_flag_yellow_dark">#FFA000</color>
+    <color name="rom_flag_red">#CE1126</color>
+    <color name="rom_flag_red_dark">#D32F2F</color>
+
+    <!-- Text Colors -->
+    <color name="rom_text_primary">#FFFFFF</color>
+    <color name="rom_text_secondary">#E6FFFFFF</color>
+    <color name="rom_text_hint">#B3FFFFFF</color>
+
+    <!-- Background Colors -->
+    <color name="rom_background">#121212</color>
+    <color name="rom_surface">#1F1F1F</color>
+    <color name="rom_card_background">#4DFFFFFF</color>
+
+    <!-- Input Colors -->
+    <color name="rom_input_stroke_default">#80FFFFFF</color>
+    <color name="rom_input_stroke_focused">#B3FFFFFF</color>
+    <color name="rom_input_background">#4DFFFFFF</color>
+    <color name="rom_input_text">#FFFFFF</color>
+
+    <!-- Button Colors -->
+    <color name="rom_button_primary">#3949AB</color>
+    <color name="rom_button_primary_dark">#1A237E</color>
+    <color name="rom_button_text">#FFFFFF</color>
+    <color name="rom_button_ripple">#80FFFFFF</color>
+
+    <!-- Error Colors -->
+    <color name="rom_error">#FFCDD2</color>
+    <color name="rom_error_dark">#B00020</color>
+
+    <!-- Overlay Colors -->
+    <color name="rom_overlay_light">#33FFFFFF</color>
+    <color name="rom_overlay_medium">#4DFFFFFF</color>
+    <color name="rom_overlay_dark">#66FFFFFF</color>
+</resources>

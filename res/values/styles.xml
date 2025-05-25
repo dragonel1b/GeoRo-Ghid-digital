@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.MyApplication.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/rom_background_light</item>
+    </style>
+
+    <style name="RomTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/rom_primary</item>
+        <item name="colorPrimaryDark">@color/rom_primary_dark</item>
+        <item name="colorAccent">@color/rom_accent</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/rom_primary_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Default font family -->
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+
+        <!-- Typography styles -->
+        <item name="textAppearanceHeadline1">@style/RomTextDisplay1</item>
+        <item name="textAppearanceHeadline2">@style/RomTextDisplay2</item>
+        <item name="textAppearanceHeadline3">@style/RomTextHeading1</item>
+        <item name="textAppearanceHeadline4">@style/RomTextHeading2</item>
+        <item name="textAppearanceBody1">@style/RomTextBody1</item>
+        <item name="textAppearanceBody2">@style/RomTextBody2</item>
+        <item name="textAppearanceButton">@style/RomTextButton</item>
+        <item name="textAppearanceCaption">@style/RomTextCaption</item>
+        <item name="textAppearanceOverline">@style/RomTextOverline</item>
+
+        <!-- Component styles -->
+        <item name="materialCardViewStyle">@style/RomCardView</item>
+        <item name="materialButtonStyle">@style/RomButton</item>
+    </style>
+
+    <!-- Text Styles -->
+    <style name="RomTextDisplay1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="RomTextDisplay2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="RomTextHeading1" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="RomTextHeading2" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="RomTextBody1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="RomTextBody2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/rom_text_secondary</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="RomTextButton" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/rom_text_button</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="RomTextCaption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/rom_text_secondary</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="RomTextOverline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/rom_text_secondary</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Text Styles -->
+    <style name="RomTextBody" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+
+    <!-- Resource Display Style -->
+    <style name="RomResourceDisplay" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <!-- Title Text Style -->
+    <style name="RomTextTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Game-specific Text Styles -->
+    <style name="RomTextScore" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/rom_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RomTextAchievement" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="RomTextQuest" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/rom_text_secondary</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+
+    <!-- Card Style -->
+    <style name="RomCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/rom_card_background</item>
+        <item name="contentPadding">16dp</item>
+        <item name="rippleColor">@color/rom_primary_light</item>
+        <item name="android:layout_marginHorizontal">16dp</item>
+        <item name="android:layout_marginVertical">8dp</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="RomButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAppearance">@style/RomTextButton</item>
+        <item name="android:padding">16dp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="elevation">4dp</item>
+        <item name="rippleColor">@color/rom_primary_light</item>
+        <item name="backgroundTint">@color/rom_primary</item>
+        <item name="android:stateListAnimator">@android:anim/fade_in</item>
+    </style>
+
+    <!-- Game-specific Button Styles -->
+    <style name="RomButton.Quest" parent="RomButton">
+        <item name="android:minHeight">56dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="RomButton.Achievement" parent="RomButton">
+        <item name="android:minWidth">120dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="cornerRadius">24dp</item>
+    </style>
+
+    <!-- Game-specific Card Styles -->
+    <style name="RomCardView.Quest" parent="RomCardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">6dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="RomCardView.Achievement" parent="RomCardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="contentPadding">12dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Progress Bar Style -->
+    <style name="RomProgressBar" parent="Widget.MaterialComponents.LinearProgressIndicator">
+        <item name="trackCornerRadius">8dp</item>
+        <item name="trackThickness">8dp</item>
+        <item name="trackColor">@color/rom_background_dark</item>
+        <item name="indicatorColor">@color/rom_primary</item>
+    </style>
+
+    <!-- Dialog Style -->
+    <style name="RomDialogStyle" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@color/rom_card_background</item>
+        <item name="buttonBarPositiveButtonStyle">@style/RomButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/RomButton.Secondary</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/RomTextHeading2</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/RomTextBody1</item>
+    </style>
+
+    <!-- Secondary Button Style -->
+    <style name="RomButton.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAppearance">@style/RomTextButton</item>
+        <item name="android:textColor">@color/rom_primary</item>
+        <item name="strokeColor">@color/rom_primary</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="rippleColor">@color/rom_primary_light</item>
+    </style>
+
+    <!-- Game-specific Dialog Style -->
+    <style name="RomDialogStyle.Quest" parent="RomDialogStyle">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:padding">24dp</item>
+    </style>
+
+    <!-- Minigame Styles -->
+    <style name="RomMinigameInfoCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/rom_primary_dark</item>
+        <item name="android:alpha">0.8</item>
+        <item name="contentPadding">8dp</item>
+    </style>
+
+    <style name="RomMinigameText" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="RomMinigameText.Level">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="RomMinigameText.Info">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <style name="RomMinigameControlsContainer">
+        <item name="android:background">@color/rom_primary_dark</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="RomMinigameButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/rom_primary</item>
+        <item name="rippleColor">@color/rom_primary_light</item>
+        <item name="android:stateListAnimator">@android:anim/fade_in</item>
+    </style>
+
+    <style name="RomTextSubtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="RomCityCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/rom_card_background</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="RomMapMarker" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/romania_harta</item>
+    </style>
+
+    <!-- Toolbar Style -->
+    <style name="RomToolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/rom_primary</item>
+        <item name="android:titleTextColor">@color/white</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="RomMinigameButton.Direction">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="cornerRadius">30dp</item>
+    </style>
+
+    <style name="RomMinigameButton.Interact">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="cornerRadius">40dp</item>
+    </style>
+
+    <!-- Map Styles -->
+    <style name="RomMapContainer" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/rom_card_background</item>
+        <item name="contentPadding">8dp</item>
+    </style>
+
+    <style name="RomMapMarkerFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="fabSize">mini</item>
+        <item name="backgroundTint">@color/rom_primary</item>
+        <item name="tint">@color/white</item>
+        <item name="elevation">4dp</item>
+        <item name="rippleColor">@color/rom_primary_light</item>
+    </style>
+
+    <style name="RomRegionInfoCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="cardBackgroundColor">@color/rom_card_background</item>
+        <item name="contentPadding">16dp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <!-- Achievement Styles -->
+    <style name="RomAchievementCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/rom_card_background</item>
+        <item name="contentPadding">16dp</item>
+        <item name="rippleColor">@color/rom_primary_light</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/rom_achievement_border_locked</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+        <item name="android:layout_marginVertical">4dp</item>
+    </style>
+
+    <!-- Achievement Icon Style -->
+    <style name="RomAchievementIcon">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="tint">@color/rom_achievement_locked</item>
+    </style>
+
+    <!-- Achievement Status Icon Style -->
+    <style name="RomAchievementStatus">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="tint">@color/rom_achievement_locked</item>
+    </style>
+
+
+    <style name="GameButton.Formation">
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:background">@color/formationButtonBackground</item>
+        <item name="android:textColor">@color/formationButtonText</item>
+    </style>
+
+    <style name="GameButton.Action">
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@color/buttonText</item>
+    </style>
+
+    <!-- Base Game Text Style -->
+    <style name="GameText">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Title Text Style -->
+    <style name="GameText.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Subtitle Text Style -->
+    <style name="GameText.Subtitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:alpha">0.87</item>
+    </style>
+
+    <!-- Status Text Style -->
+    <style name="GameText.Status">
+        <item name="android:textSize">14sp</item>
+        <item name="android:alpha">0.87</item>
+    </style>
+
+    <!-- Game Card Style -->
+    <style name="GameCard">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- Progress Bar Style -->
+    <style name="GameProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:minHeight">4dp</item>
+        <item name="android:maxHeight">4dp</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="GameButton">
+        <item name="android:background">@android:color/holo_blue_dark</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="LoginTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">#4ECDC4</item>
+        <item name="colorPrimaryVariant">#FF6B6B</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">#FF6B6B</item>
+        <item name="colorSecondaryVariant">#4ECDC4</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Text Input Layout Style -->
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+
+        <!-- Button style -->
+        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+
+        <!-- Make the window draw edge-to-edge -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+
+    <style name="CustomTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">@color/text_primary</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Colors -->
+        <item name="colorPrimary">@color/rom_primary</item>
+        <item name="colorPrimaryVariant">@color/rom_primary_dark</item>
+        <item name="colorSecondary">@color/rom_accent</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@drawable/bg_gradient1</item>
+        <item name="backgroundColor">@android:color/transparent</item>
+
+        <!-- Text colors -->
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:textColorSecondary">@color/rom_text_secondary</item>
+        <item name="android:textColorHint">@color/rom_text_hint</item>
+
+        <!-- System bars -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <!-- Font family -->
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="RomanianInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/rom_flag_blue</item>
+        <item name="boxBackgroundColor">@color/rom_input_background</item>
+        <item name="android:background">@drawable/modern_input_background</item>
+        <item name="hintTextColor">@color/rom_text_primary</item>
+        <item name="android:textColorHint">#B3FFFFFF</item>
+        <item name="startIconTint">@color/rom_text_primary</item>
+        <item name="endIconTint">@color/rom_text_primary</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+    </style>
+
+    <!-- Button style -->
+    <style name="RomanianButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/bg_gradient</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="rippleColor">#80FFFFFF</item>
+    </style>
+
+    <!-- Text styles -->
+    <style name="RomanianText">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">4</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="RomanianText.Title">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="RomanianText.Link">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <!-- Points Badge Style -->
+    <style name="RomanianBadge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="android:background">@drawable/points_badge_background</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <!-- City Card Style -->
+    <style name="RomanianCard" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_marginHorizontal">8dp</item>
+        <item name="android:layout_marginVertical">6dp</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardElevation">3dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/rom_overlay_light</item>
+        <item name="cardBackgroundColor">@color/rom_card_background</item>
+        <item name="android:stateListAnimator">@animator/card_state_list_anim</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">@drawable/card_ripple_effect</item>
+    </style>
+
+    <!-- City Name Text Style -->
+    <style name="RomanianText.CityName" parent="RomanianText.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Info Button Style -->
+    <style name="RomanianButton.Info" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Info</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="icon">@drawable/ic_region_flag</item>
+        <item name="iconTint">@color/rom_text_primary</item>
+        <item name="rippleColor">@color/rom_button_ripple</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- Visit Switch Style -->
+    <style name="RomanianSwitch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Vizitat</item>
+        <item name="android:textColor">@color/rom_text_primary</item>
+        <item name="thumbTint">@color/rom_flag_blue</item>
+        <item name="trackTint">@color/rom_overlay_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <!-- Container Layout Styles -->
+    <style name="RomanianContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="RomanianContainer.Header">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="RomanianContainer.Actions">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- Image Carousel Style -->
+    <style name="RomanianCarousel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
+
+    <!-- Root Container Style -->
+    <style name="RomanianContainer.Root">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:clipChildren">false</item>
+    </style>
+
+    <!-- Spacer Style -->
+    <style name="RomanianSpacer">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <!-- Description Text Style -->
+    <style name="RomanianText.Description">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <!-- Bottom Sheet Style -->
+    <style name="RomanianBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:background">@drawable/bg_gradient1</item>
+        <item name="android:padding">16dp</item>
+        <item name="behavior_peekHeight">400dp</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_skipCollapsed">false</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.LargeComponent</item>
+    </style>
+
+    <!-- Bottom Sheet Dialog Theme -->
+    <style name="RomanianBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RomanianBottomSheet</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+
+    <!-- Tab Layout Style -->
+    <style name="RomanianTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabBackground">@drawable/tab_selector</item>
+        <item name="tabGravity">center</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabPaddingStart">4dp</item>
+        <item name="tabPaddingEnd">4dp</item>
+    </style>
+
+    <style name="RomanianButton.Primary">
+        <item name="backgroundTint">@color/rom_primary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="RomanianText.SectionTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+</resources>

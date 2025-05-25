@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
+
+  <!-- Header -->
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/headerCard"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:background="@color/card_background"
+      android:padding="16dp"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Târgu Jiu"
+        android:textColor="#000000"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <!-- Attractions ScrollView -->
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="16dp"
+      app:layout_constraintBottom_toTopOf="@id/buttonBack"
+      app:layout_constraintTop_toBottomOf="@id/headerCard">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+      <!-- Ansamblul Sculptural -->
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/cardAnsamblu"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginBottom="16dp"
+          android:background="@color/card_background"
+          android:elevation="4dp"
+          android:padding="16dp">
+
+        <TextView
+            android:id="@+id/titleAnsamblu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Ansamblul Sculptural Constantin Brâncuși"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/checkAnsamblu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/checkAnsamblu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_check"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descAnsamblu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Include celebrele opere: Masa Tăcerii, Poarta Sărutului și Coloana Infinitului. Acestea sunt amplasate în Parcul Central și pe Calea Eroilor."
+            android:textColor="#000000"
+            app:layout_constraintTop_toBottomOf="@id/titleAnsamblu" />
+
+        <ImageView
+            android:id="@+id/imageAnsamblu"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#20000000"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@id/descAnsamblu" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/opinionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Ce părere ai despre acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/imageAnsamblu">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/noteAnsamblu"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="De ce ai recomanda acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/opinionLayout">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/recommendationAnsamblu"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <!-- Parcul Central -->
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/cardParc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginBottom="16dp"
+          android:background="@color/card_background"
+          android:elevation="4dp"
+          android:padding="16dp">
+
+        <TextView
+            android:id="@+id/titleParc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Parcul Central"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/checkParc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/checkParc"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_check"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descParc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Un loc plăcut pentru plimbări, unde poți admira operele lui Brâncuși și te poți relaxa în mijlocul naturii."
+            android:textColor="#000000"
+            app:layout_constraintTop_toBottomOf="@id/titleParc" />
+
+        <ImageView
+            android:id="@+id/imageParc"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#20000000"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@id/descParc" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/opinionLayoutParc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Ce părere ai despre acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/imageParc">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/noteParc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="De ce ai recomanda acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/opinionLayoutParc">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/recommendationParc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <!-- Muzeul de Artă -->
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/cardMuzeu"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginBottom="16dp"
+          android:background="@color/card_background"
+          android:elevation="4dp"
+          android:padding="16dp">
+
+        <TextView
+            android:id="@+id/titleMuzeu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Muzeul de Artă"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/checkMuzeu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/checkMuzeu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_check"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descMuzeu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Găzduiește expoziții de artă contemporană și opere ale artiștilor locali."
+            android:textColor="#000000"
+            app:layout_constraintTop_toBottomOf="@id/titleMuzeu" />
+
+        <ImageView
+            android:id="@+id/imageMuzeu"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#20000000"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@id/descMuzeu" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/opinionLayoutMuzeu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Ce părere ai despre acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/imageMuzeu">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/noteMuzeu"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="De ce ai recomanda acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/opinionLayoutMuzeu">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/recommendationMuzeu"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <!-- Casa Memorială -->
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/cardCasa"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginBottom="16dp"
+          android:background="@color/card_background"
+          android:elevation="4dp"
+          android:padding="16dp">
+
+        <TextView
+            android:id="@+id/titleCasa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Casa Memorială Constantin Brâncuși"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/checkCasa"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/checkCasa"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_check"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descCasa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Situată în satul Hobița, aproape de Târgu Jiu, este locul în care s-a născut marele sculptor."
+            android:textColor="#000000"
+            app:layout_constraintTop_toBottomOf="@id/titleCasa" />
+
+        <ImageView
+            android:id="@+id/imageCasa"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#20000000"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@id/descCasa" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/opinionLayoutCasa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Ce părere ai despre acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/imageCasa">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/noteCasa"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeColor="#000000"
+            app:hintTextColor="#000000"
+            android:textColorHint="#000000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="De ce ai recomanda acest loc?"
+            app:layout_constraintTop_toBottomOf="@id/opinionLayoutCasa">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/recommendationCasa"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textMultiLine"
+              android:minLines="2"
+              android:textColor="#000000"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:background="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+  </ScrollView>
+
+  <!-- Back Button -->
+  <Button
+      android:id="@+id/buttonBack"
+      android:layout_width="0dp"
+      android:layout_height="58dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="16dp"
+      android:backgroundTint="#002B7F"
+      android:onClick="goBack"
+      android:text="Înapoi"
+      android:textColor="#FFFFFF"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
