@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.material.button.MaterialButton;
+import android.widget.Button;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView welcomeText;
     private TextInputLayout emailLayout, passwordLayout;
     private EditText emailInput, passwordInput;
-    private MaterialButton signUpButton;
+    private Button signUpButton;
     private TextView loginRedirectText;
     private CircularProgressIndicator progressBar;
     private Animation fadeIn, scaleUp, slideInUp, buttonBounce, shake, iconHoverScale, confettiAnim;
@@ -43,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Check authentication
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            // Redirect to login if not authenticated
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
@@ -56,17 +67,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        mainLayout = findViewById(R.id.mainSignUp);
-        logoImage = findViewById(R.id.imageLogoSignUp);
-        confettiImage = findViewById(R.id.confettiImageSignUp);
-        welcomeText = findViewById(R.id.textViewSignUp);
-        emailLayout = findViewById(R.id.textInputLayoutEmailSignUp);
-        passwordLayout = findViewById(R.id.textInputLayoutPasswordSignUp);
-        emailInput = findViewById(R.id.editTextEmailSignUp);
-        passwordInput = findViewById(R.id.editTextPasswordSignUp);
-        signUpButton = findViewById(R.id.buttonSignUp);
-        loginRedirectText = findViewById(R.id.textViewRedirectLogin);
-        progressBar = findViewById(R.id.progressBarSignUp);
+        try {
+            mainLayout = findViewById(R.id.mainSignUp);
+            logoImage = findViewById(R.id.imageLogoSignUp);
+            confettiImage = findViewById(R.id.confettiImageSignUp);
+            welcomeText = findViewById(R.id.textViewSignUp);
+            emailLayout = findViewById(R.id.textInputLayoutEmailSignUp);
+            passwordLayout = findViewById(R.id.textInputLayoutPasswordSignUp);
+            emailInput = findViewById(R.id.editTextEmailSignUp);
+            passwordInput = findViewById(R.id.editTextPasswordSignUp);
+            signUpButton = findViewById(R.id.buttonSignUp);
+            progressBar = findViewById(R.id.progressBarSignUp);
+
+            // Verify all critical views
+            if (mainLayout == null) throw new NullPointerException("mainLayout not found");
+            if (logoImage == null) throw new NullPointerException("logoImage not found");
+            if (welcomeText == null) throw new NullPointerException("welcomeText not found");
+            if (emailLayout == null) throw new NullPointerException("emailLayout not found");
+            if (passwordLayout == null) throw new NullPointerException("passwordLayout not found");
+            if (signUpButton == null) throw new NullPointerException("signUpButton not found");
+
+            // Initialize login redirect text view
+            loginRedirectText = findViewById(R.id.textViewRedirectLogin);
+            if (loginRedirectText == null) {
+                Log.e("Navigation", "Login redirect TextView not found!");
+            }
+        } catch (NullPointerException e) {
+            Log.e("ViewInit", "Critical view initialization failed", e);
+            throw e; // Re-throw to fail fast
+        }
     }
 
     private void initializeAnimations() {
@@ -94,19 +123,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startEntryAnimations() {
-        logoImage.startAnimation(scaleUp);
-        welcomeText.startAnimation(slideInUp);
+        try {
+            // Start animations only if views are available
+            if (logoImage != null) logoImage.startAnimation(scaleUp);
+            if (welcomeText != null) welcomeText.startAnimation(slideInUp);
 
-        // Delay the fade-in of input fields
-        emailLayout.setAlpha(0f);
-        passwordLayout.setAlpha(0f);
-        signUpButton.setAlpha(0f);
-        loginRedirectText.setAlpha(0f);
+            // Safely handle fade-in animations
+            if (emailLayout != null) {
+                emailLayout.setAlpha(0f);
+                emailLayout.animate().alpha(1f).setDuration(1000).setStartDelay(500);
+            }
+            if (passwordLayout != null) {
+                passwordLayout.setAlpha(0f);
+                passwordLayout.animate().alpha(1f).setDuration(1000).setStartDelay(700);
+            }
+            if (signUpButton != null) {
+                signUpButton.setAlpha(0f);
+                signUpButton.animate().alpha(1f).setDuration(1000).setStartDelay(900);
+            }
 
-        emailLayout.animate().alpha(1f).setDuration(1000).setStartDelay(500);
-        passwordLayout.animate().alpha(1f).setDuration(1000).setStartDelay(700);
-        signUpButton.animate().alpha(1f).setDuration(1000).setStartDelay(900);
-        loginRedirectText.animate().alpha(1f).setDuration(1000).setStartDelay(1100);
+            TextView loginRedirect = findViewById(R.id.textViewRedirectLogin);
+            if (loginRedirect != null) {
+                loginRedirect.setAlpha(0f);
+                loginRedirect.animate().alpha(1f).setDuration(1000).setStartDelay(1100);
+            }
+        } catch (Exception e) {
+            Log.e("Animation", "Error during entry animations", e);
+        }
     }
 
     private void showSuccessConfetti() {
@@ -135,17 +178,35 @@ public class MainActivity extends AppCompatActivity {
     private void setupClickListeners() {
         signUpButton.setOnClickListener(v -> {
             v.startAnimation(buttonBounce);
+            v.setEnabled(false); // Disable during sign up
+
             if (validateInput()) {
                 createAccount();
             }
+
+            // Re-enable after delay if validation fails
+            v.postDelayed(() -> v.setEnabled(true), 2000);
         });
 
-        loginRedirectText.setOnClickListener(v -> {
-            v.startAnimation(buttonBounce);
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_slide_in, R.anim.page_swipe_blur);
-            finish();
+        TextView loginRedirect = findViewById(R.id.textViewRedirectLogin);
+        loginRedirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Navigation", "Login redirect clicked - Starting LoginActivity");
+                try {
+                    v.startAnimation(buttonBounce);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Log.d("Navigation", "Intent created: " + intent.toString());
+                    startActivity(intent);
+                    Log.d("Navigation", "Activity started");
+                    overridePendingTransition(R.anim.fade_slide_in, R.anim.page_swipe_blur);
+                    finish();
+                    Log.d("Navigation", "MainActivity finished");
+                } catch (Exception e) {
+                    Log.e("Navigation", "Error navigating to LoginActivity", e);
+                }
+            }
         });
 
         // Add touch feedback to input fields

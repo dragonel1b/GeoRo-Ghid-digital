@@ -75,14 +75,48 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
-            android:id="@+id/cityContentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"/>
-    </androidx.core.widget.NestedScrollView>
+            android:padding="16dp">
 
-    <!-- Confetti Animation -->
+            <LinearLayout
+                android:id="@+id/cityContentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <LinearLayout
+                android:id="@+id/sectionsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <!-- Navigation Buttons -->
+            <Button
+                android:id="@+id/buttonGoToCasinoStory"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Casino Story"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/buttonGoToDobrogeaGame"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Dobrogea Game"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+        
     <ImageView
         android:id="@+id/confetti_view"
         android:layout_width="match_parent"

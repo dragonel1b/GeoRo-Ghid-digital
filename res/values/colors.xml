@@ -221,4 +221,16 @@
     <color name="rom_surface">#FFFFFF</color>
     <color name="rom_error">#B00020</color>
 
+    <!-- Day mode colors for city items -->
+    <color name="city_card_bg">#60FFFFFF</color>
+    <color name="city_card_stroke">#40FFFFFF</color>
+    <color name="city_name_text">#1A237E</color> <!-- Darker blue -->
+    <color name="city_desc_text">#424242</color> <!-- Dark gray -->
+
+    <!-- Casino Game Specific Colors -->
+    <color name="dark_red">#8B0000</color>
+    <color name="dobrogea_text_white">#00BCD4</color>
+
+    <color name="dobrogea_green">#2E8B57</color>
+    <color name="dobrogea_coral">#FF7F50</color>
 </resources>

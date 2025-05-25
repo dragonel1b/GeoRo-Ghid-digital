@@ -36,32 +36,23 @@ public class ImageCarouselAdapter extends RecyclerView.Adapter<ImageCarouselAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // For now just set a placeholder color and text
-        int[] colors = {Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW, Color.MAGENTA};
-        holder.imageView.setBackgroundColor(colors[position % colors.length]);
+        // Get the image resource name
+        String imageName = images.get(position);
+        int resId = context.getResources().getIdentifier(
+            imageName, 
+            "drawable", 
+            context.getPackageName()
+        );
         
-        // Get city name from filename
-        String filename = images.get(position);
-        String cityName = filename;
-        if (filename.contains(".")) {
-            cityName = filename.substring(0, filename.lastIndexOf('.'));
+        if (resId != 0) {
+            // Load the actual drawable
+            holder.imageView.setImageResource(resId);
+            holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } else {
+            // Fallback to placeholder if image not found
+            holder.imageView.setImageResource(R.drawable.ic_region);
+            holder.imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         }
-        if (!cityName.isEmpty()) {
-            cityName = cityName.substring(0, 1).toUpperCase() + cityName.substring(1);
-        }
-        
-        // Create a bitmap with the city name
-        Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(colors[position % colors.length]);
-        
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(36);
-        paint.setTextAlign(Paint.Align.CENTER);
-        
-        canvas.drawText(cityName, 100, 100, paint);
-        holder.imageView.setImageBitmap(bitmap);
     }
 
     @Override

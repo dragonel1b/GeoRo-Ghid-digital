@@ -94,6 +94,9 @@
             android:name=".RomApp.Dobrogea"
             android:exported="false" />
         <activity
+            android:name=".dobrogeausage.CasinoStoryActivity"
+            android:exported="true" />
+        <activity
             android:name=".RomApp.AppShowcaseActivity"
             android:label="Prezentare Aplicație"
             android:exported="true" />

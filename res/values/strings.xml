@@ -177,7 +177,7 @@
         <string name="error">A apărut o eroare. Vă rugăm încercați din nou.</string>
 
         <!-- Common Strings -->
-        <string name="back">Înapoi</string>
+
         <string name="next">Următorul</string>
         <string name="finish">Termină</string>
         <string name="cancel">Anulează</string>
@@ -225,9 +225,15 @@
         <string name="region_muntenia_desc">Muntenia, regiune cu contrast între modernitate și tradiție.</string>
         <string name="region_dobrogea_desc">Dobrogea, unde Dunărea întâlnește Marea Neagră.</string>
 
+        <!-- Dobrogea Activity Strings -->
+        <string name="dobrogea">Dobrogea</string>
+        <string name="back">Înapoi</string>
+        <string name="dobrogea_intro_title">Descoperă Dobrogea</string>
+        <string name="dobrogea_intro_content">Explorează patrimoniul cultural unic și frumusețea naturală a regiunii noastre costiere, cu Delta Dunării, ruinele antice de la Histria și stațiunile de pe Marea Neagră.</string>
+
         <!-- Travel Dialog -->
         <string name="travel_title">Călătorie spre %1$s</string>
-        <string name="travel_details">Distanță: %.1f km\nCombustibil necesar: %.1f L\n\nDorești să călătorești?</string>
+<string name="travel_details">Distanță: %1$.1f km\nCombustibil necesar: %2$.1f L\n\nDorești să călătorești?</string>
         <string name="travel_yes">Da</string>
         <string name="travel_no">Nu</string>
         <string name="travel_no_fuel">Nu ai destul combustibil pentru această călătorie! Necesită %.1fL</string>
@@ -295,6 +301,18 @@
     <string name="shout_button">Strigă!</string>
     <string name="answer_button">Răspunde!</string>
     <string name="select_enemy_soldier">Selectează un soldat pentru a sparge formația!</string>
+
+    <string name="back_to_map">Înapoi la hartă</string>
+    <string name="treasure_hunt_title">Vânătoare de Comori pe Plajă</string>
+    <string name="treasure_hunt_instructions">Găsește obiectele ascunse în scenă!</string>
+    <string name="start_journey">Începe călătoria</string>
+    <string name="delta_location_desc">Delta Dunării</string>
+    <string name="casino_location_desc">Cazinoul Constanța</string>
+    <string name="histria_location_desc">Cetatea Histria</string>
+    <string name="mosque_location_desc">Marea Moschee</string>
+    <string name="beach_location_desc">Plaja Constanța</string>
+    <string name="true_text">Adevărat</string>
+    <string name="false_text">Fals</string>
 
 
 </resources>

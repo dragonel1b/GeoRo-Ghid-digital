@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.myapplication.Joc1.RomCityActivity;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 
 public class Dobrogea extends RegionTemplate {
 
-    private TextView textBalance;
     private PointsManager pointsManager;
     private SharedPreferences sharedPreferences;
     private static final String REGION = "dobrogea";
@@ -110,9 +108,6 @@ public class Dobrogea extends RegionTemplate {
         // Initialize PointsManager
         pointsManager = PointsManager.getInstance(this);
 
-        // Initialize UI elements
-        textBalance = findViewById(R.id.textBalance);
-
         // Set up image carousel
         ArrayList<String> images = getCityImages();
         if (images != null && !images.isEmpty()) {
@@ -130,9 +125,12 @@ public class Dobrogea extends RegionTemplate {
         // Initialize content sections
         initializeSpecificContent();
 
+        // Set up navigation buttons
+        findViewById(R.id.buttonGoToCasinoStory).setOnClickListener(this::goToCasinoStory);
+        findViewById(R.id.buttonGoToDobrogeaGame).setOnClickListener(this::goToDobrogeaGame);
+        
         // Load saved states
         loadCheckboxStates();
-        updatePointsDisplay();
     }
 
     private String getCurrentUserId() {
@@ -166,15 +164,6 @@ public class Dobrogea extends RegionTemplate {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(userId + "_" + checkBoxId + "_" + REGION, checkBox.isChecked());
             editor.apply();
-
-            updatePointsDisplay();
-        }
-    }
-
-    private void updatePointsDisplay() {
-        if (textBalance != null) {
-            int points = pointsManager.getTotalPoints(this);
-            textBalance.setText("💰 Total Puncte: " + points);
         }
     }
 
@@ -241,6 +230,22 @@ public class Dobrogea extends RegionTemplate {
     protected void onPause() {
         super.onPause();
         saveCheckboxStates();
+    }
+
+    // Navigation methods
+    public void goToCasinoStory(View view) {
+        Intent intent = new Intent(this, com.example.myapplication.dobrogeausage.CasinoStoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToDobrogeaGame(View view) {
+        // DobrogeaGame is a model class, not an Activity
+        // Either implement a proper game activity or show a message
+        new AlertDialog.Builder(this)
+            .setTitle("Joc Dobrogea")
+            .setMessage("Funcționalitatea jocului va fi implementată în versiuni viitoare.")
+            .setPositiveButton("OK", null)
+            .show();
     }
 
     private void saveCheckboxStates() {

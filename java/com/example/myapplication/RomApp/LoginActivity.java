@@ -4,6 +4,8 @@ import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.content.SharedPreferences;
+import android.widget.CheckBox;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
@@ -40,9 +42,21 @@ public class LoginActivity extends AppCompatActivity {
     private int loginAttempts = 0;
     private FirebaseAuth mAuth;
 
+    private SharedPreferences sharedPref;
+    private CheckBox rememberMeCheckbox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPref = getSharedPreferences("login_prefs", MODE_PRIVATE);
+        boolean rememberMe = sharedPref.getBoolean("remember_me", false);
+
+        if (rememberMe) {
+            // Skip login if remembered
+            startActivity(new Intent(this, UserActivity.class));
+            finish();
+        }
         setContentView(R.layout.activity_log_in);
 
         mAuth = FirebaseAuth.getInstance();
@@ -146,11 +160,11 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                // Navigate to UserActivity after confetti
-                Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+                // Navigate to MainActivity after successful login with clear task
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_exit, R.anim.fade_out);
-                finish();
             }
 
             @Override
@@ -159,9 +173,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
+        rememberMeCheckbox = findViewById(R.id.rememberMeCheckbox);
+
         loginButton.setOnClickListener(v -> {
             v.startAnimation(buttonBounce);
+            v.setEnabled(false); // Disable button during login attempt
+
+            // Save remember me preference before attempting login
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean("remember_me", rememberMeCheckbox.isChecked());
+            editor.apply();
+
             attemptLogin();
+
+            // Re-enable button after short delay
+            v.postDelayed(() -> v.setEnabled(true), 2000);
         });
 
         signUpLink.setOnClickListener(v -> {
@@ -263,12 +289,29 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Show confetti and then navigate
                         progressBar.setVisibility(View.GONE);
+                        // Save successful login state if "Remember Me" was checked
+                        if (rememberMeCheckbox.isChecked()) {
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putBoolean("remember_me", true);
+                            editor.apply();
+                        }
                         showSuccessConfetti();
                     } else {
                         // Login failed
                         progressBar.setVisibility(View.GONE);
                         loginButton.setEnabled(true);
-                        Snackbar.make(mainLayout, "Authentication failed", Snackbar.LENGTH_LONG).show();
+                        String error = "Authentication failed";
+                        if (task.getException() != null) {
+                            error = task.getException().getMessage();
+                            if (error.contains("password is invalid")) {
+                                error = "Invalid password";
+                            } else if (error.contains("no user record")) {
+                                error = "Account not found";
+                            } else if (error.contains("network error")) {
+                                error = "Network error - check connection";
+                            }
+                        }
+                        Snackbar.make(mainLayout, error, Snackbar.LENGTH_LONG).show();
                         emailLayout.startAnimation(shake);
                         passwordLayout.startAnimation(shake);
                     }
