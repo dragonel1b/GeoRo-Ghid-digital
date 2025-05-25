@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Night sky background -->
+    <path
+        android:fillColor="#1A1F3A"
+        android:pathData="M0,0h100v100h-100z" />
+
+    <!-- Stars -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,10 a0.5,0.5 0 1,1 0,0.1z
+                          M25,5 a0.3,0.3 0 1,1 0,0.1z
+                          M40,8 a0.4,0.4 0 1,1 0,0.1z
+                          M55,12 a0.3,0.3 0 1,1 0,0.1z
+                          M70,7 a0.6,0.6 0 1,1 0,0.1z
+                          M85,15 a0.4,0.4 0 1,1 0,0.1z
+                          M15,25 a0.4,0.4 0 1,1 0,0.1z
+                          M30,20 a0.3,0.3 0 1,1 0,0.1z
+                          M60,25 a0.5,0.5 0 1,1 0,0.1z
+                          M75,22 a0.3,0.3 0 1,1 0,0.1z
+                          M90,28 a0.4,0.4 0 1,1 0,0.1z" />
+
+    <!-- Moon -->
+    <path
+        android:fillColor="#F3F0C0"
+        android:pathData="M80,25 a15,15 0 1,1 0,0.1z" />
+
+    <!-- Moonlight -->
+    <path
+        android:fillColor="#F3F0C0"
+        android:fillAlpha="0.1"
+        android:pathData="M65,25 L95,25 L80,100 Z" />
+
+    <!-- Clearing in forest -->
+    <path
+        android:fillColor="#1D3527"
+        android:pathData="M0,100 L0,60 C10,55 20,62 30,57 C40,52 50,58 60,55 C70,52 80,60 90,56 L100,60 L100,100 Z" />
+
+    <!-- Misty ground in clearing -->
+    <path
+        android:fillColor="#AECFC0"
+        android:fillAlpha="0.3"
+        android:pathData="M25,70 C35,68 45,72 55,69 C65,66 75,70 85,67 L95,70 L95,100 L5,100 L5,70 C15,68 20,71 25,70 Z" />
+
+    <!-- Dancing spirits (simplified ethereal figures) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7"
+        android:pathData="M30,80 C32,75 30,70 34,68 C36,70 36,75 38,80 C36,84 32,84 30,80 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.6"
+        android:pathData="M50,75 C52,70 50,65 54,63 C56,65 56,70 58,75 C56,79 52,79 50,75 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.8"
+        android:pathData="M70,83 C72,78 70,73 74,71 C76,73 76,78 78,83 C76,87 72,87 70,83 Z" />
+
+    <!-- Glowing eyes of the noticing spirit -->
+    <path
+        android:fillColor="#5CE1E6"
+        android:pathData="M71,78 a0.8,0.8 0 1,1 0,0.1z
+                          M77,78 a0.8,0.8 0 1,1 0,0.1z" />
+
+    <!-- Luminous trails behind dancing spirits -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.3"
+        android:pathData="M30,80 C28,85 26,90 25,95 M38,80 C40,85 42,90 45,95
+                          M50,75 C48,80 46,85 45,90 M58,75 C60,80 62,85 65,90
+                          M70,83 C68,88 66,93 65,98 M78,83 C80,88 82,93 85,98" />
+</vector> 

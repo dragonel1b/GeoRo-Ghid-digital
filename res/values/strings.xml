@@ -1,242 +1,307 @@
 <resources>
     <string name="app_name">GeoRo</string>
-        <!-- Achievement Strings -->
-        <string name="rom_achievements_title">Realizări</string>
-        <string name="rom_achievements_empty">Nu ai deblocat încă nicio realizare</string>
-        <string name="rom_achievements_progress">%1$d din %2$d realizări deblocate</string>
-        <string name="rom_achievement_unlocked">Realizare deblocată!</string>
-        <string name="achievement_unlocked">Realizare deblocată: %1$s</string>
-        <string name="rom_achievements_stats_title">Statistici</string>
-        <string name="rom_achievements_unlocked_label">Realizări deblocate</string>
-        <string name="rom_achievements_list_description">Lista realizărilor disponibile</string>
-        <string name="rom_culture_points_label">Puncte culturale: %1$d</string>
-        <string name="rom_back">Înapoi</string>
-        <string name="rom_points_required">Puncte necesare: %1$d</string>
+    <!-- Culinary Profile -->
+    <string name="culinary_profile">Profil Culinar</string>
+    <string name="please_enter_name">Te rugăm să introduci numele tău</string>
+    <string name="profile_saved">Profil salvat cu succes</string>
 
-        <!-- Resource Labels with Format Parameters -->
-        <string name="rom_fuel_label">%1$d L</string>
-        <string name="rom_money_label">%1$d RON</string>
-        <string name="rom_food_label">%1$d kg</string>
+    <!-- Culinary Welcome -->
+    <string name="welcome_title_1">Bine ai venit în Călătoria Culinară</string>
+    <string name="welcome_text_1">Descoperă rețete delicioase din toate regiunile României și începe-ți aventura culinară.</string>
+    <string name="welcome_title_2">Planifică-ți Mesele</string>
+    <string name="welcome_text_2">Creează meniuri săptămânale și generează liste de cumpărături pentru ingredientele necesare.</string>
+    <string name="welcome_title_3">Devino un Chef Expert</string>
+    <string name="welcome_text_3">Învață tehnici noi, descoperă ingrediente speciale și explorează gusturile tradiționale românești.</string>
 
-        <!-- Quest Strings -->
-        <string name="quest_objectives_title">Obiective:</string>
-        <string name="quest_objectives_description">Completează următoarele obiective:</string>
-        <string name="quest_reward">Recompensă: %1$d puncte culturale</string>
-        <string name="quest_complete">Quest Completat!</string>
-        <string name="quest_incomplete">Quest Incomplet</string>
-        <string name="quest_accept">Acceptă Quest</string>
-        <string name="quest_decline">Refuză Quest</string>
+    <!-- My Recipes -->
+    <string name="my_recipes">Rețetele mele</string>
+    <string name="favorites">Favorite</string>
+    <string name="recently_viewed">Vizionate recent</string>
+    <string name="no_favorite_recipes">Nu ai nicio rețetă favorită</string>
+    <string name="no_created_recipes">Nu ai creat nicio rețetă</string>
+    <string name="no_recent_recipes">Nu ai vizionat nicio rețetă recent</string>
 
-        <!-- Quest Dialog Strings -->
-        <string name="quest_submit_answer">Începe Misiunea</string>
-        <string name="quest_cancel">Anulează</string>
-        <string name="quest_challenge_title">Provocare Quest</string>
-        <string name="quest_answer_hint">Răspunde la întrebările quest-ului pentru a progresa</string>
-        <string name="quest_points_earned">Ai câștigat %1$d puncte înțelepte!</string>
+    <!-- Shopping List -->
+    <string name="shopping_list_title">Listă de cumpărături</string>
 
-        <!-- Main Menu Strings -->
-        <string name="minigame_label">MINI-JOC ROMÂNIA</string>
-        <string name="minigame_description">Explorează România într-un mini-joc interactiv</string>
-        <string name="quiz_label">ÎNCEPE QUIZ-UL</string>
-        <string name="map_label">EXPLOREAZĂ HARTA</string>
-        <string name="quest_label">QUEST PATRIMONIU</string>
-        <string name="culinary_label">CĂLĂTORIE CULINARĂ</string>
+    <!-- Achievement Strings -->
+    <string name="rom_achievements_title">Realizări</string>
+    <string name="rom_achievements_empty">Nu ai deblocat încă nicio realizare</string>
+    <string name="rom_achievements_progress">Realizări deblocate: %1$d din %2$d</string>
+    <string name="rom_achievement_unlocked">Realizare deblocată!</string>
+    <string name="achievement_unlocked">Realizare deblocată: %1$s</string>
+    <string name="rom_achievements_stats_title">Statistici de joc</string>
+    <string name="rom_achievements_unlocked_label">Realizări deblocate</string>
+    <string name="rom_achievements_list_description">Realizările Tale</string>
+    <string name="rom_culture_points_label">Puncte culturale: %1$d</string>
+    <string name="rom_back">Înapoi</string>
+    <string name="rom_points_required">Puncte necesare: %1$d</string>
 
-        <!-- Mini-game Level and Mission Strings -->
-        <string name="minigame_level">Nivel: %1$d</string>
-        <string name="minigame_mission">Misiune: %1$s</string>
-        <string name="minigame_new_mission">Misiune nouă: %1$s</string>
-        <string name="minigame_level_up">Felicitări! Ai avansat la nivelul %1$d</string>
-        <string name="minigame_collect_mission">Colectează %1$d obiecte tradiționale</string>
-        <string name="minigame_reach_location">Ajunge la locația marcată pe hartă</string>
+    <!-- Resource Labels with Format Parameters -->
+    <string name="rom_fuel_label">%1$d L</string>
+    <string name="rom_money_label">%1$d RON</string>
+    <string name="rom_food_label">%1$d kg</string>
 
-        <!-- Mini-game NPC Interaction Strings -->
-        <string name="minigame_npc_nearby">Apasă butonul pentru a interacționa cu %1$s</string>
-        <string name="minigame_npc_title">Întâlnire cu %1$s</string>
-        <string name="minigame_npc_quest_accept">Acceptă Quest</string>
-        <string name="minigame_npc_quest_decline">Închide</string>
-        <string name="minigame_npc_quest_info">Quest: %1$s</string>
+    <!-- Quest Strings -->
+    <string name="quest_title">Misiuni și Provocări</string>
+    <string name="quest_submit_answer">Răspunde la provocare</string>
+    <string name="quest_cancel">Anulează</string>
+    <string name="quest_challenge_title">Provocare</string>
+    <string name="quest_answer_hint">Ești sigur că vrei să marchezi această misiune ca finalizată?</string>
+    <string name="quest_points_earned">Ai câștigat 25 de Puncte Înțelepte!</string>
+    <string name="quest_objectives_title">Obiective:</string>
 
-        <!-- NPC Dialogues - Cluj -->
-        <string-array name="npc_cluj_dialogues">
-            <item>Bine ai venit în Cluj, inima Transilvaniei!</item>
-            <item>Ai gustat vreodată varza à la Cluj? E o delicatesă locală!</item>
-            <item>Știai că Universitatea Babeș-Bolyai este cea mai veche din România?</item>
-            <item>Piața Unirii este locul perfect pentru a începe explorarea orașului.</item>
-        </string-array>
+    <!-- Quest 1 -->
+    <string name="quest1_title">Misterele Sibiului Medieval</string>
+    <string name="quest1_description">Descoperă secretele Podului Minciunilor și ale Pieței Mari</string>
+    <string name="quest1_objective1">Găsește și fotografiază cele mai vechi 3 case din Piața Mare</string>
+    <string name="quest1_objective2">Descoperă legenda Podului Minciunilor</string>
+    <string name="quest1_objective3">Identifică simbolurile breslelor medievale</string>
 
-        <!-- NPC Dialogues - Iași -->
-        <string-array name="npc_iasi_dialogues">
-            <item>Bine ai venit în Iași, capitala culturală a Moldovei!</item>
-            <item>Palatul Culturii este simbolul orașului nostru.</item>
-            <item>Grădina Copou ascunde multe povești fascinante.</item>
-            <item>Ai văzut Teiul lui Eminescu? E un loc special pentru noi.</item>
-        </string-array>
+    <!-- Quest 2 -->
+    <string name="quest2_title">Comoara Bisericii Negre</string>
+    <string name="quest2_description">Explorează cel mai mare edificiu gotic din Europa de Est</string>
+    <string name="quest2_objective1">Descoperă simbolistica vitraliilor</string>
+    <string name="quest2_objective2">Găsește covorul oriental cel mai vechi</string>
 
-        <!-- NPC Dialogues - Timișoara -->
-        <string-array name="npc_timisoara_dialogues">
-            <item>Bun venit în Timișoara, primul oraș cu iluminat stradal electric din Europa!</item>
-            <item>Piața Victoriei, sau Piața Operei cum îi spunem noi, e inima orașului.</item>
-            <item>Timișoara e orașul florilor și al parcurilor.</item>
-            <item>Revoluția din 1989 a început aici, în Piața Maria.</item>
-        </string-array>
+    <!-- Quest 3 -->
+    <string name="quest3_title">Legendele Clujului</string>
+    <string name="quest3_description">Descoperă poveștile ascunse ale orașului</string>
+    <string name="quest3_objective1">Vizitează casa lui Matei Corvin</string>
+    <string name="quest3_objective2">Găsește statuia Sf. Gheorghe</string>
+    <string name="quest3_objective3">Explorează criptele Bisericii Sf. Mihail</string>
+    <string name="quest3_objective4">Află despre Turnul Croitorilor</string>
 
-        <!-- NPC Quests -->
-        <string name="quest_cluj_description">Descoperă secretele gastronomice ale Clujului - Găsește 5 rețete tradiționale ascunse în oraș.</string>
-        <string name="quest_iasi_description">Călătorie culturală în Iași - Vizitează 3 locații istorice importante și colectează artefacte.</string>
-        <string name="quest_timisoara_description">Explorează Timișoara luminilor - Găsește și fotografiază 4 clădiri istorice iluminate.</string>
+    <!-- Quest 4 -->
+    <string name="quest4_title">Orașele Olteniei</string>
+    <string name="quest4_description">Explorează frumusețea urbană a Olteniei</string>
+    <string name="quest4_objective1">Vizitează Centrul Vechi din Craiova</string>
+    <string name="quest4_objective2">Descoperă istoria Râmnicu Vâlcea</string>
 
-        <!-- Mini-game Instructions -->
-        <string name="minigame_instructions">Explorează harta României și colectează obiectele tradiționale!</string>
-        <string name="minigame_interact">Interacționează</string>
+    <!-- Quest 5 -->
+    <string name="quest5_title">Bucureștiul Interbelic</string>
+    <string name="quest5_description">Călătorește în timp prin arhitectura capitalei</string>
+    <string name="quest5_objective1">Identifică stilurile arhitecturale de pe Calea Victoriei</string>
+    <string name="quest5_objective2">Descoperă poveștile Ateneului Român</string>
+    <string name="quest5_objective3">Explorează Micul Paris al României</string>
 
-        <!-- Mini-game Achievement Messages -->
-        <string name="minigame_achievement_collector">Colecționar de Tradiții</string>
-        <string name="minigame_achievement_explorer">Explorator al României</string>
-        <string name="minigame_achievement_friend">Prieten al Localnicilor</string>
+    <!-- Main Menu Strings -->
+    <string name="minigame_label">MINI-JOC ROMÂNIA</string>
+    <string name="minigame_description">Explorează România într-un mini-joc interactiv</string>
+    <string name="quiz_label">ÎNCEPE QUIZ-UL</string>
+    <string name="map_label">EXPLOREAZĂ HARTA</string>
+    <string name="quest_label">QUEST PATRIMONIU</string>
+    <string name="culinary_label">CĂLĂTORIE CULINARĂ</string>
 
-        <!-- Mini-game Basic UI Strings -->
-        <string name="minigame_openworld_title">Vânătoarea de Comori</string>
-        <string name="minigame_score">Scor: %d</string>
-        <string name="minigame_up">Sus</string>
-        <string name="minigame_down">Jos</string>
-        <string name="minigame_left">Stânga</string>
-        <string name="minigame_right">Dreapta</string>
-        <string name="minigame_points_earned">Ai câștigat %d puncte înțelepte!</string>
-        <string name="minigame_collect_item">Ai găsit un obiect tradițional!</string>
-        <string name="minigame_game_over">Joc terminat! Scor final: %d</string>
-        <string name="minigame_controls_hint">Folosește butoanele pentru a te deplasa</string>
+    <!-- Mini-game Level and Mission Strings -->
+    <string name="minigame_level">Nivel: %1$d</string>
+    <string name="minigame_mission">Misiune: %1$s</string>
+    <string name="minigame_new_mission">Misiune nouă: %1$s</string>
+    <string name="minigame_level_up">Felicitări! Ai avansat la nivelul %1$d</string>
+    <string name="minigame_collect_mission">Colectează %1$d obiecte tradiționale</string>
+    <string name="minigame_reach_location">Ajunge la locația marcată pe hartă</string>
 
-        <!-- Mini-game Quiz Strings -->
-        <string name="minigame_title">Provocarea României</string>
-        <string name="minigame_correct">Corect! +10 puncte</string>
-        <string name="minigame_wrong">Încearcă din nou!</string>
-        <string name="minigame_image_desc">Imagine pentru întrebare</string>
+    <!-- Mini-game NPC Interaction Strings -->
+    <string name="minigame_npc_nearby">Apasă butonul pentru a interacționa cu %1$s</string>
+    <string name="minigame_npc_title">Întâlnire cu %1$s</string>
+    <string name="minigame_npc_quest_accept">Acceptă Quest</string>
+    <string name="minigame_npc_quest_decline">Închide</string>
+    <string name="minigame_npc_quest_info">Quest: %1$s</string>
 
-        <!-- Questions -->
-        <string-array name="minigame_questions">
-            <item>Care este capitala României?</item>
-            <item>Care este cel mai înalt vârf muntos din România?</item>
-            <item>Care este cel mai mare oraș din Moldova?</item>
-            <item>Care este cel mai lung fluviu ce traversează România?</item>
-            <item>În ce regiune se află Castelul Bran?</item>
-        </string-array>
+    <!-- NPC Dialogues - Cluj -->
+    <string-array name="npc_cluj_dialogues">
+        <item>Bine ai venit în Cluj, inima Transilvaniei!</item>
+        <item>Ai gustat vreodată varza à la Cluj? E o delicatesă locală!</item>
+        <item>Știai că Universitatea Babeș-Bolyai este cea mai veche din România?</item>
+        <item>Piața Unirii este locul perfect pentru a începe explorarea orașului.</item>
+    </string-array>
 
-        <!-- Answers -->
-        <string-array name="minigame_correct_answers">
-            <item>București</item>
-            <item>Moldoveanu</item>
-            <item>Iași</item>
-            <item>Dunărea</item>
-            <item>Transilvania</item>
-        </string-array>
+    <!-- NPC Dialogues - Iași -->
+    <string-array name="npc_iasi_dialogues">
+        <item>Bine ai venit în Iași, capitala culturală a Moldovei!</item>
+        <item>Palatul Culturii este simbolul orașului nostru.</item>
+        <item>Grădina Copou ascunde multe povești fascinante.</item>
+        <item>Ai văzut Teiul lui Eminescu? E un loc special pentru noi.</item>
+    </string-array>
 
-        <!-- Options -->
-        <string-array name="minigame_options_1">
-            <item>Cluj-Napoca</item>
-            <item>București</item>
-            <item>Timișoara</item>
-            <item>Brașov</item>
-        </string-array>
+    <!-- NPC Dialogues - Timișoara -->
+    <string-array name="npc_timisoara_dialogues">
+        <item>Bun venit în Timișoara, primul oraș cu iluminat stradal electric din Europa!</item>
+        <item>Piața Victoriei, sau Piața Operei cum îi spunem noi, e inima orașului.</item>
+        <item>Timișoara e orașul florilor și al parcurilor.</item>
+        <item>Revoluția din 1989 a început aici, în Piața Maria.</item>
+    </string-array>
 
-        <string-array name="minigame_options_2">
-            <item>Negoiu</item>
-            <item>Moldoveanu</item>
-            <item>Omu</item>
-            <item>Ceahlău</item>
-        </string-array>
+    <!-- NPC Quests -->
+    <string name="quest_cluj_description">Descoperă secretele gastronomice ale Clujului - Găsește 5 rețete tradiționale ascunse în oraș.</string>
+    <string name="quest_iasi_description">Călătorie culturală în Iași - Vizitează 3 locații istorice importante și colectează artefacte.</string>
+    <string name="quest_timisoara_description">Explorează Timișoara luminilor - Găsește și fotografiază 4 clădiri istorice iluminate.</string>
 
-        <string-array name="minigame_options_3">
-            <item>Suceava</item>
-            <item>Bacău</item>
-            <item>Iași</item>
-            <item>Piatra Neamț</item>
-        </string-array>
+    <!-- Mini-game Instructions -->
+    <string name="minigame_instructions">Explorează harta României și colectează obiectele tradiționale!</string>
+    <string name="minigame_interact">Interacționează</string>
 
-        <string-array name="minigame_options_4">
-            <item>Siret</item>
-            <item>Prut</item>
-            <item>Mureș</item>
-            <item>Dunărea</item>
-        </string-array>
+    <!-- Mini-game Achievement Messages -->
+    <string name="minigame_achievement_collector">Colecționar de Tradiții</string>
+    <string name="minigame_achievement_explorer">Explorator al României</string>
+    <string name="minigame_achievement_friend">Prieten al Localnicilor</string>
 
-        <string-array name="minigame_options_5">
-            <item>Muntenia</item>
-            <item>Moldova</item>
-            <item>Transilvania</item>
-            <item>Banat</item>
-        </string-array>
+    <!-- Mini-game Basic UI Strings -->
+    <string name="minigame_openworld_title">Vânătoarea de Comori</string>
+    <string name="minigame_score">Scor: %d</string>
+    <string name="minigame_up">Sus</string>
+    <string name="minigame_down">Jos</string>
+    <string name="minigame_left">Stânga</string>
+    <string name="minigame_right">Dreapta</string>
+    <string name="minigame_points_earned">Ai câștigat %d puncte înțelepte!</string>
+    <string name="minigame_collect_item">Ai găsit un obiect tradițional!</string>
+    <string name="minigame_game_over">Joc terminat! Scor final: %d</string>
+    <string name="minigame_controls_hint">Folosește butoanele pentru a te deplasa</string>
 
-        <!-- Resource Labels -->
-        <string name="fuel_label">Combustibil</string>
-        <string name="money_label">Bani</string>
-        <string name="food_label">Mâncare</string>
-        <string name="culture_points">Puncte Culturale</string>
+    <!-- Mini-game Quiz Strings -->
+    <string name="minigame_title">Provocarea României</string>
+    <string name="minigame_correct">Corect! +10 puncte</string>
+    <string name="minigame_wrong">Încearcă din nou!</string>
+    <string name="minigame_image_desc">Imagine pentru întrebare</string>
 
-        <!-- Error Messages -->
-        <string name="error">A apărut o eroare. Vă rugăm încercați din nou.</string>
+    <!-- Questions -->
+    <string-array name="minigame_questions">
+        <item>Care este capitala României?</item>
+        <item>Care este cel mai înalt vârf muntos din România?</item>
+        <item>Care este cel mai mare oraș din Moldova?</item>
+        <item>Care este cel mai lung fluviu ce traversează România?</item>
+        <item>În ce regiune se află Castelul Bran?</item>
+    </string-array>
 
-        <!-- Common Strings -->
+    <!-- Answers -->
+    <string-array name="minigame_correct_answers">
+        <item>București</item>
+        <item>Moldoveanu</item>
+        <item>Iași</item>
+        <item>Dunărea</item>
+        <item>Transilvania</item>
+    </string-array>
 
-        <string name="next">Următorul</string>
-        <string name="finish">Termină</string>
-        <string name="cancel">Anulează</string>
-        <string name="ok">OK</string>
-        <string name="yes">Da</string>
-        <string name="no">Nu</string>
-        <string name="save">Salvează</string>
-        <string name="delete">Șterge</string>
-        <string name="edit">Editează</string>
-        <string name="share">Distribuie</string>
-        <string name="loading">Se încarcă...</string>
-        <string name="success">Succes!</string>
-        <string name="failed">Eșuat!</string>
-        <string name="retry">Încearcă din nou</string>
-        <string name="close">Închide</string>
-        <string name="confirm">Confirmă</string>
-        <!-- Map Screen -->
-        <string name="map_title">Harta României</string>
-        <string name="map_back">Înapoi</string>
-        <string name="map_legend_title">Legendă:</string>
-        <string name="map_legend_region">• Apasă pe o regiune pentru informații</string>
-        <string name="map_legend_city">• Apasă pe un oraș pentru a călători</string>
-        <string name="map_legend_fuel">• Consumul de combustibil: 7L/100km</string>
-        <string name="map_explore_region">Explorează Regiunea</string>
+    <!-- Options -->
+    <string-array name="minigame_options_1">
+        <item>Cluj-Napoca</item>
+        <item>București</item>
+        <item>Timișoara</item>
+        <item>Brașov</item>
+    </string-array>
 
-        <!-- Region Names -->
-        <string name="region_banat">Banat</string>
-        <string name="region_crisana">Crișana</string>
-        <string name="region_maramures">Maramureș</string>
-        <string name="region_bucovina">Bucovina</string>
-        <string name="region_transilvania">Transilvania</string>
-        <string name="region_moldova">Moldova</string>
-        <string name="region_oltenia">Oltenia</string>
-        <string name="region_muntenia">Muntenia</string>
-        <string name="region_dobrogea">Dobrogea</string>
+    <string-array name="minigame_options_2">
+        <item>Negoiu</item>
+        <item>Moldoveanu</item>
+        <item>Omu</item>
+        <item>Ceahlău</item>
+    </string-array>
 
-        <!-- Region Descriptions -->
-        <string name="region_banat_desc">Regiunea istorică Banat, cunoscută pentru multiculturalismul său și arhitectura specifică.</string>
-        <string name="region_crisana_desc">Crișana, o regiune cu tradiții bogate și peisaje pitorești.</string>
-        <string name="region_maramures_desc">Maramureșul istoric, faimos pentru porțile sale sculptate și bisericile din lemn.</string>
-        <string name="region_bucovina_desc">Bucovina, tărâmul mănăstirilor pictate și al tradițiilor păstrate.</string>
-        <string name="region_transilvania_desc">Transilvania, inima României, cu cetăți medievale și diversitate culturală.</string>
-        <string name="region_moldova_desc">Moldova, regiune cu mănăstiri istorice și tradiții viticole.</string>
-        <string name="region_oltenia_desc">Oltenia, cunoscută pentru artă populară și arhitectură tradițională.</string>
-        <string name="region_muntenia_desc">Muntenia, regiune cu contrast între modernitate și tradiție.</string>
-        <string name="region_dobrogea_desc">Dobrogea, unde Dunărea întâlnește Marea Neagră.</string>
+    <string-array name="minigame_options_3">
+        <item>Suceava</item>
+        <item>Bacău</item>
+        <item>Iași</item>
+        <item>Piatra Neamț</item>
+    </string-array>
 
-        <!-- Dobrogea Activity Strings -->
-        <string name="dobrogea">Dobrogea</string>
-        <string name="back">Înapoi</string>
-        <string name="dobrogea_intro_title">Descoperă Dobrogea</string>
-        <string name="dobrogea_intro_content">Explorează patrimoniul cultural unic și frumusețea naturală a regiunii noastre costiere, cu Delta Dunării, ruinele antice de la Histria și stațiunile de pe Marea Neagră.</string>
+    <string-array name="minigame_options_4">
+        <item>Siret</item>
+        <item>Prut</item>
+        <item>Mureș</item>
+        <item>Dunărea</item>
+    </string-array>
 
-        <!-- Travel Dialog -->
-        <string name="travel_title">Călătorie spre %1$s</string>
-<string name="travel_details">Distanță: %1$.1f km\nCombustibil necesar: %2$.1f L\n\nDorești să călătorești?</string>
-        <string name="travel_yes">Da</string>
-        <string name="travel_no">Nu</string>
-        <string name="travel_no_fuel">Nu ai destul combustibil pentru această călătorie! Necesită %.1fL</string>
+    <string-array name="minigame_options_5">
+        <item>Muntenia</item>
+        <item>Moldova</item>
+        <item>Transilvania</item>
+        <item>Banat</item>
+    </string-array>
+
+    <!-- Resource Labels -->
+    <string name="fuel_label">Combustibil</string>
+    <string name="money_label">Bani</string>
+    <string name="food_label">Mâncare</string>
+    <string name="culture_points">Puncte Culturale</string>
+
+    <!-- Error Messages -->
+    <string name="error">A apărut o eroare. Vă rugăm încercați din nou.</string>
+    <string name="error_initializing_activity">A apărut o eroare la inițializarea activității. Vă rugăm încercați din nou.</string>
+    <string name="security_warning">Avertisment de securitate: Dispozitivul dvs. ar putea fi compromis.</string>
+    <string name="security_error">Eroare de securitate. Vă rugăm contactați administratorul.</string>
+    <string name="invalid_input">Date de intrare nevalide. Vă rugăm încercați din nou.</string>
+    <string name="intent_validation_failed">Validarea intent-ului a eșuat. Operațiunea nu poate fi finalizată.</string>
+
+    <!-- Common Strings -->
+
+    <string name="previous">Anterior</string>
+    <string name="next">Înainte</string>
+    <string name="finish">Termină</string>
+    <string name="cancel">Anulează</string>
+    <string name="ok">OK</string>
+    <string name="yes">Da</string>
+    <string name="no">Nu</string>
+    <string name="save">Salvează</string>
+    <string name="delete">Șterge</string>
+    <string name="edit">Editează</string>
+    <string name="loading">Se încarcă...</string>
+    <string name="success">Succes!</string>
+    <string name="failed">Eșuat!</string>
+    <string name="retry">Încearcă din nou</string>
+    <string name="close">Închide</string>
+    <string name="confirm">Confirmă</string>
+    <!-- Map Screen -->
+    <string name="map_title">Harta României</string>
+    <string name="map_back">Înapoi</string>
+    <string name="map_legend_title">Legendă:</string>
+    <string name="map_legend_region">• Apasă pe o regiune pentru informații</string>
+    <string name="map_legend_city">• Apasă pe un oraș pentru a călători</string>
+    <string name="map_legend_fuel">• Consumul de combustibil: 7L/100km</string>
+    <string name="map_explore_region">Explorează Regiunea</string>
+
+    <!-- City Info -->
+    <string name="city_info">Informații oraș</string>
+    <string name="city_image">Imagine oraș</string>
+    <string name="visit_city">Vizitează</string>
+    <string name="points">Puncte</string>
+
+    <!-- Region Names -->
+    <string name="region_banat">Banat</string>
+    <string name="region_crisana">Crișana</string>
+    <string name="region_maramures">Maramureș</string>
+    <string name="region_bucovina">Bucovina</string>
+    <string name="region_transilvania">Transilvania</string>
+    <string name="region_moldova">Moldova</string>
+    <string name="region_oltenia">Oltenia</string>
+    <string name="region_muntenia">Muntenia</string>
+    <string name="region_dobrogea">Dobrogea</string>
+
+    <!-- Region Descriptions -->
+    <string name="region_banat_desc">Regiunea istorică Banat, cunoscută pentru multiculturalismul său și arhitectura specifică.</string>
+    <string name="region_crisana_desc">Crișana, o regiune cu tradiții bogate și peisaje pitorești.</string>
+    <string name="region_maramures_desc">Maramureșul istoric, faimos pentru porțile sale sculptate și bisericile din lemn.</string>
+    <string name="region_bucovina_desc">Bucovina, tărâmul mănăstirilor pictate și al tradițiilor păstrate.</string>
+    <string name="region_transilvania_desc">Transilvania, inima României, cu cetăți medievale și diversitate culturală.</string>
+    <string name="region_moldova_desc">Moldova, regiune cu mănăstiri istorice și tradiții viticole.</string>
+    <string name="region_oltenia_desc">Oltenia, cunoscută pentru artă populară și arhitectură tradițională.</string>
+    <string name="region_muntenia_desc">Muntenia, regiune cu contrast între modernitate și tradiție.</string>
+    <string name="region_dobrogea_desc">Dobrogea, unde Dunărea întâlnește Marea Neagră.</string>
+
+    <!-- Exploration Progress -->
+    <string name="exploration_progress">%1$d/%2$d explorat (%3$d%%)</string>
+
+    <!-- Dobrogea Activity Strings -->
+    <string name="dobrogea">Dobrogea</string>
+    <string name="back">Înapoi</string>
+    <string name="dobrogea_intro_title">Descoperă Dobrogea</string>
+    <string name="dobrogea_intro_content">Explorează patrimoniul cultural unic și frumusețea naturală a regiunii noastre costiere, cu Delta Dunării, ruinele antice de la Histria și stațiunile de pe Marea Neagră.</string>
+
+    <!-- Travel Dialog -->
+    <string name="travel_title">Călătorie spre %1$s</string>
+    <string name="travel_details">Distanță: %1$.1f km\nCombustibil necesar: %2$.1f L\n\nDorești să călătorești?</string>
+    <string name="travel_yes">Da</string>
+    <string name="travel_no">Nu</string>
+    <string name="travel_no_fuel">Nu ai destul combustibil pentru această călătorie! Necesită %.1fL</string>
 
     <string name="game_title">Țară, țară, vrem ostași!</string>
     <string name="game_subtitle">Joc tradițional românesc</string>
@@ -246,9 +311,9 @@
     <string name="enemy_team">Adversari</string>
 
     <!-- Status Text -->
-    <string name="soldiers_count">Ostași: %d</string>
-    <string name="morale_level">Moral: %d%%</string>
-    <string name="resistance_level">Rezistență: %d%%</string>
+    <string name="soldiers_count">Ostași: %1$d</string>
+    <string name="morale_level">Moral: %1$d</string>
+    <string name="resistance_level">Rezistență: %1$d</string>
 
     <!-- Formation Buttons -->
     <string name="formation_line">Linie</string>
@@ -314,5 +379,266 @@
     <string name="true_text">Adevărat</string>
     <string name="false_text">Fals</string>
 
+    <string name="points_format">%d</string>
 
+    <string name="view_cities">View Cities</string>
+
+    <string name="score_format">Scor: %1$d</string>
+    <string name="exit_game">Ieșire din joc</string>
+    <string name="exit_game_confirmation">Ești sigur că vrei să ieși din joc? Vei pierde progresul actual.</string>
+
+    <string name="craiova_description">Craiova este cel mai important oraș din Oltenia și reședința județului Dolj. Cu o populație de peste 300.000 de locuitori, este un important centru economic, cultural și universitar. Orașul este situat pe malul stâng al Jiului și are o istorie bogată, fiind menționat documentar pentru prima dată în 1475.</string>
+    <string name="craiova_history">Prima atestare documentară a Craiovei datează din anul 1475, în timpul domniei lui Vlad Țepeș. Numele orașului provine de la cuvântul slav \"kral\" (rege, crai). În secolul al XV-lea, Craiova devine sediul Banilor Olteniei, iar în secolele următoare se dezvoltă ca un important centru comercial și administrativ. În secolul al XIX-lea, Craiova devine unul dintre cele mai importante centre ale mișcării revoluționare de la 1848. Astăzi, orașul reprezintă un centru cultural și economic de referință în România.</string>
+
+    <!-- GameOverActivity Strings -->
+    <string name="stats_format">%1$d din %2$d răspunsuri corecte (%3$d%%)</string>
+    <string name="share_subject">Scorul meu din jocul de Transilvania</string>
+    <string name="share_message">Am obținut %1$d puncte în jocul de Transilvania, cu %2$d răspunsuri corecte din %3$d întrebări!</string>
+    <string name="share_via">Distribuie scorul prin</string>
+
+    <string name="choice_continue">Continuă</string>
+
+    <!-- Moldova Story Strings -->
+    <string name="home">Acasă</string>
+    <string name="toggle_sound">Activare/Dezactivare sunet</string>
+    <string name="read_aloud">Citește cu voce tare</string>
+    <string name="story_image">Imagine poveste</string>
+    <string name="bat_animation">Animație liliac</string>
+    <string name="test_question_placeholder">Întrebare de test</string>
+    <string name="submit_answer">Trimite răspuns</string>
+
+    <!-- Muntenia Region Strings -->
+    <string name="muntenia_map_title">Harta Munteniei</string>
+    <string name="map_of_muntenia">Harta regiunii Muntenia</string>
+    <string name="virtual_tour_button">Tur Virtual</string>
+    <string name="game_button">Joc</string>
+    <string name="cities_button">Orașe</string>
+    <string name="map_button">Hartă</string>
+    <string name="progress_text">Progres: 0/5 locații vizitate</string>
+    <string name="go_back">Înapoi</string>
+
+    <string name="back_button">Înapoi</string>
+
+    <string name="church_image_description">Imagine a bisericii de lemn</string>
+
+    <string name="welcome_back">Bine ai revenit!</string>
+    <string name="photo_challenge_title">Provocare Foto: Capturați %s</string>
+    <string name="upload_image_button">Încarcă o Imagine</string>
+    <string name="score_text">Scor: %d</string>
+    <string name="streak_text">🔥 Reușite consecutive: %d</string>
+    <string name="time_expired">Timpul a expirat!</string>
+    <string name="fifty_fifty_used_toast">Opțiunea 50:50 a fost deja folosită!</string>
+    <string name="skip_used_toast">Opțiunea de a sări a fost deja folosită!</string>
+    <string name="cannot_skip_last_toast">Nu poți sări peste ultima întrebare!</string>
+    <string name="question_skipped_toast">Ai sărit peste întrebare!</string>
+    <string name="player_turn">Your Turn</string>
+    <string name="enemy_turn">Enemy\'s Turn</string>
+    <string name="enemy_team_call">Tara, Tara, vrem ostasi!</string>
+    <string name="player_response">Pe cine?</string>
+    <string name="enemy_selecting">Enemy is selecting a soldier...</string>
+    <string name="chase_success">Captured!</string>
+    <string name="chase_failure">Escaped!</string>
+    <string name="swipe_arrow_description">Swipe direction indicator</string>
+
+    <!-- Game UI Strings -->
+    <string name="round_counter">Runda: %1$d</string>
+    <string name="round_success">Runda câștigată!</string>
+    <string name="round_failure">Runda pierdută!</string>
+
+    <string name="discover_city">Descoperă orașul</string>
+    <string name="take_quiz">Testează-ți cunoștințele</string>
+    <string name="try_traditional_recipe">Încearcă o rețetă tradițională</string>
+    <string name="mission_icon">Iconița misiunii</string>
+
+    <!-- New Recipe Rating Strings -->
+    <string name="recipe_not_rated">Rețetă neevaluată</string>
+    <string name="rating_submitted">Evaluare trimisă</string>
+
+    <!-- ROM Map Strings -->
+    <string name="rom_map_description">Harta României cu regiuni interactive</string>
+    <string name="rom_discover_button">Buton pentru descoperirea activităților</string>
+    <string name="rom_back_button">Buton de întoarcere</string>
+
+    <!-- Meal Planning -->
+    <string name="meal_planning_title">Planificator de mese</string>
+    <string name="meal_planner">Planificator de mese</string>
+    <string name="weekly_plan">Plan săptămânal</string>
+    <string name="nutrition">Nutriție</string>
+    <string name="shopping_list">Listă de cumpărături</string>
+    <string name="previous_week">Săpt. anterioară</string>
+    <string name="next_week">Săpt. următoare</string>
+    <string name="add">Adaugă</string>
+    <string name="change">Schimbă</string>
+    <string name="regions">Regiuni</string>
+    <string name="categories">Categorii</string>
+    <string name="generate_shopping_list">Generează listă de cumpărături</string>
+    <string name="generate_shopping_list_confirmation">Generezi lista de cumpărături pentru %d mese planificate?</string>
+    <string name="generate">Generează</string>
+    <string name="no_meals_planned">Nu ai nicio masă planificată</string>
+    <string name="no_ingredients_found">Nu s-au găsit ingrediente pentru mesele planificate</string>
+    <string name="shopping_list_generated">Lista de cumpărături a fost generată</string>
+    <string name="meal_planned_success">%s a fost adăugat la planul de mese</string>
+    <string name="generated_from_meal_plan">Lista de cumpărături pentru %s</string>
+
+    <string name="add_recipe">Adaugă rețetă</string>
+    <string name="recipe_saved">Rețeta a fost salvată cu succes</string>
+    <string name="recipe_save_error">Eroare la salvarea rețetei</string>
+    <string name="field_required">Acest câmp este obligatoriu</string>
+    <string name="select_region">Te rugăm să selectezi o regiune</string>
+    <string name="select_category">Te rugăm să selectezi o categorie</string>
+    <string name="select_difficulty">Te rugăm să selectezi nivelul de dificultate</string>
+    <string name="start_timer_title">Dorești să pornești un cronometru?</string>
+    <string name="start_timer_message">Timpul de preparare este de %1$d minute. Dorești să pornești un cronometru?</string>
+    <string name="start_timer">Pornește cronometrul</string>
+    <string name="no_thanks">Nu, mulțumesc</string>
+    <string name="timer_finished">Timpul a expirat! Rețeta ta ar trebui să fie gata.</string>
+    <string name="share_recipe_title">Distribuie rețeta</string>
+    <string name="share_recipe_message">Dorești să distribui această rețetă cu prietenii tăi?</string>
+    <string name="share_recipe_via">Distribuie rețeta via</string>
+    <string name="rom_culinary_title">Călătorie Culinară</string>
+    <string name="share">Distribuie</string>
+
+    <!-- Recipe Detail -->
+    <string name="recipe_not_found">Rețeta nu a fost găsită</string>
+    <string name="ingredients">Ingrediente</string>
+    <string name="steps">Pași</string>
+    <string name="reviews">Recenzii</string>
+    <string name="no_nutritional_info">Informații nutriționale indisponibile</string>
+    <string name="calories">Calorii</string>
+    <string name="protein">Proteine</string>
+    <string name="fat">Grăsimi</string>
+    <string name="carbs">Carbohidrați</string>
+    <string name="fiber">Fibre</string>
+    <string name="sugar">Zahăr</string>
+    <string name="sodium">Sodiu</string>
+    <string name="added_to_favorites">Adăugat la favorite</string>
+    <string name="removed_from_favorites">Eliminat din favorite</string>
+    <string name="starting_interactive_cooking">Începere mod interactiv de gătit</string>
+    <string name="check_out_recipe">Vezi această rețetă delicioasă din %1$s: %2$s</string>
+    <string name="share_recipe">Distribuie rețeta</string>
+    <string name="added_to_meal_plan">Adăugat la planul de mese</string>
+    <string name="culinary_community">Comunitatea Culinară</string>
+    
+    <!-- Shopping Item Dialog -->
+    <string name="add_shopping_item">Adaugă un produs</string>
+    <string name="item_name">Nume produs</string>
+    <string name="category">Categorie</string>
+    <string name="quantity">Cantitate</string>
+    <string name="unit">Unitate</string>
+    
+    <!-- What Can I Cook Dialog -->
+    <string name="what_can_i_cook">Ce pot să gătesc?</string>
+    <string name="select_available_ingredients">Selectează ingrediente disponibile</string>
+    <string name="search_ingredients">Caută ingrediente</string>
+    <string name="suggested_recipes">Rețete sugerate</string>
+    <string name="add_missing_ingredients">Adaugă ingrediente lipsă</string>
+    
+    <!-- Achievements -->
+    <string name="your_progress">Progresul tău</string>
+    <string name="your_badges">Insignele tale</string>
+    
+    <!-- Community -->
+    <string name="no_recipes">Nu există rețete</string>
+    
+    <!-- Achievement and Culinary Community Strings -->
+    <string name="total_points">Total puncte: %d</string>
+    <string name="keep_cooking">Continuă să gătești pentru a debloca mai multe realizări!</string>
+    <string name="likes_count">%d aprecieri</string>
+    <string name="comments_count">%d comentarii</string>
+    <string name="calories_format">%d calorii</string>
+
+    <!-- Add Meal Dialog -->
+    <string name="add_meal">Adaugă masă</string>
+    <string name="select_day">Selectează ziua</string>
+    <string name="meal_type">Tip masă</string>
+    <string name="breakfast">Mic dejun</string>
+    <string name="lunch">Prânz</string>
+    <string name="dinner">Cină</string>
+    <string name="select_recipe">Selectează rețeta</string>
+    <string name="selected_recipe">Rețeta selectată</string>
+    <string name="select_day_error">Selectează o zi</string>
+    <string name="select_recipe_error">Selectează o rețetă</string>
+    <string name="meal_added_success">Masă adăugată cu succes</string>
+    <string name="monday">Luni</string>
+    <string name="tuesday">Marți</string>
+    <string name="wednesday">Miercuri</string>
+    <string name="thursday">Joi</string>
+    <string name="friday">Vineri</string>
+    <string name="saturday">Sâmbătă</string>
+    <string name="sunday">Duminică</string>
+    <string name="drag_handle">Mâner de tragere</string>
+    
+    <!-- Recipe Search Dialog -->
+    <string name="search_recipes">Caută rețete</string>
+    <string name="search_recipes_hint">Caută după nume, regiune sau categorie</string>
+    <string name="no_recipes_found">Nicio rețetă găsită</string>
+    <string name="search_icon_content_description">Pictogramă de căutare</string>
+    <string name="no_results_icon_description">Niciun rezultat găsit</string>
+    
+    <!-- Accessibility Strings -->
+    <string name="day_icon_content_description">Pictogramă pentru selectarea zilei</string>
+    <string name="recipe_icon_content_description">Pictogramă pentru rețeta selectată</string>
+    <string name="search_recipe_content_description">Caută o rețetă</string>
+    <string name="click_to_search_recipe">Apasă pentru a căuta o rețetă</string>
+    <string name="breakfast_radio_description">Selectează mic dejun</string>
+    <string name="lunch_radio_description">Selectează prânz</string>
+    <string name="dinner_radio_description">Selectează cină</string>
+    <string name="cancel_button_description">Anulează adăugarea mesei</string>
+    <string name="add_button_description">Adaugă masa în plan</string>
+
+    <!-- Shopping Item Dialog -->
+    <string name="item_image">Imagine articol</string>
+    <string name="select_image">Selectează imagine</string>
+    <string name="custom_category">Categorie personalizată</string>
+    <string name="category_fruits">Fructe</string>
+    <string name="category_vegetables">Legume</string>
+    <string name="category_dairy">Lactate</string>
+    <string name="category_other">Altele</string>
+    <string name="item_added_success">Articol adăugat cu succes</string>
+    <string name="item_error_validation">Te rugăm să completezi toate câmpurile obligatorii</string>
+    <string name="item_image_select_title">Selectează o imagine</string>
+    <string name="item_image_select_camera">Cameră</string>
+    <string name="item_image_select_gallery">Galerie</string>
+    <string name="item_image_select_cancel">Anulează</string>
+    <string name="item_image_error">Eroare la încărcarea imaginii</string>
+    <string name="item_save_retry">Încearcă din nou</string>
+    <string name="item_undo_remove">Anulează ștergerea</string>
+    <string name="recipe_image_carousel_description">Carusel de imagini cu rețeta</string>
+    <string name="recipe_title_description">Titlul rețetei</string>
+    <string name="difficulty_icon_description">Pictogramă nivel de dificultate</string>
+    <string name="prep_time_icon_description">Pictogramă timp de preparare</string>
+    <string name="cook_time_icon_description">Pictogramă timp de gătire</string>
+    <string name="start_cooking_description">Începe să gătești această rețetă</string>
+    <string name="add_to_favorites_description">Adaugă rețeta la favorite</string>
+    <string name="add_to_shopping_list_description">Adaugă ingredientele în lista de cumpărături</string>
+    <string name="save_recipe_description">Salvează această rețetă</string>
+    <string name="cook_today_description">Marchează rețeta ca gătită astăzi</string>
+    <string name="ingredients_tab_description">Tab pentru afișarea ingredientelor</string>
+    <string name="steps_tab_description">Tab pentru afișarea pașilor de preparare</string>
+    <string name="info_tab_description">Tab pentru afișarea informațiilor suplimentare</string>
+    <string name="ingredients_list_description">Lista de ingrediente necesare</string>
+    <string name="steps_list_description">Pașii de preparare a rețetei</string>
+    <string name="cultural_significance_title_description">Titlul secțiunii de semnificație culturală</string>
+    <string name="nutritional_info_title_description">Titlul secțiunii de informații nutriționale</string>
+    <string name="calories_description">Informații despre calorii</string>
+    <string name="rate_recipe_title_description">Titlu secțiune evaluare rețetă</string>
+    <string name="rating_stars_description">Stele pentru evaluarea rețetei</string>
+    <string name="submit_rating_description">Buton pentru trimiterea evaluării</string>
+    <string name="nutritional_info">Informații Nutriționale</string>
+    <string name="info">Info</string>
+    <string name="carousel_dot_indicator">Indicator punct carusel</string>
+    <string name="recipe_image_description">Imagine rețetă %1$d</string>
+    <string name="ingredient_icon_description">Pictogramă ingredient</string>
+    <string name="ingredients_dropdown_hint">Caută și selectează ingrediente</string>
+    <string name="recipe_match_score">Potrivire: %1$d%%</string>
+    <string name="ingredient_chip_description">Ingredient %1$s</string>
+    <string name="ingredient_category_title_description">Categorie de ingrediente: %1$s</string>
+    <string name="ingredients_available_title">Ingrediente disponibile</string>
+    <string name="clear_ingredients">Șterge toate ingredientele</string>
+    <string name="loading_recipes">Se încarcă rețetele...</string>
+    <string name="ingredients_added">Ingrediente adăugate în lista de cumpărături</string>
+    <string name="undo">Anulează</string>
+    <string name="ingredient_hint">Alege un ingredient</string>
+    <string name="ingredients_added_count">%d ingrediente adăugate în lista de cumpărături</string>
+    <string name="material_type_font_family_headline">sans-serif-medium</string>
 </resources>

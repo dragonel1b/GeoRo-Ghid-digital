@@ -1,13 +1,51 @@
 package com.example.myapplication.viewmodel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
+
+import com.example.myapplication.RomApp.Arad;
+import com.example.myapplication.RomApp.Bacau;
+import com.example.myapplication.RomApp.BaileHerculane;
+import com.example.myapplication.RomApp.Brasov;
+import com.example.myapplication.RomApp.CampulLung;
+import com.example.myapplication.RomApp.Caransebes;
+import com.example.myapplication.RomApp.ClujNapoca;
+import com.example.myapplication.RomApp.GuraHumorului;
+import com.example.myapplication.RomApp.Iasi;
+import com.example.myapplication.RomApp.Oradea;
+import com.example.myapplication.RomApp.Radauti;
+import com.example.myapplication.RomApp.Sibiu;
+import com.example.myapplication.RomApp.Suceava;
+import com.example.myapplication.RomApp.Transilvania;
+import com.example.myapplication.RomApp.VatraDornei;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
 import com.example.myapplication.R;
+import com.example.myapplication.RomApp.Constanta;
+import com.example.myapplication.RomApp.Tulcea;
+import com.example.myapplication.RomApp.Cernavoda;
+import com.example.myapplication.RomApp.Craiova;
+import com.example.myapplication.RomApp.TarguJiu;
+import com.example.myapplication.RomApp.Drobetaturnuseverin;
+import com.example.myapplication.RomApp.Valcea;
+import com.example.myapplication.RomApp.Slatina;
+import com.example.myapplication.RomApp.Timisoara;
+import com.example.myapplication.RomApp.Resita;
+import com.example.myapplication.RomApp.Lugoj;
+import com.example.myapplication.RomApp.Bucuresti;
+import com.example.myapplication.RomApp.Buzau;
+import com.example.myapplication.RomApp.Pitesti;
+import com.example.myapplication.RomApp.Ploiesti;
+import com.example.myapplication.RomApp.Targoviste;
+import com.example.myapplication.RomApp.BaiaMare;
+import com.example.myapplication.RomApp.Borsa;
+import com.example.myapplication.RomApp.Sighetu;
+import com.example.myapplication.RomApp.Sapanta;
+import com.example.myapplication.RomApp.Viseu;
 
 public class CityListActivity extends AppCompatActivity {
     public static final String EXTRA_REGION_NAME = "region_name";
@@ -24,7 +62,7 @@ public class CityListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(regionName + " Cities");
+            getSupportActionBar().setTitle(regionName + " - Orașe");
         }
 
         // Add cities based on region
@@ -32,44 +70,88 @@ public class CityListActivity extends AppCompatActivity {
         if (regionName != null) {
             switch (regionName) {
                 case "Dobrogea":
-                    addCity(citiesContainer, "Constanța", "Historical port city with beautiful beaches");
-                    addCity(citiesContainer, "Tulcea", "Gateway to the Danube Delta");
-                    addCity(citiesContainer, "Mangalia", "Ancient city with modern resorts");
+                    addCity(citiesContainer, "Constanța", "Orașul principal al Dobrogei și al doilea ca mărime din România", Constanta.class);
+                    addCity(citiesContainer, "Tulcea", "Poarta de intrare în Delta Dunării", Tulcea.class);
+                    addCity(citiesContainer, "Cernavodă", "Oraș istoric la intersecția dintre Dunăre și Canalul Dunăre-Marea Neagră", Cernavoda.class);
+                    break;
+                case "Crișana":
+                    addCity(citiesContainer, "Oradea", "Capitala județului Bihor, oraș cu arhitectură Art Nouveau și băi termale", Oradea.class);
+                    addCity(citiesContainer, "Arad", "Important centru economic, cultural și universitar al regiunii", Arad.class);
                     break;
                 case "Moldova":
-                    addCity(citiesContainer, "Iași", "Cultural capital of Moldova");
-                    addCity(citiesContainer, "Suceava", "Historical capital of Moldavia");
-                    addCity(citiesContainer, "Bacău", "Important industrial center");
+                    addCity(citiesContainer, "Iași", "Capitala culturală a Moldovei", Iasi.class);
+                    addCity(citiesContainer, "Suceava", "Capitala istorică a Moldovei", Suceava.class);
+                    addCity(citiesContainer, "Bacău", "Centru industrial important", Bacau.class);
                     break;
                 case "Transilvania":
-                    addCity(citiesContainer, "Cluj-Napoca", "Heart of Transylvania");
-                    addCity(citiesContainer, "Brașov", "Medieval charm meets modern city");
-                    addCity(citiesContainer, "Sibiu", "European Capital of Culture 2007");
+                    addCity(citiesContainer, "Cluj-Napoca", "Inima Transilvaniei", ClujNapoca.class);
+                    addCity(citiesContainer, "Brașov", "Charm medieval întâlnit cu orașul modern", Brasov.class);
+                    addCity(citiesContainer, "Sibiu", "Capitala Culturală Europeană 2007", Sibiu.class);
+                    break;
+                case "Oltenia":
+                    addCity(citiesContainer, "Craiova", "Capitala Olteniei și cel mai mare oraș din regiune", Craiova.class);
+                    addCity(citiesContainer, "Târgu Jiu", "Orașul lui Brâncuși, cu ansamblul monumental unic în lume", TarguJiu.class);
+                    addCity(citiesContainer, "Drobeta-Turnu Severin", "Orașul de la Porțile de Fier, cu istorie bogată", Drobetaturnuseverin.class);
+                    addCity(citiesContainer, "Râmnicu Vâlcea", "Centru cultural și stațiune balneară importantă", Valcea.class);
+                    addCity(citiesContainer, "Slatina", "Cel mai important centru al industriei aluminiului din România", Slatina.class);
+                    break;
+                case "Banat":
+                    addCity(citiesContainer, "Timișoara", "Capitala Banatului, oraș cu arhitectură eclectică și spații verzi", Timisoara.class);
+                    addCity(citiesContainer, "Reșița", "Important centru industrial cu tradiție în metalurgie", Resita.class);
+                    addCity(citiesContainer, "Lugoj", "Oraș cu bogată istorie și cultură, locul natal al lui Traian Vuia", Lugoj.class);
+                    addCity(citiesContainer, "Caransebeș", "Oraș istoric la confluența râurilor Timiș și Sebeș", Caransebes.class);
+                    addCity(citiesContainer, "Băile Herculane", "Una dintre cele mai vechi stațiuni balneare din Europa", BaileHerculane.class);
+                    break;
+                case "Bucovina":
+                    addCity(citiesContainer, "Suceava", "Fostă capitală a Moldovei și centrul administrativ al Bucovinei", Suceava.class);
+                    addCity(citiesContainer, "Gura Humorului", "Orășel pitoresc, punct de plecare spre mănăstirile Humor și Voroneț", GuraHumorului.class);
+                    addCity(citiesContainer, "Rădăuți", "Unul dintre cele mai vechi orașe din Moldova, cunoscut pentru celebra ciorbă rădăuțeană", Radauti.class);
+                    addCity(citiesContainer, "Câmpulung Moldovenesc", "Oraș înconjurat de munți și păduri, cunoscut pentru Muzeul Lemnului", CampulLung.class);
+                    addCity(citiesContainer, "Vatra Dornei", "Renumită stațiune balneoclimaterică cu ape minerale terapeutice și pârtii de schi", VatraDornei.class);
+                    break;
+                case "Maramureș":
+                    addCity(citiesContainer, "Baia Mare", "Capitala județului Maramureș, centru economic și cultural important", BaiaMare.class);
+                    addCity(citiesContainer, "Sighetu Marmației", "Al doilea oraș ca mărime din județ, cunoscut pentru Memorialul Victimelor Comunismului", Sighetu.class);
+                    addCity(citiesContainer, "Borșa", "Stațiune montană cunoscută pentru pârtiile de schi și pentru peisajele spectaculoase", Borsa.class);
+                    addCity(citiesContainer, "Vișeu de Sus", "Cunoscut pentru Mocănița, trenul cu aburi care străbate Valea Vaserului", Viseu.class);
+                    addCity(citiesContainer, "Săpânța", "Faimoasă pentru Cimitirul Vesel cu crucile sale colorate și epitafurile în versuri", Sapanta.class);
+                    break;
+                case "Muntenia":
+                    addCity(citiesContainer, "București", "Capitala României, centrul cultural și economic al țării", Bucuresti.class);
+                    addCity(citiesContainer, "Ploiești", "Centrul industriei petroliere din România, cu o bogată istorie", Ploiesti.class);
+                    addCity(citiesContainer, "Târgoviște", "Fostă capitală a Țării Românești, cu un important ansamblu medieval", Targoviste.class);
+                    addCity(citiesContainer, "Pitești", "Oraș universitar și industrial, cunoscut pentru producția de automobile", Pitesti.class);
+                    addCity(citiesContainer, "Buzău", "Oraș cu tradiție culturală și industrială, poartă de intrare în Munții Buzăului", Buzau.class);
                     break;
             }
         }
     }
 
-    private void addCity(LinearLayout container, String name, String description) {
+    private void addCity(LinearLayout container, String name, String description, Class<?> activityClass) {
         MaterialCardView cardView = new MaterialCardView(this);
-        cardView.setLayoutParams(new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-        cardView.setCardElevation(4);
+        );
+        params.setMargins(0, 0, 0, 16);
+        cardView.setLayoutParams(params);
+        cardView.setCardElevation(8);
         cardView.setRadius(16);
         cardView.setUseCompatPadding(true);
         cardView.setClickable(true);
         cardView.setFocusable(true);
+        cardView.setCardBackgroundColor(getResources().getColor(R.color.rom_surface));
+        cardView.setStrokeWidth(2);
+        cardView.setStrokeColor(getResources().getColor(R.color.rom_primary));
 
         LinearLayout content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(32, 24, 32, 24);
+        content.setPadding(24, 24, 24, 24);
 
         AppCompatTextView titleView = new AppCompatTextView(this);
         titleView.setText(name);
-        titleView.setTextSize(18);
-        titleView.setTextColor(getResources().getColor(android.R.color.black));
+        titleView.setTextSize(20);
+        titleView.setTextColor(getResources().getColor(R.color.rom_primary));
         titleView.setTypeface(android.graphics.Typeface.create("sans-serif-medium", android.graphics.Typeface.NORMAL));
 
         AppCompatTextView descView = new AppCompatTextView(this);
@@ -87,6 +169,58 @@ public class CityListActivity extends AppCompatActivity {
         content.addView(titleView);
         content.addView(descView);
         cardView.addView(content);
+
+        if (activityClass != null) {
+            cardView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, activityClass);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            });
+        } else {
+            // Generic handler for cities without specific activities
+            cardView.setOnClickListener(v -> {
+                // Show a toast with info about the city
+                android.widget.Toast.makeText(
+                        this,
+                        "Informații pentru " + name + ":\n" + description,
+                        android.widget.Toast.LENGTH_LONG
+                ).show();
+
+                // Create a generic intent that includes the city name and description
+                Intent intent = new Intent(this, com.example.myapplication.Joc1.RomCityActivity.class);
+                intent.putExtra("CITY_NAME", name);
+
+                // Add coordinates based on city name
+                if (name.equals("Craiova")) {
+                    intent.putExtra("city_lat", 44.3190);
+                    intent.putExtra("city_lng", 23.7967);
+                } else if (name.equals("Târgu Jiu")) {
+                    intent.putExtra("city_lat", 45.0364);
+                    intent.putExtra("city_lng", 23.2747);
+                } else if (name.equals("Drobeta-Turnu Severin")) {
+                    intent.putExtra("city_lat", 44.6253);
+                    intent.putExtra("city_lng", 22.6599);
+                } else if (name.equals("Râmnicu Vâlcea")) {
+                    intent.putExtra("city_lat", 45.1006);
+                    intent.putExtra("city_lng", 24.3671);
+                } else if (name.equals("Slatina")) {
+                    intent.putExtra("city_lat", 44.4289);
+                    intent.putExtra("city_lng", 24.3693);
+                }
+
+                try {
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                } catch (Exception e) {
+                    android.widget.Toast.makeText(
+                            this,
+                            "Activitatea pentru " + name + " nu este disponibilă momentan: " + e.getMessage(),
+                            android.widget.Toast.LENGTH_SHORT
+                    ).show();
+                }
+            });
+        }
+
         container.addView(cardView);
     }
 

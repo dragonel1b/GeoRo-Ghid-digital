@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Night sky with stars -->
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M0,0h100v100h-100z" />
+
+    <!-- Stars in the sky -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,10 h1 v1 h-1z
+                          M25,15 h1 v1 h-1z
+                          M50,8 h1 v1 h-1z
+                          M75,12 h1 v1 h-1z
+                          M90,20 h1 v1 h-1z
+                          M15,30 h1 v1 h-1z
+                          M35,25 h1 v1 h-1z
+                          M60,30 h1 v1 h-1z
+                          M85,35 h1 v1 h-1z
+                          M30,5 h1 v1 h-1z
+                          M70,5 h1 v1 h-1z"
+        android:fillAlpha="0.8" />
+
+    <!-- Moon in the sky -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:pathData="M75,20 a15,15 0 1,0 0.1,0z"
+        android:fillAlpha="0.7" />
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M80,15 a12,12 0 1,0 0.1,0z"
+        android:fillAlpha="0.7" />
+
+    <!-- Moonlight reflection -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:pathData="M60,20 L90,20 L75,100 L60,20"
+        android:fillAlpha="0.05" />
+
+    <!-- Dark rolling hills -->
+    <path
+        android:fillColor="#263238"
+        android:pathData="M0,50 Q25,40 50,55 Q75,45 100,50 L100,100 L0,100 Z" />
+
+    <!-- Moldova silhouette - landscape features -->
+    <path
+        android:fillColor="#1B5E20"
+        android:fillAlpha="0.4"
+        android:pathData="M0,60 Q20,50 40,65 Q60,55 80,65 Q90,60 100,65 L100,100 L0,100 Z" />
+
+    <!-- Vineyard silhouette -->
+    <path
+        android:fillColor="#33691E"
+        android:fillAlpha="0.3"
+        android:pathData="M10,70 L10,80 M20,68 L20,80 M30,72 L30,80 M40,70 L40,80 M50,74 L50,80
+                          M60,73 L60,80 M70,75 L70,80 M80,70 L80,80 M90,72 L90,80" />
+
+    <!-- Traveler on a hilltop looking at Moldova -->
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M50,60 L54,60 L54,75 L50,75 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#455A64"
+        android:pathData="M52,57 a2,2 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M50,65 L48,70 M54,65 L56,70" /> <!-- Arms -->
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M50,75 L48,85 M54,75 L56,85" /> <!-- Legs -->
+
+    <!-- Traditional Moldovan coat on traveler -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M48,62 L56,62 L56,75 L48,75 Z"
+        android:fillAlpha="0.7" />
+
+    <!-- Traveler's walking stick -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M56,70 L60,85" />
+
+    <!-- Small village silhouette in distance -->
+    <path
+        android:fillColor="#212121"
+        android:fillAlpha="0.6"
+        android:pathData="M10,80 h5 v5 h-5z
+                          M20,78 h6 v7 h-6z
+                          M30,80 h4 v5 h-4z
+                          M38,79 h7 v6 h-7z" />
+
+    <!-- Church spire silhouette -->
+    <path
+        android:fillColor="#212121"
+        android:fillAlpha="0.6"
+        android:pathData="M24,78 h2 v5 h-2z M23,73 h4 v5 h-4z M25,70 L25,73" />
+
+    <!-- Distant small lights from homes -->
+    <path
+        android:fillColor="#FFCC80"
+        android:fillAlpha="0.4"
+        android:pathData="M12,82 h1 v1 h-1z
+                          M22,80 h1 v1 h-1z
+                          M32,82 h1 v1 h-1z
+                          M40,81 h1 v1 h-1z" />
+
+    <!-- Glowing Moldova amulet in traveler's hand -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M48,70 a1,1 0 1,0 0.1,0z" />
+    <path
+        android:fillColor="#D32F2F"
+        android:fillAlpha="0.2"
+        android:pathData="M48,70 a3,3 0 1,0 0.1,0z" />
+    <path
+        android:fillColor="#D32F2F"
+        android:fillAlpha="0.1"
+        android:pathData="M48,70 a6,6 0 1,0 0.1,0z" />
+
+    <!-- Road back home -->
+    <path
+        android:fillColor="#455A64"
+        android:fillAlpha="0.4"
+        android:pathData="M45,85 Q60,80 75,85 L75,100 L45,100 Z" />
+
+    <!-- Memories floating above -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.05"
+        android:pathData="M30,35 a10,5 0 1,0 0.1,0z" /> <!-- Memory bubble 1 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.05"
+        android:pathData="M50,30 a8,4 0 1,0 0.1,0z" /> <!-- Memory bubble 2 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.05"
+        android:pathData="M65,40 a12,6 0 1,0 0.1,0z" /> <!-- Memory bubble 3 -->
+
+    <!-- Faint iele spirit at hilltop edge -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.15"
+        android:pathData="M70,60 Q75,50 80,60 L80,65 Q75,70 70,65 Z" />
+</vector> 

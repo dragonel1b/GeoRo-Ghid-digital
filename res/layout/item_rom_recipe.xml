@@ -62,10 +62,22 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/recipeFavoriteButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_favorite_border"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Favorite Recipe"/>
+
+                <ImageView
                     android:id="@+id/recipeStatus"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_check"
+                    android:layout_marginStart="8dp"
                     android:visibility="gone"
                     app:tint="@color/rom_success"/>
             </LinearLayout>
@@ -103,6 +115,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:drawablePadding="4dp"
+                    style="@style/RomTextBody"
+                    android:textSize="14sp"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"/>
+                    
+                <TextView
+                    android:id="@+id/recipeRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:drawableStart="@android:drawable/btn_star_big_on"
+                    android:drawableTint="#FFD700"
+                    android:drawablePadding="4dp"
+                    android:visibility="gone"
                     style="@style/RomTextBody"
                     android:textSize="14sp"
                     android:gravity="start"

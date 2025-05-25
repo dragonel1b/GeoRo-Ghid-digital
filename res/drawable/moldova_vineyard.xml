@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Evening sky with moon -->
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M0,0h100v60h-100z" />
+
+    <!-- Moon -->
+    <path
+        android:fillColor="#E8EAF6"
+        android:pathData="M75,15 a8,8 0 1,0 0.1,0z" />
+
+    <!-- Moonlight reflection -->
+    <path
+        android:fillColor="#C5CAE9"
+        android:fillAlpha="0.2"
+        android:pathData="M65,15 L85,15 L75,60 Z" />
+
+    <!-- Distant hills -->
+    <path
+        android:fillColor="#303F9F"
+        android:pathData="M0,35 Q25,25 50,30 Q75,20 100,30 L100,60 L0,60 Z" />
+
+    <!-- Vineyard hills -->
+    <path
+        android:fillColor="#512DA8"
+        android:pathData="M0,45 Q20,40 40,48 Q60,40 80,45 Q90,42 100,48 L100,100 L0,100 Z" />
+
+    <!-- Vineyard rows pattern -->
+    <path
+        android:fillColor="#4527A0"
+        android:pathData="M10,60 L10,100 M20,55 L20,100 M30,58 L30,100 M40,52 L40,100
+                           M50,56 L50,100 M60,50 L60,100 M70,53 L70,100 M80,57 L80,100 M90,54 L90,100" />
+
+    <!-- The special bride vine (more elaborate) -->
+    <path
+        android:fillColor="#4A148C"
+        android:pathData="M45,50 C48,45 50,60 52,50 C55,40 53,70 56,45 C58,35 60,65 63,55 L63,100 L45,100 Z" />
+
+    <!-- Flowing "hair" of the vine (tendrils) -->
+    <path
+        android:fillColor="#7E57C2"
+        android:fillAlpha="0.6"
+        android:pathData="M48,53 C46,58 45,65 47,70 M52,48 C54,55 53,65 51,75 M56,50 C58,60 57,70 55,80 M60,53 C62,60 61,70 59,80" />
+
+    <!-- Fetească Neagră grape clusters -->
+    <path
+        android:fillColor="#4A148C"
+        android:pathData="M46,65 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0
+                           M51,75 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0
+                           M57,68 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0" />
+
+    <!-- Tears of the bride vine -->
+    <path
+        android:fillColor="#E1BEE7"
+        android:pathData="M49,70 L49,72 M54,78 L54,80 M59,72 L59,74" />
+
+    <!-- Ethereal bride figure (ghost-like) -->
+    <path
+        android:fillColor="#E1BEE7"
+        android:fillAlpha="0.3"
+        android:pathData="M53,45 a3,4 0 1,0 0.1,0z" /> <!-- Head/veil -->
+    <path
+        android:fillColor="#E1BEE7"
+        android:fillAlpha="0.2"
+        android:pathData="M50,49 L56,49 L58,60 L48,60 Z" /> <!-- Gown upper -->
+    <path
+        android:fillColor="#E1BEE7"
+        android:fillAlpha="0.1"
+        android:pathData="M48,60 Q53,65 58,60 L58,70 Q53,75 48,70 Z" /> <!-- Gown lower -->
+
+    <!-- Guide figure -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M20,80 L23,80 L23,95 L20,95 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M21.5,77 a1.5,1.5 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M18,85 H25" /> <!-- Arms -->
+    
+    <!-- Traveler (you) figure -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M25,82 L28,82 L28,95 L25,95 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M26.5,79 a1.5,1.5 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M23,87 H30" /> <!-- Arms -->
+
+    <!-- Magical vine tears flowing on ground -->
+    <path
+        android:fillColor="#E1BEE7"
+        android:fillAlpha="0.2"
+        android:pathData="M45,90 Q55,88 65,92 L65,100 L45,100 Z" />
+</vector> 

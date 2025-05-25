@@ -9,6 +9,10 @@ import android.graphics.drawable.Drawable;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Clasa NPC reprezintă un personaj non-jucător din joc.
+ * NPCs pot oferi dialoguri, misiuni și informații jucătorului.
+ */
 public class NPC {
     private float x, y;
     private List<String> dialogues;
@@ -19,15 +23,27 @@ public class NPC {
     private String name;
     private Mission npcQuest;
     private int colorFilter;
+    private String id;
+    private String description;
+    private int imageResourceId;
+    private int currentDialogIndex;
+    private boolean isQuestGiver;
+    private String region;
 
-    public NPC(float x, float y, String name, Drawable npcDrawable, int colorFilter) {
-        this.x = x;
-        this.y = y;
+    /**
+     * Constructor pentru NPC.
+     *
+     * @param name Numele personajului
+     * @param description Descrierea personajului
+     * @param imageResourceId Resursa imaginii pentru personaj
+     */
+    public NPC(String name, String description, int imageResourceId) {
         this.name = name;
-        this.npcDrawable = npcDrawable;
+        this.description = description;
+        this.imageResourceId = imageResourceId;
         this.dialogues = new ArrayList<>();
-        this.isInteracted = false;
-        this.colorFilter = colorFilter;
+        this.currentDialogIndex = 0;
+        this.isQuestGiver = false;
 
         paint = new Paint();
         paint.setColor(Color.YELLOW);
@@ -35,16 +51,226 @@ public class NPC {
         paint.setStrokeWidth(3);
     }
 
-    public void addDialogue(String dialogue) {
-        dialogues.add(dialogue);
+    /**
+     * Constructor pentru NPC cu id specificat.
+     *
+     * @param id ID-ul personajului
+     * @param name Numele personajului
+     * @param description Descrierea personajului
+     * @param imageResourceId Resursa imaginii pentru personaj
+     */
+    public NPC(String id, String name, String description, int imageResourceId) {
+        this(name, description, imageResourceId);
+        this.id = id;
     }
 
+    /**
+     * Constructor pentru NPC cu poziție și culoare.
+     *
+     * @param x Poziția x pe ecran
+     * @param y Poziția y pe ecran
+     * @param name Numele personajului
+     * @param npcDrawable Drawable-ul pentru personaj
+     * @param colorFilter Filtrul de culoare pentru a distinge NPC-ul
+     */
+    public NPC(float x, float y, String name, Drawable npcDrawable, int colorFilter) {
+        this.x = x;
+        this.y = y;
+        this.name = name;
+        this.npcDrawable = npcDrawable;
+        this.colorFilter = colorFilter;
+        this.dialogues = new ArrayList<>();
+        this.currentDialogIndex = 0;
+        this.isQuestGiver = false;
+
+        paint = new Paint();
+        paint.setColor(Color.YELLOW);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(3);
+    }
+
+    /**
+     * Adaugă un dialog nou personajului.
+     *
+     * @param dialog Textul dialogului
+     */
+    public void addDialog(String dialog) {
+        dialogues.add(dialog);
+    }
+
+    /**
+     * Adaugă un dialog nou personajului (alias pentru addDialog pentru compatibilitate).
+     *
+     * @param dialogue Textul dialogului
+     */
+    public void addDialogue(String dialogue) {
+        addDialog(dialogue);
+    }
+
+    /**
+     * Setează o listă completă de dialoguri pentru personaj.
+     *
+     * @param dialogs Lista de dialoguri
+     */
+    public void setDialogs(List<String> dialogs) {
+        this.dialogues = dialogs;
+    }
+
+    /**
+     * Obține dialogul curent al personajului.
+     *
+     * @return Textul dialogului curent, sau null dacă nu există dialoguri
+     */
+    public String getCurrentDialog() {
+        if (dialogues.isEmpty()) {
+            return null;
+        }
+        
+        return dialogues.get(currentDialogIndex);
+    }
+
+    /**
+     * Avansează la următorul dialog disponibil.
+     *
+     * @return Textul următorului dialog, sau null dacă nu mai există dialoguri
+     */
+    public String getNextDialog() {
+        if (dialogues.isEmpty() || currentDialogIndex >= dialogues.size() - 1) {
+            return null;
+        }
+        
+        currentDialogIndex++;
+        return dialogues.get(currentDialogIndex);
+    }
+
+    /**
+     * Declanșează dialogul curent (pentru compatibilitate cu codul existent).
+     *
+     * @return Textul dialogului curent
+     */
     public String triggerDialogue() {
-        if (dialogues.isEmpty()) return "...";
-        isInteracted = true;
-        // Return a random dialogue
-        int randomIndex = (int)(Math.random() * dialogues.size());
-        return dialogues.get(randomIndex);
+        return getCurrentDialog();
+    }
+
+    /**
+     * Verifică dacă personajul mai are dialoguri disponibile.
+     *
+     * @return true dacă mai sunt dialoguri, false în caz contrar
+     */
+    public boolean hasMoreDialogs() {
+        return !dialogues.isEmpty() && currentDialogIndex < dialogues.size() - 1;
+    }
+
+    /**
+     * Resetează indexul dialogului la începutul conversației.
+     */
+    public void resetDialog() {
+        currentDialogIndex = 0;
+    }
+
+    /**
+     * Getter pentru id.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Setter pentru id.
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Getter pentru nume.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Setter pentru nume.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Getter pentru descriere.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Setter pentru descriere.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Getter pentru resursa imaginii.
+     */
+    public int getImageResourceId() {
+        return imageResourceId;
+    }
+
+    /**
+     * Setter pentru resursa imaginii.
+     */
+    public void setImageResourceId(int imageResourceId) {
+        this.imageResourceId = imageResourceId;
+    }
+
+    /**
+     * Getter pentru lista de dialoguri.
+     */
+    public List<String> getDialogs() {
+        return dialogues;
+    }
+
+    /**
+     * Getter pentru indexul dialogului curent.
+     */
+    public int getCurrentDialogIndex() {
+        return currentDialogIndex;
+    }
+
+    /**
+     * Setter pentru indexul dialogului curent.
+     */
+    public void setCurrentDialogIndex(int currentDialogIndex) {
+        this.currentDialogIndex = currentDialogIndex;
+    }
+
+    /**
+     * Getter pentru isQuestGiver.
+     */
+    public boolean isQuestGiver() {
+        return isQuestGiver;
+    }
+
+    /**
+     * Setter pentru isQuestGiver.
+     */
+    public void setQuestGiver(boolean questGiver) {
+        isQuestGiver = questGiver;
+    }
+
+    /**
+     * Getter pentru regiunea asociată NPC-ului.
+     */
+    public String getRegion() {
+        return region;
+    }
+
+    /**
+     * Setter pentru regiunea asociată NPC-ului.
+     */
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public void setNpcQuest(Mission quest) {
@@ -98,7 +324,6 @@ public class NPC {
 
     public float getX() { return x; }
     public float getY() { return y; }
-    public String getName() { return name; }
     public boolean isInteracted() { return isInteracted; }
     public void setInteracted(boolean interacted) { isInteracted = interacted; }
 }

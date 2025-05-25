@@ -1,5 +1,6 @@
 package com.example.myapplication.Joc1;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.example.myapplication.R;
 import com.google.android.material.button.MaterialButton;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
@@ -16,14 +18,18 @@ import com.google.android.material.snackbar.Snackbar;
 public class MinigameOpenWorldActivity extends AppCompatActivity
         implements MinigameGameView.OnScoreChangeListener,
         MinigameGameView.OnMissionChangeListener,
-        MinigameGameView.OnLevelChangeListener,
         MinigameGameView.OnNPCInteractionListener {
 
     private static final String TAG = "MinigameOpenWorld";
     private MinigameGameView gameView;
-    private TextView scoreText, levelText, missionText;
+    private TextView scoreText, missionText;
     private MaterialButton upButton, downButton, leftButton, rightButton, interactButton;
     private RomGameState gameState;
+    
+    // Save game state
+    private int currentScore = 0;
+    private String currentMission = "";
+    private NPC currentNPC = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,12 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
 
         gameState = RomGameState.getInstance();
         gameState.initialize(this);
+
+        // Restore any saved instance state
+        if (savedInstanceState != null) {
+            currentScore = savedInstanceState.getInt("currentScore", 0);
+            currentMission = savedInstanceState.getString("currentMission", "");
+        }
 
         initializeViews();
         setupControls();
@@ -50,12 +62,10 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
             // Set up listeners
             gameView.setOnScoreChangeListener(this);
             gameView.setOnMissionChangeListener(this);
-            gameView.setOnLevelChangeListener(this);
             gameView.setOnNPCInteractionListener(this);
 
             // Find views
             scoreText = findViewById(R.id.scoreText);
-            levelText = findViewById(R.id.levelText);
             missionText = findViewById(R.id.missionText);
             upButton = findViewById(R.id.upButton);
             downButton = findViewById(R.id.downButton);
@@ -76,7 +86,7 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
             }
 
             // Verify all required views are found
-            if (scoreText == null || levelText == null || missionText == null ||
+            if (scoreText == null || missionText == null ||
                     upButton == null || downButton == null || leftButton == null ||
                     rightButton == null || interactButton == null) {
                 Log.e(TAG, "Failed to initialize required views");
@@ -84,11 +94,14 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
                 return;
             }
 
-            // Initialize UI
-            scoreText.setText(getString(R.string.minigame_score, 0));
-            levelText.setText(getString(R.string.minigame_level, 1));
-            missionText.setText(getString(R.string.minigame_mission,
-                    getString(R.string.minigame_collect_mission, 3)));
+            // Initialize UI with restored or default values
+            scoreText.setText(getString(R.string.minigame_score, currentScore));
+            if (!currentMission.isEmpty()) {
+                missionText.setText(getString(R.string.minigame_mission, currentMission));
+            } else {
+                missionText.setText(getString(R.string.minigame_mission,
+                        getString(R.string.minigame_collect_mission, 3)));
+            }
 
             // Set up interact button
             interactButton.setOnClickListener(v -> {
@@ -137,6 +150,31 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
         rightButton.setOnTouchListener(buttonTouchListener);
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(TAG, "Configuration changed. Orientation: " + 
+                (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? "landscape" : "portrait"));
+        
+        // The layout is handled automatically due to the layout-land resource directory
+        // and the configChanges attribute in the AndroidManifest.xml
+        
+        // Preserve game state during orientation change
+        if (gameView != null) {
+            gameView.pauseGame();
+            gameView.resumeGame();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save game state
+        outState.putInt("currentScore", currentScore);
+        outState.putString("currentMission", currentMission);
+        Log.d(TAG, "Game state saved. Score: " + currentScore);
+    }
+
     private void showInstructions() {
         Snackbar.make(gameView,
                 getString(R.string.minigame_instructions),
@@ -146,6 +184,7 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
     @Override
     public void onScoreChanged(int newScore) {
         runOnUiThread(() -> {
+            currentScore = newScore;
             scoreText.setText(getString(R.string.minigame_score, newScore));
 
             // Award wisdom points for every 50 points scored
@@ -161,27 +200,13 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
     @Override
     public void onMissionChanged(String newMission) {
         runOnUiThread(() -> {
+            currentMission = newMission;
             missionText.setText(getString(R.string.minigame_mission, newMission));
             Snackbar.make(gameView,
                     getString(R.string.minigame_new_mission, newMission),
                     Snackbar.LENGTH_LONG).show();
         });
     }
-
-    @Override
-    public void onLevelChanged(int newLevel) {
-        runOnUiThread(() -> {
-            levelText.setText(getString(R.string.minigame_level, newLevel));
-            Snackbar.make(gameView,
-                    getString(R.string.minigame_level_up, newLevel),
-                    Snackbar.LENGTH_LONG).show();
-
-            // Award extra wisdom points for level up
-            gameState.addPuncteIntelepte(10 * newLevel, this);
-        });
-    }
-
-    private NPC currentNPC;
 
     @Override
     public void onNPCNearby(NPC npc) {
@@ -251,14 +276,31 @@ public class MinigameOpenWorldActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
+        
+        if (gameView != null) {
+            gameView.pauseGame();
+        }
+        
         // Save final score and award wisdom points
         String scoreStr = scoreText.getText().toString();
-        int finalScore = Integer.parseInt(scoreStr.substring(scoreStr.lastIndexOf(" ") + 1));
-        int wisdomPoints = finalScore / 10;
-        if (wisdomPoints > 0) {
-            gameState.addPuncteIntelepte(wisdomPoints, this);
+        try {
+            int finalScore = Integer.parseInt(scoreStr.substring(scoreStr.lastIndexOf(" ") + 1));
+            int wisdomPoints = finalScore / 10;
+            if (wisdomPoints > 0) {
+                gameState.addPuncteIntelepte(wisdomPoints, this);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error parsing score: " + e.getMessage());
         }
         setResult(RESULT_OK);
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (gameView != null) {
+            gameView.resumeGame();
+        }
     }
 
     @Override

@@ -1,25 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Dark theme colors -->
-        <item name="colorPrimary">@color/rom_flag_blue_dark</item>
+    <!-- Base application theme -->
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/rom_primary</item>
         <item name="colorPrimaryVariant">@color/rom_primary_dark</item>
-        <item name="colorSecondary">@color/rom_flag_yellow_dark</item>
-        <item name="colorSecondaryVariant">@color/rom_flag_red_dark</item>
-        
-        <!-- Dark background -->
-        <item name="android:windowBackground">@color/dark_background_start</item>
-        
-        <!-- Status bar -->
-        <item name="android:statusBarColor">@color/rom_flag_blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/rom_accent</item>
+        <item name="colorSecondaryVariant">@color/rom_accent_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <!-- Typography styles -->
+        <item name="textAppearanceHeadline1">@style/RomTextDisplay1</item>
+        <item name="textAppearanceHeadline2">@style/RomTextDisplay2</item>
+        <item name="textAppearanceHeadline3">@style/RomTextHeading1</item>
+        <item name="textAppearanceHeadline4">@style/RomTextHeading2</item>
+        <item name="textAppearanceBody1">@style/RomTextBody1</item>
+        <item name="textAppearanceBody2">@style/RomTextBody2</item>
+        <item name="textAppearanceButton">@style/RomTextButton</item>
+        <item name="textAppearanceCaption">@style/RomTextCaption</item>
+        <item name="textAppearanceOverline">@style/RomTextOverline</item>
+        <!-- Component styles -->
+        <item name="materialCardViewStyle">@style/RomCardView</item>
+        <item name="materialButtonStyle">@style/RomButton</item>
+    </style>
+
+    <!-- Login theme variant -->
+    <style name="Theme.MyApplication.Login" parent="Theme.MyApplication">
+        <item name="colorPrimary">#4ECDC4</item>
+        <item name="colorPrimaryVariant">#FF6B6B</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#FF6B6B</item>
+        <item name="colorSecondaryVariant">#4ECDC4</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
-        
-        <!-- Navigation bar -->
-        <item name="android:navigationBarColor">@color/rom_flag_blue_dark</item>
-        <item name="android:windowLightNavigationBar">false</item>
-        
-        <!-- Maintain other theme attributes -->
-        <item name="android:fontFamily">@font/poppins</item>
-        <item name="textInputStyle">@style/RomanianInputLayout</item>
-        <item name="materialButtonStyle">@style/RomanianButton</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 </resources>

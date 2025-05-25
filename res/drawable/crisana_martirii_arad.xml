@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Fundalul cerului -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M0,0h108v75h-108z" />
+    
+    <!-- Pământul/baza monumentului -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M0,75h108v33h-108z" />
+    
+    <!-- Baza monumentului -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M34,62h40v13h-40z" />
+    
+    <!-- Coloana centrală a monumentului -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M47,30h14v32h-14z" />
+    
+    <!-- Capitelul coloanei -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M44,30h20v5h-20z" />
+    
+    <!-- Statuia Libertății (siluetă) -->
+    <path
+        android:fillColor="#616161"
+        android:pathData="M51,10L57,10L56,30L52,30z" /> <!-- corpul statuii -->
+    
+    <path
+        android:fillColor="#616161"
+        android:pathData="M51,15L47,23L51,20z" /> <!-- brațul stâng cu torța -->
+    
+    <path
+        android:fillColor="#616161"
+        android:pathData="M57,15L61,23L57,20z" /> <!-- brațul drept -->
+    
+    <path
+        android:fillColor="#616161"
+        android:pathData="M54,5a4,5 0,0 1,0 10a4,5 0,0 1,0 -10z" /> <!-- capul statuii -->
+    
+    <!-- Flacăra torței -->
+    <path
+        android:fillColor="#FF8A65"
+        android:pathData="M46,22a2,3 0,0 1,4 0a2,3 0,0 1,-4 0z" /> <!-- flacăra -->
+    
+    <!-- Basoreliefuri cu cei 13 generali - partea din stânga -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M34,67h40v4h-40z" />
+    
+    <!-- Detalii ale basoreliefurilor (chipurile martirilor) -->
+    <path
+        android:strokeColor="#9E9E9E"
+        android:strokeWidth="0.8"
+        android:pathData="M37,67v4M42,67v4M47,67v4M52,67v4M57,67v4M62,67v4M67,67v4" />
+    
+    <!-- Inscripție comemorativă -->
+    <path
+        android:strokeColor="#757575"
+        android:strokeWidth="0.5"
+        android:pathData="M39,58h30M39,59h30" />
+    
+    <!-- Trepte spre monument -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M29,75h50v3h-50zM32,72h44v3h-44z" />
+    
+    <!-- Arbori lângă monument -->
+    <path
+        android:fillColor="#66BB6A"
+        android:pathData="M22,50a8,15 0,0 1,0 30a8,15 0,0 1,0 -30zM86,50a8,15 0,0 1,0 30a8,15 0,0 1,0 -30z" />
+    
+    <!-- Trunchiurile copacilor -->
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M20,65h4v15h-4zM84,65h4v15h-4z" />
+    
+    <!-- Stele - simbolizează cei 13 generali executați -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M10,15l2,5l5,0l-4,3l2,5l-5,-3l-5,3l2,-5l-4,-3l5,0zM30,10l2,5l5,0l-4,3l2,5l-5,-3l-5,3l2,-5l-4,-3l5,0zM50,5l2,5l5,0l-4,3l2,5l-5,-3l-5,3l2,-5l-4,-3l5,0zM70,10l2,5l5,0l-4,3l2,5l-5,-3l-5,3l2,-5l-4,-3l5,0zM90,18l2,5l5,0l-4,3l2,5l-5,-3l-5,3l2,-5l-4,-3l5,0z" />
+</vector> 

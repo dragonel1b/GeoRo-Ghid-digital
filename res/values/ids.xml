@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="sortByPersonalizedChip" type="id" />
+    <item name="action_profile" type="id" />
+    
+    <!-- Step IDs -->
+    <item name="stepCheckbox" type="id" />
+    <item name="expandStepButton" type="id" />
+    <item name="timerInfoText" type="id" />
+    <item name="videoAvailableText" type="id" />
+    <item name="stepText" type="id" />
+    
+    <!-- Recipe Detail IDs -->
+    <item name="nutritionalInfoTextView" type="id" />
+    <item name="reviewsRecyclerView" type="id" />
+    <item name="ratingText" type="id" />
+    
+    <!-- Ingredient IDs -->
+    <item name="ingredientNameTextView" type="id" />
+    <item name="ingredientQuantityTextView" type="id" />
+    <item name="ingredientCategoryTextView" type="id" />
+    
+    <!-- Recipe Step IDs -->
+    <item name="stepNumberTextView" type="id" />
+    <item name="stepTitleTextView" type="id" />
+    <item name="stepDescriptionTextView" type="id" />
+    <item name="stepDurationTextView" type="id" />
+</resources> 

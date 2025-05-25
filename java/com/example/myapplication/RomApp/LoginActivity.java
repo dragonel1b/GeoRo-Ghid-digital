@@ -160,8 +160,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                // Navigate to MainActivity after successful login with clear task
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                // Navigate to UserActivity after successful login with clear task
+                Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_exit, R.anim.fade_out);
@@ -195,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_slide_in, R.anim.page_swipe_blur);
+            finish();
         });
 
         forgotPasswordLink.setOnClickListener(v -> {

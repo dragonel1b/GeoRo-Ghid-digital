@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Fundal crem deschis -->
+    <path
+        android:fillColor="#FFECB3"
+        android:pathData="M0,0h108v108h-108z" />
+    
+    <!-- Platoul de lemn -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M20,75h68v8h-68z" />
+    
+    <!-- Kürtőskalács #1 (în picioare) -->
+    <path
+        android:fillColor="#D4A76A"
+        android:pathData="M35,35h12v40h-12z" />
+    
+    <!-- Stratul de zahăr și scorțișoară de pe Kürtőskalács -->
+    <path
+        android:fillColor="#EFEBE9"
+        android:pathData="M35,35h12v5h-12zM35,45h12v5h-12zM35,55h12v5h-12zM35,65h12v5h-12z" />
+    
+    <!-- Dungi înfășurate în spirală pe cozonac --> 
+    <path
+        android:strokeColor="#BF8C4D"
+        android:strokeWidth="1"
+        android:pathData="M35,40h12M35,42h12M35,50h12M35,52h12M35,60h12M35,62h12M35,70h12M35,72h12" />
+    
+    <!-- Kürtőskalács #2 (culcat) -->
+    <path
+        android:fillColor="#D4A76A"
+        android:pathData="M60,57a9,5 0,0 1,18 0a9,5 0,0 1,-18 0z" />
+    
+    <path
+        android:fillColor="#D4A76A"
+        android:pathData="M60,57v18a9,5 0,0 0,18 0v-18" />
+    
+    <!-- Detalii pentru Kürtőskalács culcat -->
+    <path
+        android:fillColor="#EFEBE9"
+        android:pathData="M60,57a9,5 0,0 1,18 0a9,5 0,0 1,-18 0z" />
+    
+    <path
+        android:strokeColor="#BF8C4D"
+        android:strokeWidth="1"
+        android:pathData="M60,61a9,5 0,0 0,18 0M60,65a9,5 0,0 0,18 0M60,69a9,5 0,0 0,18 0M60,73a9,5 0,0 0,18 0" />
+    
+    <!-- Gaura din mijlocul cozonacului tubular -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M67,57a2,1 0,0 1,4 0a2,1 0,0 1,-4 0z" />
+    
+    <path
+        android:fillColor="#795548"
+        android:pathData="M67,57v18a2,1 0,0 0,4 0v-18" />
+    
+    <!-- Aburi care ies din cozonac (încă cald) -->
+    <path
+        android:strokeColor="#D7CCC8"
+        android:strokeWidth="1"
+        android:strokeLineCap="round"
+        android:pathData="M37,30c1,-2 3,-2 4,0M41,28c1,-2 3,-2 4,0M64,52c1,-2 3,-2 4,0M70,50c1,-2 3,-2 4,0" />
+    
+    <!-- Scorțișoară în recipient -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M20,50h10v15h-10z" />
+    
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M20,50a5,2 0,0 1,10 0" />
+    
+    <!-- Zahăr în recipient -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,50h10v15h-10z" />
+    
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M78,50a5,2 0,0 1,10 0" />
+</vector> 

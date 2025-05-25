@@ -13,6 +13,10 @@ public class CityViewModel extends ViewModel {
         return totalPoints;
     }
 
+    public String getTotalPointsWithEmoji() {
+        return "💼 " + (totalPoints.getValue() != null ? totalPoints.getValue() : 0);
+    }
+
     public LiveData<Boolean> getShowConfetti() {
         return showConfetti;
     }

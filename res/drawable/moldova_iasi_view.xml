@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Sky background -->
+    <path
+        android:fillColor="#87CEEB"
+        android:pathData="M0,0h200v100h-200z"/>
+    
+    <!-- Ground -->
+    <path
+        android:fillColor="#8FBC8F"
+        android:pathData="M0,100h200v50h-200z"/>
+    
+    <!-- Mountain 1 -->
+    <path
+        android:fillColor="#6B8E23"
+        android:pathData="M0,100L40,60L80,100z"/>
+    
+    <!-- Mountain 2 -->
+    <path
+        android:fillColor="#556B2F"
+        android:pathData="M60,100L120,40L180,100z"/>
+    
+    <!-- Mountain 3 -->
+    <path
+        android:fillColor="#808000"
+        android:pathData="M140,100L170,70L200,100z"/>
+    
+    <!-- Sun -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M160,30a20,20 0 1,0 40,0a20,20 0 1,0 -40,0"/>
+    
+    <!-- Building 1 -->
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M20,100L20,80L35,80L35,100z"/>
+    
+    <!-- Building 2 -->
+    <path
+        android:fillColor="#C0C0C0"
+        android:pathData="M40,100L40,70L60,70L60,100z"/>
+    
+    <!-- Building 3 -->
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M65,100L65,75L85,75L85,100z"/>
+    
+    <!-- Church/Cathedral -->
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M100,100L100,60L120,60L120,100z"/>
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M105,60L115,40L125,60z"/>
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M115,35L115,40L120,40z"/>
+    
+    <!-- Tree 1 -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M150,100L150,85L155,85L155,100z"/>
+    <path
+        android:fillColor="#006400"
+        android:pathData="M140,85a12.5,12.5 0 1,0 25,0a12.5,12.5 0 1,0 -25,0"/>
+    
+    <!-- Tree 2 -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M175,100L175,90L178,90L178,100z"/>
+    <path
+        android:fillColor="#006400"
+        android:pathData="M168,90a10,10 0 1,0 20,0a10,10 0 1,0 -20,0"/>
+</vector> 

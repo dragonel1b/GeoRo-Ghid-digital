@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Fundalul cerului -->
+    <path
+        android:fillColor="#90CAF9"
+        android:pathData="M0,0h108v70h-108z" />
+    
+    <!-- Iarba/terenul din jurul cetății -->
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M0,70h108v38h-108z" />
+    
+    <!-- Corpul principal al cetății -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M15,40L54,25L93,40L93,70L15,70z" />
+    
+    <!-- Zidurile exterioare în formă de stea (stil Vauban) -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M10,50L5,65L25,75L54,80L83,75L103,65L98,50L85,55L54,60L23,55z" />
+    
+    <!-- Bastioanele cetății -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M15,40L15,70L25,70L25,45zM93,40L93,70L83,70L83,45z" />
+    
+    <!-- Turnul central -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M49,25h10v25h-10z" />
+    
+    <!-- Vârful turnului central -->
+    <path
+        android:fillColor="#9E9E9E"
+        android:pathData="M48,25l6,-10l6,10z" />
+    
+    <!-- Ferestre în corpul principal -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M25,50h5v8h-5zM35,50h5v8h-5zM45,50h5v8h-5zM58,50h5v8h-5zM68,50h5v8h-5zM78,50h5v8h-5z" />
+    
+    <!-- Ferestre în turnul central -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M52,30h4v4h-4zM52,38h4v4h-4z" />
+    
+    <!-- Poarta de intrare -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M49,58h10v12h-10z" />
+    
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M49,58a5,4 0,0 1,10 0" />
+    
+    <!-- Steagul cetății -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M54,15l0,-8l7,2l-7,6z" />
+    
+    <!-- Detalii ale fortificației -->
+    <path
+        android:strokeColor="#9E9E9E"
+        android:strokeWidth="1"
+        android:pathData="M15,46h78M15,52h78M15,58h78M15,64h78" />
+    
+    <!-- Nori pe cer -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:pathData="M15,15a7,5 0,0 1,14 0a7,5 0,0 1,14 0" />
+    
+    <path
+        android:fillColor="#E1F5FE"
+        android:pathData="M75,20a7,5 0,0 1,14 0" />
+</vector> 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Fundalul peșterii - întuneric -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M0,0h108v108h-108z" />
+    
+    <!-- Intrarea în peșteră -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M0,0C30,15 78,15 108,0V45C72,30 36,30 0,45V0Z" />
+    
+    <!-- Formațiuni de stalactite -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M10,0L15,20L20,0M30,0L35,25L40,0M50,0L55,18L60,0M70,0L75,22L80,0M90,0L95,15L100,0" />
+    
+    <!-- Stalagmite -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M20,108L25,88L30,108M50,108L55,90L60,108M80,108L85,86L90,108" />
+    
+    <!-- Formațiuni stalactite-stalagmite unite (coloane) -->
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M15,0L12,108M75,0L78,108" />
+    
+    <!-- Schelet de urs de peșteră -->
+    <path
+        android:strokeColor="#EFEBE9"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:pathData="M40,70L50,65L60,70L70,65" /> <!-- coloana -->
+    
+    <path
+        android:strokeColor="#EFEBE9"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round" 
+        android:pathData="M50,65L48,55M60,70L62,60" /> <!-- membre anterioare -->
+    
+    <path
+        android:strokeColor="#EFEBE9"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:pathData="M40,70L38,80M70,65L72,75" /> <!-- membre posterioare -->
+    
+    <path
+        android:strokeColor="#EFEBE9"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:pathData="M40,70L42,72L44,70L46,72L48,70L50,72L52,70L54,72L56,70L58,72L60,70L62,72L64,70L66,72L68,70L70,65" /> <!-- coaste -->
+    
+    <!-- Craniu de urs -->
+    <path
+        android:fillColor="#EFEBE9"
+        android:pathData="M55,55m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+    
+    <path
+        android:strokeColor="#6D4C41"
+        android:strokeWidth="0.8"
+        android:pathData="M50,55L52,58L55,60L58,58L60,55" /> <!-- maxilar -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M52,50m-1.5,0a1.5,1.5 0,1 1,3 0a1.5,1.5 0,1 1,-3 0" /> <!-- orbita stângă -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M58,50m-1.5,0a1.5,1.5 0,1 1,3 0a1.5,1.5 0,1 1,-3 0" /> <!-- orbita dreaptă -->
+</vector> 

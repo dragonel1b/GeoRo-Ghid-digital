@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Sky background -->
+    <path
+        android:fillColor="#87CEEB"
+        android:pathData="M0,0h200v100h-200z"/>
+    
+    <!-- Ground -->
+    <path
+        android:fillColor="#8FBC8F"
+        android:pathData="M0,100h200v50h-200z"/>
+    
+    <!-- Palace of Culture -->
+    <path
+        android:fillColor="#E6E6FA"
+        android:pathData="M80,40h40v60h-40z"/>
+    
+    <!-- Palace tower -->
+    <path
+        android:fillColor="#E6E6FA"
+        android:pathData="M90,20h20v40h-20z"/>
+    
+    <!-- Palace roof -->
+    <path
+        android:fillColor="#4682B4"
+        android:pathData="M90,20l-10,20h40l-10,-20z"/>
+    
+    <!-- Palace tower dome -->
+    <path
+        android:fillColor="#4682B4"
+        android:pathData="M95,5a10,15 0 1,0 10,0a10,15 0 1,0 -10,0"/>
+    
+    <!-- Palace windows -->
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M85,50h10v10h-10z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M105,50h10v10h-10z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M85,70h10v10h-10z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M105,70h10v10h-10z"/>
+    
+    <!-- Buildings left -->
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M10,70h50v30h-50z"/>
+    
+    <!-- Building windows left -->
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M20,75h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M30,75h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M40,75h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M20,85h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M30,85h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M40,85h5v5h-5z"/>
+    
+    <!-- Buildings right -->
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M140,70h50v30h-50z"/>
+    
+    <!-- Building windows right -->
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M150,75h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M160,75h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M170,75h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M150,85h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M160,85h5v5h-5z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M170,85h5v5h-5z"/>
+</vector> 

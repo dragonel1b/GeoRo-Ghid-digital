@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark theme colors -->
+    <color name="background">#121212</color>
+    <color name="backgroundSecondary">#0A0F14</color>
+    <color name="primary">#1F1F1F</color>
+    <color name="primary_dark">#000000</color>
+    <color name="accent">#2196F3</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    
+    <!-- Missing colors -->
+    <color name="secondary">#00796B</color>
+    <color name="surface">#121212</color>
+    
+    <!-- Missing Culinary Colors (Dark Theme) -->
+    <color name="culinary_ingredient">#2C2815</color>    <!-- Dark warm background for ingredients section -->
+    <color name="culinary_step">#1E2E1E</color>          <!-- Dark green background for cooking steps section -->
+</resources>

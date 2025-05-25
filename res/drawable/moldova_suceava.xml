@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Background -->
+    <path
+        android:fillColor="#87CEEB"
+        android:pathData="M0,0h200v150h-200z"/>
+    
+    <!-- Hill -->
+    <path
+        android:fillColor="#228B22"
+        android:pathData="M0,70s20,-20 50,-10 60,10 100,0 50,-5 50,20v70H0z"/>
+    
+    <!-- Fortress walls -->
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M40,50h120v40h-120z"/>
+    
+    <!-- Fortress towers -->
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M30,45h20v50h-20z"/>
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M150,45h20v50h-20z"/>
+    
+    <!-- Tower roofs -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M30,45l10,-15 10,15z"/>
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M150,45l10,-15 10,15z"/>
+    
+    <!-- Gate -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M90,70h20v20h-20z"/>
+    
+    <!-- Wall details -->
+    <path
+        android:fillColor="#696969"
+        android:pathData="M50,60h10v10h-10z"/>
+    <path
+        android:fillColor="#696969"
+        android:pathData="M70,60h10v10h-10z"/>
+    <path
+        android:fillColor="#696969"
+        android:pathData="M120,60h10v10h-10z"/>
+    <path
+        android:fillColor="#696969"
+        android:pathData="M140,60h10v10h-10z"/>
+</vector> 

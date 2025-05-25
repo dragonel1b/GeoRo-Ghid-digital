@@ -2,15 +2,13 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
+    android:layout_marginBottom="16dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    android:foreground="?attr/selectableItemBackground"
-    app:rippleColor="@android:color/darker_gray">
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/colorPrimaryLight">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,58 +22,40 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/sectionTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-medium"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimary"/>
 
-            <CheckBox
-                android:id="@+id/visitedCheckbox"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+            <View
+                android:id="@+id/importantBadge"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="8dp"
-                android:button="@null"
-                android:background="@drawable/checkbox_selector"
-                android:elevation="2dp"/>
+                android:background="@drawable/circle_badge"
+                android:visibility="gone"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/visitedCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:buttonTint="@color/colorPrimary"/>
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/sectionContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingMultiplier="1.5"
-            android:textColor="@android:color/black"/>
-
-        <!-- Badge Container -->
-        <FrameLayout
-            android:id="@+id/badgeContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/importantBadge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Important"
-                android:textColor="@android:color/white"
-                android:background="@drawable/points_badge_background"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textSize="12sp"
-                android:fontFamily="sans-serif-medium"
-                android:visibility="gone"/>
-
-        </FrameLayout>
+            android:textColor="@color/colorPrimaryDark"
+            android:lineSpacingExtra="4dp"/>
 
     </LinearLayout>
 

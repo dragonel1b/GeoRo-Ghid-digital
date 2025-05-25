@@ -1,347 +1,307 @@
 package com.example.myapplication.Joc1;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.myapplication.R;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
+import com.example.myapplication.RomApplication;
+import com.example.myapplication.security.SecurityManager;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Random;
 
+/**
+ * Quiz activity for testing knowledge about Romania
+ */
 public class RomQuizActivity extends AppCompatActivity {
-    private RomGameState gameState;
-    private TextView questionText, scoreText;
-    private RadioGroup answersGroup;
-    private MaterialButton submitButton, nextButton;
-    private MaterialCardView quizCard;
-    private android.widget.ProgressBar progressBar;
-
+    private static final String TAG = "RomQuizActivity";
+    
+    // UI elements
+    private TextView questionTextView;
+    private Button[] answerButtons;
+    private TextView scoreTextView;
+    private ImageView questionImageView;
+    private CardView questionCard;
+    
+    // Game variables
+    private List<Question> questions;
     private int currentQuestionIndex = 0;
     private int score = 0;
-    private List<Question> currentQuestions;
-    private String cityName;
-
-    // Quiz database
-    private static final Map<String, List<Question>> QUIZ_DATABASE = new HashMap<String, List<Question>>() {{
-        // Sibiu Questions
-        put("Sibiu", new ArrayList<Question>() {{
-            add(new Question(
-                    "În ce an a fost construit Podul Minciunilor?",
-                    new String[]{"1859", "1875", "1892", "1902"},
-                    0
-            ));
-            add(new Question(
-                    "Care este numele original al Bisericii Evanghelice?",
-                    new String[]{"Biserica Sfântul Ioan", "Biserica Sfânta Maria", "Biserica Sfântul Mihail", "Biserica Sfântul Petru"},
-                    1
-            ));
-            add(new Question(
-                    "Ce muzeu important se află în Piața Mare?",
-                    new String[]{"Muzeul de Istorie", "Muzeul de Artă", "Muzeul Brukenthal", "Muzeul Satului"},
-                    2
-            ));
-        }});
-
-        // Cluj Questions
-        put("Cluj", new ArrayList<Question>() {{
-            add(new Question(
-                    "În ce an a fost înființată Universitatea Babeș-Bolyai?",
-                    new String[]{"1872", "1919", "1945", "1959"},
-                    0
-            ));
-            add(new Question(
-                    "Care este cel mai mare parc din Cluj-Napoca?",
-                    new String[]{"Parcul Central", "Parcul Detunata", "Parcul Iulius", "Parcul Cetățuia"},
-                    0
-            ));
-            add(new Question(
-                    "Ce monument important se află în Piața Unirii?",
-                    new String[]{"Statuia lui Mihai Viteazul", "Biserica Sf. Mihail", "Monumentul Memorandiștilor", "Statuia lui Matei Corvin"},
-                    1
-            ));
-        }});
-
-        // Brașov Questions
-        put("Brașov", new ArrayList<Question>() {{
-            add(new Question(
-                    "În ce secol a fost construită Biserica Neagră?",
-                    new String[]{"Secolul XIV", "Secolul XV", "Secolul XVI", "Secolul XVII"},
-                    0
-            ));
-            add(new Question(
-                    "Care este înălțimea Muntelui Tâmpa?",
-                    new String[]{"960m", "955m", "995m", "1000m"},
-                    1
-            ));
-            add(new Question(
-                    "Ce poartă medievală este cea mai bine conservată din Brașov?",
-                    new String[]{"Poarta Șchei", "Poarta Ecaterinei", "Poarta Străzii Lungi", "Poarta Vămii"},
-                    1
-            ));
-        }});
-
-        // București Questions
-        put("București", new ArrayList<Question>() {{
-            add(new Question(
-                    "În ce an a fost inaugurat Palatul Parlamentului?",
-                    new String[]{"1984", "1989", "1994", "1997"},
-                    2
-            ));
-            add(new Question(
-                    "Care este cel mai vechi parc din București?",
-                    new String[]{"Parcul Herăstrău", "Parcul Cișmigiu", "Parcul Carol", "Parcul Tineretului"},
-                    1
-            ));
-            add(new Question(
-                    "În ce an a devenit București capitala României?",
-                    new String[]{"1859", "1862", "1878", "1881"},
-                    1
-            ));
-        }});
-
-        // Iași Questions
-        put("Iași", new ArrayList<Question>() {{
-            add(new Question(
-                    "În ce an a fost construită Palatul Culturii?",
-                    new String[]{"1906", "1925", "1932", "1945"},
-                    1
-            ));
-            add(new Question(
-                    "Care este cea mai veche universitate din România?",
-                    new String[]{"Universitatea din București", "Universitatea Babeș-Bolyai", "Universitatea Alexandru Ioan Cuza", "Universitatea Politehnica"},
-                    2
-            ));
-            add(new Question(
-                    "Ce lungime are Bulevardul Ștefan cel Mare?",
-                    new String[]{"2.2 km", "2.5 km", "2.8 km", "3.0 km"},
-                    1
-            ));
-        }});
-
-        // Timișoara Questions
-        put("Timișoara", new ArrayList<Question>() {{
-            add(new Question(
-                    "În ce an a devenit Timișoara primul oraș european cu iluminat stradal electric?",
-                    new String[]{"1879", "1884", "1889", "1894"},
-                    1
-            ));
-            add(new Question(
-                    "Care este supranumele Timișoarei?",
-                    new String[]{"Orașul Grădină", "Mica Vienă", "Orașul Luminii", "Orașul Florilor"},
-                    2
-            ));
-            add(new Question(
-                    "În ce an a început Revoluția Română în Timișoara?",
-                    new String[]{"1987", "1988", "1989", "1990"},
-                    2
-            ));
-        }});
-
-        // Constanța Questions
-        put("Constanța", new ArrayList<Question>() {{
-            add(new Question(
-                    "Care este lungimea Plajei Modern?",
-                    new String[]{"2.5 km", "3 km", "3.5 km", "4 km"},
-                    2
-            ));
-            add(new Question(
-                    "În ce an a fost construit Cazinoul din Constanța?",
-                    new String[]{"1880", "1900", "1910", "1920"},
-                    2
-            ));
-            add(new Question(
-                    "Care este numele antic al orașului Constanța?",
-                    new String[]{"Tomis", "Histria", "Callatis", "Axiopolis"},
-                    0
-            ));
-        }});
-
-        // Oradea Questions
-        put("Oradea", new ArrayList<Question>() {{
-            add(new Question(
-                    "În ce stil arhitectural este construită majoritatea clădirilor din centrul istoric?",
-                    new String[]{"Baroc", "Art Nouveau", "Gotic", "Renascentist"},
-                    1
-            ));
-            add(new Question(
-                    "Care este lungimea totală a pasajelor subterane din Cetatea Oradea?",
-                    new String[]{"150m", "250m", "350m", "450m"},
-                    2
-            ));
-            add(new Question(
-                    "În ce an a fost construită Biserica cu Lună?",
-                    new String[]{"1784", "1792", "1800", "1810"},
-                    1
-            ));
-        }});
-    }};
-
+    private boolean answered = false;
+    private int consecutiveCorrect = 0;
+    
+    // Security manager
+    private SecurityManager securityManager;
+    
+    // Animation handler
+    private Handler animationHandler = new Handler(Looper.getMainLooper());
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rom_quiz);
-
-        gameState = RomGameState.getInstance();
-
-        cityName = getIntent().getStringExtra("CITY_NAME");
-        if (cityName == null) {
-            Toast.makeText(this, "Eroare la încărcarea quiz-ului", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
+        
+        try {
+            // Get security manager
+            securityManager = ((RomApplication) getApplication()).getSecurityManager();
+            
+            // Initialize UI elements
+            initializeViews();
+            
+            // Load questions
+            loadQuestions();
+            
+            // Display first question
+            displayQuestion(currentQuestionIndex);
+            
+        } catch (Exception e) {
+            if (securityManager != null) {
+                securityManager.handleException(this, e, 
+                        getString(R.string.error_initializing_activity), true);
+            } else {
+                Log.e(TAG, "Error initializing activity", e);
+                Toast.makeText(this, R.string.error_initializing_activity, Toast.LENGTH_LONG).show();
+            }
         }
-
-        initializeViews();
-        prepareQuiz();
-        showQuestion();
     }
-
+    
     private void initializeViews() {
-        questionText = findViewById(R.id.questionText);
-        scoreText = findViewById(R.id.scoreText);
-        answersGroup = findViewById(R.id.answersGroup);
-        submitButton = findViewById(R.id.submitButton);
-        nextButton = findViewById(R.id.nextButton);
-        quizCard = findViewById(R.id.quizCard);
-        progressBar = findViewById(R.id.progressBar);
-
-        submitButton.setOnClickListener(v -> checkAnswer());
-        nextButton.setOnClickListener(v -> showNextQuestion());
-    }
-
-    private void prepareQuiz() {
-        List<Question> cityQuestions = QUIZ_DATABASE.get(cityName);
-        if (cityQuestions == null) {
-            Toast.makeText(this, "Nu există întrebări pentru acest oraș", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
+        questionTextView = findViewById(R.id.questionTextView);
+        questionImageView = findViewById(R.id.questionImageView);
+        questionCard = findViewById(R.id.questionCard);
+        scoreTextView = findViewById(R.id.scoreTextView);
+        
+        // Initialize answer buttons
+        answerButtons = new Button[4];
+        answerButtons[0] = findViewById(R.id.answerButton1);
+        answerButtons[1] = findViewById(R.id.answerButton2);
+        answerButtons[2] = findViewById(R.id.answerButton3);
+        answerButtons[3] = findViewById(R.id.answerButton4);
+        
+        // Set click listeners for answer buttons
+        for (int i = 0; i < answerButtons.length; i++) {
+            final int buttonIndex = i;
+            answerButtons[i].setOnClickListener(v -> checkAnswer(buttonIndex));
         }
-
-        currentQuestions = new ArrayList<>(cityQuestions);
-        Collections.shuffle(currentQuestions);
-        updateScoreDisplay();
-
-        // Initialize progress bar
-        progressBar.setMax(100);
-        progressBar.setProgress(0);
+        
+        // Set initial score
+        updateScore();
     }
-
-    private void showQuestion() {
-        Question currentQuestion = currentQuestions.get(currentQuestionIndex);
-        questionText.setText(currentQuestion.question);
-
-        // Update progress bar
-        int progress = (currentQuestionIndex + 1) * 100 / currentQuestions.size();
-        progressBar.setProgress(progress);
-
-        answersGroup.removeAllViews();
-        for (int i = 0; i < currentQuestion.answers.length; i++) {
-            RadioButton button = new RadioButton(this);
-            button.setText(currentQuestion.answers[i]);
-            button.setId(i);
-
-            // Style the radio button
-            button.setTextSize(18);
-            button.setTextColor(getResources().getColor(android.R.color.black));
-            button.setPadding(32, 24, 32, 24);
-
-            // Add margin between options
-            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
-                    RadioGroup.LayoutParams.MATCH_PARENT,
-                    RadioGroup.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(0, 8, 0, 8);
-            button.setLayoutParams(params);
-
-            answersGroup.addView(button);
+    
+    private void loadQuestions() {
+        // Initialize questions list
+        questions = new ArrayList<>();
+        
+        // Load questions from string arrays
+        String[] questionTexts = getResources().getStringArray(R.array.minigame_questions);
+        String[] correctAnswers = getResources().getStringArray(R.array.minigame_correct_answers);
+        
+        // For each question, set up answer options
+        for (int i = 0; i < questionTexts.length; i++) {
+            Question question = new Question();
+            question.text = questionTexts[i];
+            question.correctAnswer = correctAnswers[i];
+            
+            // Get answer options for this question
+            int optionsArrayId = getOptionArrayForIndex(i);
+            String[] options = getResources().getStringArray(optionsArrayId);
+            
+            question.options = options;
+            questions.add(question);
         }
-
-        submitButton.setEnabled(true);
-        nextButton.setVisibility(View.GONE);
-
-        // Apply animation
-        quizCard.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+        
+        // Shuffle questions
+        Collections.shuffle(questions, new Random(System.currentTimeMillis()));
     }
-
-    private void checkAnswer() {
-        int selectedId = answersGroup.getCheckedRadioButtonId();
-        if (selectedId == -1) {
-            Toast.makeText(this, "Te rog selectează un răspuns", Toast.LENGTH_SHORT).show();
-            return;
+    
+    private int getOptionArrayForIndex(int questionIndex) {
+        switch (questionIndex) {
+            case 0: return R.array.minigame_options_1;
+            case 1: return R.array.minigame_options_2;
+            case 2: return R.array.minigame_options_3;
+            case 3: return R.array.minigame_options_4;
+            case 4: return R.array.minigame_options_5;
+            default: return R.array.minigame_options_1;
         }
-
-        Question currentQuestion = currentQuestions.get(currentQuestionIndex);
-        boolean isCorrect = selectedId == currentQuestion.correctAnswerIndex;
-
-        if (isCorrect) {
+    }
+    
+    private void displayQuestion(int index) {
+        try {
+            if (index < 0 || index >= questions.size()) {
+                finishQuiz();
+                return;
+            }
+            
+            Question currentQuestion = questions.get(index);
+            
+            // Apply entrance animation
+            Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+            questionCard.startAnimation(fadeIn);
+            
+            // Set question text
+            questionTextView.setText(currentQuestion.text);
+            
+            // Set answer options
+            for (int i = 0; i < answerButtons.length; i++) {
+                if (i < currentQuestion.options.length) {
+                    answerButtons[i].setText(currentQuestion.options[i]);
+                    answerButtons[i].setVisibility(View.VISIBLE);
+                    answerButtons[i].setEnabled(true);
+                    answerButtons[i].setBackgroundResource(R.drawable.rom_button_background);
+                } else {
+                    answerButtons[i].setVisibility(View.GONE);
+                }
+            }
+            
+            // Reset answered state
+            answered = false;
+            
+        } catch (Exception e) {
+            securityManager.handleException(this, e, 
+                    "Error displaying question", false);
+        }
+    }
+    
+    private void checkAnswer(int buttonIndex) {
+        if (answered) return;
+        
+        answered = true;
+        String selectedAnswer = answerButtons[buttonIndex].getText().toString();
+        String correctAnswer = questions.get(currentQuestionIndex).correctAnswer;
+        
+        if (selectedAnswer.equals(correctAnswer)) {
+            // Correct answer
+            answerButtons[buttonIndex].setBackgroundResource(R.drawable.correct_answer_background);
             score += 10;
-            updateScoreDisplay();
-            Toast.makeText(this, "Corect! +10 puncte", Toast.LENGTH_SHORT).show();
+            consecutiveCorrect++;
+            
+            // Bonus for streak
+            if (consecutiveCorrect >= 3) {
+                score += 5;
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Răspunsuri consecutive! +5 bonus!", Snackbar.LENGTH_SHORT).show();
+            }
+            
+            updateScore();
+            
+            // Show success message
+            Snackbar.make(findViewById(android.R.id.content),
+                    getString(R.string.minigame_correct), Snackbar.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Incorect! Răspunsul corect era: " +
-                    currentQuestion.answers[currentQuestion.correctAnswerIndex], Toast.LENGTH_LONG).show();
+            // Wrong answer
+            answerButtons[buttonIndex].setBackgroundResource(R.drawable.wrong_answer_background);
+            consecutiveCorrect = 0;
+            
+            // Highlight correct answer
+            for (int i = 0; i < answerButtons.length; i++) {
+                if (answerButtons[i].getText().toString().equals(correctAnswer)) {
+                    answerButtons[i].setBackgroundResource(R.drawable.correct_answer_background);
+                    break;
+                }
+            }
+            
+            // Show failure message
+            Snackbar.make(findViewById(android.R.id.content),
+                    getString(R.string.minigame_wrong), Snackbar.LENGTH_SHORT).show();
         }
-
-        // Disable answer selection and show next button
-        for (int i = 0; i < answersGroup.getChildCount(); i++) {
-            answersGroup.getChildAt(i).setEnabled(false);
+        
+        // Disable all buttons after answering
+        for (Button button : answerButtons) {
+            button.setEnabled(false);
         }
-        submitButton.setEnabled(false);
-        nextButton.setVisibility(View.VISIBLE);
+        
+        // Delay before next question
+        animationHandler.postDelayed(() -> moveToNextQuestion(), 1500);
     }
-
-    private void showNextQuestion() {
+    
+    private void moveToNextQuestion() {
         currentQuestionIndex++;
-        if (currentQuestionIndex < currentQuestions.size()) {
-            showQuestion();
-        } else {
-            finishQuiz();
-        }
+        
+        // Apply exit animation
+        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                displayQuestion(currentQuestionIndex);
+            }
+            
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        
+        questionCard.startAnimation(fadeOut);
     }
-
-    private void updateScoreDisplay() {
-        scoreText.setText("Scor: " + score);
+    
+    private void updateScore() {
+        scoreTextView.setText(getString(R.string.minigame_score, score));
     }
-
+    
     private void finishQuiz() {
-        // Award wisdom points based on score
-        int puncteIntelepte = score / 10;
-        gameState.addPuncteIntelepte(puncteIntelepte, this);
-
-        new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("Quiz Completat!")
-                .setMessage(String.format(
-                        "Felicitări!\n\nScor final: %d\nPuncte Înțelepte dobândite: %d",
-                        score, puncteIntelepte))
-                .setPositiveButton("OK", (dialog, which) -> finish())
-                .setCancelable(false)
-                .show();
+        // Update game state with earned points
+        RomGameState gameState = RomGameState.getInstance();
+        gameState.addPuncteIntelepte(score / 10, this);
+        
+        // Show completion message
+        Snackbar.make(findViewById(android.R.id.content),
+                "Quiz terminat! Punctaj final: " + score, Snackbar.LENGTH_LONG).show();
+        
+        // Delay before finishing activity
+        animationHandler.postDelayed(() -> {
+            setResult(RESULT_OK);
+            finish();
+        }, 2000);
     }
-
-    public void goBack(View view) {
-        finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
-
-    // Inner class for quiz questions
-    private static class Question {
-        String question;
-        String[] answers;
-        int correctAnswerIndex;
-
-        Question(String question, String[] answers, int correctAnswerIndex) {
-            this.question = question;
-            this.answers = answers;
-            this.correctAnswerIndex = correctAnswerIndex;
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Remove callbacks to prevent leaks
+        if (animationHandler != null) {
+            animationHandler.removeCallbacksAndMessages(null);
         }
     }
-}
+    
+    // Question class to hold question data
+    private static class Question {
+        String text;
+        String[] options;
+        String correctAnswer;
+    }
+    
+    @Override
+    public void onBackPressed() {
+        // Show confirmation dialog if quiz is not completed
+        if (currentQuestionIndex < questions.size() - 1) {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setTitle("Ieșire")
+                   .setMessage("Ești sigur că vrei să părăsești quiz-ul? Progresul va fi pierdut.")
+                   .setPositiveButton("Da", (dialog, which) -> {
+                       super.onBackPressed();
+                   })
+                   .setNegativeButton("Nu", (dialog, which) -> {
+                       dialog.dismiss();
+                   })
+                   .show();
+        } else {
+            super.onBackPressed();
+        }
+    }
+} 

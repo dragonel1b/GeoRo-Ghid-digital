@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Sky -->
+    <path
+        android:fillColor="#4C6AAA"
+        android:pathData="M0,0h100v60h-100z" />
+
+    <!-- Moon -->
+    <path
+        android:fillColor="#FFFDE7"
+        android:pathData="M70,15
+        a10,10 0 1,1 0,0.1z" />
+    
+    <!-- Distant mountains -->
+    <path
+        android:fillColor="#324D67"
+        android:pathData="M0,45 L15,35 L25,42 L40,32 L50,40 L65,30 L80,38 L100,28 L100,60 L0,60z" />
+
+    <!-- Forest middle layer -->
+    <path
+        android:fillColor="#2D5C33"
+        android:pathData="M0,50 L10,45 L20,50 L30,45 L35,48 L40,43 L50,49 L55,44 L65,48 L70,44 L80,49 L90,43 L100,48 L100,100 L0,100z" />
+
+    <!-- Foreground forest -->
+    <path
+        android:fillColor="#1B3B24"
+        android:pathData="M0,55 L7,52 L12,55 L18,51 L24,56 L30,52 L37,57 L45,51 L50,55 L55,51 L63,57 L72,52 L78,58 L85,52 L92,58 L100,53 L100,100 L0,100z" />
+
+    <!-- Trees in foreground -->
+    <path
+        android:fillColor="#0D2116"
+        android:pathData="M20,70 L23,55 L26,70 L23,68 L20,70z
+                          M40,75 L43,60 L46,75 L43,73 L40,75z
+                          M60,68 L63,53 L66,68 L63,66 L60,68z
+                          M80,73 L83,58 L86,73 L83,71 L80,73z"/>
+
+    <!-- Magical lights/fireflies -->
+    <path
+        android:fillColor="#FFEB3B"
+        android:pathData="M25,65 a1,1 0 1,1 0,0.1z
+                          M45,60 a0.8,0.8 0 1,1 0,0.1z
+                          M65,62 a1.2,1.2 0 1,1 0,0.1z
+                          M75,68 a0.7,0.7 0 1,1 0,0.1z
+                          M35,73 a0.9,0.9 0 1,1 0,0.1z
+                          M55,70 a1,1 0 1,1 0,0.1z"/>
+
+    <!-- Fog/mist patches -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.3"
+        android:pathData="M10,80 Q30,75 50,85 Q70,80 90,85 L90,90 L10,90z"/>
+</vector> 

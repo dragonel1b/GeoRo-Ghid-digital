@@ -122,6 +122,10 @@ public class Soldier {
         return strength;
     }
 
+    public float getHealth() {
+        return health;
+    }
+
     public void draw(Canvas canvas) {
         drawable.setBounds(
                 (int)x - 25,

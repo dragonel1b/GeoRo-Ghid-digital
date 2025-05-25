@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Skill levels for culinary profile -->
+    <string-array name="skill_levels">
+        <item>Începător</item>
+        <item>Intermediar</item>
+        <item>Avansat</item>
+        <item>Expert</item>
+        <item>Chef Profesionist</item>
+    </string-array>
+</resources> 

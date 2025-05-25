@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.CheckBox;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -31,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private ImageView logoImage, confettiImage;
     private TextView welcomeText;
-    private TextInputLayout emailLayout, passwordLayout;
-    private EditText emailInput, passwordInput;
+    private TextInputLayout emailLayout, passwordLayout, confirmPasswordLayout;
+    private EditText emailInput, passwordInput, confirmPasswordInput;
     private Button signUpButton;
     private TextView loginRedirectText;
     private CircularProgressIndicator progressBar;
@@ -40,20 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private AnimationDrawable gradientAnimation;
     private AnimationDrawable confettiDrawable;
     private FirebaseAuth mAuth;
+    private CheckBox termsCheckbox;
+    private ProgressBar passwordStrengthBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Check authentication
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
-            // Redirect to login if not authenticated
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        }
-
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
@@ -74,10 +68,14 @@ public class MainActivity extends AppCompatActivity {
             welcomeText = findViewById(R.id.textViewSignUp);
             emailLayout = findViewById(R.id.textInputLayoutEmailSignUp);
             passwordLayout = findViewById(R.id.textInputLayoutPasswordSignUp);
+            confirmPasswordLayout = findViewById(R.id.textInputLayoutConfirmPassword);
             emailInput = findViewById(R.id.editTextEmailSignUp);
             passwordInput = findViewById(R.id.editTextPasswordSignUp);
+            confirmPasswordInput = findViewById(R.id.editTextConfirmPassword);
             signUpButton = findViewById(R.id.buttonSignUp);
             progressBar = findViewById(R.id.progressBarSignUp);
+            termsCheckbox = findViewById(R.id.termsCheckbox);
+            passwordStrengthBar = findViewById(R.id.passwordStrengthBar);
 
             // Verify all critical views
             if (mainLayout == null) throw new NullPointerException("mainLayout not found");
@@ -85,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             if (welcomeText == null) throw new NullPointerException("welcomeText not found");
             if (emailLayout == null) throw new NullPointerException("emailLayout not found");
             if (passwordLayout == null) throw new NullPointerException("passwordLayout not found");
+            if (confirmPasswordLayout == null) throw new NullPointerException("confirmPasswordLayout not found");
             if (signUpButton == null) throw new NullPointerException("signUpButton not found");
 
             // Initialize login redirect text view
@@ -225,16 +224,52 @@ public class MainActivity extends AppCompatActivity {
                 passwordLayout.animate().scaleX(1f).scaleY(1f).setDuration(200);
             }
         });
+        
+        // Add password strength check
+        passwordInput.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updatePasswordStrength(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {}
+        });
+        
+        // Add confirm password validation in real-time
+        confirmPasswordInput.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (passwordInput.getText().length() > 0 && s.length() > 0) {
+                    if (!s.toString().equals(passwordInput.getText().toString())) {
+                        confirmPasswordLayout.setError("Passwords do not match");
+                    } else {
+                        confirmPasswordLayout.setError(null);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {}
+        });
     }
 
     private boolean validateInput() {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
+        String confirmPassword = confirmPasswordInput.getText().toString().trim();
         boolean isValid = true;
 
         // Reset errors
         emailLayout.setError(null);
         passwordLayout.setError(null);
+        confirmPasswordLayout.setError(null);
 
         if (email.isEmpty()) {
             emailLayout.setError("Email is required");
@@ -253,6 +288,24 @@ public class MainActivity extends AppCompatActivity {
         } else if (password.length() < 6) {
             passwordLayout.setError("Password must be at least 6 characters");
             passwordLayout.startAnimation(shake);
+            isValid = false;
+        }
+        
+        // Validate confirm password
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordLayout.setError("Please confirm your password");
+            confirmPasswordLayout.startAnimation(shake);
+            isValid = false;
+        } else if (!confirmPassword.equals(password)) {
+            confirmPasswordLayout.setError("Passwords do not match");
+            confirmPasswordLayout.startAnimation(shake);
+            isValid = false;
+        }
+        
+        // Check terms and conditions
+        if (!termsCheckbox.isChecked()) {
+            termsCheckbox.startAnimation(shake);
+            Snackbar.make(mainLayout, "Please accept the terms and conditions", Snackbar.LENGTH_SHORT).show();
             isValid = false;
         }
 
@@ -299,7 +352,9 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setEnabled(!isLoading);
         emailInput.setEnabled(!isLoading);
         passwordInput.setEnabled(!isLoading);
+        confirmPasswordInput.setEnabled(!isLoading);
         loginRedirectText.setEnabled(!isLoading);
+        termsCheckbox.setEnabled(!isLoading);
     }
 
     @Override
@@ -318,6 +373,38 @@ public class MainActivity extends AppCompatActivity {
         }
         if (confettiDrawable != null && confettiDrawable.isRunning()) {
             confettiDrawable.stop();
+        }
+    }
+
+    private void updatePasswordStrength(String password) {
+        int score = 0;
+        
+        if (password.length() > 0) {
+            // Basic score based on length
+            score = Math.min(20, password.length() * 4);
+            
+            // Add score for complexity
+            if (password.matches(".*[A-Z].*")) score += 20; // Uppercase
+            if (password.matches(".*[a-z].*")) score += 20; // Lowercase
+            if (password.matches(".*[0-9].*")) score += 20; // Digits
+            if (password.matches(".*[^A-Za-z0-9].*")) score += 20; // Special characters
+            
+            // Update progress bar
+            passwordStrengthBar.setProgress(score);
+            
+            // Update color based on strength
+            if (score < 40) {
+                passwordStrengthBar.setProgressTintList(android.content.res.ColorStateList.valueOf(
+                        getResources().getColor(R.color.rom_error)));
+            } else if (score < 70) {
+                passwordStrengthBar.setProgressTintList(android.content.res.ColorStateList.valueOf(
+                        getResources().getColor(R.color.rom_warning)));
+            } else {
+                passwordStrengthBar.setProgressTintList(android.content.res.ColorStateList.valueOf(
+                        getResources().getColor(R.color.rom_success)));
+            }
+        } else {
+            passwordStrengthBar.setProgress(0);
         }
     }
 }

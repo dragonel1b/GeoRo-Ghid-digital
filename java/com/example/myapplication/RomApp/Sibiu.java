@@ -1,299 +1,657 @@
 package com.example.myapplication.RomApp;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.view.View;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Random;
+import com.example.myapplication.R;
+import com.example.myapplication.viewmodel.EnhancedCityActivity;
+import com.example.myapplication.viewmodel.CityImageAdapter;
+import com.example.myapplication.viewmodel.CityFeaturesActivity;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
+import android.os.AsyncTask;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import android.widget.TextView;
+import android.view.ViewGroup;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.annotation.NonNull;
+import com.example.myapplication.viewmodel.AttractionHelper;
 
-import com.example.myapplication.R;
-import com.google.android.material.textfield.TextInputEditText;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-public class Sibiu extends AppCompatActivity {
+public class Sibiu extends EnhancedCityActivity {
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final String PREFS_NAME = "SibiuPrefs";
+    private static final String USER_IMAGES_KEY = "userImages_Sibiu";
+    private static final String LAST_VISIT_KEY = "lastVisit";
+    private static final String FAVORITE_PLACES_KEY = "favoritePlaces";
+    private static final String VISIT_COUNT_KEY = "visitCount";
     private static final int PERMISSION_REQUEST_CODE = 100;
-    private static final int IMAGE_CAPTURE_REQUEST = 1;
-    private static final int IMAGE_PICK_REQUEST = 2;
-
-    private ImageView currentImageView;
-    private String currentPhotoPath;
+    private ArrayList<String> userImages = new ArrayList<>();
     private SharedPreferences sharedPreferences;
-
-    private ImageView[] imageViews;
-    private ImageView[] checkViews;
-    private TextInputEditText[] opinionViews;
-    private TextInputEditText[] recommendationViews;
-    private ConstraintLayout[] cardViews;
-
-    private String[] locationKeys = {
-            "podul_minciunilor",
-            "turnul_sfatului",
-            "muzeul_brukenthal",
-            "gradina_zoo",
-            "turnul_dulgherilor"
-    };
+    private LinearLayout specialFeaturesContainer;
+    private Random random = new Random();
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private int visitCount = 0;
+    private static final String WEATHER_API_KEY = "1234567890abcdef1234567890abcdef";
+    private static final String SIBIU_CITY_ID = "667268";
+    private static final String WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?id=" + SIBIU_CITY_ID + "&appid=" + WEATHER_API_KEY + "&units=metric&lang=ro";
+    private boolean contentInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sibiu);
 
-        sharedPreferences = getSharedPreferences("SibiuData", MODE_PRIVATE);
+        // Apply muted theme styling - third color set for Sibiu
+        getWindow().getDecorView().setBackgroundColor(Color.parseColor("#F8F4F9")); // Light lavender background
 
-        initializeViews();
-        loadSavedData();
-        setImageClickListeners();
-        animateViews();
-    }
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
-    private void initializeViews() {
-        cardViews = new ConstraintLayout[] {
-                findViewById(R.id.cardPodulMinciunilor),
-                findViewById(R.id.cardTurnulSfatului),
-                findViewById(R.id.cardMuzeulBrukenthal),
-                findViewById(R.id.cardGradinaZoo),
-                findViewById(R.id.cardTurnulDulgherilor)
-        };
+        // Încărcăm doar imaginile salvate pentru Sibiu
+        loadSavedImages();
 
-        imageViews = new ImageView[] {
-                findViewById(R.id.imagePodulMinciunilor),
-                findViewById(R.id.imageTurnulSfatului),
-                findViewById(R.id.imageMuzeulBrukenthal),
-                findViewById(R.id.imageGradinaZoo),
-                findViewById(R.id.imageTurnulDulgherilor)
-        };
+        recordVisit();
+        loadVisitCount();
 
-        checkViews = new ImageView[] {
-                findViewById(R.id.checkPodulMinciunilor),
-                findViewById(R.id.checkTurnulSfatului),
-                findViewById(R.id.checkMuzeulBrukenthal),
-                findViewById(R.id.checkGradinaZoo),
-                findViewById(R.id.checkTurnulDulgherilor)
-        };
+        specialFeaturesContainer = new LinearLayout(this);
+        specialFeaturesContainer.setOrientation(LinearLayout.VERTICAL);
+        specialFeaturesContainer.setPadding(32, 16, 32, 16);
 
-        opinionViews = new TextInputEditText[] {
-                findViewById(R.id.notePodulMinciunilor),
-                findViewById(R.id.noteTurnulSfatului),
-                findViewById(R.id.noteMuzeulBrukenthal),
-                findViewById(R.id.noteGradinaZoo),
-                findViewById(R.id.noteTurnulDulgherilor)
-        };
-
-        recommendationViews = new TextInputEditText[] {
-                findViewById(R.id.recommendationPodulMinciunilor),
-                findViewById(R.id.recommendationTurnulSfatului),
-                findViewById(R.id.recommendationMuzeulBrukenthal),
-                findViewById(R.id.recommendationGradinaZoo),
-                findViewById(R.id.recommendationTurnulDulgherilor)
-        };
-    }
-
-    private void animateViews() {
-        for (int i = 0; i < cardViews.length; i++) {
-            cardViews[i].startAnimation(
-                    AnimationUtils.loadAnimation(this, R.anim.fade_slide_in));
-            cardViews[i].setAnimation(null); // Previne repetarea animației
+        LinearLayout mainContainer = findViewById(R.id.cityContentContainer);
+        if (mainContainer != null) {
+            mainContainer.addView(specialFeaturesContainer);
+            // Apply subtle gradient background
+            mainContainer.setBackgroundResource(R.drawable.gradient_background);
         }
-    }
 
-    private void setImageClickListeners() {
-        for (ImageView imageView : imageViews) {
-            imageView.setOnClickListener(v -> {
-                currentImageView = imageView;
-                showImageSourceDialog();
-            });
-        }
-    }
+        // Adăugăm butonul de hartă interactivă imediat după caruselul de imagini
+        Button mapButton = new Button(this);
+        mapButton.setText("Harta Interactivă Sibiu");
+        mapButton.setBackgroundColor(Color.parseColor("#9A8C98")); // Muted purple
+        mapButton.setTextColor(Color.WHITE);
+        mapButton.setPadding(32, 16, 32, 16);
 
-    private void loadSavedData() {
-        for (int i = 0; i < locationKeys.length; i++) {
-            // Încarcă imaginea
-            String imagePath = sharedPreferences.getString("image_" + locationKeys[i], "");
-            if (!imagePath.isEmpty()) {
-                imageViews[i].setImageURI(Uri.parse(imagePath));
-                checkViews[i].setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 8, 0, 8);
+        mapButton.setLayoutParams(params);
+
+        mapButton.setOnClickListener(v -> {
+            // Open Google Maps with Sibiu location
+            Uri gmmIntentUri = Uri.parse("geo:45.7983,24.1469?q=Sibiu,Romania");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            } else {
+                Toast.makeText(this, "Google Maps nu este instalat", Toast.LENGTH_SHORT).show();
             }
+        });
 
-            // Încarcă opiniile și recomandările
-            String opinion = sharedPreferences.getString("opinion_" + locationKeys[i], "");
-            String recommendation = sharedPreferences.getString("recommendation_" + locationKeys[i], "");
-
-            if (opinionViews[i] != null) {
-                opinionViews[i].setText(opinion);
-            }
-            if (recommendationViews[i] != null) {
-                recommendationViews[i].setText(recommendation);
-            }
-        }
-    }
-
-    private void saveData() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        for (int i = 0; i < locationKeys.length; i++) {
-            // Salvează opiniile și recomandările
-            if (opinionViews[i] != null && opinionViews[i].getText() != null) {
-                editor.putString("opinion_" + locationKeys[i],
-                        opinionViews[i].getText().toString());
-            }
-            if (recommendationViews[i] != null && recommendationViews[i].getText() != null) {
-                editor.putString("recommendation_" + locationKeys[i],
-                        recommendationViews[i].getText().toString());
+        // Adăugăm butonul după TabLayout, dar înainte ca AppBarLayout să se termine
+        com.google.android.material.tabs.TabLayout tabLayout = findViewById(R.id.imageIndicator);
+        if (tabLayout != null) {
+            ViewGroup parent = (ViewGroup) tabLayout.getParent();
+            if (parent != null) {
+                parent.addView(mapButton);
             }
         }
 
-        editor.apply();
+        // Apoi inițializăm restul funcționalităților
+        setupSpecialFeatures();
+
+        // Verificăm permisiunile înainte de a configura caruselul de imagini
+        checkAndRequestPermissions();
     }
 
-    private void showImageSourceDialog() {
-        String[] options = {"Fă o poză", "Alege din galerie"};
-        new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("Alege sursa imaginii")
-                .setItems(options, (dialog, which) -> {
-                    if (which == 0) {
-                        requestCameraPermission();
-                    } else {
-                        openGallery();
-                    }
-                })
-                .show();
-    }
+    private void checkAndRequestPermissions() {
+        // Verificăm dacă avem permisiunile necesare
+        boolean hasPermission = false;
 
-    private void requestCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA},
-                    PERMISSION_REQUEST_CODE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            // Pentru Android 13 și peste, avem nevoie de READ_MEDIA_IMAGES
+            hasPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES)
+                    == PackageManager.PERMISSION_GRANTED;
+        } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            // Pentru Android 6.0 până la 12, avem nevoie de READ_EXTERNAL_STORAGE
+            hasPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED;
         } else {
-            dispatchTakePictureIntent();
+            // Pentru versiuni mai vechi, permisiunile sunt acordate la instalare
+            hasPermission = true;
         }
-    }
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                Toast.makeText(this, "Eroare la crearea fișierului", Toast.LENGTH_SHORT).show();
-            }
-
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.myapplication.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, IMAGE_CAPTURE_REQUEST);
+        if (hasPermission) {
+            // Dacă avem permisiunea, configurăm caruselul de imagini
+            setupImageCarousel();
+        } else {
+            // Dacă nu avem permisiunea, o solicităm
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                        PERMISSION_REQUEST_CODE);
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PERMISSION_REQUEST_CODE);
             }
         }
-    }
-
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, IMAGE_PICK_REQUEST);
-    }
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(null);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                dispatchTakePictureIntent();
+                // Permisiune acordată, configurăm caruselul de imagini
+                setupImageCarousel();
             } else {
-                Toast.makeText(this, "Permisiune refuzată", Toast.LENGTH_SHORT).show();
+                // Permisiune refuzată, afișăm un mesaj
+                Toast.makeText(this, "Permisiunea de acces la imagini a fost refuzată", Toast.LENGTH_LONG).show();
+
+                // Configurăm caruselul doar cu imaginile predefinite, fără a încărcăm imaginile utilizatorului
+                setupImageCarouselWithoutUserImages();
             }
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == IMAGE_CAPTURE_REQUEST) {
-                setPic();
-            } else if (requestCode == IMAGE_PICK_REQUEST && data != null) {
-                Uri selectedImage = data.getData();
-                if (currentImageView != null && selectedImage != null) {
-                    currentImageView.setImageURI(selectedImage);
-                    saveImageUri(selectedImage.toString());
-                    showCheckMark();
+    private void setupImageCarouselWithoutUserImages() {
+        // Configurăm caruselul doar cu imaginile predefinite
+        ArrayList<String> defaultImages = new ArrayList<>();
+        defaultImages.add("oltenia_craiova_1");
+        defaultImages.add("oltenia_craiova_parc");
+        defaultImages.add("oltenia_craiova_centru");
+        defaultImages.add("oltenia_craiova_universitate");
+        defaultImages.add("oltenia_craiova_teatru");
+
+        androidx.viewpager2.widget.ViewPager2 viewPager = findViewById(R.id.imageCarousel);
+        if (viewPager != null) {
+            com.example.myapplication.adapter.ImageCarouselAdapter adapter =
+                    new com.example.myapplication.adapter.ImageCarouselAdapter(this, defaultImages);
+
+            viewPager.setAdapter(adapter);
+
+            com.google.android.material.tabs.TabLayout tabLayout = findViewById(R.id.imageIndicator);
+            if (tabLayout != null) {
+                new com.google.android.material.tabs.TabLayoutMediator(tabLayout, viewPager,
+                        (tab, position) -> {}).attach();
+            }
+        }
+    }
+
+    private void setupImageCarousel() {
+        ArrayList<String> images = getCityImages();
+        if (images != null && !images.isEmpty()) {
+            androidx.viewpager2.widget.ViewPager2 viewPager = findViewById(R.id.imageCarousel);
+            if (viewPager != null) {
+                com.example.myapplication.adapter.ImageCarouselAdapter adapter =
+                        new com.example.myapplication.adapter.ImageCarouselAdapter(this, images);
+
+                adapter.setOnImageAddedListener(uri -> {
+                    String imageUri = uri.toString();
+                    userImages.add(imageUri);
+                    saveImages();
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(this, "Fotografie adăugată cu succes!", Toast.LENGTH_SHORT).show();
+                });
+
+                viewPager.setAdapter(adapter);
+
+                com.google.android.material.tabs.TabLayout tabLayout = findViewById(R.id.imageIndicator);
+                if (tabLayout != null) {
+                    new com.google.android.material.tabs.TabLayoutMediator(tabLayout, viewPager,
+                            (tab, position) -> {}).attach();
                 }
             }
         }
     }
 
-    private void setPic() {
-        if (currentImageView != null && currentPhotoPath != null) {
-            Uri photoUri = Uri.fromFile(new File(currentPhotoPath));
-            currentImageView.setImageURI(photoUri);
-            saveImageUri(photoUri.toString());
-            showCheckMark();
-        }
+    private void loadVisitCount() {
+        visitCount = sharedPreferences.getInt(VISIT_COUNT_KEY, 0);
+        visitCount++;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(VISIT_COUNT_KEY, visitCount);
+        editor.apply();
     }
 
-    private void saveImageUri(String uri) {
-        int index = getImageViewIndex(currentImageView);
-        if (index != -1) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("image_" + locationKeys[index], uri);
-            editor.apply();
-        }
+    private void recordVisit() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong(LAST_VISIT_KEY, System.currentTimeMillis());
+        editor.apply();
     }
 
-    private void showCheckMark() {
-        int index = getImageViewIndex(currentImageView);
-        if (index != -1) {
-            checkViews[index].setVisibility(View.VISIBLE);
-            checkViews[index].startAnimation(
-                    AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
-        }
+    private void loadSavedImages() {
+        Set<String> savedImages = sharedPreferences.getStringSet(USER_IMAGES_KEY, new HashSet<>());
+        userImages.clear();
+        userImages.addAll(savedImages);
     }
 
-    private int getImageViewIndex(ImageView imageView) {
-        for (int i = 0; i < imageViews.length; i++) {
-            if (imageViews[i] == imageView) {
-                return i;
+    private void saveImages() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(USER_IMAGES_KEY, new HashSet<>(userImages));
+        editor.apply();
+    }
+
+    private void setupSpecialFeatures() {
+        // Golim containerul pentru a fi siguri că nu există elemente reziduale
+        specialFeaturesContainer.removeAllViews();
+
+        // 1. Adăugăm mesajul de bun venit pentru vizitatorii recurenți (temporar)
+        if (visitCount > 1) {
+            addWelcomeBackMessage();
+        }
+
+        // Pregătire date pentru funcționalitățile orașului
+        String[] events = {
+                "Festivalul Internațional de Teatru - Iunie 2024",
+                "Târgul de Crăciun - Decembrie 2024",
+                "Astra Film Festival - Octombrie 2024",
+                "Sibiu Jazz Festival - Mai 2024"
+        };
+
+        String[] tips = {
+                "Piața Mare este mai puțin aglomerată dimineața devreme",
+                "Încercați brânzeturile tradiționale din Piața Mică",
+                "Podul Minciunilor este locul perfect pentru fotografii la apus",
+                "Muzeul ASTRA este cel mai bine vizitat în a doua jumătate a zilei"
+        };
+
+        // Adăugăm componentele direct în containerul principal, în ordinea corectă
+
+        // 1. Widget-ul de vreme
+        MaterialCardView weatherWidget = new MaterialCardView(this);
+        weatherWidget.setTag("weather_widget");
+        weatherWidget.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        weatherWidget.setCardBackgroundColor(Color.parseColor("#E8E6F0")); // Pale lavender
+        weatherWidget.setRadius(16);
+        weatherWidget.setCardElevation(4);
+        weatherWidget.setContentPadding(16, 16, 16, 16);
+
+        LinearLayout weatherContent = new LinearLayout(this);
+        weatherContent.setOrientation(LinearLayout.VERTICAL);
+
+        TextView weatherTitle = new TextView(this);
+        weatherTitle.setText("Vremea în Sibiu");
+        weatherTitle.setTextSize(18);
+        weatherTitle.setTextColor(Color.parseColor("#4A4E69")); // Deep blue-purple
+        weatherTitle.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        TextView weatherInfo = new TextView(this);
+        weatherInfo.setText("Se încarcă informații despre vreme...");
+        weatherInfo.setTextSize(16);
+
+        Button refreshWeatherBtn = new Button(this);
+        refreshWeatherBtn.setText("Actualizează");
+        refreshWeatherBtn.setBackgroundColor(Color.parseColor("#9A8C98")); // Muted purple
+        refreshWeatherBtn.setTextColor(Color.WHITE);
+
+        refreshWeatherBtn.setOnClickListener(v -> {
+            fetchWeatherData(weatherInfo);
+        });
+
+        weatherContent.addView(weatherTitle);
+        weatherContent.addView(weatherInfo);
+        weatherContent.addView(refreshWeatherBtn);
+        weatherWidget.addView(weatherContent);
+
+        specialFeaturesContainer.addView(weatherWidget);
+
+        // Inițializăm datele meteo
+        fetchWeatherData(weatherInfo);
+
+        // 2. Butonul de evenimente locale
+        Button eventsButton = new Button(this);
+        eventsButton.setText("Evenimente Locale");
+        eventsButton.setBackgroundColor(Color.parseColor("#C9ADA7")); // Dusty rose
+        eventsButton.setTextColor(Color.WHITE);
+        eventsButton.setPadding(32, 16, 32, 16);
+
+        LinearLayout.LayoutParams eventsParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        eventsParams.setMargins(0, 8, 0, 8);
+        eventsButton.setLayoutParams(eventsParams);
+
+        eventsButton.setOnClickListener(v -> {
+            // Arată dialog cu evenimente
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+            builder.setTitle("Evenimente în Sibiu");
+            builder.setItems(events, (dialog, which) -> {
+                Toast.makeText(this, "Eveniment selectat: " + events[which], Toast.LENGTH_SHORT).show();
+            });
+            builder.show();
+        });
+
+        specialFeaturesContainer.addView(eventsButton);
+
+        // 3. Secțiunea de sfaturi locale
+        MaterialCardView tipsCard = new MaterialCardView(this);
+        tipsCard.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        tipsCard.setCardBackgroundColor(Color.parseColor("#F0EDF5")); // Very light lavender
+        tipsCard.setRadius(16);
+        tipsCard.setCardElevation(4);
+        tipsCard.setContentPadding(16, 16, 16, 16);
+
+        LinearLayout tipsContent = new LinearLayout(this);
+        tipsContent.setOrientation(LinearLayout.VERTICAL);
+
+        TextView tipsTitle = new TextView(this);
+        tipsTitle.setText("Sfaturi Locale");
+        tipsTitle.setTextSize(18);
+        tipsTitle.setTextColor(Color.parseColor("#4A4E69")); // Deep blue-purple
+        tipsTitle.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        tipsContent.addView(tipsTitle);
+
+        for (String tip : tips) {
+            TextView tipView = new TextView(this);
+            tipView.setText("• " + tip);
+            tipView.setTextSize(16);
+            tipView.setPadding(0, 8, 0, 0);
+            tipsContent.addView(tipView);
+        }
+
+        tipsCard.addView(tipsContent);
+        specialFeaturesContainer.addView(tipsCard);
+
+        // 4. Provocarea foto
+        MaterialCardView photoCard = new MaterialCardView(this);
+        photoCard.setTag("photo_challenge");
+        photoCard.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        photoCard.setCardBackgroundColor(Color.parseColor("#F2E9E4")); // Light pink-beige
+        photoCard.setRadius(16);
+        photoCard.setCardElevation(4);
+        photoCard.setContentPadding(16, 16, 16, 16);
+
+        LinearLayout photoContent = new LinearLayout(this);
+        photoContent.setOrientation(LinearLayout.VERTICAL);
+
+        TextView photoTitle = new TextView(this);
+        photoTitle.setText("Provocare Foto: Descoperă Sibiu");
+        photoTitle.setTextSize(18);
+        photoTitle.setTextColor(Color.parseColor("#4A4E69")); // Deep blue-purple
+        photoTitle.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        TextView photoDesc = new TextView(this);
+        photoDesc.setText("Imortalizează cele mai frumoase locuri din Sibiu și adaugă-le în colecția ta personală!");
+        photoDesc.setTextSize(16);
+        photoDesc.setPadding(0, 8, 0, 16);
+
+        Button addPhotoBtn = new Button(this);
+        addPhotoBtn.setText("Adaugă Fotografie");
+        addPhotoBtn.setBackgroundColor(Color.parseColor("#C9ADA7")); // Dusty rose
+        addPhotoBtn.setTextColor(Color.BLACK);
+
+        addPhotoBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        });
+
+        photoContent.addView(photoTitle);
+        photoContent.addView(photoDesc);
+        photoContent.addView(addPhotoBtn);
+        photoCard.addView(photoContent);
+
+        specialFeaturesContainer.addView(photoCard);
+    }
+
+    private void fetchWeatherData(TextView weatherInfoView) {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    URL url = new URL(WEATHER_API_URL);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(connection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    reader.close();
+
+                    return response.toString();
+                } catch (Exception e) {
+                    return null;
+                }
             }
-        }
-        return -1;
+
+            @Override
+            protected void onPostExecute(String result) {
+                if (result != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        JSONObject main = jsonObject.getJSONObject("main");
+                        JSONObject weather = jsonObject.getJSONArray("weather").getJSONObject(0);
+
+                        double temp = main.getDouble("temp");
+                        double feelsLike = main.getDouble("feels_like");
+                        int humidity = main.getInt("humidity");
+                        String description = weather.getString("description");
+
+                        String weatherText = String.format(
+                                "Temperatura: %.1f°C\nSe simte ca: %.1f°C\nUmiditate: %d%%\nCondiții: %s",
+                                temp, feelsLike, humidity, description);
+
+                        weatherInfoView.setText(weatherText);
+                    } catch (Exception e) {
+                        weatherInfoView.setText("Eroare la preluarea datelor meteo.");
+                    }
+                } else {
+                    weatherInfoView.setText("Nu s-au putut încărca datele meteo. Verificați conexiunea la internet.");
+                }
+            }
+        }.execute();
+    }
+
+    private void addWelcomeBackMessage() {
+        MaterialCardView welcomeCard = new MaterialCardView(this);
+        welcomeCard.setCardElevation(4);
+        welcomeCard.setRadius(16);
+        welcomeCard.setCardBackgroundColor(Color.parseColor("#E8E6F0")); // Pale lavender to match weather widget
+
+        LinearLayout cardContent = new LinearLayout(this);
+        cardContent.setOrientation(LinearLayout.VERTICAL);
+        cardContent.setPadding(24, 16, 24, 16);
+
+        android.widget.TextView welcomeText = new android.widget.TextView(this);
+        welcomeText.setText("Bine ai revenit în Sibiu! Aceasta este vizita ta #" + visitCount);
+        welcomeText.setTextSize(18);
+        welcomeText.setTextColor(Color.parseColor("#4A4E69")); // Deep blue-purple to match other text
+
+        cardContent.addView(welcomeText);
+        welcomeCard.addView(cardContent);
+        specialFeaturesContainer.addView(welcomeCard);
+
+        // Auto-dismiss after 5 seconds
+        handler.postDelayed(() -> {
+            specialFeaturesContainer.removeView(welcomeCard);
+        }, 5000);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        saveData();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            if (selectedImageUri != null) {
+                try {
+                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                    getContentResolver().takePersistableUriPermission(selectedImageUri, takeFlags);
+
+                    String imageUri = selectedImageUri.toString();
+
+                    // Verificăm dacă avem deja 5 imagini pentru Sibiu
+                    if (userImages.size() >= 5) {
+                        // Eliminăm cea mai veche imagine
+                        userImages.remove(0);
+                    }
+
+                    // Adăugăm noua imagine
+                    userImages.add(imageUri);
+                    saveImages();
+
+                    // Reconfigurăm caruselul pentru a include noua imagine
+                    setupImageCarousel();
+
+                    Toast.makeText(this, "Fotografie adăugată cu succes!", Toast.LENGTH_SHORT).show();
+
+                    Snackbar.make(findViewById(android.R.id.content),
+                            "Mulțumim pentru participarea la provocarea foto! Fotografia ta a fost adăugată cu succes.",
+                            Snackbar.LENGTH_LONG).show();
+                } catch (SecurityException e) {
+                    Toast.makeText(this, "Nu s-a putut accesa imaginea: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
-    public void goBack(View view) {
-        finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    @Override
+    protected ArrayList<String> getCityImages() {
+        ArrayList<String> images = new ArrayList<>();
+
+        // Add user images if available
+        if (userImages != null && !userImages.isEmpty()) {
+            int startIndex = Math.max(0, userImages.size() - 5);
+            images.addAll(userImages.subList(startIndex, userImages.size()));
+        }
+
+        // Add default images if needed
+        if (images.size() < 5) {
+            ArrayList<String> defaultImages = new ArrayList<>();
+            defaultImages.add("oltenia_craiova_1");
+            defaultImages.add("oltenia_craiova_parc");
+            defaultImages.add("oltenia_craiova_centru");
+            defaultImages.add("oltenia_craiova_universitate");
+            defaultImages.add("oltenia_craiova_teatru");
+
+            // Add only as many default images as needed to reach 5
+            int remainingSlots = 5 - images.size();
+            for (int i = 0; i < remainingSlots && i < defaultImages.size(); i++) {
+                images.add(defaultImages.get(i));
+            }
+        }
+
+        return images;
+    }
+
+    @Override
+    protected void initializeSpecificContent() {
+        super.initializeSpecificContent();
+
+        setTitle("Sibiu");
+
+        // Add sections
+        addSection(
+                findViewById(R.id.cityContentContainer),
+                "Istorie și Tradiție",
+                "Sibiu, unul dintre cele mai vechi orașe din România, își are originile în așezarea dacică Pelendava. A fost menționată documentar pentru prima dată în 1475, devenind reședință a boierilor Craioveşti în secolul al XV-lea. În secolul al XIX-lea a fost un important centru comercial și cultural al Olteniei.",
+                true
+        );
+
+        addSection(
+                findViewById(R.id.cityContentContainer),
+                "Geografie",
+                "Sibiu este situată în sud-vestul României, pe malul stâng al râului Jiu, în centrul Olteniei. Orașul se află la aproximativ 227 km de București și are o suprafață de aproximativ 81,41 km². Clima este temperat-continentală cu influențe mediteraneene, cu veri calde și ierni relativ blânde.",
+                true
+        );
+
+        addSection(
+                findViewById(R.id.cityContentContainer),
+                "Atracții Turistice",
+                "Parcul Nicolae Romanescu (al treilea ca mărime din Europa), Centrul Vechi, Muzeul de Artă (cu opere ale lui Constantin Brâncuși), Casa Băniei și Grădina Botanică sunt principalele atracții ale Sibiului. Teatrul Național Marin Sorescu este, de asemenea, un important reper cultural și arhitectural.",
+                true
+        );
+
+        addSection(
+                findViewById(R.id.cityContentContainer),
+                "Cultură",
+                "Sibiu este un important centru cultural, cu instituții precum Filarmonica Oltenia, Teatrul Național Marin Sorescu și Teatrul pentru Copii și Tineret Colibri. Orașul găzduiește anual Festivalul Internațional Shakespeare și festivalul de muzică IntenCity, și are o bogată tradiție literară, fiind orașul natal al lui Marin Sorescu și Ion D. Sîrbu.",
+                false
+        );
+
+        addSection(
+                findViewById(R.id.cityContentContainer),
+                "Gastronomie",
+                "Bucătăria oltenească din Sibiu se remarcă prin preparate tradiționale precum sarmale oltenești cu afumătură, ciorbă de potroace, cârnați de Pleșcoi și celebra dovleac copt cu brânză. Restaurantele din Centrul Vechi oferă o experiență culinară autentică, iar crama Domeniile Coroanei oferă degustări de vinuri locale.",
+                false
+        );
+
+        // Add attractions using the AttractionHelper
+        LinearLayout container = findViewById(R.id.cityContentContainer);
+
+        // Add Parcul Romanescu attraction
+        AttractionHelper.addAttraction(
+                this,
+                container,
+                "Parcul Cetății",
+                R.drawable.parcul_cetatii, // Make sure this resource exists
+                "Părerea ta despre Parcul Cetății"
+        );
+
+        // Add Muzeul de Artă attraction
+        AttractionHelper.addAttraction(
+                this,
+                container,
+                "Turnurile Cetății",
+                R.drawable.turn_cetatii, // Make sure this resource exists
+                "Părerea ta despre Turnurile Cetății"
+        );
+
+    }
+
+    @Override
+    protected void addSection(LinearLayout container, String title, String content, boolean isHighlighted) {
+        // Utilizăm implementarea din clasa părinte pentru a crea secțiunea
+        super.addSection(container, title, content, isHighlighted);
+
+        // Obținem ultima secțiune adăugată (cea creată acum)
+        View sectionView = container.getChildAt(container.getChildCount() - 1);
+
+        // Adăugăm listener pentru click pe secțiune pentru a deschide SectionPreviewActivity
+        sectionView.setOnClickListener(v -> {
+            Intent intent = new Intent(this, com.example.myapplication.viewmodel.SectionPreviewActivity.class);
+            intent.putExtra("SECTION_TITLE", title);
+            intent.putExtra("SECTION_CONTENT", content);
+            intent.putExtra("CITY_NAME", "Sibiu");
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+        });
+    }
+
+    @Override
+    protected String getRegionName() {
+        return "Oltenia";
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Casino Backgrounds -->
+    <drawable name="casino_bg_simple">@drawable/casino_bg_simple</drawable>
+    <drawable name="casino_background">@drawable/casino_background</drawable>
+    <drawable name="casino_pattern">@drawable/casino_pattern</drawable>
+
+    <!-- Casino Icons -->
+    <drawable name="ic_spade">@drawable/ic_spade</drawable>
+    <drawable name="ic_club">@drawable/ic_club</drawable>
+    <drawable name="ic_diamond">@drawable/ic_diamond</drawable>
+    <drawable name="ic_heart">@drawable/ic_heart</drawable>
+    <drawable name="ic_casino">@drawable/ic_casino</drawable>
+
+    <!-- Casino Characters -->
+    <drawable name="casino_character">@drawable/casino_character</drawable>
+    <drawable name="casino_dealer">@drawable/casino_dealer</drawable>
+    <drawable name="casino_player">@drawable/casino_player</drawable>
+    <drawable name="casino_tourist">@drawable/casino_tourist</drawable>
+    <drawable name="casino_poet">@drawable/casino_poet</drawable>
+    <drawable name="casino_bartender">@drawable/casino_bartender</drawable>
+    <drawable name="casino_vendor">@drawable/casino_vendor</drawable>
+    <drawable name="casino_director">@drawable/casino_director</drawable>
+</resources> 

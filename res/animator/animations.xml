@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Confetti Animations -->
+    <animator name="confetti_animation">@animator/confetti_animation</animator>
+    <animator name="confetti_animation_2">@animator/confetti_animation_2</animator>
+    <animator name="confetti_animation_3">@animator/confetti_animation_3</animator>
+    <animator name="confetti_animation_4">@animator/confetti_animation_4</animator>
+    <animator name="confetti_animation_5">@animator/confetti_animation_5</animator>
+    <animator name="confetti_animation_6">@animator/confetti_animation_6</animator>
+    <animator name="confetti_animation_7">@animator/confetti_animation_7</animator>
+    <animator name="confetti_animation_8">@animator/confetti_animation_8</animator>
+    <animator name="confetti_animation_9">@animator/confetti_animation_9</animator>
+    <animator name="confetti_animation_10">@animator/confetti_animation_10</animator>
+
+    <!-- UI Animations -->
+    <animator name="fade_in">@animator/fade_in</animator>
+    <animator name="fade_out">@animator/fade_out</animator>
+    <animator name="slide_in_right">@animator/slide_in_right</animator>
+    <animator name="slide_out_left">@animator/slide_out_left</animator>
+    <animator name="scale_in">@animator/scale_in</animator>
+    <animator name="scale_out">@animator/scale_out</animator>
+</resources> 

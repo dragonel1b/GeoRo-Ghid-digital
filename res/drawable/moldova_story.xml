@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Parchment background with Moldovan tint -->
+    <path
+        android:fillColor="#F9EBC8"
+        android:pathData="M3,2h18v20h-18z" />
+    
+    <!-- Book binding details -->
+    <path
+        android:fillColor="#AA6C39"
+        android:pathData="M3,2v20h2c0,0 0,-18 0,-20z" />
+    
+    <!-- Parchment texture lines -->
+    <path
+        android:fillColor="#E6D7AB"
+        android:pathData="M5,4h14v0.5h-14zM5,7h14v0.5h-14zM5,10h14v0.5h-14zM5,13h14v0.5h-14zM5,16h14v0.5h-14zM5,19h14v0.5h-14z" />
+    
+    <!-- Moldovan traditional pattern top -->
+    <path
+        android:fillColor="#C62828"
+        android:pathData="M6,3h12v1h-12z" />
+    
+    <!-- Traditional diamond patterns - distinctive for Moldova -->
+    <path
+        android:fillColor="#6A1B9A"
+        android:pathData="M7,3.5l0.5,-0.5l0.5,0.5l-0.5,0.5zM9,3.5l0.5,-0.5l0.5,0.5l-0.5,0.5zM11,3.5l0.5,-0.5l0.5,0.5l-0.5,0.5zM13,3.5l0.5,-0.5l0.5,0.5l-0.5,0.5zM15,3.5l0.5,-0.5l0.5,0.5l-0.5,0.5z" />
+    
+    <!-- Stefan cel Mare portrait outline -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M12,9m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+    
+    <!-- Face -->
+    <path
+        android:fillColor="#FFECB3"
+        android:pathData="M12,9m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" />
+    
+    <!-- Crown -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M10,6.5h4v0.7h-4z" />
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M10,6.5l0,0.7l-0.5,0.3l0,-0.5zM12,6.5l0,0.7l0.5,0.5l0,-0.5zM14,6.5l0,0.7l0.5,0.3l0,-0.5z" />
+    
+    <!-- Beard -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M10.5,9.5c0,0 0.5,1.5 1.5,1.5s1.5,-1.5 1.5,-1.5v1.2c0,0 -0.5,1 -1.5,1s-1.5,-1 -1.5,-1z" />
+    
+    <!-- Text lines -->
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M8,14h8v0.7h-8zM8,16h8v0.7h-8zM8,18h5v0.7h-5z" />
+    
+    <!-- Moldova Coat of Arms -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M16,17.5l1.5,0l0,1.5l-1.5,0z" />
+    
+    <!-- Eagle -->
+    <path
+        android:fillColor="#3F51B5"
+        android:pathData="M16.5,18l0.2,-0.2l0.2,0.2l0.2,-0.2l0.2,0.2l-0.2,0.2l0.2,0.2l-0.2,0.2l-0.2,-0.2l-0.2,0.2l-0.2,-0.2l0.2,-0.2z" />
+    
+    <!-- Bottom Moldovan pattern border -->
+    <path
+        android:fillColor="#C62828"
+        android:pathData="M6,20h12v1h-12z" />
+    
+    <!-- Traditional zigzag patterns - distinctive for Moldova -->
+    <path
+        android:fillColor="#6A1B9A"
+        android:pathData="M7,20.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5l0.25,-0.5l0.5,0.5" />
+</vector> 

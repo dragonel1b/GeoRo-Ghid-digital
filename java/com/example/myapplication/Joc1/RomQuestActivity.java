@@ -3,6 +3,7 @@ package com.example.myapplication.Joc1;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -54,86 +55,72 @@ public class RomQuestActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.quest_title);
+        }
     }
 
     private void setupMissions() {
+        // In a real app, these would come from a database or REST API
         missions = new ArrayList<>();
-
-        // Add missions for different regions
         missions.add(new QuestMission(
-                "Misterele Sibiului Medieval",
-                "Descoperă secretele Podului Minciunilor și ale Pieței Mari",
-                "Sibiu",
-                new String[] {
-                        "Găsește și fotografiază cele mai vechi 3 case din Piața Mare",
-                        "Descoperă legenda Podului Minciunilor",
-                        "Identifică simbolurile breslelor medievale"
+                getString(R.string.quest1_title),
+                getString(R.string.quest1_description),
+                "Transilvania",
+                new String[]{
+                        getString(R.string.quest1_objective1),
+                        getString(R.string.quest1_objective2),
+                        getString(R.string.quest1_objective3)
                 }
         ));
-
         missions.add(new QuestMission(
-                "Comoara Bisericii Negre",
-                "Explorează cel mai mare edificiu gotic din Europa de Est",
-                "Brașov",
-                new String[] {
-                        "Descoperă simbolistica vitraliilor",
-                        "Găsește covorul oriental cel mai vechi",
-                        "Află povestea clopotului mare"
+                getString(R.string.quest2_title),
+                getString(R.string.quest2_description),
+                "Maramureș",
+                new String[]{
+                        getString(R.string.quest2_objective1),
+                        getString(R.string.quest2_objective2)
                 }
         ));
-
         missions.add(new QuestMission(
-                "Legendele Clujului",
-                "Descoperă poveștile ascunse ale orașului",
-                "Cluj",
-                new String[] {
-                        "Vizitează casa lui Matei Corvin",
-                        "Găsește statuia Sf. Gheorghe",
-                        "Explorează criptele Bisericii Sf. Mihail"
+                getString(R.string.quest3_title),
+                getString(R.string.quest3_description),
+                "Moldova",
+                new String[]{
+                        getString(R.string.quest3_objective1),
+                        getString(R.string.quest3_objective2),
+                        getString(R.string.quest3_objective3),
+                        getString(R.string.quest3_objective4)
                 }
         ));
-
         missions.add(new QuestMission(
-                "Bucureștiul Interbelic",
-                "Călătorește în timp prin arhitectura capitalei",
-                "București",
-                new String[] {
-                        "Identifică stilurile arhitecturale de pe Calea Victoriei",
-                        "Descoperă poveștile Ateneului Român",
-                        "Explorează Micul Paris al României"
+                getString(R.string.quest4_title),
+                getString(R.string.quest4_description),
+                "Oltenia",
+                new String[]{
+                        getString(R.string.quest4_objective1),
+                        getString(R.string.quest4_objective2)
                 }
         ));
-
         missions.add(new QuestMission(
-                "Drumul Mănăstirilor",
-                "Descoperă arta și spiritualitatea Moldovei",
-                "Iași",
-                new String[] {
-                        "Vizitează Mănăstirea Trei Ierarhi",
-                        "Studiază frescele bisericești",
-                        "Află tehnicile de restaurare folosite"
-                }
-        ));
-
-        missions.add(new QuestMission(
-                "Timișoara Multiculturală",
-                "Explorează diversitatea culturală a orașului",
-                "Timișoara",
-                new String[] {
-                        "Descoperă influențele arhitecturale austro-ungare",
-                        "Vizitează cartierul Fabric",
-                        "Identifică elementele Art Nouveau"
+                getString(R.string.quest5_title),
+                getString(R.string.quest5_description),
+                "Muntenia",
+                new String[]{
+                        getString(R.string.quest5_objective1),
+                        getString(R.string.quest5_objective2),
+                        getString(R.string.quest5_objective3)
                 }
         ));
     }
 
     private void setupRecyclerView() {
         missionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        QuestAdapter adapter = new QuestAdapter(missions, this::handleMissionClick);
+        
+        // Create a custom adapter that handles QuestMission objects
+        QuestAdapter adapter = new QuestAdapter(this.missions, this::handleMissionClick);
         missionsRecyclerView.setAdapter(adapter);
-        missionsRecyclerView.setNestedScrollingEnabled(false);
     }
 
     private void handleMissionClick(QuestMission mission) {
@@ -224,5 +211,63 @@ public class RomQuestActivity extends AppCompatActivity {
         public String[] getObjectives() { return objectives; }
         public boolean isCompleted() { return completed; }
         public void setCompleted(boolean completed) { this.completed = completed; }
+    }
+    
+    // Custom adapter for QuestMission that is separate from Mission class
+    public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> {
+        private final List<QuestMission> missions;
+        private final QuestClickListener listener;
+        
+        public interface QuestClickListener {
+            void onQuestClick(QuestMission mission);
+        }
+        
+        public QuestAdapter(List<QuestMission> missions, QuestClickListener listener) {
+            this.missions = missions;
+            this.listener = listener;
+        }
+        
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = getLayoutInflater().inflate(R.layout.item_rom_quest, parent, false);
+            return new ViewHolder(view);
+        }
+        
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            QuestMission mission = missions.get(position);
+            holder.bind(mission);
+        }
+        
+        @Override
+        public int getItemCount() {
+            return missions.size();
+        }
+        
+        class ViewHolder extends RecyclerView.ViewHolder {
+            private final TextView titleText;
+            private final TextView regionText;
+            private final View statusIcon;
+            
+            public ViewHolder(View itemView) {
+                super(itemView);
+                titleText = itemView.findViewById(R.id.missionTitle);
+                regionText = itemView.findViewById(R.id.missionRegion);
+                statusIcon = itemView.findViewById(R.id.missionStatus);
+                
+                itemView.setOnClickListener(v -> {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onQuestClick(missions.get(position));
+                    }
+                });
+            }
+            
+            public void bind(QuestMission mission) {
+                titleText.setText(mission.getTitle());
+                regionText.setText(mission.getRegion());
+                statusIcon.setVisibility(mission.isCompleted() ? View.VISIBLE : View.GONE);
+            }
+        }
     }
 }

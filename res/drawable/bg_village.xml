@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="300dp"
+    android:viewportWidth="400"
+    android:viewportHeight="300">
+    
+    <!-- Fundalul cerului -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M0,0h400v180h-400z" />
+    
+    <!-- Munții în fundal -->
+    <path
+        android:fillColor="#78909C"
+        android:pathData="M0,100c20,-15 40,-5 60,-20c20,-15 40,-10 60,-25c20,-15 40,-5 60,-20c20,-15 40,-10 60,-25c20,-15 40,-5 60,-20c20,-15 40,-5 60,-20v130h-400z" />
+    
+    <!-- Dealuri înverzite mai apropiate -->
+    <path
+        android:fillColor="#7CB342"
+        android:pathData="M0,130c30,-10 50,5 80,-5c30,-10 50,10 80,0c30,-10 50,5 80,-5c30,-10 50,10 80,0c30,-10 50,5 80,-5v60h-400z" />
+    
+    <!-- Câmpul din primul plan -->
+    <path
+        android:fillColor="#8BC34A"
+        android:pathData="M0,180h400v120h-400z" />
+    
+    <!-- Biserica satului cu turnul înalt -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M170,130h40v50h-40z" /> <!-- corpul bisericii -->
+    
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M180,130l20,-20l20,20z" /> <!-- acoperișul bisericii -->
+    
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M205,130h20v70h-20z" /> <!-- turnul bisericii -->
+    
+    <path
+        android:fillColor="#9E9E9E"
+        android:pathData="M205,130l10,-15l10,15z" /> <!-- acoperișul turnului -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M180,160h20v20h-20z" /> <!-- ușa bisericii -->
+    
+    <path
+        android:fillColor="#BBDEFB"
+        android:pathData="M175,140h10v10h-10zM195,140h10v10h-10zM210,140h10v10h-10z" /> <!-- ferestrele bisericii -->
+    
+    <!-- Casă tradițională #1 - cu prispă -->
+    <path
+        android:fillColor="#FFECB3"
+        android:pathData="M50,160h60v40h-60z" /> <!-- corpul casei -->
+    
+    <path
+        android:fillColor="#FFA000"
+        android:pathData="M40,160h80l-40,-30z" /> <!-- acoperișul -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M60,180h15v20h-15z" /> <!-- ușa -->
+    
+    <path
+        android:fillColor="#BBDEFB"
+        android:pathData="M85,170h15v15h-15z" /> <!-- fereastra -->
+    
+    <path
+        android:fillColor="#D7CCC8"
+        android:pathData="M50,200h60v5h-60z" /> <!-- prispa casei -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M55,200h5v10h-5zM100,200h5v10h-5z" /> <!-- stâlpii prispei -->
+    
+    <!-- Casă tradițională #2 - cu șură -->
+    <path
+        android:fillColor="#FFECB3"
+        android:pathData="M270,160h60v40h-60z" /> <!-- corpul casei -->
+    
+    <path
+        android:fillColor="#FFA000"
+        android:pathData="M260,160h80l-40,-30z" /> <!-- acoperișul -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M280,180h15v20h-15z" /> <!-- ușa -->
+    
+    <path
+        android:fillColor="#BBDEFB"
+        android:pathData="M305,170h15v15h-15z" /> <!-- fereastra -->
+    
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M330,160h40v30h-40z" /> <!-- șura -->
+    
+    <path
+        android:fillColor="#795548"
+        android:pathData="M325,160h50l-25,-20z" /> <!-- acoperișul șurii -->
+    
+    <!-- Fântână tradițională -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M150,185h20v20h-20z" /> <!-- corpul fântânii -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M145,185h30l-15,-10z" /> <!-- acoperișul fântânii -->
+    
+    <path
+        android:strokeColor="#5D4037"
+        android:strokeWidth="2"
+        android:pathData="M160,175v-15h10" /> <!-- mecanismul de ridicare -->
+    
+    <path
+        android:fillColor="#90A4AE"
+        android:pathData="M169,172a2,3 0,0 1,0 6a2,3 0,0 1,0 -6z" /> <!-- găleata -->
+    
+    <!-- Căpiță de fân / clăi de fân -->
+    <path
+        android:fillColor="#FDD835"
+        android:pathData="M350,220a25,35 0,0 1,0 -70a25,35 0,0 1,0 70z" />
+    
+    <path
+        android:fillColor="#FFB300"
+        android:pathData="M30,220a20,30 0,0 1,0 -60a20,30 0,0 1,0 60z" />
+    
+    <!-- Gard tradițional -->
+    <path
+        android:strokeColor="#8D6E63"
+        android:strokeWidth="2"
+        android:pathData="M110,200h30M150,205h50M230,200h30" />
+    
+    <path
+        android:strokeColor="#6D4C41"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M110,190v30M120,195v30M130,190v30M140,195v30M150,190v30M160,195v30M170,190v30M180,195v30M190,190v30M200,195v30M230,190v30M240,195v30M250,190v30M260,195v30" />
+    
+    <!-- Copaci în sat -->
+    <path
+        android:fillColor="#388E3C"
+        android:pathData="M220,190a10,20 0,0 1,0 -40a10,20 0,0 1,0 40z" />
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M218,190h4v20h-4z" />
+    
+    <path
+        android:fillColor="#388E3C"
+        android:pathData="M120,230a15,25 0,0 1,0 -50a15,25 0,0 1,0 50z" />
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M118,230h4v25h-4z" />
+</vector> 

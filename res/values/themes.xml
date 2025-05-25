@@ -1,10 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/rom_flag_blue</item>
-        <item name="colorPrimaryVariant">@color/rom_flag_blue_dark</item>
-        <item name="colorSecondary">@color/rom_flag_yellow</item>
-        <item name="colorSecondaryVariant">@color/rom_flag_red</item>
-        <item name="android:windowBackground">@drawable/bg_gradient1</item>
-        <item name="android:statusBarColor">@color/rom_flag_blue</item>
+    <!-- Base application theme -->
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/rom_primary</item>
+        <item name="colorPrimaryVariant">@color/rom_primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/rom_accent</item>
+        <item name="colorSecondaryVariant">@color/rom_accent_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <!-- Typography styles -->
+        <item name="textAppearanceHeadline1">@style/RomTextDisplay1</item>
+        <item name="textAppearanceHeadline2">@style/RomTextDisplay2</item>
+        <item name="textAppearanceHeadline3">@style/RomTextHeading1</item>
+        <item name="textAppearanceHeadline4">@style/RomTextHeading2</item>
+        <item name="textAppearanceBody1">@style/RomTextBody1</item>
+        <item name="textAppearanceBody2">@style/RomTextBody2</item>
+        <item name="textAppearanceButton">@style/RomTextButton</item>
+        <item name="textAppearanceCaption">@style/RomTextCaption</item>
+        <item name="textAppearanceOverline">@style/RomTextOverline</item>
+        <!-- Component styles -->
+        <item name="materialCardViewStyle">@style/RomCardView</item>
+        <item name="materialButtonStyle">@style/RomButton</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/maramures_primary_dark</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/activity_background_light</item>
+        <!-- Aplicare stil de animație la tema principală -->
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+        <!-- Material3 color attributes -->
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_outline</item>
+    </style>
+
+    <!-- Login theme variant -->
+    <style name="Theme.MyApplication.Login" parent="Theme.MyApplication">
+        <item name="colorPrimary">#4ECDC4</item>
+        <item name="colorPrimaryVariant">#FF6B6B</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#FF6B6B</item>
+        <item name="colorSecondaryVariant">#4ECDC4</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <!-- Style for Answer Buttons in Maramures Game -->
+    <style name="AnswerButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:backgroundTint">@color/answer_button_background_tint</item>
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/maramures_accent</item>
+        <item name="android:stateListAnimator">@null</item> <!-- Remove default shadow/elevation animation -->
+    </style>
+
+    <!-- Custom AlertDialog Style (Optional, but good for consistency) -->
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/maramures_primary</item>
+        <item name="colorAccent">@color/maramures_accent</item>
+        <!-- Add other attributes like button text color if needed -->
+    </style>
+
+    <!-- Style for Choice Buttons in Story Activities -->
+    <style name="ChoiceButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">@color/white</item> <!-- Example text color -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">#33FFFFFF</item> <!-- Example semi-transparent background -->
+        <item name="strokeColor">@color/white</item> <!-- Example stroke color -->
+        <item name="strokeWidth">1dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="cornerRadius">8dp</item> <!-- Example corner radius -->
     </style>
 </resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1080dp"
+    android:height="720dp"
+    android:viewportWidth="1080"
+    android:viewportHeight="720">
+    
+    <!-- Background -->
+    <path
+        android:fillColor="#E8F5E9"
+        android:pathData="M0,0h1080v720h-1080z"/>
+    
+    <!-- Black Sea -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M0,0h1080v200h-1080z"/>
+    
+    <!-- Danube River -->
+    <path
+        android:fillColor="#81D4FA"
+        android:pathData="M0,500h1080v50h-1080z"/>
+    
+    <!-- Main cities -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M300,300h20v20h-20z"/> <!-- Constanta -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M400,400h20v20h-20z"/> <!-- Tulcea -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M500,500h20v20h-20z"/> <!-- Medgidia -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M600,600h20v20h-20z"/> <!-- Mangalia -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M700,400h20v20h-20z"/> <!-- Sulina -->
+    
+    <!-- Labels -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M310,310h5v5h-5z"/> <!-- Constanta marker -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M410,410h5v5h-5z"/> <!-- Tulcea marker -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M510,510h5v5h-5z"/> <!-- Medgidia marker -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M610,610h5v5h-5z"/> <!-- Mangalia marker -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M710,410h5v5h-5z"/> <!-- Sulina marker -->
+</vector> 

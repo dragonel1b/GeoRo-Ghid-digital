@@ -4,78 +4,123 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
-
+import androidx.appcompat.app.AppCompatDelegate;
 import com.example.myapplication.Joc1.RomCityActivity;
 import com.example.myapplication.R;
-
+import com.example.myapplication.bucovinausage.BucovinaStoryActivity;
+import com.example.myapplication.bucovinausage.BucovinaGameActivity;
+import com.example.myapplication.bucovinausage.BucovinaMapActivity;
+import com.example.myapplication.viewmodel.CityListActivity;
+import com.example.myapplication.viewmodel.BucovinaViewModel;
+import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
+import android.widget.LinearLayout;
 
 public class Bucovina extends RegionTemplate {
-
-    private TextView textBalance;
     private PointsManager pointsManager;
     private SharedPreferences sharedPreferences;
     private static final String REGION = "bucovina";
+    private MaterialButton casinoButton;
+    private MaterialButton gameButton;
+    private MaterialButton citiesButton;
+    private MaterialButton mapButton;
+    private TextView pointsText;
+    private BucovinaViewModel viewModel;
 
     @Override
     protected String getIntroductionText() {
-        return "Bucovina este o regiune istorică în nordul României, cunoscută pentru mănăstirile sale " +
-               "pictate (patrimoniu UNESCO), peisajele montane și tradițiile păstrate vii.";
+        return "Bucovina este o regiune istorică situată în nordul României, cunoscută pentru mănăstirile sale pictate, " +
+                "peisajele naturale spectaculoase, și tradițiile populare bine conservate. " +
+                "Regiunea are o istorie bogată și o cultură diversă, influențată de vecinătatea cu Ucraina.";
+    }
+
+    protected String getHistoryText() {
+        return "Bucovina are o istorie complexă, fiind o regiune cu o importanță strategică deosebită de-a lungul timpului.\n\n" +
+
+                "Perioada medievală:\n" +
+                "- Parte integrantă a Moldovei medievale începând cu secolul XIV\n" +
+                "- Importantă pentru dezvoltarea culturală și spirituală sub domnia lui Ștefan cel Mare\n" +
+                "- Locul construirii unor mănăstiri celebre, unele incluse astăzi în patrimoniul UNESCO\n\n" +
+
+                "Perioada modernă:\n" +
+                "- Anexată de Imperiul Habsburgic în 1775\n" +
+                "- Sub administrație austriacă până în 1918\n" +
+                "- Dezvoltarea economică și modernizarea sub administrația austriacă\n" +
+                "- Unirea cu România la sfârșitul Primului Război Mondial (1918)\n" +
+                "- Divizarea regiunii după Al Doilea Război Mondial între România și Ucraina";
+    }
+
+    protected String getGeographyText() {
+        return "Geografie fizică:\n" +
+                "- Situată în partea de nord a României, cu o parte în Ucraina\n" +
+                "- Relief variat: munți (Carpații Orientali), dealuri, podișuri și văi\n" +
+                "- Rețea hidrografică bogată: râurile Suceava, Moldova, Siret\n" +
+                "- Climat temperat-continental cu ierni reci și veri moderate\n" +
+                "- Păduri extinse care acoperă o parte semnificativă a regiunii\n\n" +
+
+                "Geografie umană și economică:\n" +
+                "- Activități economice principale: turism, agricultură, silvicultură, industria lemnului\n" +
+                "- Centre urbane importante: Suceava, Câmpulung Moldovenesc, Rădăuți, Gura Humorului\n" +
+                "- Zone rurale cu sate tradiționale bine conservate\n\n" +
+
+                "Biodiversitate și zone protejate:\n" +
+                "- Parcul Național Călimani\n" +
+                "- Rezervații naturale cu specii rare de plante și animale\n" +
+                "- Peisaje naturale deosebite: chei, cascade, masive muntoase";
     }
 
     @Override
     protected String getHistoryGeographyText() {
-        return "Bucovina a fost locuită încă din epoca bronzului, cu influențe dacice și medievale.\n\n" +
-               "Rețea hidrografică: Siret, Moldova, Suceava, Bistrița";
+        return getHistoryText() + "\n\n" + getGeographyText();
     }
 
     @Override
     protected String getCultureTraditionsText() {
-        return "Bucovina păstrează tradiții unice:\n\n" +
-               "- Pictura murală pe mănăstiri\n" +
-               "- Portul popular cu motive florale\n" +
-               "- Meșteșuguri tradiționale (ouă încondeiate)";
+        return "Bucovina este un tezaur cultural, celebră pentru:\n\n" +
+                "- Mănăstirile pictate, unele incluse în patrimoniul UNESCO, precum Voroneț, Humor, Moldovița, Sucevița\n" +
+                "- Arta încondeierii ouălor, o tradiție unică și elaborată\n" +
+                "- Meșteșuguri tradiționale: olărit, țesut, prelucrarea lemnului\n" +
+                "- Costume populare deosebit de elaborate și colorate\n" +
+                "- Obiceiuri și datini ancestrale, păstrate cu sfințenie până în prezent";
     }
 
     @Override
     protected String getAttractionsText() {
-        return "Principalele atracții:\n" +
-               "- Mănăstirile pictate (UNESCO)\n" +
-               "- Cetatea de Scaun a Sucevei\n" +
-               "- Parcul Național Călimani\n" +
-               "- Stațiunea Vatra Dornei\n" +
-               "- Muzeul Satului Bucovinean";
+        return "Bucovina oferă o varietate de atracții turistice remarcabile, printre care se numără:\n\n" +
+                "- **Mănăstirile pictate**: Voroneț (cunoscută pentru \"albastrul de Voroneț\"), Humor, Moldovița, Sucevița și Arbore, toate parte din patrimoniul UNESCO\n\n" +
+                "- **Cetatea de Scaun a Sucevei**: fostă reședință a domnitorilor Moldovei, o impunătoare fortificație medievală\n\n" +
+                "- **Muzeul Satului Bucovinean**: un muzeu în aer liber care prezintă arhitectura tradițională și modul de viață rural\n\n" +
+                "- **Munții Rarău și Stânca Pietrele Doamnei**: formațiuni stâncoase spectaculoase și trasee montane pitorești";
     }
 
     @Override
     protected String getGastronomyText() {
-        return "Specificul culinar:\n" +
-               "- Balmoș bucovinean\n" +
-               "- Plăcinte cu brânză de oi\n" +
-               "- Ciorba de potroace\n" +
-               "- Colaci cu nucă";
+        return "Bucătăria din Bucovina este renumită pentru autenticitatea și savoarea preparatelor tradiționale:\n\n" +
+                "- **Tocana bucovineană**: un fel de mâncare consistent cu carne și legume\n" +
+                "- **Sarmale în foi de varză sau viță**: preparate după rețete tradiționale\n" +
+                "- **Ciorba rădăuțeană**: o specialitate locală pe bază de smântână și carne de pasăre\n" +
+                "- **Plăcintele poale-n brâu**: desert tradițional umplut cu brânză dulce sau brânză sărată cu mărar\n" +
+                "- **Afinata și Vișinata**: băuturi tradiționale preparate din fructe de pădure";
     }
 
     @Override
     protected String getPersonalitiesEventsText() {
-        return "Personalități:\n" +
-               "- Ștefan cel Mare\n" +
-               "- Nicolae Labiș\n" +
-               "- Ciprian Porumbescu\n\n" +
-               "Evenimente:\n" +
-               "- Festivalul Medieval de la Suceava\n" +
-               "- Târgul de Toamnă de la Câmpulung";
+        return "Personalități marcante:\n" +
+                "- **Ciprian Porumbescu**: compozitor și violonist, autor al celebrei \"Balade\"\n" +
+                "- **Mihai Eminescu**: poetul național al României, care a petrecut o parte din viață în această regiune\n\n" +
+                "Evenimente culturale:\n" +
+                "- **Festivalul de Artă Medievală de la Suceava**: reconstituie atmosfera medievală cu cavaleri, meșteșugari și muzică de epocă\n" +
+                "- **Festivalul Ouălor Încondeiate**: celebrează arta tradițională a încondeierii ouălor";
     }
 
     @Override
     protected String getCuriositiesText() {
-        return "Curiozități:\n" +
-               "- Mănăstirile pictate sunt pe lista patrimoniului UNESCO\n" +
-               "- Cel mai vechi stejar din România (500+ ani) se află la Putna\n" +
-               "- Tradiția ouălor încondeiate este unică în lume";
+        return "Știați că:\n" +
+                "- **Albastrul de Voroneț** este o nuanță unică de albastru folosită la Mănăstirea Voroneț, a cărei compoziție exactă rămâne un mister și încă rezistă după secole?\n" +
+                "- **Bucovina** a fost numită astfel de către austrieci, numele însemnând \"Țara fagilor\" (Buchenland în germană), datorită pădurilor extinse de fag din regiune?";
     }
 
     @Override
@@ -87,159 +132,338 @@ public class Bucovina extends RegionTemplate {
     protected ArrayList<String> getCityImages() {
         ArrayList<String> images = new ArrayList<>();
         images.add("suceava");
+        images.add("gura_humorului");
+        images.add("radauti");
         images.add("campulung");
         images.add("vatra_dornei");
-        images.add("gura_humorului");
-        images.add("putna");
         return images;
     }
 
     private final String[] cityDescriptions = {
-            "Suceava, fosta capitală a Moldovei, este un important centru istoric și cultural. " +
-                    "Cetatea de Scaun a Sucevei, construită în secolul al XIV-lea, este principalul punct de atracție. " +
-                    "Orașul găzduiește numeroase muzee și mănăstiri istorice, precum Mănăstirea Sfântul Ioan cel Nou. " +
-                    "Centrul vechi al orașului păstrează arhitectura tradițională bucovineană.",
+            "Suceava este fostă capitală a Moldovei și centrul administrativ al Bucovinei. " +
+                    "Orașul impresionează prin Cetatea de Scaun, bisericile medievale și atmosfera istorică. " +
+                    "Este un important centru cultural și poartă de intrare spre mănăstirile pictate din regiune.",
 
-            "Câmpulung Moldovenesc, situat în inima Bucovinei, este un important centru turistic. " +
-                    "Orașul este înconjurat de munți pitorești și oferă multiple oportunități pentru drumeții și schi. " +
-                    "Muzeul Lemnului și arhitectura tradițională bucovineană sunt atracții importante. " +
-                    "Festivalurile locale păstrează vie cultura și tradițiile zonei.",
+            "Gura Humorului este un orășel pitoresc, situat într-o zonă de o frumusețe naturală deosebită. " +
+                    "Reprezintă un important punct de plecare spre mănăstirile Humor și Voroneț și spre " +
+                    "atracțiile naturale din împrejurimi.",
 
-            "Vatra Dornei este o renumită stațiune balneoclimaterică. " +
-                    "Cunoscută pentru apele minerale cu proprietăți curative și pentru pârtiile de schi, " +
-                    "orașul atrage turiști în toate anotimpurile. Cazinoul istoric, parcurile și " +
-                    "facilitățile de tratament sunt principalele puncte de interes.",
+            "Rădăuți este unul dintre cele mai vechi orașe din Moldova, cu o bogată tradiție culturală. " +
+                    "Este cunoscut pentru hergheliile de cai, meșteșugurile tradiționale și gastronomia locală, " +
+                    "în special pentru celebra \"ciorbă rădăuțeană\".",
 
-            "Gura Humorului este poarta de intrare în Bucovina. " +
-                    "Orașul este cunoscut pentru Mănăstirea Voroneț și pentru tradițiile locale. " +
-                    "Muzeul de Etnografie și Artă Populară prezintă bogăția culturală a zonei.",
+            "Câmpulung Moldovenesc, situat în inima Bucovinei, este înconjurat de munți și păduri impresionante. " +
+                    "Orașul găzduiește Muzeul Lemnului și este cunoscut pentru tradițiile forestiere și peisajele " +
+                    "naturale spectaculoase din împrejurimi.",
 
-            "Putna este un important centru spiritual. " +
-                    "Mănăstirea Putna, ctitoria lui Ștefan cel Mare, este un simbol al ortodoxiei românești. " +
-                    "Zona este cunoscută și pentru peisajele sale montane spectaculoase."
+            "Vatra Dornei este o renumită stațiune balneoclimaterică, situată într-o depresiune pitorească. " +
+                    "Este apreciată pentru apele minerale terapeutice, pârtiile de schi, aerul curat și " +
+                    "posibilitățile de tratament și recreere în toate anotimpurile."
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set theme before super.onCreate
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.Theme_MyApplication_Dark);
+        } else {
+            setTheme(R.style.Theme_MyApplication_Light);
+        }
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bucovina);
 
+        // Initialize components
+        initializeComponents();
+        
+        // Set up image carousel
+        setupImageCarousel();
+        
+        // Initialize content sections
+        initializeSections();
+        
+        // Initialize city content
+        initializeSpecificContent();
+        
+        // Update points display
+        updatePointsDisplay();
+        
+        // Load saved states
+        loadCheckboxStates();
+    }
+
+    private void initializeComponents() {
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
 
         // Initialize PointsManager
         pointsManager = PointsManager.getInstance(this);
 
-        // Initialize UI elements
-        textBalance = findViewById(R.id.textBalance);
+        // Initialize viewModel
+        viewModel = new BucovinaViewModel();
 
-        // Load saved states
-        loadCheckboxStates();
+        // Find views - updated IDs based on new layout
+        pointsText = findViewById(R.id.textBalance);
+        casinoButton = findViewById(R.id.buttonGoToCasinoStory);
+        gameButton = findViewById(R.id.buttonGoToDobrogeaGame);
+        citiesButton = findViewById(R.id.buttonGoToCities);
+        mapButton = findViewById(R.id.buttonGoToMap);
+        
+        // Back button is handled via onClick attribute in XML
+        
+        // Set up navigation buttons
+        setupNavigationButtons();
+    }
+
+    private void setupImageCarousel() {
+        ArrayList<String> images = getCityImages();
+        if (images != null && !images.isEmpty()) {
+            androidx.viewpager2.widget.ViewPager2 viewPager = findViewById(R.id.imageCarousel);
+            com.example.myapplication.adapter.ImageCarouselAdapter adapter = 
+                new com.example.myapplication.adapter.ImageCarouselAdapter(this, images);
+            viewPager.setAdapter(adapter);
+            
+            com.google.android.material.tabs.TabLayout tabLayout = findViewById(R.id.imageIndicator);
+            new com.google.android.material.tabs.TabLayoutMediator(tabLayout, viewPager, 
+                (tab, position) -> {}).attach();
+        }
+    }
+
+    private void initializeSections() {
+        // Nu mai facem nimic deoarece sectionsContainer a fost eliminat din layout
+        // Toate secțiunile sunt acum gestionate de clasa părinte RegionTemplate
+    }
+
+    @Override
+    protected void initializeSpecificContent() {
+        // Ne bazăm pe implementarea clasei părinte pentru afișarea conținutului
+        super.initializeSpecificContent();
+        
+        // Adăugăm secțiunile specifice care nu sunt gestionate de clasa părinte
+        // Aceste secțiuni vor fi adăugate în cityContentContainer
+        View containerView = findViewById(R.id.cityContentContainer);
+        if (containerView != null && containerView instanceof LinearLayout) {
+            LinearLayout container = (LinearLayout) containerView;
+            addSection(container, "Gastronomie", getGastronomyText(), false);
+            addSection(container, "Personalități și Evenimente", getPersonalitiesEventsText(), false);
+            addSection(container, "Curiozități", getCuriositiesText(), false);
+
+            // Adăugăm listeneri pentru deschiderea activității de recenzie
+            addSectionReviewListeners();
+        }
+    }
+
+    private void addSectionReviewListeners() {
+        LinearLayout container = findViewById(R.id.cityContentContainer);
+        if (container == null) return;
+
+        // Parcurgem toate vederile din container
+        for (int i = 0; i < container.getChildCount(); i++) {
+            View childView = container.getChildAt(i);
+            if (childView != null) {
+                // Verificăm dacă avem un titlu și conținut în această secțiune
+                TextView titleView = childView.findViewById(R.id.sectionTitle);
+                TextView contentView = childView.findViewById(R.id.sectionContent);
+
+                if (titleView != null && contentView != null) {
+                    final String title = titleView.getText().toString();
+                    final String content = contentView.getText().toString();
+
+                    // Adăugăm listener pentru click pe secțiune pentru a deschide SectionPreviewActivity
+                    childView.setOnClickListener(v -> {
+                        try {
+                            Intent intent = new Intent(this, com.example.myapplication.viewmodel.SectionPreviewActivity.class);
+                            intent.putExtra(com.example.myapplication.viewmodel.SectionPreviewActivity.EXTRA_TITLE, title);
+                            intent.putExtra(com.example.myapplication.viewmodel.SectionPreviewActivity.EXTRA_CONTENT, content);
+                            startActivity(intent);
+                            // Aplicăm animație la tranziție
+                            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+                        } catch (Exception e) {
+                            // Handle exception in case SectionPreviewActivity doesn't exist
+                            Toast.makeText(Bucovina.this, "Nu se poate deschide secțiunea: " + e.getMessage(), 
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    // Adăugăm un efect de hover pentru a indica că secțiunea este clickabilă
+                    childView.setOnTouchListener((v, event) -> {
+                        switch (event.getAction()) {
+                            case android.view.MotionEvent.ACTION_DOWN:
+                                v.setAlpha(0.8f);
+                                v.setScaleX(0.98f);
+                                v.setScaleY(0.98f);
+                                break;
+                            case android.view.MotionEvent.ACTION_UP:
+                            case android.view.MotionEvent.ACTION_CANCEL:
+                                v.setAlpha(1.0f);
+                                v.setScaleX(1.0f);
+                                v.setScaleY(1.0f);
+                                break;
+                        }
+                        return false;
+                    });
+                }
+            }
+        }
+    }
+
+    private void setupNavigationButtons() {
+        // Cities button
+        if (citiesButton != null) {
+            citiesButton.setOnClickListener(v -> {
+                Intent intent = new Intent(this, CityListActivity.class);
+                intent.putExtra(CityListActivity.EXTRA_REGION_NAME, "Bucovina");
+                startActivity(intent);
+            });
+        }
+
+        // Map button
+        if (mapButton != null) {
+            mapButton.setOnClickListener(v -> startMapActivity());
+        }
+
+        // Casino button
+        if (casinoButton != null) {
+            casinoButton.setOnClickListener(v -> {
+                if (pointsManager.getPoints(this) >= 100) {
+                    Intent intent = new Intent(this, BucovinaStoryActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Ai nevoie de cel puțin 100 de puncte pentru a juca Casino Story!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        // Bucovina Game button
+        if (gameButton != null) {
+            gameButton.setOnClickListener(v -> {
+                if (pointsManager.getPoints(this) >= 50) {
+                    Intent intent = new Intent(this, BucovinaGameActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Ai nevoie de cel puțin 50 de puncte pentru a juca Bucovina Game!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         updatePointsDisplay();
-    }
 
-    private String getCurrentUserId() {
-        SharedPreferences userPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        return userPrefs.getString("current_user_id", "default");
-    }
-
-    private void loadCheckboxStates() {
-        String userId = getCurrentUserId();
-        CheckBox checkBox1 = findViewById(R.id.checkBox1);
-        CheckBox checkBox2 = findViewById(R.id.checkBox2);
-        CheckBox checkBox3 = findViewById(R.id.checkBox3);
-        CheckBox checkBox4 = findViewById(R.id.checkBox4);
-        CheckBox checkBox5 = findViewById(R.id.checkBox5);
-
-        if (checkBox1 != null) checkBox1.setChecked(sharedPreferences.getBoolean(userId + "_checkBox1_" + REGION, false));
-        if (checkBox2 != null) checkBox2.setChecked(sharedPreferences.getBoolean(userId + "_checkBox2_" + REGION, false));
-        if (checkBox3 != null) checkBox3.setChecked(sharedPreferences.getBoolean(userId + "_checkBox3_" + REGION, false));
-        if (checkBox4 != null) checkBox4.setChecked(sharedPreferences.getBoolean(userId + "_checkBox4_" + REGION, false));
-        if (checkBox5 != null) checkBox5.setChecked(sharedPreferences.getBoolean(userId + "_checkBox5_" + REGION, false));
-    }
-
-    public void onCheckboxClicked(View view) {
-        if (view instanceof CheckBox) {
-            CheckBox checkBox = (CheckBox) view;
-            pointsManager.updateLandmarkStatus(this, REGION, checkBox.isChecked());
-
-            // Save state with user ID
-            String userId = getCurrentUserId();
-            String checkBoxId = getResources().getResourceEntryName(view.getId());
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(userId + "_" + checkBoxId + "_" + REGION, checkBox.isChecked());
-            editor.apply();
-
+        // Get the game score from the intent
+        int gameScore = getIntent().getIntExtra("GAME_SCORE", 0);
+        if (gameScore > 0) {
+            // Add the game score to the total points
+            pointsManager.addPoints(this, "bucovina", gameScore);
+            // Clear the score from the intent to avoid adding it multiple times
+            getIntent().removeExtra("GAME_SCORE");
+            // Update the points display
             updatePointsDisplay();
         }
     }
 
     private void updatePointsDisplay() {
-        if (textBalance != null) {
-            int points = pointsManager.getTotalPoints(this);
-            textBalance.setText("💰 Total Puncte: " + points);
+        if (pointsText != null) {
+            int points = pointsManager.getPoints(this);
+            pointsText.setText(String.valueOf(points));
         }
+    }
+
+    private String getCurrentUserId() {
+        // In a real app, this would get the current logged-in user
+        return "default_user";
+    }
+
+    private void loadCheckboxStates() {
+        // Nu mai facem nimic deoarece checkbox-urile au fost eliminate din layout
+        // Lăsăm metoda goală pentru a evita erorile
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Nu mai facem nimic deoarece checkbox-urile au fost eliminate din layout
+        // Lăsăm metoda goală pentru a evita erorile
+    }
+
+    private void saveCheckboxStates() {
+        // Nu mai facem nimic deoarece checkbox-urile au fost eliminate din layout
+        // Lăsăm metoda goală pentru a evita erorile
     }
 
     public void showPopup1(View view) {
         showPopup("Suceava", cityDescriptions[0]);
         Intent intent = new Intent(this, RomCityActivity.class);
         intent.putExtra("CITY_NAME", "Suceava");
-        intent.putExtra("city_lat", 47.6333);
-        intent.putExtra("city_lng", 26.2500);
+        intent.putExtra("city_lat", 47.6635);
+        intent.putExtra("city_lng", 26.2732);
         startActivity(intent);
     }
 
     public void showPopup2(View view) {
-        showPopup("Câmpulung Moldovenesc", cityDescriptions[1]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Câmpulung Moldovenesc");
-        intent.putExtra("city_lat", 47.5333);
-        intent.putExtra("city_lng", 25.5500);
-        startActivity(intent);
+        if (cityDescriptions.length > 1) {
+            showPopup("Gura Humorului", cityDescriptions[1]);
+            Intent intent = new Intent(this, RomCityActivity.class);
+            intent.putExtra("CITY_NAME", "Gura Humorului");
+            intent.putExtra("city_lat", 47.5533);
+            intent.putExtra("city_lng", 25.8902);
+            startActivity(intent);
+        }
     }
 
     public void showPopup3(View view) {
-        showPopup("Vatra Dornei", cityDescriptions[2]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Vatra Dornei");
-        intent.putExtra("city_lat", 47.3500);
-        intent.putExtra("city_lng", 25.3667);
-        startActivity(intent);
+        if (cityDescriptions.length > 2) {
+            showPopup("Rădăuți", cityDescriptions[2]);
+            Intent intent = new Intent(this, RomCityActivity.class);
+            intent.putExtra("CITY_NAME", "Rădăuți");
+            intent.putExtra("city_lat", 47.8428);
+            intent.putExtra("city_lng", 25.9209);
+            startActivity(intent);
+        }
     }
 
     public void showPopup4(View view) {
-        showPopup("Gura Humorului", cityDescriptions[3]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Gura Humorului");
-        intent.putExtra("city_lat", 47.5500);
-        intent.putExtra("city_lng", 25.9000);
-        startActivity(intent);
+        if (cityDescriptions.length > 3) {
+            showPopup("Câmpulung Moldovenesc", cityDescriptions[3]);
+            Intent intent = new Intent(this, RomCityActivity.class);
+            intent.putExtra("CITY_NAME", "Câmpulung Moldovenesc");
+            intent.putExtra("city_lat", 47.5285);
+            intent.putExtra("city_lng", 25.5649);
+            startActivity(intent);
+        }
     }
 
     public void showPopup5(View view) {
-        showPopup("Putna", cityDescriptions[4]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Putna");
-        intent.putExtra("city_lat", 47.8667);
-        intent.putExtra("city_lng", 25.6167);
-        startActivity(intent);
+        if (cityDescriptions.length > 4) {
+            showPopup("Vatra Dornei", cityDescriptions[4]);
+            Intent intent = new Intent(this, RomCityActivity.class);
+            intent.putExtra("CITY_NAME", "Vatra Dornei");
+            intent.putExtra("city_lat", 47.3526);
+            intent.putExtra("city_lng", 25.3597);
+            startActivity(intent);
+        }
     }
 
     private void showPopup(String title, String description) {
         if (!isFinishing()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(title)
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(title)
                     .setMessage(description)
                     .setPositiveButton("Închide", null)
-                    .show();
+                    .setCancelable(true);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            // Set text colors for dark mode
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                    getResources().getColor(R.color.rom_primary));
         }
     }
 
     public void goBack(View view) {
-        Intent intent = new Intent(this, UserActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
         finish();
     }
 
@@ -249,22 +473,90 @@ public class Bucovina extends RegionTemplate {
         saveCheckboxStates();
     }
 
-    private void saveCheckboxStates() {
-        String userId = getCurrentUserId();
-        CheckBox checkBox1 = findViewById(R.id.checkBox1);
-        CheckBox checkBox2 = findViewById(R.id.checkBox2);
-        CheckBox checkBox3 = findViewById(R.id.checkBox3);
-        CheckBox checkBox4 = findViewById(R.id.checkBox4);
-        CheckBox checkBox5 = findViewById(R.id.checkBox5);
+    public void startMapActivity() {
+        try {
+            Intent intent = new Intent(this, BucovinaMapActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            String errorMessage = "Nu s-a putut deschide harta Bucovinei: " + e.getMessage();
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+            // Log error details for debugging
+            android.util.Log.e("Bucovina", errorMessage);
 
-        if (checkBox1 != null) editor.putBoolean(userId + "_checkBox1_" + REGION, checkBox1.isChecked());
-        if (checkBox2 != null) editor.putBoolean(userId + "_checkBox2_" + REGION, checkBox2.isChecked());
-        if (checkBox3 != null) editor.putBoolean(userId + "_checkBox3_" + REGION, checkBox3.isChecked());
-        if (checkBox4 != null) editor.putBoolean(userId + "_checkBox4_" + REGION, checkBox4.isChecked());
-        if (checkBox5 != null) editor.putBoolean(userId + "_checkBox5_" + REGION, checkBox5.isChecked());
+            // Show detailed error dialog for developers
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Eroare hartă interactivă")
+                    .setMessage("Detalii eroare:\n" + e.toString() + "\n\nCauza: " + (e.getCause() != null ? e.getCause().toString() : "Necunoscută"))
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
+    }
 
-        editor.apply();
+    public void handleLocationClick(int locationId) {
+        switch (locationId) {
+            case 1: // Suceava
+                Intent intentSuceava = new Intent(this, RomCityActivity.class);
+                intentSuceava.putExtra("CITY_NAME", "Suceava");
+                intentSuceava.putExtra("city_lat", 47.6635);
+                intentSuceava.putExtra("city_lng", 26.2732);
+                startActivity(intentSuceava);
+                break;
+            case 2: // Gura Humorului
+                Intent intentGura = new Intent(this, RomCityActivity.class);
+                intentGura.putExtra("CITY_NAME", "Gura Humorului");
+                intentGura.putExtra("city_lat", 47.5533);
+                intentGura.putExtra("city_lng", 25.8902);
+                startActivity(intentGura);
+                break;
+            case 3: // Rădăuți
+                Intent intentRadauti = new Intent(this, RomCityActivity.class);
+                intentRadauti.putExtra("CITY_NAME", "Rădăuți");
+                intentRadauti.putExtra("city_lat", 47.8428);
+                intentRadauti.putExtra("city_lng", 25.9209);
+                startActivity(intentRadauti);
+                break;
+            case 4: // Câmpulung Moldovenesc
+                Intent intentCampulung = new Intent(this, RomCityActivity.class);
+                intentCampulung.putExtra("CITY_NAME", "Câmpulung Moldovenesc");
+                intentCampulung.putExtra("city_lat", 47.5285);
+                intentCampulung.putExtra("city_lng", 25.5649);
+                startActivity(intentCampulung);
+                break;
+            case 5: // Vatra Dornei
+                Intent intentVatra = new Intent(this, RomCityActivity.class);
+                intentVatra.putExtra("CITY_NAME", "Vatra Dornei");
+                intentVatra.putExtra("city_lat", 47.3526);
+                intentVatra.putExtra("city_lng", 25.3597);
+                startActivity(intentVatra);
+                break;
+            case 6: // Bucovina Game
+                startActivity(BucovinaGameActivity.class);
+                break;
+            case 7: // Bucovina Story
+                startActivity(BucovinaStoryActivity.class);
+                break;
+            default:
+                Toast.makeText(this, "Această locație nu este disponibilă momentan", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    private void startActivity(Class<?> activityClass) {
+        Intent intent = new Intent(this, activityClass);
+        startActivity(intent);
+    }
+
+    public void updateProgress(int locationId, boolean completed) {
+        viewModel.updateLocationProgress(locationId, completed);
+    }
+
+    public boolean isLocationCompleted(int locationId) {
+        return viewModel.isLocationCompleted(locationId);
+    }
+
+    public int getCompletedLocationsCount() {
+        return viewModel.getCompletedLocationsCount();
     }
 }

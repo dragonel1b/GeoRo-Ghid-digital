@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed and checked state -->
+    <item android:state_pressed="true" android:state_checked="true">
+        <set>
+            <objectAnimator
+                android:propertyName="translationZ"
+                android:duration="100"
+                android:valueTo="6dp"
+                android:valueType="floatType"/>
+            <objectAnimator
+                android:propertyName="elevation"
+                android:duration="100"
+                android:valueTo="6dp"
+                android:valueType="floatType"/>
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="100"
+                android:valueTo="0.97"
+                android:valueType="floatType"/>
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="100"
+                android:valueTo="0.97"
+                android:valueType="floatType"/>
+        </set>
+    </item>
+
+    <!-- Checked state -->
+    <item android:state_checked="true">
+        <set>
+            <objectAnimator
+                android:propertyName="translationZ"
+                android:duration="200"
+                android:valueTo="4dp"
+                android:valueType="floatType"/>
+            <objectAnimator
+                android:propertyName="elevation"
+                android:duration="200"
+                android:valueTo="4dp"
+                android:valueType="floatType"/>
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="200"
+                android:valueTo="1.0"
+                android:valueType="floatType"/>
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="200"
+                android:valueTo="1.0"
+                android:valueType="floatType"/>
+        </set>
+    </item>
+    
     <!-- Pressed state -->
     <item android:state_pressed="true">
         <set>
@@ -32,12 +84,12 @@
             <objectAnimator
                 android:propertyName="translationZ"
                 android:duration="100"
-                android:valueTo="4dp"
+                android:valueTo="2dp"
                 android:valueType="floatType"/>
             <objectAnimator
                 android:propertyName="elevation"
                 android:duration="100"
-                android:valueTo="4dp"
+                android:valueTo="2dp"
                 android:valueType="floatType"/>
             <objectAnimator
                 android:propertyName="scaleX"

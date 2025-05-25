@@ -19,6 +19,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.RomApp.*;
 import com.example.myapplication.Joc1.RomSplashActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import android.content.SharedPreferences;
 
 public class UserActivity extends AppCompatActivity {
     private CardView welcomeCard;
@@ -235,7 +237,20 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void handleLogout() {
-        // Implement logout logic
+        // Clear any saved preferences
+        SharedPreferences sharedPref = getSharedPreferences("login_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("remember_me", false);
+        editor.apply();
+
+        // Sign out from Firebase
+        FirebaseAuth.getInstance().signOut();
+
+        // Redirect to login screen
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
     }
 

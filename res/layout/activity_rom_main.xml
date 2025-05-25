@@ -1,288 +1,528 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/rom_background_new"
-        android:paddingBottom="24dp">
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-        <!-- Header -->
-        <TextView
-            android:id="@+id/titleText"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:contentInsetStart="16dp">
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drumul Prin România"
+                android:textColor="#3A3A3A"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@drawable/romania_map_bg"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginHorizontal="24dp"
-            android:text="Drumul Prin România"
-            style="@style/RomTextTitle"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:paddingBottom="24dp">
 
-        <!-- Resource Panel -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/resourcePanel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            style="@style/RomCardView"
-            app:layout_constraintTop_toBottomOf="@id/titleText">
-
-            <LinearLayout
+            <!-- Resource Panel -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/resourcePanel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:weightSum="3">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#F8F8F8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp">
 
-                <!-- Fuel -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:weightSum="3">
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_fuel"
-                        android:contentDescription="Combustibil"
-                        app:tint="@color/rom_fuel_color" />
-
-                    <TextView
-                        android:id="@+id/fuelText"
-                        android:layout_width="wrap_content"
+                    <!-- Fuel -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="50L"
-                        style="@style/RomResourceDisplay"
-                        android:textColor="@color/rom_fuel_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <!-- Money -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_fuel"
+                            android:contentDescription="Combustibil"
+                            app:tint="#FF5722" />
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_money"
-                        android:contentDescription="Bani"
-                        app:tint="@color/rom_money_color" />
+                        <TextView
+                            android:id="@+id/fuelText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="50L"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#FF5722" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/moneyText"
-                        android:layout_width="wrap_content"
+                    <!-- Money -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="1000 RON"
-                        style="@style/RomResourceDisplay"
-                        android:textColor="@color/rom_money_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <!-- Food -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_money"
+                            android:contentDescription="Bani"
+                            app:tint="#4CAF50" />
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_food"
-                        android:contentDescription="Mâncare"
-                        app:tint="@color/rom_food_color" />
+                        <TextView
+                            android:id="@+id/moneyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="1000 RON"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#4CAF50" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/foodText"
-                        android:layout_width="wrap_content"
+                    <!-- Food -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="5 kg"
-                        style="@style/RomResourceDisplay"
-                        android:textColor="@color/rom_food_color" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_food"
+                            android:contentDescription="Mâncare"
+                            app:tint="#FFC107" />
+
+                        <TextView
+                            android:id="@+id/foodText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="5 kg"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFC107" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
 
-        <!-- Culture Points Display -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/culturePointsCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            style="@style/RomCardView"
-            app:layout_constraintTop_toBottomOf="@id/resourcePanel">
-
-            <LinearLayout
+            <!-- Culture Points Display -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/culturePointsCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="12dp">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#F8F8F8"
+                app:layout_constraintTop_toBottomOf="@id/resourcePanel"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Puncte Culturale: "
-                    style="@style/RomTextBody" />
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="12dp">
 
-                <TextView
-                    android:id="@+id/culturePointsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@color/rom_culture_points_color"
-                    style="@style/RomTextSubtitle" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_check"
+                        android:contentDescription="Puncte Culturale"
+                        android:layout_marginEnd="8dp"
+                        app:tint="#673AB7" />
 
-        <!-- Main Buttons Container -->
-        <LinearLayout
-            android:id="@+id/mainButtonsContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            android:layout_marginHorizontal="16dp"
-            app:layout_constraintTop_toBottomOf="@id/culturePointsCard">
-            <!-- Top Row -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Puncte Culturale: "
+                        android:textColor="#555555"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/culturePointsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#673AB7"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Activities Section Title -->
+            <TextView
+                android:id="@+id/activitiesSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activități"
+                android:textColor="#3A3A3A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/culturePointsCard" />
+
+            <!-- Main Buttons Container -->
             <LinearLayout
+                android:id="@+id/mainButtonsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintTop_toBottomOf="@id/activitiesSectionTitle">
+                
+                <!-- Top Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <!-- Minigame Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/minigameButton"
-                    style="@style/RomButton"
-                    android:layout_width="184dp"
-                    android:layout_height="64dp"
-                    android:onClick="startMinigame"
-                    android:text="@string/minigame_label"
-                    app:icon="@drawable/ic_player_character"
-                    app:iconGravity="textStart"
-                    app:iconPadding="1dp" />
+                    <!-- Minigame Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/minigameCard"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="#3F51B5"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#FFFFFF">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:onClick="startMinigame"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_player_character"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/minigame_label"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Traditional Game Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/traditionalGameCard"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="#009688"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#FFFFFF">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:onClick="openTarataravremostasiActivity"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_attraction"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Joc Traditional"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Middle Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <!-- Quiz Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/quizCard"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="#E91E63"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#FFFFFF">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:onClick="startQuiz"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ÎNCEPE QUIZ-UL"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Map Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mapCard"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="#FF9800"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#FFFFFF">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:onClick="openMapActivity"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_attraction"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="EXPLOREAZĂ HARTA"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
                 <!-- Bottom Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
 
-                    <!-- Tarataravremostasi Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/tarataravremostasiButton"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:onClick="openTarataravremostasiActivity"
-                    android:text="Joc Traditional"
-                    app:iconGravity="textStart"
-                    app:iconPadding="16dp"
-                    style="@style/RomButton" />
+                    <!-- Quest Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/questCard"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="#673AB7"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#FFFFFF">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:onClick="startQuestMode"
+                            android:padding="16dp">
 
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_attraction"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="QUEST PATRIMONIU"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Culinary Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/culinaryCard"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="#4CAF50"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#FFFFFF">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:onClick="startCulinaryWelcome"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_food"
+                                app:tint="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CĂLĂTORIE CULINARĂ"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
             </LinearLayout>
 
+            <!-- Destinations Section Title -->
+            <TextView
+                android:id="@+id/destinationsSectionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destinații populare"
+                android:textColor="#3A3A3A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mainButtonsContainer" />
 
-            <!-- Middle Row -->
-            <LinearLayout
+            <!-- Destinations RecyclerView instead of GridLayout for better scrolling -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/destinationsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                app:layout_constraintTop_toBottomOf="@id/destinationsSectionTitle" />
 
-                <!-- Quiz Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/quizButton"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:onClick="startQuiz"
-                    android:text="ÎNCEPE QUIZ-UL"
-                    app:icon="@drawable/ic_check"
-                    app:iconGravity="textStart"
-                    app:iconPadding="16dp"
-                    style="@style/RomButton" />
+            <!-- Destination Grid (keeping for backward compatibility, but hidden) -->
+            <GridLayout
+                android:id="@+id/destinationGrid"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <!-- Map Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/mapButton"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:onClick="openMapActivity"
-                    android:text="EXPLOREAZĂ HARTA"
-                    app:icon="@drawable/ic_attraction"
-                    app:iconGravity="textStart"
-                    app:iconPadding="16dp"
-                    style="@style/RomButton" />
-            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-            <!-- Bottom Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-
-                <!-- Quest Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/questButton"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:onClick="startQuestMode"
-                    android:text="QUEST PATRIMONIU"
-                    app:icon="@drawable/ic_attraction"
-                    app:iconGravity="textStart"
-                    app:iconPadding="16dp"
-                    style="@style/RomButton" />
-
-                <!-- Culinary Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/culinaryButton"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:onClick="startCulinaryMode"
-                    android:text="CĂLĂTORIE CULINARĂ"
-                    app:icon="@drawable/ic_food"
-                    app:iconGravity="textStart"
-                    app:iconPadding="16dp"
-                    style="@style/RomButton" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Destination Grid -->
-        <GridLayout
-            android:id="@+id/destinationGrid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginHorizontal="16dp"
-            android:columnCount="2"
-            android:rowCount="3"
-            android:useDefaultMargins="true"
-            app:layout_constraintTop_toBottomOf="@id/mainButtonsContainer" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    <!-- Floating Action Button for achievements -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/achievementsFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_check"
+        app:tint="#FFFFFF"
+        app:backgroundTint="#FF5722"
+        app:borderWidth="0dp"
+        android:contentDescription="Achievements" />
+        
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

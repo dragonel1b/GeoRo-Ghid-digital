@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/muntenia_primary_light" />
+            <corners android:radius="8dp" />
+            <stroke android:width="2dp" android:color="@color/muntenia_accent" />
+            <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp" />
+        </shape>
+    </item>
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@android:drawable/ic_menu_gallery" />
+    </item>
+</layer-list> 

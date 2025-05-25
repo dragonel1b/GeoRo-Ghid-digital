@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Background -->
+    <path
+        android:fillColor="#F5F5DC"
+        android:pathData="M0,0h200v150h-200z"/>
+    
+    <!-- Bojdeuca (traditional house) -->
+    <path
+        android:fillColor="#D2B48C"
+        android:pathData="M50,60h100v60h-100z"/>
+    
+    <!-- Roof -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M30,60L100,30L170,60z"/>
+    
+    <!-- Door -->
+    <path
+        android:fillColor="#654321"
+        android:pathData="M90,90h20v30h-20z"/>
+    
+    <!-- Windows -->
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M60,75h20v20h-20z"/>
+    <path
+        android:fillColor="#B0C4DE"
+        android:pathData="M120,75h20v20h-20z"/>
+    
+    <!-- Book -->
+    <path
+        android:fillColor="#FFF8DC"
+        android:pathData="M170,80h20v25h-20z"/>
+    <path
+        android:fillColor="#FFF8DC"
+        android:pathData="M170,80c0,0 -3,-5 0,-5h20c3,0 0,5 0,5"/>
+    
+    <!-- Tree -->
+    <path
+        android:fillColor="#654321"
+        android:pathData="M20,80v30h10v-30z"/>
+    <path
+        android:fillColor="#228B22"
+        android:pathData="M15,40a15,40 0 1,0 20,0a15,40 0 1,0 -20,0"/>
+</vector> 

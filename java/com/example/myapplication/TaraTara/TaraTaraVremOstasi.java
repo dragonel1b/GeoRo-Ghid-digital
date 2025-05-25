@@ -91,8 +91,8 @@ public class TaraTaraVremOstasi extends Activity {
                 false,
                 soldierDrawable);
 
-        // Add the teams to the game
-        gameController.setTeams(playerTeam, enemyTeam, playerTeam2);
+        // Don't start the game here, just initialize the teams
+        // We'll actually start the game in the startGame method
         uiController.updateAvatarViews(playerTeam.getSoldierCount() + playerTeam2.getSoldierCount(), enemyTeam.getSoldierCount());
     }
 
@@ -124,7 +124,7 @@ public class TaraTaraVremOstasi extends Activity {
             gameView.setOnTeamUpdateListener(new TaraMinigameGameView.OnTeamUpdateListener() {
                 @Override
                 public void onTeamUpdate(Team team) {
-                    uiController.updateTeamUI(playerTeam, enemyTeam, playerTeam2, gameController.isFleeingMode());
+                    uiController.updateTeamUI(playerTeam, enemyTeam, true);
                 }
 
                 @Override
@@ -140,16 +140,11 @@ public class TaraTaraVremOstasi extends Activity {
 
         gameInProgress = true;
 
-        // Initialize teams with soldiers (5v5)
-        float screenWidth = gameView.getWidth();
-        float screenHeight = gameView.getHeight();
-
-        int initialSoldiers = 5;
-        playerTeam.initializeTeam(screenWidth, screenHeight, initialSoldiers);
-        enemyTeam.initializeTeam(screenWidth, screenHeight, initialSoldiers);
+        // No need to initialize teams with soldiers here since that's 
+        // now handled in TaraMinigameGameView
 
         // Reset UI elements and show tutorial
-        uiController.updateTeamUI(playerTeam, enemyTeam, null, false);
+        uiController.updateTeamUI(playerTeam, enemyTeam, false);
         uiController.showGameMessage(R.string.tutorial_step1);
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             uiController.showGameMessage(R.string.tutorial_step2);
@@ -158,6 +153,8 @@ public class TaraTaraVremOstasi extends Activity {
         // Start the game in GameView
         if (gameView != null) {
             gameView.startGame(playerTeam, enemyTeam, playerTeam2);
+            // Start the game in GameController with both player teams
+            gameController.startGame(playerTeam, playerTeam2, enemyTeam);
             Log.d("TaraTaraVremOstasi", "Game started successfully");
         } else {
             Log.e("TaraTaraVremOstasi", "GameView is null");

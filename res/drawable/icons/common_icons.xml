@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation Icons -->
+    <drawable name="ic_back">@drawable/ic_back</drawable>
+    <drawable name="ic_close">@drawable/ic_close</drawable>
+    <drawable name="ic_logout">@drawable/ic_logout</drawable>
+    <drawable name="ic_logout_small">@drawable/ic_logout_small</drawable>
+
+    <!-- Feature Icons -->
+    <drawable name="ic_money">@drawable/ic_money</drawable>
+    <drawable name="ic_info">@drawable/ic_info</drawable>
+    <drawable name="ic_check">@drawable/ic_check</drawable>
+    <drawable name="ic_food">@drawable/ic_food</drawable>
+    <drawable name="ic_achievement">@drawable/ic_achievement</drawable>
+    <drawable name="ic_attraction">@drawable/ic_attraction</drawable>
+    <drawable name="ic_game_controller">@drawable/ic_game_controller</drawable>
+    <drawable name="ic_flag_romania">@drawable/ic_flag_romania</drawable>
+    <drawable name="ic_region_flag">@drawable/ic_region_flag</drawable>
+    <drawable name="ic_region_marker_animated">@drawable/ic_region_marker_animated</drawable>
+
+    <!-- Authentication Icons -->
+    <drawable name="ic_email">@drawable/ic_email</drawable>
+    <drawable name="ic_lock">@drawable/ic_lock</drawable>
+    <drawable name="ic_add_photo">@drawable/ic_add_photo</drawable>
+</resources> 

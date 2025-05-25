@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Living room wall background -->
+    <path
+        android:fillColor="#ECEFF1"
+        android:pathData="M0,0h100v100h-100z" />
+
+    <!-- Wall decoration - Moldova-inspired pattern -->
+    <path
+        android:fillColor="#3F51B5"
+        android:fillAlpha="0.1"
+        android:pathData="M5,5 h10 v10 h-10 z
+                          M25,5 h10 v10 h-10 z
+                          M45,5 h10 v10 h-10 z
+                          M65,5 h10 v10 h-10 z
+                          M85,5 h10 v10 h-10 z" />
+
+    <!-- Window with Moldova landscape view -->
+    <path
+        android:fillColor="#42A5F5"
+        android:pathData="M65,15 h25 v35 h-25 z" /> <!-- Sky -->
+    <path
+        android:fillColor="#558B2F"
+        android:pathData="M65,35 Q72,30 78,34 Q85,29 90,33 L90,50 L65,50 Z" /> <!-- Hills -->
+    <path
+        android:fillColor="#7CB342"
+        android:pathData="M65,42 L90,42 L90,50 L65,50 Z" /> <!-- Vineyards -->
+    <path
+        android:fillColor="#795548"
+        android:fillAlpha="0.8"
+        android:pathData="M65,15 v35 h25 v-35 z
+                          M77.5,15 v35" /> <!-- Window frame -->
+
+    <!-- Living room table -->
+    <path
+        android:fillColor="#A1887F"
+        android:pathData="M10,75 h80 v5 h-80 z" /> <!-- Table top -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M15,80 h70 v3 h-70 z" /> <!-- Table edge -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M20,83 v17 h3 v-17 z
+                          M77,83 v17 h3 v-17 z" /> <!-- Table legs -->
+
+    <!-- Moldova photo albums and souvenirs on table -->
+    <path
+        android:fillColor="#5E35B1"
+        android:pathData="M25,65 h20 v10 h-20 z" /> <!-- Photo album -->
+    <path
+        android:fillColor="#7E57C2"
+        android:pathData="M25,65 h20 v2 h-20 z" /> <!-- Album binding -->
+    <path
+        android:fillColor="#B39DDB"
+        android:pathData="M30,70 l-4,-4 h8 z" /> <!-- Corner flip -->
+
+    <!-- Wine bottle from Moldova -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M60,60 h5 v15 h-5 z" /> <!-- Bottle -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M60,60 h5 v2 h-5 z" /> <!-- Bottle neck -->
+    <path
+        android:fillColor="#D32F2F"
+        android:fillAlpha="0.8"
+        android:pathData="M60.5,63 h4 v8 h-4 z" /> <!-- Wine label -->
+
+    <!-- Mărțișor bracelet -->
+    <path
+        android:fillColor="#F44336"
+        android:pathData="M75,67 Q73,65 75,63 Q77,65 75,67 Z" /> <!-- Red part -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M75,71 Q73,69 75,67 Q77,69 75,71 Z" /> <!-- White part -->
+    <path
+        android:fillColor="#F44336"
+        android:fillAlpha="0.8"
+        android:pathData="M73,63 Q70,62 68,65 M77,63 Q80,62 82,65" /> <!-- Red threads -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.8"
+        android:pathData="M73,71 Q70,72 68,69 M77,71 Q80,72 82,69" /> <!-- White threads -->
+
+    <!-- People in the scene -->
+    <!-- Storyteller (returned traveler) -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M30,40 L35,40 L35,65 L30,65 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M32.5,35 a2.5,2.5 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M26,45 L30,47 M35,47 L39,50" /> <!-- Arms gesturing -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M30,65 L28,75 M35,65 L37,75" /> <!-- Legs -->
+
+    <!-- Listeners -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M50,45 L53,45 L53,65 L50,65 Z" /> <!-- Person 1 Body -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M51.5,40 a2,2 0 1,0 0.1,0z" /> <!-- Person 1 Head -->
+
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M65,40 L68,40 L68,60 L65,60 Z" /> <!-- Person 2 Body -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M66.5,35 a2,2 0 1,0 0.1,0z" /> <!-- Person 2 Head -->
+
+    <!-- Ethereal Moldova memories/vision -->
+    <path
+        android:fillColor="#9575CD"
+        android:fillAlpha="0.1"
+        android:pathData="M25,15 Q40,10 55,15 Q60,25 55,35 Q40,40 25,35 Q20,25 25,15 Z" /> <!-- Memory bubble -->
+
+    <!-- Faint iele spirit in memory -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.3"
+        android:pathData="M38,20 Q40,15 42,20 L42,25 Q40,30 38,25 Z" /> <!-- Flowing form -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:fillAlpha="0.3"
+        android:pathData="M38,20 a1,1 0 1,0 4,0 a1,1 0 1,0 -4,0" /> <!-- Head -->
+
+    <!-- Faint monastery silhouette in memory -->
+    <path
+        android:fillColor="#3F51B5"
+        android:fillAlpha="0.2"
+        android:pathData="M47,20 h4 v8 h-4 z" /> <!-- Main structure -->
+    <path
+        android:fillColor="#3F51B5"
+        android:fillAlpha="0.2"
+        android:pathData="M46,20 h6 v1 h-6 z M48,17 h2 v3 h-2 z M48,17 L49,15 L50,17 Z" /> <!-- Spire -->
+    
+    <!-- Subtle glow from mărțișor bracelet -->
+    <path
+        android:fillColor="#F44336"
+        android:fillAlpha="0.05"
+        android:pathData="M65,60 a10,10 0 1,0 20,0 a10,10 0 1,0 -20,0" />
+</vector> 

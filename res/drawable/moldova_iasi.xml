@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Background -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M0,0h200v150h-200z"/>
+    
+    <!-- Stylized building outline -->
+    <path
+        android:fillColor="#A7C7E7"
+        android:pathData="M70,120L70,60L130,60L130,120z"/>
+    
+    <!-- Roof -->
+    <path
+        android:fillColor="#5D8AA8"
+        android:pathData="M50,60L100,30L150,60z"/>
+    
+    <!-- Windows -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M80,80L90,80L90,90L80,90z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M110,80L120,80L120,90L110,90z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M80,100L90,100L90,110L80,110z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M110,100L120,100L120,110L110,110z"/>
+    
+    <!-- Door -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M95,100L105,100L105,120L95,120z"/>
+    
+    <!-- Text -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M70,30L130,30L130,50L70,50z"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"/>
+    
+    <!-- "Moldova Iasi" text would normally be here but vector paths can't easily represent text -->
+</vector> 

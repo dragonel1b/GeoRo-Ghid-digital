@@ -34,6 +34,19 @@ public class PointsManager {
         return sharedPreferences.getInt(TOTAL_POINTS + userId, 0);
     }
 
+    public String getTotalPointsWithEmoji(Context context) {
+        return "" + getTotalPoints(context);
+    }
+
+    // Alias for getTotalPoints to maintain backward compatibility
+    public int getPoints(Context context) {
+        return getTotalPoints(context);
+    }
+
+    public String getPointsWithEmoji(Context context) {
+        return "" + getPoints(context);
+    }
+
     public void addPoints(Context context, String region, int points) {
         String userId = getCurrentUserId(context);
         int currentTotal = getTotalPoints(context);

@@ -16,6 +16,13 @@ public class Team {
     private float morale;
     private Random random;
 
+    // Store screen dimensions and team area info
+    private float screenWidth;
+    private float screenHeight;
+    private float teamCenterX;
+    private float teamCenterY;
+    private float teamFormationSpacing = 100; // Default spacing, could be adjusted
+
     public Team(String id, String name, int color, boolean isPlayerTeam, Drawable soldierDrawable) {
         this.id = id;
         this.name = name;
@@ -27,29 +34,48 @@ public class Team {
         this.random = new Random();
     }
 
+    public void setTeamCenter(float centerX, float centerY) {
+        this.teamCenterX = centerX;
+        this.teamCenterY = centerY;
+    }
+
     public void initializeTeam(float screenWidth, float screenHeight, int soldierCount) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         soldiers.clear();
 
-        // Calculate team position based on screen dimensions
-        float startX;
-        if (id.equals("player_team_1")) {
-            startX = screenWidth * 0.2f;
-        } else if (id.equals("player_team_2")) {
-            startX = screenWidth * 0.4f;
-        } else { // enemy team
-            startX = screenWidth * 0.8f;
+        // Use the team center position if it was set, otherwise calculate based on team ID
+        if (teamCenterX == 0 && teamCenterY == 0) {
+            if (id.equals("player_team_1")) { // Assuming player is on the left
+                this.teamCenterX = screenWidth * 0.2f;
+            } else if (id.equals("player_team_2")) { // Assuming player2 is on the right
+                this.teamCenterX = screenWidth * 0.8f;
+            } else { // Assuming enemy is on the top
+                this.teamCenterX = screenWidth * 0.5f;
+            }
+            
+            if (isPlayerTeam) {
+                this.teamCenterY = screenHeight * 0.7f; // Players at bottom
+            } else {
+                this.teamCenterY = screenHeight * 0.3f; // Enemy at top
+            }
         }
 
-        float startY = screenHeight * 0.5f;
-        float spacing = 100; // Space between soldiers
-        int rows = (int)Math.ceil(Math.sqrt(soldierCount));
-        int cols = (int)Math.ceil(soldierCount / (float)rows);
+        // Use a grid layout logic similar to original, centered on teamCenterX/Y
+        float spacing = teamFormationSpacing;
+        int rows = Math.max(1, (int)Math.ceil(Math.sqrt(soldierCount))); // Ensure at least 1 row
+        int cols = Math.max(1, (int)Math.ceil(soldierCount / (float)rows)); // Ensure at least 1 col
 
         int index = 0;
         for (int row = 0; row < rows && index < soldierCount; row++) {
             for (int col = 0; col < cols && index < soldierCount; col++) {
-                float x = startX + (col - cols/2f) * spacing + random.nextFloat() * 20 - 10;
-                float y = startY + (row - rows/2f) * spacing + random.nextFloat() * 20 - 10;
+                // Calculate position relative to team center
+                float xOffset = (col - (cols - 1) / 2f) * spacing;
+                float yOffset = (row - (rows - 1) / 2f) * spacing;
+
+                // Add small random jitter for more natural look
+                float x = teamCenterX + xOffset + random.nextFloat() * 20 - 10;
+                float y = teamCenterY + yOffset + random.nextFloat() * 20 - 10;
 
                 Soldier soldier = new Soldier(x, y, color, soldierDrawable);
                 soldier.setTeam(this);
@@ -59,6 +85,43 @@ public class Team {
         }
     }
 
+    // Overload for adding a soldier without specifying coordinates
+    public void addSoldier() {
+        // Calculate a position for the new soldier within the team's area
+        if (screenWidth == 0 || screenHeight == 0 || teamCenterX == 0 || teamCenterY == 0) {
+            android.util.Log.e("Team", "Cannot add soldier, team not properly initialized: " + id);
+            return;
+        }
+
+        // Find an empty-ish spot near the team center
+        float x = teamCenterX + random.nextFloat() * 80 - 40; // Random offset within 80 units
+        float y = teamCenterY + random.nextFloat() * 80 - 40;
+
+        // Try to avoid collisions with existing soldiers
+        boolean positionOccupied = true;
+        int attempts = 0;
+        while (positionOccupied && attempts < 10) {
+            positionOccupied = false;
+            for (Soldier existing : soldiers) {
+                float distance = (float) Math.sqrt(
+                    Math.pow(existing.getX() - x, 2) + 
+                    Math.pow(existing.getY() - y, 2)
+                );
+                if (distance < 50) { // Simple distance check
+                    positionOccupied = true;
+                    x = teamCenterX + random.nextFloat() * 80 - 40;
+                    y = teamCenterY + random.nextFloat() * 80 - 40;
+                    break;
+                }
+            }
+            attempts++;
+        }
+
+        // Create and add the soldier
+        addSoldier(x, y);
+    }
+
+    // Existing method for adding soldier at specific coordinates
     public void addSoldier(float x, float y) {
         Soldier soldier = new Soldier(x, y, color, soldierDrawable);
         soldier.setTeam(this);
@@ -110,5 +173,13 @@ public class Team {
 
     public void removeSoldier(Soldier soldier) {
         soldiers.remove(soldier);
+    }
+    
+    public float getTeamCenterX() {
+        return teamCenterX;
+    }
+    
+    public float getTeamCenterY() {
+        return teamCenterY;
     }
 }

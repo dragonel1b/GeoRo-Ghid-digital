@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Background -->
+    <path
+        android:fillColor="#87CEEB"
+        android:pathData="M0,0h200v150h-200z"/>
+    
+    <!-- Ground -->
+    <path
+        android:fillColor="#8FBC8F"
+        android:pathData="M0,100h200v50h-200z"/>
+    
+    <!-- Union Monument -->
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M90,30h20v70h-20z"/>
+    
+    <!-- Monument base -->
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M80,100h40v10h-40z"/>
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M70,110h60v10h-60z"/>
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M60,120h80v10h-80z"/>
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M50,130h100v20h-100z"/>
+    
+    <!-- Monument statue -->
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M95,15h10v15h-10z"/>
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M100,5a10,10 0 1,0 0,20a10,10 0 1,0 0,-20"/>
+    
+    <!-- Buildings left -->
+    <path
+        android:fillColor="#E6E6FA"
+        android:pathData="M10,80h40v50h-40z"/>
+    
+    <!-- Buildings right -->
+    <path
+        android:fillColor="#E6E6FA"
+        android:pathData="M150,80h40v50h-40z"/>
+    
+    <!-- Windows left -->
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M15,90h10v10h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M35,90h10v10h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M15,110h10v10h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M35,110h10v10h-10z"/>
+    
+    <!-- Windows right -->
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M155,90h10v10h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M175,90h10v10h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M155,110h10v10h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M175,110h10v10h-10z"/>
+</vector> 

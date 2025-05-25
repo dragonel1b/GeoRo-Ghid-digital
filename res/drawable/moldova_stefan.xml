@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Background -->
+    <path
+        android:fillColor="#F5F5DC"
+        android:pathData="M0,0h200v150h-200z"/>
+    
+    <!-- Head -->
+    <path
+        android:fillColor="#D2B48C"
+        android:pathData="M100,30a20,20 0 1,0 0,40a20,20 0 1,0 0,-40"/>
+    
+    <!-- Crown -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M75,30h50v10h-50z"/>
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M85,20h30v10h-30z"/>
+    <path
+        android:fillColor="#FF0000"
+        android:pathData="M90,15h20v5h-20z"/>
+    
+    <!-- Body -->
+    <path
+        android:fillColor="#8B0000"
+        android:pathData="M75,70h50v60h-50z"/>
+    
+    <!-- Arms -->
+    <path
+        android:fillColor="#8B0000"
+        android:pathData="M75,70h-15v40h15z"/>
+    <path
+        android:fillColor="#8B0000"
+        android:pathData="M125,70h15v40h-15z"/>
+    
+    <!-- Sword -->
+    <path
+        android:fillColor="#A9A9A9"
+        android:pathData="M140,90h40v5h-40z"/>
+    <path
+        android:fillColor="#696969"
+        android:pathData="M140,85h10v15h-10z"/>
+</vector> 

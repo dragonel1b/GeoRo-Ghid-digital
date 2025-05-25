@@ -5,55 +5,97 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
 
-    <!-- Header Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/headerCard"
+    <!-- Header with back button -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="#80FFFFFF"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="8dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@color/bucovina_secondary"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back"
+            android:onClick="goBack"
+            app:tint="@color/bucovina_text" />
+
+        <TextView
+            android:id="@+id/regionTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="Bucovina"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/bucovina_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-            <TextView
-                android:id="@+id/textViewBucovinaTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Bucovina"
-                android:textColor="#000000"
-                android:textSize="32sp"
-                android:textStyle="bold" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonGoToCities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orașe"
+            android:layout_marginEnd="8dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            app:cornerRadius="20dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/bucovina_primary_light"
+            app:backgroundTint="@color/bucovina_primary"
+            android:textColor="@color/bucovina_text"
+            app:rippleColor="@color/bucovina_primary_light"/>
 
-            <TextView
-                android:id="@+id/textBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:text="💰 Total Puncte: 0"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/textBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Puncte"
+            android:textSize="16sp"
+            android:textColor="@color/bucovina_text"
+            android:drawableStart="@drawable/ic_money"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/bucovina_accent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+    </LinearLayout>
 
-    <!-- Cities ScrollView -->
-    <ScrollView
+    <!-- Image Carousel -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/imageCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/imageIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageCarousel"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabTextColor="@color/bucovina_text"
+        app:tabSelectedTextColor="@color/bucovina_primary_light"
+        android:background="@color/bucovina_secondary"/>
+
+    <!-- Content Sections -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonBack"
-        app:layout_constraintTop_toBottomOf="@id/headerCard">
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/imageIndicator"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,209 +103,113 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Suceava -->
+            <!-- Introduction Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#80FFFFFF"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp">
-
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/bucovina_card_bg">
+                
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/checkBox1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onCheckboxClicked" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Suceava"
-                            android:textColor="#000000"
-                            android:textSize="18sp" />
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:onClick="showPopup1"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_info" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageSuceava"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/suceava" />
-
+                    
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Capitala istorică a Moldovei"
-                        android:textColor="#000000" />
+                        android:text="Bine ai venit în Bucovina"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/bucovina_text"/>
+                        
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Descoperă frumusețea mănăstirilor pictate, tradițiile autentice și peisajele spectaculoase din nordul României. O regiune cu istorie bogată și ospitalitate legendară."
+                        android:textColor="@color/bucovina_text"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Câmpulung Moldovenesc -->
-            <androidx.cardview.widget.CardView
+            <LinearLayout
+                android:id="@+id/cityContentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#80FFFFFF"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp">
+                android:orientation="vertical">
+                <!-- Conținutul va fi adăugat dinamic prin cod -->
+            </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/checkBox2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onCheckboxClicked" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Câmpulung Moldovenesc"
-                            android:textColor="#000000"
-                            android:textSize="18sp" />
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:onClick="showPopup2"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_info" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageCampulung"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/campulung" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Perlă turistică a Bucovinei"
-                        android:textColor="#000000" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Vatra Dornei -->
-            <androidx.cardview.widget.CardView
+            <!-- Navigation Buttons -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonGoToMap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
+                android:text="Harta Interactivă"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                app:cornerRadius="32dp"
+                app:icon="@drawable/ic_map"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconSize="24dp"
+                app:iconTint="@color/bucovina_text"
+                app:backgroundTint="@color/bucovina_primary"
+                app:rippleColor="@color/bucovina_primary_light"
+                android:elevation="8dp"
+                android:textColor="@color/bucovina_text"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonGoToCasinoStory"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Povestea Bucovinei"
+                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="16dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                app:cornerRadius="32dp"
+                app:icon="@drawable/ic_casino"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconSize="24dp"
+                app:iconTint="@color/bucovina_text"
+                app:backgroundTint="@color/bucovina_secondary"
+                app:rippleColor="@color/bucovina_primary_light"
+                android:elevation="8dp"
+                android:textColor="@color/bucovina_text"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonGoToDobrogeaGame"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Aventură în Bucovina"
+                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#80FFFFFF"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/checkBox3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onCheckboxClicked" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Vatra Dornei"
-                            android:textColor="#000000"
-                            android:textSize="18sp" />
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:onClick="showPopup3"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_info" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageVatraDornei"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/vatra_dornei" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Stațiune balneoclimaterică renumită"
-                        android:textColor="#000000" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                app:cornerRadius="32dp"
+                app:icon="@drawable/ic_game"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconSize="24dp"
+                app:iconTint="@color/bucovina_text"
+                app:backgroundTint="@color/bucovina_primary_light"
+                app:rippleColor="@color/bucovina_secondary"
+                android:elevation="8dp"
+                android:textColor="@color/bucovina_text"/>
         </LinearLayout>
-    </ScrollView>
-
-    <!-- Back Button -->
-    <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="0dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#002B7F"
-        android:onClick="goBack"
-        android:text="Înapoi"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

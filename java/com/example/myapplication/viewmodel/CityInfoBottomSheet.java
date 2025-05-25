@@ -11,18 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.chip.Chip;
 import com.example.myapplication.R;
 import com.example.myapplication.viewmodel.CityViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import com.example.myapplication.RomApp.PointsManager;
+import com.example.myapplication.viewmodel.EnhancedCityActivity;
 
 public class CityInfoBottomSheet extends BottomSheetDialogFragment {
     private CityViewModel viewModel;
     private String cityName;
     private String description;
     private int imageResId;
+
     private boolean isImportant;
     private OnCityVisitedListener visitedListener;
+    public static final String ARG_CITY_NAME = "city_name";
+    public static final String ARG_REGION_NAME = "region_name";
+    public static final String ARG_POINTS = "points";
 
     public static CityInfoBottomSheet newInstance(String cityName, String description,
                                                   int imageResId, boolean isImportant) {
@@ -53,46 +58,74 @@ public class CityInfoBottomSheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.bottom_sheet_city_info, container, false);
+        View view = inflater.inflate(R.layout.bottom_sheet_city_info, container, false);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            String regionName = args.getString(ARG_REGION_NAME);
+            int points = args.getInt(ARG_POINTS);
+
+            TextView cityNameView = view.findViewById(R.id.cityName);
+            TextView regionNameView = view.findViewById(R.id.regionName);
+            TextView pointsView = view.findViewById(R.id.points);
+
+            cityNameView.setText(cityName);
+            regionNameView.setText(regionName);
+            pointsView.setText(String.valueOf(points));
+        }
+
+        ImageView cityImage = view.findViewById(R.id.cityImage);
+        TextView cityTitle = view.findViewById(R.id.cityTitle);
+        TextView cityDescription = view.findViewById(R.id.cityDescription);
+        MaterialButton visitButton = view.findViewById(R.id.visitButton);
+
+        if (cityImage != null) {
+            cityImage.setImageResource(imageResId);
+        }
+        if (cityTitle != null) {
+            cityTitle.setText(cityName);
+        }
+        if (cityDescription != null) {
+            // If we're being shown from an EnhancedCityActivity, get the description from there
+            if (getActivity() instanceof EnhancedCityActivity) {
+                String descriptionText = ((EnhancedCityActivity) getActivity()).getCityDescription();
+                cityDescription.setText(descriptionText);
+            } else if (description != null) {
+                // Otherwise use the provided description
+                cityDescription.setText(description);
+            }
+        }
+
+        // Enable image zoom on click
+        if (cityImage != null) {
+            cityImage.setOnClickListener(v -> {
+                // Launch PhotoView activity/dialog
+                if (getActivity() != null) {
+                    PhotoViewDialog.show(getActivity(), imageResId);
+                }
+            });
+        }
+
+        if (visitButton != null) {
+            visitButton.setOnClickListener(v -> {
+                if (visitedListener != null) {
+                    visitedListener.onCityVisited(cityName);
+                }
+                viewModel.addPoints(100); // Award points for visiting
+                viewModel.incrementVisitedCities();
+                dismiss();
+            });
+        }
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageView cityImage = view.findViewById(R.id.cityImage);
-        TextView cityTitle = view.findViewById(R.id.cityTitle);
-        TextView cityDescription = view.findViewById(R.id.cityDescription);
-        Chip cityBadge = view.findViewById(R.id.cityBadge);
-        MaterialButton visitButton = view.findViewById(R.id.visitButton);
-
-        cityImage.setImageResource(imageResId);
-        cityTitle.setText(cityName);
-        cityDescription.setText(description);
-
-        if (isImportant) {
-            cityBadge.setVisibility(View.VISIBLE);
-            cityBadge.setText("Important");
-        } else {
-            cityBadge.setVisibility(View.GONE);
-        }
-
-        // Enable image zoom on click
-        cityImage.setOnClickListener(v -> {
-            // Launch PhotoView activity/dialog
-            if (getActivity() != null) {
-                PhotoViewDialog.show(getActivity(), imageResId);
-            }
-        });
-
-        visitButton.setOnClickListener(v -> {
-            if (visitedListener != null) {
-                visitedListener.onCityVisited(cityName);
-            }
-            viewModel.addPoints(100); // Award points for visiting
-            viewModel.incrementVisitedCities();
-            dismiss();
-        });
+        // Add click listener to close button
+        view.findViewById(R.id.closeButton).setOnClickListener(v -> dismiss());
     }
 
     public void setOnCityVisitedListener(OnCityVisitedListener listener) {

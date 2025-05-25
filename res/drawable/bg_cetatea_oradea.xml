@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="300dp"
+    android:viewportWidth="400"
+    android:viewportHeight="300">
+    
+    <!-- Fundalul cerului -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:pathData="M0,0h400v200h-400z" />
+    
+    <!-- Pământul / fundal inferior -->
+    <path
+        android:fillColor="#A5D6A7"
+        android:pathData="M0,200h400v100h-400z" />
+    
+    <!-- Șanțul cu apă al cetății -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M50,180c40,-10 60,15 100,5c40,-10 60,10 100,0c40,-10 60,15 100,5v50c-40,10 -60,-15 -100,-5c-40,10 -60,-10 -100,0c-40,10 -60,-15 -100,-5z" />
+    
+    <!-- Bastioanele cetății (forma de stea) -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M100,120L140,130L190,100L240,130L280,120L300,150L280,180L240,170L190,200L140,170L100,180L80,150z" />
+    
+    <!-- Zidurile interioare -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M120,130L140,138L190,120L240,138L260,130L270,150L260,170L240,162L190,180L140,162L120,170L110,150z" />
+    
+    <!-- Corpul principal al cetății -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M140,138h100v24h-100z" />
+    
+    <!-- Turnurile principale ale cetății -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M130,135h20v30h-20zM230,135h20v30h-20z" />
+    
+    <!-- Acoperișurile turnurilor -->
+    <path
+        android:fillColor="#9E9E9E"
+        android:pathData="M130,135l10,-15l10,15zM230,135l10,-15l10,15z" />
+    
+    <!-- Poarta principală -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M180,152h20v10h-20z" />
+    
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M180,152a10,5 0,0 1,20 0" />
+    
+    <!-- Ferestrele turnurilor -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M135,143h10v7h-10zM235,143h10v7h-10z" />
+    
+    <!-- Ferestre pe ziduri -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M150,143h10v7h-10zM170,143h10v7h-10zM200,143h10v7h-10zM220,143h10v7h-10z" />
+    
+    <!-- Drapelul de pe turn -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M140,120l0,-10l15,3l-15,7z" />
+    
+    <!-- Nori pe cer -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,40a20,10 0,0 1,40 0a20,10 0,0 1,40 0" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M300,50a25,12 0,0 1,50 0" />
+    
+    <!-- Soarele -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M330,100a15,15 0,0 1,0 30a15,15 0,0 1,0 -30z" />
+    
+    <!-- Razele soarelui -->
+    <path
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M330,90v-10M330,140v-10M345,100h10M305,100h10M341,89l7,-7M312,111l7,7M341,111l7,7M312,89l-7,-7" />
+    
+    <!-- Arbori în jurul cetății -->
+    <path
+        android:fillColor="#2E7D32"
+        android:pathData="M40,170a15,25 0,0 1,0 50a15,25 0,0 1,0 -50z" />
+    
+    <path
+        android:fillColor="#388E3C"
+        android:pathData="M340,170a15,25 0,0 1,0 50a15,25 0,0 1,0 -50z" />
+    
+    <path
+        android:fillColor="#33691E"
+        android:pathData="M70,180a10,20 0,0 1,0 40a10,20 0,0 1,0 -40z" />
+    
+    <path
+        android:fillColor="#33691E"
+        android:pathData="M310,180a10,20 0,0 1,0 40a10,20 0,0 1,0 -40z" />
+    
+    <!-- Trunchiurile copacilor -->
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M38,195h4v25h-4zM338,195h4v25h-4zM68,200h4v20h-4zM308,200h4v20h-4z" />
+</vector> 

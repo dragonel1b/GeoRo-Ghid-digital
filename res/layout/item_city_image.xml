@@ -2,62 +2,17 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    android:layout_width="160dp"
+    android:layout_height="160dp"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
 
-    <FrameLayout
+    <ImageView
+        android:id="@+id/city_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/cityImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:contentDescription="City Image"/>
-
-        <!-- Gradient Overlay -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/card_gradient_overlay"/>
-
-        <!-- Image Badge (if needed) -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/imageBadge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:layout_margin="16dp"
-            android:background="@drawable/points_badge_background"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            android:fontFamily="sans-serif-medium"
-            android:visibility="gone"
-            tools:visibility="visible"
-            tools:text="Sample Badge"/>
-
-        <!-- Zoom Indicator -->
-        <ImageView
-            android:id="@+id/zoomIndicator"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_add_photo"
-            android:alpha="0.8"
-            android:background="@drawable/circle_button_background"
-            android:padding="6dp"
-            android:contentDescription="Zoom Image"
-            app:tint="@android:color/white" />
-
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="User photo of the city" />
 
 </androidx.cardview.widget.CardView>

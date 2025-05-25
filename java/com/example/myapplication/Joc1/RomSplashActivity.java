@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.MainActivity;
+import com.example.myapplication.RomApp.TuristiActivity;
 
 public class RomSplashActivity extends AppCompatActivity {
     private static final long SPLASH_DELAY = 6000; // 6 seconds total duration
@@ -126,10 +127,16 @@ public class RomSplashActivity extends AppCompatActivity {
     }
 
     private void navigateToMain() {
-        Intent intent = new Intent(RomSplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(RomSplashActivity.this, TuristiActivity.class);
         startActivity(intent);
-        finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        
+        // After a delay, navigate to MainActivity
+        new Handler().postDelayed(() -> {
+            Intent mainIntent = new Intent(RomSplashActivity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        }, 2000); // 2 second delay
     }
 
     @Override

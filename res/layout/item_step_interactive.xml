@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stepItemCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeColor="?attr/colorOutline"
+    app:strokeWidth="0.5dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:rippleColor="?attr/colorPrimaryVariant"
+    android:stateListAnimator="@animator/card_state_list_anim"
+    android:checkable="true"
+    android:contentDescription="Pas rețetă interactiv">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+        
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/stepNumberBackground"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/stepNumberText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:textStyle="bold"
+                tools:text="1" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/stepInstructionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintStart_toEndOf="@id/stepNumberBackground"
+            app:layout_constraintEnd_toStartOf="@+id/stepStatusIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Desprinde frunzele de varză murată cu atenție și taie nervurile groase pentru a le face mai flexibile." />
+
+        <LinearLayout
+            android:id="@+id/stepIconsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/stepStatusIcon"
+            app:layout_constraintTop_toBottomOf="@id/stepInstructionText"
+            app:layout_constraintStart_toStartOf="@id/stepInstructionText"
+            android:layout_marginTop="4dp">
+
+            <ImageView
+                android:id="@+id/timerIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@android:drawable/ic_menu_recent_history"
+                app:tint="?attr/colorPrimary"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:contentDescription="Acest pas conține un cronometru"/>
+
+            <TextView
+                android:id="@+id/timerDurationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="12dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                tools:text="5 min"/>
+
+            <ImageView
+                android:id="@+id/videoIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@android:drawable/ic_media_play"
+                app:tint="?attr/colorSecondary"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:contentDescription="Acest pas conține un tutorial video"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/stepStatusIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Starea pasului: neterminat, în progres sau finalizat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tint="?attr/colorPrimary"
+            tools:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/stepProgressIndicator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/stepInstructionText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepIconsContainer"
+            android:layout_marginTop="4dp"
+            android:progress="0"
+            app:trackThickness="4dp"
+            app:trackCornerRadius="2dp"
+            app:indicatorColor="?attr/colorPrimary"
+            app:trackColor="?attr/colorSurfaceVariant"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:contentDescription="Progres în realizarea acestui pas"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

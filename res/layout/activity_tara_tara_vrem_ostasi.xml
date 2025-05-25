@@ -30,6 +30,15 @@
             android:text="@string/game_subtitle"
             style="@style/GameText.Subtitle"
             android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/roundCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/round_counter"
+            style="@style/GameText.Subtitle"
+            android:layout_marginTop="4dp"/>
     </LinearLayout>
 
     <!-- Team Status Cards -->
@@ -274,56 +283,65 @@
         android:id="@+id/gameViewContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@id/controlsSection"
+        android:layout_above="@id/controlButtonsContainer"
         android:layout_below="@id/avatarLinesContainer"
         android:layout_margin="4dp"
         android:background="@drawable/game_container_background"/>
 
-    <!-- Controls Section -->
+    <!-- Control Buttons -->
     <LinearLayout
-        android:id="@+id/controlsSection"
+        android:id="@+id/controlButtonsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="16dp"
         android:background="@drawable/controls_background"
-        android:orientation="vertical"
-        android:padding="8dp"
         android:elevation="8dp">
 
-        <!-- Game Action Controls -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/shoutButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
+            android:layout_weight="1"
+            android:text="@string/shout_button"
+            android:layout_marginEnd="8dp"
+            style="@style/GameButton.Blue"/>
 
-            <Button
-                android:id="@+id/shoutButton"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/shout_button"
-                android:layout_marginEnd="8dp"
-                style="@style/GameButton"/>
-
-            <Button
-                android:id="@+id/answerButton"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/answer_button"
-                style="@style/GameButton"
-                android:background="@android:color/holo_red_dark"/>
-        </LinearLayout>
+        <Button
+            android:id="@+id/answerButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/answer_button"
+            android:layout_marginStart="8dp"
+            style="@style/GameButton.Red"/>
     </LinearLayout>
 
-    <!-- Victory/Defeat Overlay -->
+    <!-- Swipe Chase Overlay - Added for the new game mechanic -->
+    <FrameLayout
+        android:id="@+id/swipeChaseContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/swipeArrowIndicator"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:contentDescription="@string/swipe_arrow_description"/>
+
+    </FrameLayout>
+
+    <!-- Game Over Overlay -->
     <RelativeLayout
         android:id="@+id/gameOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/overlayBackground"
+        android:background="#CC000000"
         android:visibility="gone">
 
         <LinearLayout

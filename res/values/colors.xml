@@ -7,18 +7,32 @@
     <color name="rom_text_primary_new">#FFFFFF</color>
     <color name="rom_text_secondary_new">#BDBDBD</color>
 
+    <!-- Material Design Default Colors -->
+    <color name="design_default_color_primary">#1976D2</color>
+    <color name="design_default_color_primary_dark">#1565C0</color>
+    <color name="design_default_color_secondary">#FF4081</color>
+    <color name="design_default_color_error">#B00020</color>
+
     <!-- Resource colors -->
     <color name="rom_fuel_color">#FF9800</color>
     <color name="rom_money_color">#4CAF50</color>
     <color name="rom_food_color">#F44336</color>
 
-
-    <color name="YELLOW">#EF5350</color>
-    <color name="ORANGE">#29B6F6</color>
     <!-- Theme Colors -->
-    <color name="colorPrimary">@color/rom_primary</color>
-    <color name="colorPrimaryDark">@color/rom_primary_dark</color>
-    <color name="colorAccent">@color/rom_accent</color>
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorPrimaryLight">#42A5F5</color>
+    <color name="colorAccent">#FF03DAC5</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#80FFFFFF</color>
+    <color name="colorTextSecondary">#757575</color>
+
+    <!-- Card Colors -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_stroke">#E0E0E0</color>
 
     <!-- Rich Background Colors -->
     <color name="rom_background_light">#E8EAF6</color>
@@ -27,6 +41,7 @@
 
     <!-- Modern Status Colors -->
     <color name="rom_success">#66BB6A</color>
+    <color name="rom_success_light">#A5D6A7</color>
     <color name="rom_warning">#FFB74D</color>
 
     <!-- Modern Resource Colors -->
@@ -53,38 +68,6 @@
     <color name="rom_wrong_answer">#EF5350</color>
     <color name="rom_quiz_option_background">#F5F5F5</color>
 
-    <!-- Legacy color mappings for backward compatibility -->
-    <color name="primary">@color/rom_primary</color>
-    <color name="primary_dark">@color/rom_primary_dark</color>
-    <color name="primary_light">@color/rom_primary_light</color>
-    <color name="accent">@color/rom_accent</color>
-    <color name="background_light">@color/rom_background_light</color>
-    <color name="background_dark">@color/rom_background_dark</color>
-    <color name="card_background">@color/rom_card_background</color>
-    <color name="text_primary">@color/rom_text_primary</color>
-    <color name="text_secondary">@color/rom_text_secondary</color>
-    <color name="text_hint">@color/rom_text_hint</color>
-    <color name="success">@color/rom_success</color>
-    <color name="warning">@color/rom_warning</color>
-    <color name="error">@color/rom_error</color>
-    <color name="fuel_color">@color/rom_fuel_color</color>
-    <color name="money_color">@color/rom_money_color</color>
-    <color name="food_color">@color/rom_food_color</color>
-    <color name="culture_points_color">@color/rom_culture_points_color</color>
-    <color name="button_enabled">@color/rom_button_enabled</color>
-    <color name="button_disabled">@color/rom_button_disabled</color>
-    <color name="button_text_color">@color/rom_button_text_color</color>
-    <color name="correct_answer">@color/rom_correct_answer</color>
-    <color name="wrong_answer">@color/rom_wrong_answer</color>
-    <color name="quiz_option_background">@color/rom_quiz_option_background</color>
-
-
-
-    <!-- Legacy Flag Color Aliases -->
-    <color name="rom_blue">@color/rom_flag_blue</color>
-    <color name="rom_yellow">@color/rom_flag_yellow</color>
-    <color name="rom_red">@color/rom_flag_red</color>
-
     <!-- Map Region Colors -->
     <color name="rom_region_banat">#995902</color>
     <color name="rom_region_crisana">#CC3939</color>
@@ -101,11 +84,12 @@
     <color name="rom_region_selected">#4D000000</color>
     <color name="rom_marker_background">#FFFFFF</color>
     <color name="rom_marker_stroke">#000000</color>
-    <color name="rom_highlight">#335472D3</color>  <!-- 20% opacity primary light color for highlighting -->
+    <color name="rom_highlight">#335472D3</color>
 
     <!-- UI Element Colors -->
     <color name="rom_button_background">@color/rom_primary</color>
     <color name="rom_divider">#E0E0E0</color>
+    <color name="colorVisited">#4CAF50</color>
 
     <!-- Base Colors -->
     <color name="textSecondary">#757575</color>
@@ -121,10 +105,6 @@
     <!-- Progress Bar Colors -->
     <color name="progressBackground">#E0E0E0</color>
     <color name="progressForeground">#4CAF50</color>
-
-    <!-- Card Colors -->
-    <color name="cardBackground">#FFFFFF</color>
-    <color name="cardStroke">#E0E0E0</color>
 
     <!-- Game Area Colors -->
     <color name="gameAreaBackground">#FFFFFF</color>
@@ -195,6 +175,7 @@
     <color name="rom_overlay_medium">#4DFFFFFF</color>
     <color name="rom_overlay_dark">#66FFFFFF</color>
 
+    <!-- Material Design Colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -204,10 +185,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Romanian Theme Colors - Enhanced Modern Palette -->
-    <color name="rom_primary">#1E3D8F</color>
+    <color name="rom_primary">#3F51B5</color>
     <color name="rom_primary_dark">#102654</color>
     <color name="rom_primary_light">#4B6CB7</color>
-    <color name="rom_accent">#FFD700</color>
+    <color name="rom_accent">#FF5722</color>
     <color name="rom_accent_dark">#FFC107</color>
     <color name="rom_accent_light">#FFE57F</color>
     <color name="rom_text_primary">#212121</color>
@@ -217,20 +198,257 @@
     <color name="rom_overlay_gradient_end">#66000000</color>
     <color name="rom_card_background">#FFFFFF</color>
     <color name="rom_card_stroke">#E0E0E0</color>
-    <color name="rom_background">#F5F5F5</color>
-    <color name="rom_surface">#FFFFFF</color>
-    <color name="rom_error">#B00020</color>
+    <color name="rom_background">#FFFFFF</color>
+    <color name="rom_surface">#F5F5F5</color>
+    <color name="rom_error">#F44336</color>
+
+    <!-- Missing ROM colors for Banat layout -->
+    <color name="rom_secondary">#009688</color>
+    <color name="rom_text">#212121</color>
+    <color name="rom_card_bg">#FFFFFF</color>
 
     <!-- Day mode colors for city items -->
     <color name="city_card_bg">#60FFFFFF</color>
     <color name="city_card_stroke">#40FFFFFF</color>
-    <color name="city_name_text">#1A237E</color> <!-- Darker blue -->
-    <color name="city_desc_text">#424242</color> <!-- Dark gray -->
+    <color name="city_name_text">#1A237E</color>
+    <color name="city_desc_text">#424242</color>
 
     <!-- Casino Game Specific Colors -->
     <color name="dark_red">#8B0000</color>
     <color name="dobrogea_text_white">#00BCD4</color>
-
     <color name="dobrogea_green">#2E8B57</color>
     <color name="dobrogea_coral">#FF7F50</color>
+    <color name="casino_button">#8B0000</color>
+
+    <!-- Status bar and navigation colors -->
+    <color name="statusBarColor">#1565C0</color>
+    <color name="navigationBarColor">#FFFFFF</color>
+    <color name="backgroundSecondary">#0F2233</color>
+
+    <!-- Dobrogea Module Colors -->
+    <color name="primary">#1A237E</color>
+    <color name="primary_dark">#000051</color>
+    <color name="primary_light">#534bae</color>
+    <color name="accent">#FFC107</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#B3FFFFFF</color>
+    <color name="feedback_background">#4CAF50</color>
+    <color name="feedback_text">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Background Colors -->
+    <color name="background">#F5F5F5</color>
+
+    <!-- Dobrogea Theme Colors -->
+    <color name="dobrogea_primary">#1E88E5</color>      <!-- Blue for water -->
+    <color name="dobrogea_primary_light">#64B5F6</color> <!-- Light blue for ripple -->
+    <color name="dobrogea_secondary">#43A047</color>    <!-- Green for nature -->
+    <color name="dobrogea_accent">#FFC107</color>       <!-- Gold for achievements -->
+    <color name="dobrogea_background">#E3F2FD</color>   <!-- Light blue background -->
+    <color name="dobrogea_text">#263238</color>         <!-- Dark text -->
+    <color name="dobrogea_card_bg">#FFFFFF</color>      <!-- White for cards -->
+    <color name="dobrogea_progress_start">#1E88E5</color>
+    
+    <!-- Culinary Theme Colors -->
+    <color name="culinary_primary">#FF4500</color>           <!-- Rich orange-red for culinary theme -->
+    <color name="culinary_primary_light">#FF7F50</color>     <!-- Light orange for highlights -->
+    <color name="culinary_primary_dark">#9F0000</color>      <!-- Dark red for accents -->
+    <color name="culinary_secondary">#4CAF50</color>         <!-- Green for fresh ingredients -->
+    <color name="culinary_secondary_light">#8BC34A</color>   <!-- Light green for herbs -->
+    <color name="culinary_accent">#FFD700</color>            <!-- Gold for premium/featured -->
+    <color name="culinary_background">#FAFAFA</color>        <!-- Light background for clean feel -->
+    <color name="culinary_surface">#FFFFFF</color>           <!-- White for cards -->
+    <color name="culinary_text">#333333</color>              <!-- Primary text -->
+    <color name="culinary_card_border">#E0E0E0</color>       <!-- Card border -->
+    <color name="culinary_chip_background">#F3F3F3</color>   <!-- Chip background -->
+    <color name="culinary_difficulty_easy">#8BC34A</color>   <!-- Easy difficulty -->
+    <color name="culinary_difficulty_medium">#FFC107</color> <!-- Medium difficulty -->
+    <color name="culinary_difficulty_hard">#FF5722</color>   <!-- Hard difficulty -->
+
+    <!-- Maramures Colors -->
+    <color name="rom_quiz_color">#9C27B0</color>         <!-- Purple for quiz -->
+    <color name="rom_churches_color">#795548</color>     <!-- Brown for wooden churches -->
+    <color name="maramures_primary">#AD770C</color>      <!-- Same as rom_region_maramures -->
+    <color name="maramures_primary_dark">#875F09</color> <!-- Darker shade of maramures_primary -->
+    <color name="maramures_secondary">#795548</color>    <!-- Brown for traditional wood -->
+    <color name="maramures_text">#263238</color>         <!-- Dark text -->
+    <color name="maramures_background">#FFF8E1</color>   <!-- Light cream background -->
+    <color name="maramures_card_bg">#FFFFFF</color>      <!-- White for cards -->
+    <color name="maramures_secondary_light">#A1887F</color> <!-- Light brown for secondary elements -->
+    <color name="maramures_secondary_dark">#003366</color>
+    <color name="maramures_accent">#FFC107</color> <!-- Gold/Yellow Accent -->
+
+    <!-- Oltenia Theme Colors -->
+    <color name="oltenia_primary">#2E454D</color>       <!-- Dark teal for mountains -->
+    <color name="oltenia_primary_light">#546E7A</color> <!-- Lighter teal for accents -->
+    <color name="oltenia_secondary">#6D4C41</color>     <!-- Brown for tradition -->
+    <color name="oltenia_accent">#FFD54F</color>        <!-- Yellow for wheat fields -->
+    <color name="oltenia_background">#ECEFF1</color>    <!-- Light gray background -->
+    <color name="oltenia_text">#263238</color>          <!-- Dark text -->
+    <color name="oltenia_card_bg">#FFFFFF</color>       <!-- White for cards -->
+    <color name="oltenia_progress_start">#2E454D</color>
+    <color name="oltenia_progress_end">#546E7A</color>
+
+    <!-- Transilvania Theme Colors -->
+    <color name="transilvania_primary">#7D0633</color>      <!-- Deep red for Dracula/gothic theme -->
+    <color name="transilvania_primary_light">#B52B65</color> <!-- Lighter red for accents -->
+    <color name="transilvania_secondary">#3B1F2B</color>    <!-- Dark purple for mystery -->
+    <color name="transilvania_accent">#FFD700</color>       <!-- Gold for medieval wealth -->
+    <color name="transilvania_background">#2D142C</color>   <!-- Dark purple background -->
+    <color name="transilvania_text">#F1E8B8</color>         <!-- Antique paper color for text -->
+    <color name="transilvania_card_bg">#422040</color>      <!-- Dark purple for cards -->
+    <color name="transilvania_progress_start">#7D0633</color>
+    <color name="transilvania_progress_end">#B52B65</color>
+
+    <!-- Bucovina Theme Colors - Inspirate din Albastrul de Voroneț și peisajele Bucovinei -->
+    <color name="bucovina_primary">#1B5583</color>           <!-- Albastrul de Voroneț - mai închis -->
+    <color name="bucovina_primary_light">#4A8FBF</color>     <!-- Albastrul de Voroneț - mai deschis -->
+    <color name="bucovina_primary_dark">#0C3A61</color>     <!-- Albastrul de Voroneț - și mai închis -->
+    <color name="bucovina_secondary">#0A4D6B</color>         <!-- Albastru închis pentru accente -->
+    <color name="bucovina_accent">#F4CE6A</color>            <!-- Auriu pentru elementele decorative ale mănăstirilor -->
+    <color name="bucovina_background">#E6F2F7</color>        <!-- Fundal albastru foarte deschis -->
+    <color name="bucovina_text">#0A3142</color>              <!-- Text închis, aproape negru cu nuanță albastră -->
+    <color name="bucovina_card_bg">#FFFFFF</color>           <!-- Fundal alb pentru carduri -->
+    <color name="bucovina_border">#4A8FBF</color>            <!-- Bordură cu nuanță albastră deschisă -->
+    <color name="bucovina_progress_start">#1B5583</color>    <!-- Gradient progress bar - început -->
+    <color name="bucovina_progress_end">#4A8FBF</color>      <!-- Gradient progress bar - sfârșit -->
+    <color name="bucovina_correct_answer">#348F50</color>    <!-- Verde închis pentru răspunsuri corecte (inspirat din verdele pădurilor) -->
+    <color name="bucovina_incorrect_answer">#CB2D3E</color>  <!-- Roșu pentru răspunsuri greșite -->
+
+    <!-- Moldova Theme Colors -->
+    <color name="moldova_primary">#43A047</color>           <!-- Verde închis pentru natura Moldovei -->
+    <color name="moldova_primary_light">#81C784</color>     <!-- Verde deschis pentru accente -->
+    <color name="moldova_secondary">#2E7D32</color>         <!-- Verde adânc pentru elemente secundare -->
+    <color name="moldova_accent">#FFD54F</color>            <!-- Galben pentru câmpiile de cereale -->
+    <color name="moldova_background">#E8F5E9</color>        <!-- Fundal verde foarte deschis -->
+    <color name="moldova_text">#263238</color>              <!-- Text închis pentru lizibilitate -->
+    <color name="moldova_text_secondary">#546E7A</color>    <!-- Text secundar, mai deschis -->
+    <color name="moldova_card_bg">#FFFFFF</color>           <!-- Fundal alb pentru carduri -->
+    <color name="moldova_border">#81C784</color>            <!-- Verde deschis pentru borduri -->
+
+    <!-- Banat Theme Colors -->
+    <color name="banat_primary">#7D5427</color>              <!-- Nuanță mai plăcută de maro pentru păduri și munți -->
+    <color name="banat_primary_light">#A57845</color>        <!-- Maro deschis pentru accente -->
+    <color name="banat_secondary">#5C4018</color>            <!-- Maro mai închis pentru elemente secundare -->
+    <color name="banat_accent">#D4AF37</color>               <!-- Auriu pentru patrimoniu cultural tradițional -->
+    <color name="banat_text">#331E1E</color>                 <!-- Text aproape negru pentru lizibilitate maximă -->
+    <color name="banat_border">#A57845</color>               <!-- Maro mediu pentru borduri -->
+    <color name="banat_card_background">#FFF5E6</color>      <!-- Fundal crem mai deschis pentru carduri -->
+    <color name="gold">#FFD700</color>                       <!-- Culoare aurie pentru elemente speciale -->
+
+    <!-- Game Colors -->
+    <color name="correct_answer">#66BB6A</color>  <!-- Verde pentru răspunsuri corecte -->
+    <color name="incorrect_answer">#EF5350</color> <!-- Roșu pentru răspunsuri greșite -->
+    <color name="wrong_answer">#EF5350</color> <!-- Synonym for incorrect_answer -->
+    <color name="colorCorrectAnswer">#66BB6A</color> <!-- For MaramuresGameActivity -->
+    <color name="colorWrongAnswer">#EF5350</color> <!-- For MaramuresGameActivity -->
+    <color name="correct_answer_border">#43A047</color> <!-- Border for correct answers -->
+    <color name="silver_medal">#C0C0C0</color> <!-- Silver medal color -->
+    <color name="bronze_medal">#CD7F32</color> <!-- Bronze medal color -->
+
+    <!-- Muntenia Colors -->
+    <color name="muntenia_primary">#BC401A</color>         <!-- Rusty red -->
+    <color name="muntenia_primary_light">#ED6D45</color>   <!-- Light rusty red -->
+    <color name="muntenia_secondary">#4E342E</color>       <!-- Dark brown -->
+    <color name="muntenia_accent">#FFC107</color>          <!-- Gold -->
+    <color name="muntenia_background">#FFF3E0</color>      <!-- Light peach background -->
+    <color name="muntenia_text">#212121</color>            <!-- Dark text -->
+    <color name="muntenia_card_bg">#FFFFFF</color>         <!-- White cards -->
+    <color name="colorBackground">#F5F5F5</color>          <!-- Light gray background -->
+
+    <!-- Game Specific Colors -->
+    <color name="correct_answer_green">#4CAF50</color> <!-- Green for correct -->
+    <color name="incorrect_answer_red">#E53935</color> <!-- Red for incorrect -->
+    <color name="correct_answer_background">#4CAF50</color> <!-- Or a slightly different green if needed -->
+    <color name="wrong_answer_red">#E53935</color> <!-- Consistent naming -->
+    <color name="button_disabled_background">#A0A0A0</color> <!-- Lighter gray for disabled background -->
+    <color name="button_disabled_text">#606060</color> <!-- Darker gray for disabled text -->
+    <color name="timer_warning">#F44336</color> <!-- Red for timer warning -->
+
+    <!-- Backgrounds -->
+    <color name="activity_background_light">#F5F5F5</color>
+
+    <!-- Default Text Color -->
+    <color name="default_text_color">#333333</color> <!-- Or your standard text color -->
+
+    <!-- Progress Indicator Colors -->
+    <color name="rom_progress_background">#E0E0E0</color>
+    <color name="rom_progress_fill">#1E3D8F</color>
+
+    <!-- New colors for mission backgrounds -->
+    <color name="completed_mission_bg">#E8F5E9</color>
+    <color name="active_mission_bg">#E3F2FD</color>
+    <color name="story_mission_bg">#FFF3E0</color>
+    <color name="chip_background_color">#E0E0E0</color>
+
+    <!-- Additional colors for improved map layout -->
+    <color name="rom_accent_color">#FF5722</color>
+    <color name="rom_icon_color">#757575</color>
+    <color name="rom_card_shadow">#20000000</color>
+    <color name="rom_map_control_bg">#F5FFFFFF</color>
+    <color name="rom_semi_transparent">#CCFFFFFF</color>
+
+    <!-- Difficulty Levels -->
+    <color name="difficulty_easy">#4CAF50</color>
+    <color name="difficulty_medium">#FF9800</color>
+    <color name="difficulty_hard">#F44336</color>
+
+    <!-- Material 3 Color System Colors needed for activity_modern_culinary.xml -->
+    <color name="background_color">#F5F7FA</color>           <!-- Light background color -->
+    <color name="color_on_surface_variant">#757575</color>   <!-- Color used for text on surface variants -->
+    <color name="color_primary_container">#E8F0FE</color>    <!-- Container color with primary tint -->
+    <color name="color_on_primary_container">#0C2D48</color> <!-- Text color on primary containers -->
+    <color name="color_surface_variant">#E0E0E0</color>      <!-- Variant of surface color -->
+    <color name="color_primary">#3F51B5</color>              <!-- Primary brand color -->
+    <color name="color_on_background">#212121</color>        <!-- Text color on background -->
+
+    <!-- Additional missing colors for recipe cards and navigation -->
+    <color name="bottom_nav_item_color">#757575</color>      <!-- Color for bottom navigation items -->
+    <color name="color_outline">#DDDDDD</color>              <!-- Outline color for cards -->
+    <color name="color_on_surface">#212121</color>           <!-- Text color on surface -->
+    <color name="color_rating_star">#FFC107</color>          <!-- Color for rating stars -->
+    <color name="color_favorite">#F44336</color>             <!-- Color for favorite icon -->
+    <color name="color_favorite_ripple">#33F44336</color>    <!-- Ripple effect for favorite button -->
+
+    <color name="secondary">#009688</color>
+    <color name="surface">#FFFFFF</color>
+    
+    <!-- Missing Culinary Colors -->
+    <color name="culinary_ingredient">#FFF8E1</color>    <!-- Light warm background for ingredients section -->
+    <color name="culinary_step">#E8F5E9</color>         <!-- Light green background for cooking steps section -->
+
+    <!-- Material Design 3 Color Palette -->
+    <color name="md_theme_primary">#006687</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_primaryContainer">#C2E8FF</color>
+    <color name="md_theme_onPrimaryContainer">#001F2A</color>
+    <color name="md_theme_secondary">#4D616C</color>
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="md_theme_secondaryContainer">#D0E6F2</color>
+    <color name="md_theme_onSecondaryContainer">#081E28</color>
+    <color name="md_theme_tertiary">#5D5B7D</color>
+    <color name="md_theme_onTertiary">#FFFFFF</color>
+    <color name="md_theme_tertiaryContainer">#E2DFFF</color>
+    <color name="md_theme_onTertiaryContainer">#191836</color>
+    <color name="md_theme_error">#BA1A1A</color>
+    <color name="md_theme_errorContainer">#FFDAD6</color>
+    <color name="md_theme_onError">#FFFFFF</color>
+    <color name="md_theme_onErrorContainer">#410002</color>
+    <color name="md_theme_background">#FBFCFE</color>
+    <color name="md_theme_onBackground">#191C1E</color>
+    <color name="md_theme_surface">#FBFCFE</color>
+    <color name="md_theme_onSurface">#191C1E</color>
+    <color name="md_theme_surfaceVariant">#DCE3E9</color>
+    <color name="md_theme_onSurfaceVariant">#40484D</color>
+    <color name="md_theme_outline">#71787D</color>
+    <color name="md_theme_inverseOnSurface">#EFF1ED</color>
+    <color name="md_theme_inverseSurface">#2E312F</color>
+    <color name="md_theme_inversePrimary">#6CDBBC</color>
+    <color name="md_theme_shadow">#000000</color>
+    <color name="md_theme_surfaceTint">#006C51</color>
+    <color name="md_theme_outlineVariant">#BFC9C2</color>
+    <color name="md_theme_scrim">#000000</color>
+    
+    <!-- Chip background colors -->
+    <color name="rom_chip_background">#FFFFFF</color>
 </resources>

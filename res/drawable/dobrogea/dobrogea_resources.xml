@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dobrogea Backgrounds -->
+    <drawable name="dobrogea_background">@drawable/dobrogea_background</drawable>
+    <drawable name="dobrogea_map_background">@drawable/dobrogea_map_background</drawable>
+    <drawable name="delta_background">@drawable/delta_background</drawable>
+    <drawable name="histria_background">@drawable/histria_background</drawable>
+
+    <!-- Dobrogea Locations -->
+    <drawable name="sulina">@drawable/sulina</drawable>
+    <drawable name="mamaia">@drawable/mamaia</drawable>
+    <drawable name="histria">@drawable/histria</drawable>
+
+    <!-- Dobrogea Icons -->
+    <drawable name="ic_beach">@drawable/ic_beach</drawable>
+    <drawable name="ic_mosque">@drawable/ic_mosque</drawable>
+    <drawable name="ic_fortress">@drawable/ic_fortress</drawable>
+    <drawable name="ic_delta">@drawable/ic_delta</drawable>
+</resources> 

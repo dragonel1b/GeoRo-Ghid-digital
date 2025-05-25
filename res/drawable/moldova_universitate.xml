@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="150dp"
+    android:viewportWidth="200"
+    android:viewportHeight="150">
+    <!-- Background -->
+    <path
+        android:fillColor="#F5F5DC"
+        android:pathData="M0,0h200v150h-200z"/>
+    
+    <!-- University main building -->
+    <path
+        android:fillColor="#E6E6FA"
+        android:pathData="M30,50h140v80h-140z"/>
+    
+    <!-- University roof -->
+    <path
+        android:fillColor="#4682B4"
+        android:pathData="M20,50h160v10h-160z"/>
+    
+    <!-- University entrance -->
+    <path
+        android:fillColor="#E6E6FA"
+        android:pathData="M85,50h30v80h-30z"/>
+    
+    <!-- Entrance steps -->
+    <path
+        android:fillColor="#D3D3D3"
+        android:pathData="M80,130h40v5h-40zM75,135h50v5h-50zM70,140h60v10h-60z"/>
+    
+    <!-- Entry door -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M95,100h10v30h-10z"/>
+    
+    <!-- Windows -->
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M40,65h10v15h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M60,65h10v15h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M130,65h10v15h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M150,65h10v15h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M40,95h10v15h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M60,95h10v15h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M130,95h10v15h-10z"/>
+    <path
+        android:fillColor="#B0E0E6"
+        android:pathData="M150,95h10v15h-10z"/>
+    
+    <!-- Columns -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M85,50v50M115,50v50"/>
+    
+    <!-- Clock tower -->
+    <path
+        android:fillColor="#E6E6FA"
+        android:pathData="M90,20h20v30h-20z"/>
+    
+    <!-- Clock -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M95,30a5,5 0 1,0 10,0a5,5 0 1,0 -10,0"/>
+    <path
+        android:fillColor="#000000"
+        android:pathData="M100,30l0,-3M100,30l3,0"/>
+    
+    <!-- Tower top -->
+    <path
+        android:fillColor="#4682B4"
+        android:pathData="M85,20h30v5h-30z"/>
+</vector> 

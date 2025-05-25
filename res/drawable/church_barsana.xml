@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/rom_region_maramures"
+        android:pathData="M15,22H17V16H19V14H13V16H15V22M12,7V3H10.5L12,1L13.5,3H12V7H13.5L12,9L10.5,7H12M9,18H11V10H15V12H21V8H17V10H9V18M1,22H3V11H5V19H7V11H9V9H1V11H3V13H1V15H3V17H1V22" />
+</vector> 

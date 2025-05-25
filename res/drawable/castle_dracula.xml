@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Background - night sky -->
+    <path
+        android:fillColor="#0F1122"
+        android:pathData="M0,0h24v24h-24z" />
+    
+    <!-- Moon -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M19,4.5a3.5,3.5 0 1 1 0,7 3.5,3.5 0 1 1 0,-7" />
+    
+    <!-- Mountain base -->
+    <path
+        android:fillColor="#2E1913"
+        android:pathData="M0,24h24v-8.5c0,0 -2,-1.5 -4,-1.5s-4,1.5 -6,1.5s-5,-2 -7,-2s-7,2 -7,2v8.5z" />
+    
+    <!-- Castle silhouette -->
+    <path
+        android:fillColor="#1A0805"
+        android:pathData="M2,15h1v2h1v-2h1v2h1v-2h1v-5h-5z" />
+    
+    <path
+        android:fillColor="#1A0805"
+        android:pathData="M8,8h3v9h-3z" />
+    
+    <path
+        android:fillColor="#1A0805"
+        android:pathData="M12,12h2v5h-2z" />
+    
+    <path
+        android:fillColor="#1A0805"
+        android:pathData="M15,6h4v11h-4z" />
+    
+    <!-- Castle towers -->
+    <path
+        android:fillColor="#180704"
+        android:pathData="M2,10v-1h1v-1h1v1h1v1z" />
+    
+    <path
+        android:fillColor="#180704"
+        android:pathData="M8,8v-1h1v-1h1v1h1v1z" />
+    
+    <path
+        android:fillColor="#180704"
+        android:pathData="M12,12v-1h1v-1h1v1z" />
+    
+    <path
+        android:fillColor="#180704"
+        android:pathData="M15,6v-1h1v-1h1v1h1v1z" />
+    
+    <!-- Windows with eerie light -->
+    <path
+        android:fillColor="#75292B"
+        android:pathData="M3,12h1v1h-1z" />
+    
+    <path
+        android:fillColor="#75292B"
+        android:pathData="M9,10h1v1h-1z" />
+    
+    <path
+        android:fillColor="#75292B"
+        android:pathData="M16,9h1v1h-1z" />
+    
+    <path
+        android:fillColor="#75292B"
+        android:pathData="M17,13h1v1h-1z" />
+    
+    <!-- Bats flying -->
+    <path
+        android:fillColor="#333333"
+        android:pathData="M5,5c0.2,0.2 0.5,0.3 0.7,0c0.3,-0.3 0.3,-0.7 0,-1c-0.2,-0.2 -0.5,-0.2 -0.7,0c-0.3,0.3 -0.3,0.7 0,1" />
+    
+    <path
+        android:fillColor="#333333"
+        android:pathData="M14,3c0.2,0.2 0.5,0.3 0.7,0c0.3,-0.3 0.3,-0.7 0,-1c-0.2,-0.2 -0.5,-0.2 -0.7,0c-0.3,0.3 -0.3,0.7 0,1" />
+</vector> 

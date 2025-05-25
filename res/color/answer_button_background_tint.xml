@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State: Correct Answer (assuming a custom state or handled via code) -->
+    <!-- <item android:state_activated="true" android:color="@color/correct_answer_green"/> -->
+
+    <!-- State: Incorrect Answer (assuming a custom state or handled via code) -->
+    <!-- <item android:state_selected="true" android:color="@color/incorrect_answer_red"/> -->
+
+    <!-- State: Pressed -->
+    <item android:state_pressed="true" android:color="@color/maramures_accent"/>
+
+    <!-- State: Disabled -->
+    <item android:state_enabled="false" android:color="@color/button_disabled_background"/>
+
+    <!-- Default state (Enabled) -->
+    <item android:color="@color/maramures_primary"/>
+</selector> 

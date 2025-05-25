@@ -27,9 +27,9 @@ public abstract class BaseCityActivity extends AppCompatActivity {
 
         // Set up toolbar
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getCityName());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (toolbar != null) {
+            toolbar.setVisibility(View.GONE);
+        }
 
         // Set up image carousel
         imageCarousel = findViewById(R.id.imageCarousel);

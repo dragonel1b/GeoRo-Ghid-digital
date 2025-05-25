@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Sky background with sunset colors -->
+    <path
+        android:fillColor="#FFA000"
+        android:pathData="M0,0h100v50h-100z" />
+    <path
+        android:fillColor="#FF7043"
+        android:fillAlpha="0.6"
+        android:pathData="M0,0h100v40h-100z" />
+    <path
+        android:fillColor="#E64A19"
+        android:fillAlpha="0.5"
+        android:pathData="M0,0h100v30h-100z" />
+
+    <!-- Sun setting -->
+    <path
+        android:fillColor="#FFEB3B"
+        android:fillAlpha="0.8"
+        android:pathData="M75,15 a10,10 0 1,0 0.1,0z" />
+    
+    <!-- Hills in background -->
+    <path
+        android:fillColor="#7CB342"
+        android:pathData="M0,35 Q20,25 40,33 Q60,25 80,30 Q90,25 100,28 L100,50 L0,50 Z" />
+    
+    <!-- Vineyard on hillside -->
+    <path
+        android:fillColor="#7CB342"
+        android:pathData="M0,50h100v50h-100z" />
+    
+    <!-- Vineyard rows (grapes) -->
+    <path
+        android:fillColor="#558B2F"
+        android:pathData="M10,50 L10,100 M20,50 L20,100 M30,50 L30,100 M40,50 L40,100
+                           M50,50 L50,100 M60,50 L60,100 M70,50 L70,100 M80,50 L80,100 M90,50 L90,100" />
+    
+    <!-- Grape clusters dark grapes -->
+    <path
+        android:fillColor="#4A148C"
+        android:pathData="M8,60 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 
+                           M9,63 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M12,62 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M18,65 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M21,62 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M28,67 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M38,64 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M48,66 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M58,63 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M68,68 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M78,65 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M88,67 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+    
+    <!-- White grape clusters -->
+    <path
+        android:fillColor="#AED581"
+        android:pathData="M8,75 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 
+                           M11,78 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M18,80 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M21,77 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M28,79 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M31,76 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M38,78 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M48,76 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M58,79 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M68,77 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M78,80 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0
+                           M88,78 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+    
+    <!-- People harvesting (simplified shapes) -->
+    <!-- Person 1 -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M15,90 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" /> <!-- Head -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M17,92 v6" /> <!-- Body -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M14,94 h6" /> <!-- Arms -->
+    
+    <!-- Person 2 -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M35,85 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" /> <!-- Head -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M37,87 v7" /> <!-- Body -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M34,90 h6" /> <!-- Arms -->
+    
+    <!-- Person 3 -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M75,87 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" /> <!-- Head -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M77,89 v6" /> <!-- Body -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M74,91 h6" /> <!-- Arms -->
+    
+    <!-- Harvest baskets -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M13,95 h8 v3 h-8 z
+                           M54,93 h8 v3 h-8 z
+                           M82,94 h8 v3 h-8 z" />
+    
+    <!-- Grapes in baskets (red wine grapes) -->
+    <path
+        android:fillColor="#6A1B9A"
+        android:pathData="M14,94 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M16,94 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M18,94 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M55,92 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M57,92 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M59,92 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M83,93 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M85,93 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0
+                           M87,93 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" />
+    
+    <!-- Old woman (ritual leader) -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M55,85 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0" /> <!-- Head -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M57.5,87.5 v8" /> <!-- Body -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M53,90 h9" /> <!-- Arms -->
+    <path
+        android:fillColor="#3E2723"
+        android:fillAlpha="0.7"
+        android:pathData="M53,86 h9 v2 h-9 z" /> <!-- Headscarf -->
+</vector> 

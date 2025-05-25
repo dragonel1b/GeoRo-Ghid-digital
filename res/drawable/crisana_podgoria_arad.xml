@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Fundalul cerului -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M0,0h108v45h-108z" />
+    
+    <!-- Dealurile cu vii -->
+    <path
+        android:fillColor="#558B2F"
+        android:pathData="M0,45c10,-8 20,-5 30,-10c10,-5 15,-3 25,-8c10,-5 20,-2 30,-7c10,-5 15,0 23,3v30h-108z" />
+    
+    <path
+        android:fillColor="#7CB342"
+        android:pathData="M0,55c13,-10 25,-2 38,-8c13,-6 25,4 38,-2c13,-6 20,-2 32,5v58h-108z" />
+    
+    <!-- Șirurile de viță de vie -->
+    <path
+        android:strokeColor="#33691E"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:pathData="M10,48h20M10,54h20M10,60h20M10,66h20" />
+    
+    <path
+        android:strokeColor="#33691E"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:pathData="M40,42h20M40,48h20M40,54h20M40,60h20" />
+    
+    <path
+        android:strokeColor="#33691E"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:pathData="M70,46h20M70,52h20M70,58h20M70,64h20" />
+    
+    <!-- Struguri pe viță -->
+    <path
+        android:fillColor="#5E35B1"
+        android:pathData="M15,49a2,2 0,0 1,0 4a2,2 0,0 1,0 -4zM20,49a2,2 0,0 1,0 4a2,2 0,0 1,0 -4zM18,52a2,2 0,0 1,0 4a2,2 0,0 1,0 -4z" />
+    
+    <path
+        android:fillColor="#7E57C2"
+        android:pathData="M45,43a2,2 0,0 1,0 4a2,2 0,0 1,0 -4zM50,43a2,2 0,0 1,0 4a2,2 0,0 1,0 -4zM48,46a2,2 0,0 1,0 4a2,2 0,0 1,0 -4z" />
+    
+    <path
+        android:fillColor="#4527A0"
+        android:pathData="M75,47a2,2 0,0 1,0 4a2,2 0,0 1,0 -4zM80,47a2,2 0,0 1,0 4a2,2 0,0 1,0 -4zM78,50a2,2 0,0 1,0 4a2,2 0,0 1,0 -4z" />
+    
+    <!-- Soare pe cer -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M85,18a10,10 0,0 1,0 20a10,10 0,0 1,0 -20z" />
+    
+    <!-- Raze de soare -->
+    <path
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M85,8v5M85,38v5M95,18h5M70,18h5M92,11l4,-4M74,25l4,4M92,25l4,4M74,11l-4,-4" />
+    
+    <!-- Casa podgoreanului -->
+    <path
+        android:fillColor="#FFCC80"
+        android:pathData="M25,72h20v17h-20z" />
+    
+    <path
+        android:fillColor="#F57C00"
+        android:pathData="M20,72h30l-15,-10z" /> <!-- acoperișul -->
+    
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M30,80h10v9h-10z" /> <!-- ușa -->
+    
+    <path
+        android:fillColor="#BBDEFB"
+        android:pathData="M28,77h5v5h-5z" /> <!-- fereastra -->
+    
+    <!-- Butoi de vin -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M60,78a10,7 0,0 1,20 0a10,7 0,0 1,-20 0z" /> <!-- capac superior -->
+    
+    <path
+        android:fillColor="#795548"
+        android:pathData="M60,78v10a10,7 0,0 0,20 0v-10" /> <!-- corpul butoiului -->
+    
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M60,88a10,7 0,0 0,20 0a10,7 0,0 0,-20 0z" /> <!-- capac inferior -->
+    
+    <!-- Benzi metalice pe butoi -->
+    <path
+        android:strokeColor="#BDBDBD"
+        android:strokeWidth="1"
+        android:pathData="M60,80a10,7 0,0 0,20 0M60,84a10,7 0,0 0,20 0" />
+    
+    <!-- Sticlă de vin și pahar -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M78,65h5v13h-5z" /> <!-- sticlă -->
+    
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M79,65l3,0l0,3l-3,0z" /> <!-- dop -->
+    
+    <path
+        android:fillColor="#B71C1C"
+        android:pathData="M84,73a3,4 0,0 1,6 0v4l-3,2l-3,-2z" /> <!-- pahar cu vin roșu -->
+    
+    <path
+        android:strokeColor="#EEEEEE"
+        android:strokeWidth="0.7"
+        android:pathData="M84,73a3,4 0,0 1,6 0" /> <!-- marginea paharului -->
+</vector> 

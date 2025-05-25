@@ -1,146 +1,130 @@
 package com.example.myapplication.dobrogeausage;
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Button;
-import android.widget.TextView;
-import android.os.Handler;
 import android.content.Intent;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.media.AudioManager;
-import android.content.Context;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.RomApp.Constanta;
+import com.example.myapplication.RomApp.Tulcea;
+import com.example.myapplication.RomApp.Cernavoda;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.button.MaterialButton;
 
-public class DobrogeaMapActivity extends AppCompatActivity {
-    private TextView welcomeText;
-    private String fullText = "Bine ai venit în Dobrogea!";
-    private int charIndex = 0;
-    private Handler handler = new Handler();
+public class DobrogeaMapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+
+    private MapView mapView;
+    private GoogleMap googleMap;
+    private MaterialButton backButton;
+
+    // Coordonatele orașelor din Dobrogea
+    private static final LatLng CONSTANTA = new LatLng(44.1598, 28.6348);
+    private static final LatLng TULCEA = new LatLng(45.1795, 28.7967);
+    private static final LatLng CERNOVODA = new LatLng(44.3386, 28.0328);
+    private static final LatLng MEDGIDIA = new LatLng(44.2386, 28.2617);
+    private static final LatLng MANGALIA = new LatLng(43.8153, 28.5825);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dobrogea_map);
 
-        // Play welcome sound
-        try {
-            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-            r.play();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mapView = findViewById(R.id.mapView);
+        backButton = findViewById(R.id.back_button);
 
-        setupWelcomeScreen();
-        setupLocationClickListeners();
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+
+        backButton.setOnClickListener(v -> finish());
     }
 
-    private void setupWelcomeScreen() {
-        welcomeText = findViewById(R.id.welcome_text);
-        Button startButton = findViewById(R.id.start_button);
-        startButton.setVisibility(View.INVISIBLE);
+    @Override
+    public void onMapReady(GoogleMap map) {
+        googleMap = map;
+        googleMap.setOnMarkerClickListener(this);
         
-        animateText();
+        // Adăugăm markerii pentru orașe
+        googleMap.addMarker(new MarkerOptions()
+                .position(CONSTANTA)
+                .title("Constanța")
+                .snippet("Orașul port al Mării Negre"));
 
-        startButton.setOnClickListener(v -> {
-            // Play button click sound
-            try {
-                AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                am.playSoundEffect(AudioManager.FX_KEY_CLICK);
-            } catch (Exception e) {
-                e.printStackTrace();
+        googleMap.addMarker(new MarkerOptions()
+                .position(TULCEA)
+                .title("Tulcea")
+                .snippet("Poarta de intrare în Delta Dunării"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(CERNOVODA)
+                .title("Cernavodă")
+                .snippet("Orașul podului peste Dunăre"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(MEDGIDIA)
+                .title("Medgidia")
+                .snippet("Orașul cu tradiții agricole"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(MANGALIA)
+                .title("Mangalia")
+                .snippet("Stațiune balneară istorică"));
+
+        // Centrăm harta pe Dobrogea
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CONSTANTA, 9));
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        String title = marker.getTitle();
+        if (title != null) {
+            switch (title) {
+                case "Constanța":
+                    startActivity(new Intent(this, Constanta.class));
+                    return true;
+                case "Tulcea":
+                    startActivity(new Intent(this, Tulcea.class));
+                    return true;
+                case "Cernavodă":
+                    startActivity(new Intent(this, Cernavoda.class));
+                    return true;
+                case "Medgidia":
+                case "Mangalia":
+                    Toast.makeText(this, "Activitatea pentru " + title + " va fi disponibilă în curând!", Toast.LENGTH_SHORT).show();
+                    return true;
             }
-
-            welcomeText.setVisibility(View.GONE);
-            startButton.setVisibility(View.GONE);
-            showMapElements();
-        });
+        }
+        return false;
     }
 
-    private void animateText() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (charIndex <= fullText.length()) {
-                    welcomeText.setText(fullText.substring(0, charIndex));
-                    charIndex++;
-                    handler.postDelayed(this, 150);
-                } else {
-                    findViewById(R.id.start_button).setVisibility(View.VISIBLE);
-                }
-            }
-        }, 500);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
     }
 
-    private void showMapElements() {
-        int[] locationIds = {
-            R.id.delta_location,
-            R.id.constanta_location,
-            R.id.histria_location,
-            R.id.mosque_location,
-            R.id.beach_location
-        };
-        
-        for (int id : locationIds) {
-            ImageView location = findViewById(id);
-            location.setVisibility(View.VISIBLE);
-            Animation fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-            location.startAnimation(fadeIn);
-        }
-    }
-
-    private void setupLocationClickListeners() {
-        int[] locationIds = {
-            R.id.delta_location,
-            R.id.constanta_location,
-            R.id.histria_location,
-            R.id.mosque_location,
-            R.id.beach_location
-        };
-
-        for (int id : locationIds) {
-            findViewById(id).setOnClickListener(v -> {
-                // Play location selection sound
-                try {
-                    AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                    am.playSoundEffect(AudioManager.FX_KEY_CLICK);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                showLocationActivity(id);
-            });
-        }
-    }
-
-    private void showLocationActivity(int locationId) {
-        Class<?> activityClass = null;
-        
-        if (locationId == R.id.delta_location) {
-            activityClass = DeltaQuizActivity.class;
-        } else if (locationId == R.id.constanta_location) {
-            activityClass = CasinoStoryActivity.class;
-        } else if (locationId == R.id.histria_location) {
-            activityClass = HistriaPuzzleActivity.class;
-        } else if (locationId == R.id.beach_location) {
-            activityClass = BeachTreasureActivity.class;
-        }
-
-        if (activityClass != null) {
-            startActivity(new Intent(this, activityClass));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }

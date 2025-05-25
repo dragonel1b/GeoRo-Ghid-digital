@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Evening sky background -->
+    <path
+        android:fillColor="#3F51B5"
+        android:pathData="M0,0h100v100h-100z" />
+    
+    <!-- Gradient overlay for dusk -->
+    <path
+        android:fillColor="#673AB7"
+        android:fillAlpha="0.4"
+        android:pathData="M0,0h100v50h-100z" />
+
+    <!-- Stars beginning to appear -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7"
+        android:pathData="M10,8 a0.4,0.4 0 1,0 0.1,0z
+                          M30,12 a0.3,0.3 0 1,0 0.1,0z
+                          M50,5 a0.5,0.5 0 1,0 0.1,0z
+                          M70,10 a0.3,0.3 0 1,0 0.1,0z
+                          M90,7 a0.4,0.4 0 1,0 0.1,0z" />
+
+    <!-- Hills in background -->
+    <path
+        android:fillColor="#303F9F"
+        android:pathData="M0,40 Q20,30 40,38 Q60,28 80,35 Q100,30 100,40 L100,100 L0,100 Z" />
+
+    <!-- Middle ground with vines -->
+    <path
+        android:fillColor="#512DA8"
+        android:pathData="M0,50 Q15,47 30,52 Q45,48 60,53 Q75,49 90,52 L100,55 L100,100 L0,100 Z" />
+
+    <!-- Vineyard foreground -->
+    <path
+        android:fillColor="#4A148C"
+        android:pathData="M0,60 Q25,58 50,63 Q75,59 100,65 L100,100 L0,100 Z" />
+
+    <!-- The gathering clearing -->
+    <path
+        android:fillColor="#311B92"
+        android:pathData="M20,75 Q50,65 80,75 L80,100 L20,100 Z" />
+
+    <!-- Bonfire in center -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M48,80 L52,80 L54,75 L50,70 L46,75 L48,80 Z" />
+
+    <!-- Fire glow -->
+    <path
+        android:fillColor="#FF5722"
+        android:fillAlpha="0.3"
+        android:pathData="M30,80 a20,10 0 1,0 40,0 a20,15 0 1,0 -40,0" />
+
+    <!-- Ceremonial altar (barrel/crushing vat) -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M40,85 H60 V95 H40 Z" />
+
+    <!-- Wooden rim of vat -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M38,85 H62 V87 H38 Z" />
+
+    <!-- Grape must in vat -->
+    <path
+        android:fillColor="#880E4F"
+        android:pathData="M42,87 H58 V93 H42 Z" />
+
+    <!-- Elder woman -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M30,80 L33,80 L33,95 L30,95 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M31.5,77 a1.5,1.5 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M28,85 H35" /> <!-- Arms -->
+    <path
+        android:fillColor="#4E342E"
+        android:fillAlpha="0.8"
+        android:pathData="M29,77 H34 V79 H29 Z" /> <!-- Headscarf -->
+
+    <!-- The subject (you) -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M65,80 L68,80 L68,95 L65,95 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M66.5,77 a1.5,1.5 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M63,85 H70" /> <!-- Arms -->
+
+    <!-- Silver needle -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M35,85 L40,87" />
+
+    <!-- Blood drop -->
+    <path
+        android:fillColor="#D50000"
+        android:pathData="M50,89 a1,1.5 0 1,0 0.1,0z" />
+
+    <!-- Villagers observing (simplified) -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M20,85 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M22,87 V95" />
+
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M75,83 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M77,85 V95" />
+
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M82,87 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M84,89 V95" />
+
+    <!-- Mystical energy/connection -->
+    <path
+        android:fillColor="#E1BEE7"
+        android:fillAlpha="0.2"
+        android:pathData="M45,70 Q50,50 55,70 L55,85 L45,85 Z" />
+</vector> 

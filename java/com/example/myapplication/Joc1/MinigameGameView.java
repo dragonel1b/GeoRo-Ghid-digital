@@ -160,7 +160,6 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
     private List<CollectibleItem> items;
     private List<NPC> npcs;
     private Mission currentMission;
-    private int currentLevel = 1;
     private int score = 0;
     // Listener interfaces
     public interface OnScoreChangeListener {
@@ -171,17 +170,12 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
         void onMissionChanged(String newMission);
     }
 
-    public interface OnLevelChangeListener {
-        void onLevelChanged(int newLevel);
-    }
-
     public interface OnNPCInteractionListener {
         void onNPCNearby(NPC npc);
     }
 
     private OnScoreChangeListener scoreListener;
     private OnMissionChangeListener missionListener;
-    private OnLevelChangeListener levelListener;
     private OnNPCInteractionListener npcInteractionListener;
 
     // Setter methods for listeners
@@ -191,10 +185,6 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
 
     public void setOnMissionChangeListener(OnMissionChangeListener listener) {
         this.missionListener = listener;
-    }
-
-    public void setOnLevelChangeListener(OnLevelChangeListener listener) {
-        this.levelListener = listener;
     }
 
     public void setOnNPCInteractionListener(OnNPCInteractionListener listener) {
@@ -401,10 +391,6 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
                             }
                         })) {
                             // Level up and create new mission
-                            currentLevel++;
-                            if (levelListener != null) {
-                                levelListener.onLevelChanged(currentLevel);
-                            }
                             createItems();
                             createInitialMission();
                         }
@@ -467,7 +453,7 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
 
     private void createItems() {
         items.clear();
-        int numItems = 5 + currentLevel * 2; // More items per level
+        int numItems = 5; // Fixed number of items
         for (int i = 0; i < numItems; i++) {
             float x = random.nextFloat() * (screenWidth - CollectibleItem.SIZE);
             float y = random.nextFloat() * (screenHeight - CollectibleItem.SIZE);
@@ -549,7 +535,6 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
 
             // Initialize game state
             score = 0;
-            currentLevel = 1;
 
             // Create game elements
             createItems();
@@ -560,9 +545,6 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
             // Notify initial state
             if (scoreListener != null) {
                 scoreListener.onScoreChanged(score);
-            }
-            if (levelListener != null) {
-                levelListener.onLevelChanged(currentLevel);
             }
         } catch (Exception e) {
             Log.e("MinigameGameView", "Error initializing game: " + e.getMessage());
@@ -627,15 +609,15 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // Stop game thread
+        // Stop the game thread when the surface is destroyed
         boolean retry = true;
-        gameThread.setRunning(false);
         while (retry) {
             try {
+                gameThread.setRunning(false);
                 gameThread.join();
                 retry = false;
             } catch (InterruptedException e) {
-                Log.e("MinigameGameView", "Error stopping game thread: " + e.getMessage());
+                Log.e("MinigameGameView", "Error stopping game thread", e);
             }
         }
 
@@ -657,6 +639,35 @@ public class MinigameGameView extends SurfaceView implements SurfaceHolder.Callb
         items.clear();
         npcs.clear();
         backgroundElements.clear();
+    }
+
+    /**
+     * Pauses the game by stopping the game thread
+     */
+    public void pauseGame() {
+        if (gameThread != null) {
+            gameThread.setRunning(false);
+            boolean retry = true;
+            while (retry) {
+                try {
+                    gameThread.join();
+                    retry = false;
+                } catch (InterruptedException e) {
+                    Log.e("MinigameGameView", "Error pausing game thread", e);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Resumes the game by creating and starting a new game thread
+     */
+    public void resumeGame() {
+        if (getHolder().getSurface().isValid()) {
+            gameThread = new GameThread(getHolder(), this);
+            gameThread.setRunning(true);
+            gameThread.start();
+        }
     }
 
     @Override

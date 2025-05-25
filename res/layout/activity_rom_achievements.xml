@@ -1,45 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rom_background_light">
+    tools:context=".Joc1.RomAchievementsActivity">
 
-    <!-- Header -->
-    <TextView
-        android:id="@+id/achievementsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/rom_achievements_title"
-        style="@style/RomTextTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Back Button -->
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/rom_back"
-        android:onClick="goBack"
-        android:src="@drawable/ic_back"
-        app:tint="@color/rom_primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <!-- Stats Card -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/statsCard"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        style="@style/RomCardView"
-        app:layout_constraintTop_toBottomOf="@id/achievementsTitle">
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@android:color/white"
+            app:layout_scrollFlags="scroll|enterAlways" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,76 +31,249 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rom_achievements_stats_title"
-                style="@style/RomTextSubtitle"/>
-
-            <LinearLayout
+            <!-- Progress Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginBottom="16dp">
 
-                <!-- Unlocked Achievements -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rom_achievements_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/rom_text_primary"/>
+
+                    <ProgressBar
+                        android:id="@+id/achievementsProgress"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:progressTint="@color/rom_primary"
+                        android:max="100"/>
+
+                    <TextView
+                        android:id="@+id/achievementsProgressText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/rom_achievements_progress"
+                        android:textColor="@color/rom_text_secondary"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Stats Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rom_achievements_stats_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/rom_text_primary"/>
+
+                    <!-- Points -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Puncte Înțelepte:"
+                            android:textColor="@color/rom_text_primary"/>
+
+                        <TextView
+                            android:id="@+id/pointsIntelepteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/rom_text_primary"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <!-- Regions -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Regiuni Vizitate:"
+                            android:textColor="@color/rom_text_primary"/>
+
+                        <TextView
+                            android:id="@+id/regionsExploredText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/rom_text_primary"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <!-- Recipes -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rețete Descoperite:"
+                            android:textColor="@color/rom_text_primary"/>
+
+                        <TextView
+                            android:id="@+id/recipesDiscoveredText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/rom_text_primary"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <!-- Quizzes -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Quiz-uri Completate:"
+                            android:textColor="@color/rom_text_primary"/>
+
+                        <TextView
+                            android:id="@+id/quizCompletedText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/rom_text_primary"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <!-- Total Score -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Scor Total:"
+                            android:textColor="@color/rom_text_primary"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/totalPointsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/rom_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Empty State Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/emptyStateCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp"
                     android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/unlockedCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/RomTextTitle"
-                        android:textColor="@color/rom_achievement_unlocked"/>
+                    <ImageView
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:src="@drawable/ic_trophy"
+                        app:tint="@color/rom_text_hint"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rom_achievements_unlocked_label"
-                        style="@style/RomTextBody"/>
-                </LinearLayout>
-
-                <!-- Culture Points -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/totalPoints"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/RomTextTitle"
-                        android:textColor="@color/rom_culture_points_color"/>
+                        android:text="@string/rom_achievements_empty"
+                        android:textSize="16sp"
+                        android:textColor="@color/rom_text_primary"
+                        android:textAlignment="center"
+                        android:layout_marginTop="16dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rom_culture_points_label"
-                        style="@style/RomTextBody"/>
-                </LinearLayout>
-            </LinearLayout>
+                        android:text="Continuă explorarea pentru a debloca realizări!"
+                        android:textSize="14sp"
+                        android:textColor="@color/rom_text_secondary"
+                        android:textAlignment="center"
+                        android:layout_marginTop="8dp"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+            <!-- Achievements Title -->
+            <TextView
+                android:id="@+id/achievementsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rom_achievements_list_description"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/rom_text_primary"
+                android:layout_marginBottom="8dp"/>
 
     <!-- Achievements List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/achievementsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
+                android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:padding="8dp"
-        android:contentDescription="@string/rom_achievements_list_description"
-        android:importantForAccessibility="yes"
-        app:layout_constraintTop_toBottomOf="@id/statsCard"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:nestedScrollingEnabled="false"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

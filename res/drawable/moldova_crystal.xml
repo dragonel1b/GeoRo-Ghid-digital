@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Night sky background -->
+    <path
+        android:fillColor="#0D1F30"
+        android:pathData="M0,0h100v100h-100z" />
+
+    <!-- Stars -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M5,10 a0.4,0.4 0 1,0 0.1,0z
+                          M15,8 a0.3,0.3 0 1,0 0.1,0z
+                          M25,12 a0.5,0.5 0 1,0 0.1,0z
+                          M35,5 a0.3,0.3 0 1,0 0.1,0z
+                          M45,10 a0.4,0.4 0 1,0 0.1,0z
+                          M55,7 a0.3,0.3 0 1,0 0.1,0z
+                          M65,15 a0.4,0.4 0 1,0 0.1,0z
+                          M75,5 a0.3,0.3 0 1,0 0.1,0z
+                          M85,12 a0.5,0.5 0 1,0 0.1,0z
+                          M95,8 a0.3,0.3 0 1,0 0.1,0z" />
+
+    <!-- Moonlight -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.2"
+        android:pathData="M20,0 L45,0 L32.5,100 Z" />
+
+    <!-- Forest silhouette -->
+    <path
+        android:fillColor="#102027"
+        android:pathData="M0,35 L5,30 L10,33 L15,28 L20,34 L25,29 L30,35 L35,30 L40,32 L45,27 L50,33 
+                          L55,28 L60,31 L65,26 L70,30 L75,28 L80,33 L85,29 L90,34 L95,30 L100,35 
+                          L100,100 L0,100 Z" />
+
+    <!-- Forest clearing -->
+    <path
+        android:fillColor="#1C313A"
+        android:pathData="M25,55 Q50,45 75,55 L75,100 L25,100 Z" />
+
+    <!-- Misty ground -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:fillAlpha="0.1"
+        android:pathData="M30,65 Q50,58 70,65 L70,75 L30,75 Z" />
+
+    <!-- Crystal in hand -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.9"
+        android:pathData="M48,60 L52,60 L54,70 L46,70 Z" /> <!-- Crystal shape -->
+
+    <path
+        android:fillColor="#B3E5FC"
+        android:fillAlpha="0.7"
+        android:pathData="M49,62 L51,62 L52,68 L48,68 Z" /> <!-- Inner crystal -->
+
+    <path
+        android:fillColor="#4FC3F7"
+        android:fillAlpha="0.5"
+        android:pathData="M49.5,63 a1,1.5 0 1,0 1,0 a1,1.5 0 1,0 -1,0" /> <!-- Swirling mist inside -->
+
+    <!-- Character hand holding crystal -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M45,70 Q50,75 55,70 L55,73 Q50,78 45,73 Z" />
+
+    <!-- Character (you) -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M47,75 L53,75 L53,90 L47,90 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M50,72 a3,3 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M44,78 L47,78 M53,78 L56,78" /> <!-- Arms -->
+
+    <!-- Guide -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M35,75 L40,75 L40,90 L35,90 Z" /> <!-- Body -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M37.5,72 a2.5,2.5 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M32,80 L43,80" /> <!-- Arms -->
+
+    <!-- Iele spirit -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.5"
+        android:pathData="M65,55 Q70,40 75,55 L75,70 Q70,85 65,70 Z" /> <!-- Flowing form -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.7"
+        android:pathData="M70,45 a3,4 0 1,0 0.1,0z" /> <!-- Head -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.6"
+        android:pathData="M66,52 L74,52" /> <!-- Arms -->
+
+    <!-- Glowing eyes of the iele -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M68.5,44 a0.7,0.7 0 1,0 0.1,0z
+                          M71.5,44 a0.7,0.7 0 1,0 0.1,0z" />
+
+    <!-- Crystal light beam/effect -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.2"
+        android:pathData="M46,60 L54,60 L65,50 L75,55 L75,60 L60,65 L54,60" />
+
+    <!-- Crystal offering spot -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:fillAlpha="0.1"
+        android:pathData="M45,55 Q50,50 55,55 L55,60 Q50,65 45,60 Z" />
+</vector> 

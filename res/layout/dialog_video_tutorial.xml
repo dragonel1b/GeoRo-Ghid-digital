@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/colorSurface">
+
+    <TextView
+        android:id="@+id/videoTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_marginBottom="8dp"
+        tools:text="Tehnica de rulare a sarmalelor"
+        android:contentDescription="Titlul tutorialului video"/>
+
+    <TextView
+        android:id="@+id/videoDescriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:layout_marginBottom="16dp"
+        tools:text="Învață cum să rulezi sarmalele perfect de fiecare dată, cu această tehnică tradițională."
+        android:contentDescription="Descrierea tutorialului video"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Container pentru player video">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:use_controller="true"
+            app:controller_layout_id="@layout/exo_playback_control_view"
+            app:show_timeout="2000"
+            app:hide_on_touch="true"
+            app:surface_type="texture_view"
+            android:contentDescription="Player video pentru tutorial"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Activează sau dezactivează sunetul folosind butoanele de control video."
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="?attr/colorOnSurfaceVariant"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/closeVideoButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Închide"
+            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:contentDescription="Închide tutorialul video"/>
+
+    </LinearLayout>
+
+</LinearLayout> 

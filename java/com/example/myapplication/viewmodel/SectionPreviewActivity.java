@@ -9,8 +9,8 @@ import com.google.android.material.appbar.MaterialToolbar;
 import androidx.appcompat.widget.AppCompatTextView;
 
 public class SectionPreviewActivity extends AppCompatActivity {
-    public static final String EXTRA_TITLE = "section_title";
-    public static final String EXTRA_CONTENT = "section_content";
+    public static final String EXTRA_TITLE = "SECTION_TITLE";
+    public static final String EXTRA_CONTENT = "SECTION_CONTENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

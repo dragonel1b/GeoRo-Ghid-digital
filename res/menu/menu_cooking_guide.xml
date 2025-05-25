@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Partajează"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_dark_mode"
+        android:title="Mod întunecat"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_language"
+        android:title="Limbă"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_feedback"
+        android:title="Feedback"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_about"
+        android:title="Despre aplicație"
+        app:showAsAction="never" />
+
+</menu> 
