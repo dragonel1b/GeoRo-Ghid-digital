@@ -34,6 +34,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+            
+        <!-- Configure Maps logging -->
+        <meta-data android:name="com.google.android.gms.maps.LoggingEnabled" android:value="false" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBsoY5hE-eR586h6sn1TOj_J21_Y1I2mKY" />
+        
+        <!-- Completely disable Flogger logging -->
+        <meta-data android:name="flogger.backend_factory" android:value="com.example.myapplication.config.NoOpBackendFactory" />
+        <meta-data android:name="flogger.level" android:value="OFF" />
+        <meta-data android:name="flogger.config" android:value="OFF" />
+        <meta-data android:name="flogger.backend.level" android:value="OFF" />
+        <meta-data android:name="loggingEnabled" android:value="${loggingEnabled}" />
+        
+        <!-- System-level Flogger suppression -->
+        <meta-data android:name="log.tag.ProxyAndroidLoggerBackend" android:value="SILENT" />
+        <meta-data android:name="log.tag.VRI" android:value="SILENT" />
+        <meta-data android:name="log.tag.BLASTBufferQueue" android:value="SILENT" />
+        <meta-data android:name="log.tag.libc" android:value="SILENT" />
+        
         <activity
             android:name=".RomApp.Sapanta"
             android:exported="false" />
@@ -244,60 +262,7 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.RomCulinaryActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.ModernCulinaryActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.RecipeSearchActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.ModernMealPlannerActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.CulinaryProfileActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".Joc1.Culinary.CulinaryWelcomeActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.AddRecipeActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.MyRecipesActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.RecipeDetailActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.RomRecipeDetailActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.AvailableIngredientsActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.RecipeSuggestionActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
+
         <activity
             android:name=".Joc1.RomAchievementsActivity"
             android:exported="false"
@@ -321,10 +286,6 @@
             android:name=".viewmodel.CityListActivity"
             android:exported="false"
             android:theme="@style/Theme.MyApplication" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBsoY5hE-eR586h6sn1TOj_J21_Y1I2mKY" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -468,64 +429,32 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
-            android:name=".Joc1.Culinary.CookingGuideActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.Culinary.CulinaryProfileSetupActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity android:name=".Joc1.RecipeReviewActivity" 
-            android:parentActivityName=".Joc1.Culinary.RomRecipeDetailActivity" />
-        <activity android:name=".Joc1.Culinary.ShareMyRecipeActivity"
-            android:parentActivityName=".Joc1.Culinary.RomCulinaryActivity" />
-        <activity
-            android:name=".Joc1.Culinary.ShoppingListActivity"
-            android:label="Lista de cumpărături"
-            android:parentActivityName=".Joc1.Culinary.RomCulinaryActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Joc1.Culinary.RomCulinaryActivity" />
-        </activity>
-        <activity
-            android:name=".Joc1.Culinary.MealPlanningActivity"
-            android:label="Planificator de mese"
-            android:parentActivityName=".Joc1.Culinary.RomCulinaryActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Joc1.Culinary.RomCulinaryActivity" />
-        </activity>
-        <activity
-            android:name=".Joc1.Culinary.RecipeSelectionActivity"
-            android:label="Selectează o rețetă"
-            android:parentActivityName=".Joc1.Culinary.MealPlanningActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Joc1.Culinary.MealPlanningActivity" />
-        </activity>
-        <activity
-            android:name=".Joc1.Culinary.RecipeStepByStepActivity"
-            android:label="Preparare pas cu pas"
-            android:parentActivityName=".Joc1.Culinary.RomRecipeDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Joc1.Culinary.RomRecipeDetailActivity" />
-        </activity>
-        <activity
-            android:name=".Joc1.Culinary.CulinaryCommunityActivity"
+            android:name=".recipe.ui.RecipeListActivity"
             android:exported="true"
-            android:label="@string/culinary_community"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-            android:parentActivityName=".Joc1.Culinary.ModernCulinaryActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Joc1.Culinary.ModernCulinaryActivity" />
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".recipe.ui.RecipeDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".recipe.ui.RecipeListActivity" />
+        <activity
+            android:name=".ui.RomaniaMapActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
+            android:name=".ui.RomaniaMapLauncher"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

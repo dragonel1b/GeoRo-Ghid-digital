@@ -5,86 +5,65 @@
     android:id="@+id/missionCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
     app:strokeWidth="1dp"
-    app:strokeColor="@color/rom_card_stroke">
+    app:strokeColor="@color/rom_text_secondary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <ImageView
-            android:id="@+id/missionIcon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:contentDescription="@string/mission_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/rom_primary"
-            tools:src="@drawable/ic_mission" />
-
         <TextView
             android:id="@+id/missionTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textAppearance="?attr/textAppearanceSubtitle1"
-            android:textColor="@color/rom_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/missionIcon"
-            app:layout_constraintTop_toTopOf="@id/missionIcon"
-            tools:text="Descoperă secretele Cetății Sucevei" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/rom_text_primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/missionStatusText" 
+            tools:text="Descoperă Alba Iulia" />
 
         <TextView
             android:id="@+id/missionStatusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/chip_background"
+            android:textSize="12sp"
+            android:textStyle="italic"
             android:paddingHorizontal="8dp"
             android:paddingVertical="2dp"
-            android:textAppearance="?attr/textAppearanceCaption"
-            android:textColor="@color/rom_primary"
-            app:layout_constraintStart_toStartOf="@id/missionTitle"
-            app:layout_constraintTop_toBottomOf="@id/missionTitle"
-            tools:text="În curs" />
+            android:background="@drawable/rounded_status_background"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Activ" />
 
         <TextView
             android:id="@+id/missionRegionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/chip_background"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="2dp"
-            android:textAppearance="?attr/textAppearanceCaption"
-            android:textColor="@color/rom_secondary"
-            app:layout_constraintBottom_toBottomOf="@id/missionStatusText"
-            app:layout_constraintStart_toEndOf="@id/missionStatusText"
-            app:layout_constraintTop_toTopOf="@id/missionStatusText"
-            tools:text="Bucovina" />
+            android:textSize="14sp"
+            android:textColor="@color/rom_text_secondary"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/missionTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Regiune: Transilvania" />
 
         <TextView
             android:id="@+id/missionRewardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:drawablePadding="4dp"
-            android:gravity="center_vertical"
-            android:textAppearance="?attr/textAppearanceCaption"
+            android:textSize="14sp"
             android:textColor="@color/rom_accent"
-            app:drawableStartCompat="@drawable/ic_coin"
-            app:drawableTint="@color/rom_accent"
-            app:layout_constraintBottom_toBottomOf="@id/missionRegionText"
-            app:layout_constraintStart_toEndOf="@id/missionRegionText"
-            app:layout_constraintTop_toTopOf="@id/missionRegionText"
-            tools:text="+50" />
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/missionRegionText"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="150 Puncte" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView> 

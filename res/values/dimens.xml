@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Define a modern button corner radius -->
-    <dimen name="button_corner_radius">12dp</dimen>
+    <!-- Material Design 3 dimensions -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="button_corner_radius">20dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="large_margin">24dp</dimen>
+    <dimen name="min_touch_target">48dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="elevation_normal">6dp</dimen>
+    <dimen name="elevation_high">12dp</dimen>
     
     <!-- Margins and Paddings -->
     <dimen name="margin_small">4dp</dimen>

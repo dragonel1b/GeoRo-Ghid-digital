@@ -191,7 +191,7 @@ public class Maramures extends RegionTemplate {
         viewModel = new MaramuresViewModel();
 
         // Initialize views - using correct IDs from the layout
-        pointsText = findViewById(R.id.textBalance);
+        pointsText = findViewById(R.id.pointsText);
         gameButton = findViewById(R.id.buttonGoToMaramuresGame);
         citiesButton = findViewById(R.id.buttonGoToCities);
         mapButton = findViewById(R.id.buttonGoToMap);
@@ -324,14 +324,24 @@ public class Maramures extends RegionTemplate {
     public void onCheckboxClicked(View view) {
         if (view instanceof CheckBox) {
             CheckBox checkBox = (CheckBox) view;
-            pointsManager.updateLandmarkStatus(this, REGION, checkBox.isChecked());
+            boolean isChecked = checkBox.isChecked();
+            
+            // Adaugă puncte când este bifat
+            if (isChecked) {
+                pointsManager.addPoints(this, REGION.toLowerCase(), 10);
+            }
+            
+            pointsManager.updateLandmarkStatus(this, REGION.toLowerCase(), isChecked);
 
             // Save state with user ID
             String userId = getCurrentUserId();
             String checkBoxId = getResources().getResourceEntryName(view.getId());
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(userId + "_" + checkBoxId + "_" + REGION, checkBox.isChecked());
+            editor.putBoolean(userId + "_" + checkBoxId + "_" + REGION, isChecked);
             editor.apply();
+            
+            // Actualizează afișarea punctelor imediat
+            updatePointsDisplay();
         }
     }
 

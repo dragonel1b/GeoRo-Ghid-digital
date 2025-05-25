@@ -19,10 +19,10 @@
     <color name="rom_food_color">#F44336</color>
 
     <!-- Theme Colors -->
-    <color name="colorPrimary">#FF6200EE</color>
-    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorPrimary">#FF5722</color>
+    <color name="colorPrimaryDark">#E64A19</color>
     <color name="colorPrimaryLight">#42A5F5</color>
-    <color name="colorAccent">#FF03DAC5</color>
+    <color name="colorAccent">#FF9800</color>
 
     <!-- Text Colors -->
     <color name="text_primary">#212121</color>
@@ -270,6 +270,7 @@
     <color name="rom_churches_color">#795548</color>     <!-- Brown for wooden churches -->
     <color name="maramures_primary">#AD770C</color>      <!-- Same as rom_region_maramures -->
     <color name="maramures_primary_dark">#875F09</color> <!-- Darker shade of maramures_primary -->
+    <color name="maramures_primary_light">#D4A02C</color> <!-- Lighter shade of maramures_primary -->
     <color name="maramures_secondary">#795548</color>    <!-- Brown for traditional wood -->
     <color name="maramures_text">#263238</color>         <!-- Dark text -->
     <color name="maramures_background">#FFF8E1</color>   <!-- Light cream background -->
@@ -349,6 +350,7 @@
     <!-- Muntenia Colors -->
     <color name="muntenia_primary">#BC401A</color>         <!-- Rusty red -->
     <color name="muntenia_primary_light">#ED6D45</color>   <!-- Light rusty red -->
+    <color name="muntenia_primary_dark">#8C2E14</color>    <!-- Dark rusty red -->
     <color name="muntenia_secondary">#4E342E</color>       <!-- Dark brown -->
     <color name="muntenia_accent">#FFC107</color>          <!-- Gold -->
     <color name="muntenia_background">#FFF3E0</color>      <!-- Light peach background -->
@@ -451,4 +453,25 @@
     
     <!-- Chip background colors -->
     <color name="rom_chip_background">#FFFFFF</color>
+
+    <!-- Culori pentru rețete culinare -->
+    <color name="recipe_card_background">#FFFFFF</color>
+    <color name="recipe_text_primary">#212121</color>
+    <color name="recipe_text_secondary">#757575</color>
+    <color name="recipe_text_hint">#9E9E9E</color>
+    <color name="recipe_divider">#EEEEEE</color>
+    <color name="recipe_favorite">#FF6D00</color>
+    <color name="recipe_background">#F8F9FA</color>
+    
+    <!-- Culori pentru chip-uri și etichete -->
+    <color name="chip_region">#4CAF50</color>
+    <color name="chip_category">#2196F3</color>
+    <color name="chip_difficulty_easy">#8BC34A</color>
+    <color name="chip_difficulty_medium">#FFC107</color>
+    <color name="chip_difficulty_hard">#F44336</color>
+    
+    <!-- Culori pentru gradiente și efecte vizuale -->
+    <color name="gradient_start">#AA000000</color>
+    <color name="gradient_center">#55000000</color>
+    <color name="gradient_end">#00000000</color>
 </resources>

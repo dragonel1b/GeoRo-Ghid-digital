@@ -138,18 +138,20 @@ public class Moldova extends RegionTemplate {
 
     @Override
     protected ArrayList<String> getCityImages() {
-        ArrayList<String> images = new ArrayList<>();
-        images.add("iasi");
-        images.add("suceava");
-        images.add("piatra_neamt");
-        images.add("bacau");
-        images.add("botosani");
-        return images;
+        if (cityImages == null) {
+            cityImages = new ArrayList<>();
+            cityImages.add("iasi");
+            cityImages.add("suceava");
+            cityImages.add("piatra_neamt");
+            cityImages.add("bacau");
+            cityImages.add("botosani");
+        }
+        return cityImages;
     }
 
     private final String[] cityDescriptions = {
             "Iași este considerat capitala culturală a Moldovei și unul dintre cele mai importante " +
-            "centre academice și spirituale din România. Orașul impresionează prin patrimoniul " +
+            "centre academice și spirituale din România. Orașul反感 prin patrimoniul " +
             "arhitectural bogat, muzee de renume și parcuri spectaculoase.",
 
             "Bacău este un important centru industrial și cultural al Moldovei. Cunoscut pentru " +
@@ -359,9 +361,17 @@ public class Moldova extends RegionTemplate {
     }
 
     private void updatePointsDisplay() {
+        int points = pointsManager.getPoints(this);
+        
+        // Update the textBalance TextView
         if (pointsText != null) {
-            int points = pointsManager.getPoints(this);
             pointsText.setText(String.valueOf(points));
+        }
+        
+        // Also update the pointsTextView if it exists (used by EnhancedCityActivity)
+        TextView pointsTextView = findViewById(R.id.pointsTextView);
+        if (pointsTextView != null) {
+            pointsTextView.setText(String.valueOf(points));
         }
     }
 

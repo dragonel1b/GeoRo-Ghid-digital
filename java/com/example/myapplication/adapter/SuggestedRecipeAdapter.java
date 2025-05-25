@@ -84,8 +84,7 @@ public class SuggestedRecipeAdapter extends ListAdapter<Recipe, SuggestedRecipeA
             recipeNameTextView.setText(recipe.getName());
             
             // Set match score
-            matchScoreTextView.setText(itemView.getContext().getString(
-                    R.string.recipe_match_score, recipe.getMatchScore()));
+            matchScoreTextView.setText(String.format("Potrivire: %d%%", recipe.getMatchScore()));
             
             // Load recipe image
             Glide.with(itemView.getContext())

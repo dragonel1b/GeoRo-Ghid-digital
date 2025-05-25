@@ -21,13 +21,14 @@ public class TaraTaraVremOstasi extends Activity {
     private Team playerTeam2;
     private Team enemyTeam;
     private boolean gameInProgress = false;
+    private static final String TAG = "TaraTaraVremOstasi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tara_tara_vrem_ostasi);
 
-        Log.d("TaraTaraVremOstasi", "onCreate started");
+        Log.d(TAG, "onCreate started");
 
         try {
             // Initialize controllers
@@ -36,87 +37,113 @@ public class TaraTaraVremOstasi extends Activity {
             gameController = new GameController(this, uiController, soundController);
 
             // Set up game view
-            gameView = new TaraMinigameGameView(this);
-            FrameLayout container = findViewById(R.id.gameViewContainer);
-            container.addView(gameView);
-            Log.d("TaraTaraVremOstasi", "Game view set up");
+            setupGameView();
+            Log.d(TAG, "Game view set up");
 
             // Initialize teams
             initializeTeams();
-            Log.d("TaraTaraVremOstasi", "Teams initialized");
+            Log.d(TAG, "Teams initialized");
 
             // Set up button listeners
             setupButtonListeners();
-            Log.d("TaraTaraVremOstasi", "Button listeners set up");
+            Log.d(TAG, "Button listeners set up");
 
             // Set up game state listeners
             setupGameStateListeners();
-            Log.d("TaraTaraVremOstasi", "Game state listeners set up");
+            Log.d(TAG, "Game state listeners set up");
 
             // Play welcome sound
             soundController.playSound(SoundController.SoundType.SHOUT);
 
-            // Start the game
-            startGame();
-            Log.d("TaraTaraVremOstasi", "Game started");
+            // Start the game after a short delay to ensure view is ready
+            new Handler(Looper.getMainLooper()).postDelayed(this::startGame, 500);
+            Log.d(TAG, "Game start scheduled");
 
         } catch (Exception e) {
-            Log.e("TaraTaraVremOstasi", "Error in onCreate", e);
+            Log.e(TAG, "Error in onCreate", e);
+        }
+    }
+    
+    private void setupGameView() {
+        // Create game view
+        gameView = new TaraMinigameGameView(this);
+        
+        // Add to container
+        FrameLayout container = findViewById(R.id.gameViewContainer);
+        if (container != null) {
+            container.removeAllViews(); // Clear any existing views
+            container.addView(gameView);
+            Log.d(TAG, "Game view added to container");
+        } else {
+            Log.e(TAG, "Game container not found!");
         }
     }
 
     private void initializeTeams() {
         // Initialize teams for two players
-        Drawable soldierDrawable = getResources().getDrawable(R.drawable.ic_player_character1);
+        try {
+            Drawable soldierDrawable = getResources().getDrawable(R.drawable.ic_player_character1);
 
-        playerTeam = new Team(
-                "player_team_1",
-                getString(R.string.player_team_1),
-                getResources().getColor(R.color.teamBlue),
-                true,
-                soldierDrawable
-        );
+            playerTeam = new Team(
+                    "player_team_1",
+                    getString(R.string.player_team_1),
+                    getResources().getColor(R.color.teamBlue),
+                    true,
+                    soldierDrawable
+            );
 
-        playerTeam2 = new Team(
-                "player_team_2",
-                getString(R.string.player_team_2),
-                getResources().getColor(R.color.teamGreen),
-                true,
-                soldierDrawable
-        );
+            playerTeam2 = new Team(
+                    "player_team_2",
+                    getString(R.string.player_team_2),
+                    getResources().getColor(R.color.teamGreen),
+                    true,
+                    soldierDrawable
+            );
 
-        enemyTeam = new Team("enemy_team",
-                getString(R.string.enemy_team),
-                getResources().getColor(R.color.teamRed),
-                false,
-                soldierDrawable);
+            enemyTeam = new Team("enemy_team",
+                    getString(R.string.enemy_team),
+                    getResources().getColor(R.color.teamRed),
+                    false,
+                    soldierDrawable);
 
-        // Don't start the game here, just initialize the teams
-        // We'll actually start the game in the startGame method
-        uiController.updateAvatarViews(playerTeam.getSoldierCount() + playerTeam2.getSoldierCount(), enemyTeam.getSoldierCount());
+            Log.d(TAG, "Teams created successfully");
+            
+            // Update UI with initial team counts
+            uiController.updateAvatarViews(
+                (playerTeam != null ? playerTeam.getSoldierCount() : 0) + 
+                (playerTeam2 != null ? playerTeam2.getSoldierCount() : 0), 
+                enemyTeam != null ? enemyTeam.getSoldierCount() : 0
+            );
+        } catch (Exception e) {
+            Log.e(TAG, "Error initializing teams", e);
+        }
     }
 
     private void setupButtonListeners() {
-        View.OnClickListener shoutListener = v -> {
-            Log.d("TaraTaraVremOstasi", "Shout button clicked");
-            v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.pulse));
-            gameController.handleShout();
-        };
-        uiController.getShoutButton().setOnClickListener(shoutListener);
+        try {
+            View.OnClickListener shoutListener = v -> {
+                Log.d(TAG, "Shout button clicked");
+                v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.pulse));
+                gameController.handleShout();
+            };
+            uiController.getShoutButton().setOnClickListener(shoutListener);
 
-        View.OnClickListener answerListener = v -> {
-            Log.d("TaraTaraVremOstasi", "Answer button clicked");
-            v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.pulse));
-            gameController.handleAnswer();
-        };
-        uiController.getAnswerButton().setOnClickListener(answerListener);
+            View.OnClickListener answerListener = v -> {
+                Log.d(TAG, "Answer button clicked");
+                v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.pulse));
+                gameController.handleAnswer();
+            };
+            uiController.getAnswerButton().setOnClickListener(answerListener);
 
-        View.OnClickListener restartListener = v -> {
-            Log.d("TaraTaraVremOstasi", "Restart button clicked");
-            v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.pulse));
-            startGame();
-        };
-        findViewById(R.id.restartButton).setOnClickListener(restartListener);
+            View.OnClickListener restartListener = v -> {
+                Log.d(TAG, "Restart button clicked");
+                v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.pulse));
+                startGame();
+            };
+            findViewById(R.id.restartButton).setOnClickListener(restartListener);
+        } catch (Exception e) {
+            Log.e(TAG, "Error setting up button listeners", e);
+        }
     }
 
     private void setupGameStateListeners() {
@@ -132,16 +159,15 @@ public class TaraTaraVremOstasi extends Activity {
                     uiController.showGameOver(playerWon);
                 }
             });
+        } else {
+            Log.e(TAG, "Game view is null when setting up listeners");
         }
     }
 
     private void startGame() {
-        Log.d("TaraTaraVremOstasi", "Starting new game");
+        Log.d(TAG, "Starting new game");
 
         gameInProgress = true;
-
-        // No need to initialize teams with soldiers here since that's 
-        // now handled in TaraMinigameGameView
 
         // Reset UI elements and show tutorial
         uiController.updateTeamUI(playerTeam, enemyTeam, false);
@@ -150,14 +176,71 @@ public class TaraTaraVremOstasi extends Activity {
             uiController.showGameMessage(R.string.tutorial_step2);
         }, 2000);
 
-        // Start the game in GameView
-        if (gameView != null) {
-            gameView.startGame(playerTeam, enemyTeam, playerTeam2);
-            // Start the game in GameController with both player teams
-            gameController.startGame(playerTeam, playerTeam2, enemyTeam);
-            Log.d("TaraTaraVremOstasi", "Game started successfully");
-        } else {
-            Log.e("TaraTaraVremOstasi", "GameView is null");
+        // Make sure teams are properly initialized before starting
+        if (playerTeam == null || enemyTeam == null) {
+            Log.e(TAG, "Teams not initialized, recreating them");
+            initializeTeams();
+        }
+        
+        // Reset team counts to initial values
+        resetTeams();
+
+        // Add a delay to ensure the view is fully laid out before starting
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            // Start the game in GameView
+            if (gameView != null) {
+                Log.d(TAG, "Starting game in GameView");
+                gameView.startGame(playerTeam, enemyTeam, playerTeam2);
+                
+                // Add another delay before starting the game controller to ensure view is ready
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    // Start the game in GameController with both player teams
+                    Log.d(TAG, "Starting game in GameController");
+                    gameController.startGame(playerTeam, playerTeam2, enemyTeam);
+                    
+                    Log.d(TAG, "Game started successfully");
+                }, 500);
+            } else {
+                Log.e(TAG, "GameView is null, cannot start game");
+                
+                // Try to recreate the game view
+                setupGameView();
+                
+                if (gameView != null) {
+                    setupGameStateListeners();
+                    new Handler(Looper.getMainLooper()).postDelayed(this::startGame, 500);
+                }
+            }
+        }, 1000);
+    }
+
+    private void resetTeams() {
+        try {
+            // Reset team counts to initial values (5 soldiers each)
+            int initialSoldiers = 5;
+            
+            if (playerTeam != null) {
+                playerTeam.initializeTeam(gameView.getWidth(), gameView.getHeight(), initialSoldiers);
+            }
+            
+            if (playerTeam2 != null) {
+                playerTeam2.initializeTeam(gameView.getWidth(), gameView.getHeight(), initialSoldiers);
+            }
+            
+            if (enemyTeam != null) {
+                enemyTeam.initializeTeam(gameView.getWidth(), gameView.getHeight(), initialSoldiers);
+            }
+            
+            // Update UI with initial team counts
+            uiController.updateTeamCounts(
+                playerTeam != null ? playerTeam.getSoldierCount() : 0,
+                playerTeam2 != null ? playerTeam2.getSoldierCount() : 0,
+                enemyTeam != null ? enemyTeam.getSoldierCount() : 0
+            );
+            
+            Log.d(TAG, "Teams reset to initial state");
+        } catch (Exception e) {
+            Log.e(TAG, "Error resetting teams", e);
         }
     }
 
@@ -180,6 +263,8 @@ public class TaraTaraVremOstasi extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        soundController.release();
+        if (soundController != null) {
+            soundController.release();
+        }
     }
 }

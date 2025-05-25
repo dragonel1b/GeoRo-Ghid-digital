@@ -1,0 +1,158 @@
+{
+  "cities": [
+    {
+      "name": "Cluj-Napoca",
+      "region": "transilvania",
+      "lat": 46.7712,
+      "lng": 23.6236,
+      "description": "Al doilea oraș ca mărime din România, centru universitar și tehnologic."
+    },
+    {
+      "name": "Alba Iulia",
+      "region": "transilvania",
+      "lat": 46.0689,
+      "lng": 23.5878,
+      "description": "Oraș istoric, cunoscut pentru cetatea Alba Carolina și importanța sa în Marea Unire din 1918."
+    },
+    {
+      "name": "Sibiu",
+      "region": "transilvania",
+      "lat": 45.7983,
+      "lng": 24.1256,
+      "description": "Fost Capitală Culturală Europeană, renumit pentru arhitectura săsească bine conservată."
+    },
+    {
+      "name": "Brașov",
+      "region": "transilvania",
+      "lat": 45.6427,
+      "lng": 25.5887,
+      "description": "Oraș turistic important, situat la poalele munților cu Biserica Neagră ca simbol."
+    },
+    {
+      "name": "Iași",
+      "region": "moldova",
+      "lat": 47.1585,
+      "lng": 27.6014,
+      "description": "Centru cultural și universitar al Moldovei, cu importante monumente istorice și religioase."
+    },
+    {
+      "name": "Bacău",
+      "region": "moldova",
+      "lat": 46.5670,
+      "lng": 26.9146,
+      "description": "Important centru industrial și comercial în Moldova."
+    },
+    {
+      "name": "Piatra Neamț",
+      "region": "moldova",
+      "lat": 46.9275,
+      "lng": 26.3709,
+      "description": "Cunoscut pentru frumusețea peisajului montan și patrimoniul cultural."
+    },
+    {
+      "name": "București",
+      "region": "muntenia",
+      "lat": 44.4268,
+      "lng": 26.1025,
+      "description": "Capitala României, cel mai mare oraș din țară și centru politic, administrativ și cultural."
+    },
+    {
+      "name": "Ploiești",
+      "region": "muntenia",
+      "lat": 44.9464,
+      "lng": 26.0442,
+      "description": "Important centru al industriei petroliere din România."
+    },
+    {
+      "name": "Pitești",
+      "region": "muntenia",
+      "lat": 44.8560,
+      "lng": 24.8691,
+      "description": "Centru industrial important, cunoscut pentru industria auto."
+    },
+    {
+      "name": "Constanța",
+      "region": "dobrogea",
+      "lat": 44.1733,
+      "lng": 28.6383,
+      "description": "Cel mai mare port la Marea Neagră și important centru turistic estival."
+    },
+    {
+      "name": "Tulcea",
+      "region": "dobrogea",
+      "lat": 45.1717,
+      "lng": 28.8017,
+      "description": "Poarta de intrare în Delta Dunării, patrimoniu natural UNESCO."
+    },
+    {
+      "name": "Craiova",
+      "region": "oltenia",
+      "lat": 44.3190,
+      "lng": 23.7967,
+      "description": "Cel mai mare oraș din Oltenia și important centru universitar și industrial."
+    },
+    {
+      "name": "Târgu Jiu",
+      "region": "oltenia",
+      "lat": 45.0361,
+      "lng": 23.2754,
+      "description": "Cunoscut pentru operele lui Constantin Brâncuși: Coloana Infinitului, Poarta Sărutului și Masa Tăcerii."
+    },
+    {
+      "name": "Timișoara",
+      "region": "banat",
+      "lat": 45.7489,
+      "lng": 21.2087,
+      "description": "Primul oraș european iluminat electric și locul unde a început Revoluția din 1989."
+    },
+    {
+      "name": "Reșița",
+      "region": "banat",
+      "lat": 45.2967,
+      "lng": 21.8903,
+      "description": "Important centru siderurgic cu o bogată istorie industrială."
+    },
+    {
+      "name": "Oradea",
+      "region": "crisana",
+      "lat": 47.0458,
+      "lng": 21.9189,
+      "description": "Renumit pentru arhitectura Art Nouveau și apele termale."
+    },
+    {
+      "name": "Arad",
+      "region": "crisana",
+      "lat": 46.1865,
+      "lng": 21.3122,
+      "description": "Important nod de transport și centru economic în vestul țării."
+    },
+    {
+      "name": "Baia Mare",
+      "region": "maramures",
+      "lat": 47.6573,
+      "lng": 23.5658,
+      "description": "Centru minier și cultural cu o istorie bogată în minerit."
+    },
+    {
+      "name": "Sighetu Marmației",
+      "region": "maramures",
+      "lat": 47.9287,
+      "lng": 23.8890,
+      "description": "Oraș de frontieră cu importanță istorică și memorialistică, găzduind Memorialul Victimelor Comunismului."
+    },
+    {
+      "name": "Suceava",
+      "region": "bucovina",
+      "lat": 47.6635,
+      "lng": 26.2732,
+      "description": "Fostă capitală a Moldovei cu importante monumente istorice precum Cetatea de Scaun."
+    },
+    {
+      "name": "Rădăuți",
+      "region": "bucovina",
+      "lat": 47.8440,
+      "lng": 25.9131,
+      "description": "Centru cultural și turistic cunoscut pentru tradițiile bucovinene."
+    }
+  ]
+} 

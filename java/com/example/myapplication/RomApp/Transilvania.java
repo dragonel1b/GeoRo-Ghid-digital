@@ -131,17 +131,19 @@ public class Transilvania extends RegionTemplate {
         return "Transilvania";
     }
 
+
     @Override
     protected ArrayList<String> getCityImages() {
-        ArrayList<String> images = new ArrayList<>();
-        images.add("cluj");
-        images.add("brasov");
-        images.add("sibiu");
-        images.add("sighisoara");
-        images.add("alba_iulia");
-        return images;
+        if (cityImages == null) {
+            cityImages = new ArrayList<>();
+            cityImages.add("cluj");
+            cityImages.add("brasov");
+            cityImages.add("sibiu");
+            cityImages.add("sighisoara");
+            cityImages.add("alba_iulia");
+        }
+        return cityImages;
     }
-
     private final String[] cityDescriptions = {
             "Cluj-Napoca este considerat capitala neoficială a Transilvaniei și un important centru " +
             "cultural, academic și economic. Orașul combină farmecul arhitecturii medievale cu " +

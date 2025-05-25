@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#F5F5F5" />
-            <corners android:radius="12dp" />
-        </shape>
-    </item>
-    <item
-        android:bottom="40dp"
-        android:left="40dp"
-        android:right="40dp"
-        android:top="40dp">
-        <shape android:shape="rectangle">
-            <solid android:color="#E0E0E0" />
-        </shape>
-    </item>
-    <item
-        android:bottom="60dp"
-        android:drawable="@android:drawable/ic_menu_gallery"
-        android:left="60dp"
-        android:right="60dp"
-        android:top="60dp" />
-</layer-list> 
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="180dp"
+    android:viewportWidth="180"
+    android:viewportHeight="180">
+    
+    <path
+        android:fillColor="#DDDDDD"
+        android:pathData="M0,0h180v180h-180z" />
+        
+    <path
+        android:fillColor="#999999"
+        android:pathData="M65,70 L75,60 L105,60 L115,70 L115,110 L65,110 z" />
+        
+    <path
+        android:fillColor="#999999"
+        android:pathData="M90,45 C97,45 103,51 103,58 C103,65 97,71 90,71 C83,71 77,65 77,58 C77,51 83,45 90,45 z" />
+        
+    <path
+        android:fillColor="#999999"
+        android:pathData="M60,120 L120,120 L120,125 L60,125 z" />
+        
+    <path
+        android:fillColor="#999999"
+        android:pathData="M65,135 L115,135 L115,140 L65,140 z" />
+</vector> 

@@ -2,83 +2,129 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/questCard"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:strokeColor="@android:color/darker_gray"
-    app:strokeWidth="1dp"
-    app:cardElevation="2dp"
-    app:cardCornerRadius="8dp">
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <!-- Indicator capitol și pas -->
-        <TextView
-            android:id="@+id/questChapter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Capitol 1 · Pas 1"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:padding="12dp">
 
         <ImageView
             android:id="@+id/questIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_mission"
-            android:layout_marginTop="8dp"
+            android:contentDescription="Quest icon"
+            android:src="@drawable/ic_explore"
+            android:tint="#FF9800"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/questChapter" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/questTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Titlu Misiune"
+            android:layout_marginStart="12dp"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginStart="16dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/questIcon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/questIcon" />
+            app:layout_constraintEnd_toStartOf="@id/questStatus"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Descoperă Castelul Bran" />
 
         <TextView
             android:id="@+id/questType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Tip: Explorare"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="@id/questTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/questTitle" />
-
-        <ProgressBar
-            android:id="@+id/questProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/questProgress"
-            app:layout_constraintTop_toBottomOf="@id/questIcon" />
-
-        <TextView
-            android:id="@+id/questProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0/5"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/quest_type_bg"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toEndOf="@id/questIcon"
+            app:layout_constraintTop_toBottomOf="@id/questTitle"
+            tools:text="Cultural" />
+
+        <TextView
+            android:id="@+id/questChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@id/questType"
+            app:layout_constraintTop_toBottomOf="@id/questTitle"
+            tools:text="Capitol 1 · Pas 2" />
+
+        <TextView
+            android:id="@+id/questStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="#4CAF50"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/questProgressBar"
-            app:layout_constraintBottom_toBottomOf="@id/questProgressBar" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="DISPONIBIL" />
+
+        <ProgressBar
+            android:id="@+id/questProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:progressTint="#4CAF50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/questType"
+            tools:progress="75" />
+
+        <TextView
+            android:id="@+id/questProgressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/questProgress"
+            tools:text="75%" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/questProgress">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_culture"
+                android:tint="#673AB7"
+                android:contentDescription="Culture points reward"/>
+
+            <TextView
+                android:id="@+id/questReward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="+75" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView> 

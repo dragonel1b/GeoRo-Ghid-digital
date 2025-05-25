@@ -25,205 +25,9 @@
             android:visibility="gone"/>
     </FrameLayout>
 
-    <com.google.android.material.search.SearchBar
-        android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Caută regiuni sau orașe"
-        app:layout_anchor="@id/mapContainer"
-        app:layout_anchorGravity="top|end"/>
-
-    <!-- City navigation buttons -->
-    <HorizontalScrollView
-        android:id="@+id/cityButtonsScroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:paddingTop="8dp"
-        android:scrollbars="none"
-        android:background="@android:color/transparent"
-        app:layout_anchor="@id/legendCard"
-        app:layout_anchorGravity="top">
-
-        <LinearLayout
-            android:id="@+id/cityButtonsContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <!-- City buttons will be added programmatically -->
-            
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <!-- Legend card at bottom -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/legendCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        style="@style/RomCardView"
-        app:layout_anchorGravity="bottom">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Legendă"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
-
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@android:color/holo_red_light"
-                    android:layout_gravity="center_vertical"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Orașe principale"
-                    android:layout_marginStart="8dp"/>
-
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@android:color/holo_blue_light"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Locații vizitate"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
-
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@android:color/holo_purple"
-                    android:layout_gravity="center_vertical"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Misiuni disponibile"
-                    android:layout_marginStart="8dp"/>
-
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@android:color/holo_orange_light"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Regiuni"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Region info bottomsheet -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/regionInfoCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="200dp"
-        style="@style/RomCardView"
-        app:behavior_peekHeight="0dp"
-        app:behavior_hideable="true"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/regionNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/regionDescriptionText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/questRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:minHeight="200dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/exploreButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Explorează regiunea"
-                android:layout_marginTop="16dp"/>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Navigation buttons -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="Înapoi"
-        android:src="@drawable/ic_back"
-        style="@style/RomMapMarkerFab"
-        app:layout_anchor="@id/mapContainer"
-        app:layout_anchorGravity="top|start"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/discoverFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="Descoperă activități noi"
-        android:src="@drawable/ic_discovery"
-        style="@style/RomMapMarkerFab"
-        app:layout_anchor="@id/mapContainer"
-        app:layout_anchorGravity="bottom|end"/>
-
     <!-- Game resources status bar -->
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/resourcesCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -282,5 +86,212 @@
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <!-- Search Bar - Moving below the resource card to avoid overlap -->
+    <com.google.android.material.search.SearchBar
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="72dp"
+        android:hint="Caută regiuni sau orașe"
+        app:layout_anchor="@id/mapContainer"
+        app:layout_anchorGravity="top"/>
+
+    <!-- City navigation buttons - Moved further down to avoid overlap with search bar -->
+    <HorizontalScrollView
+        android:id="@+id/cityButtonsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:background="#80FFFFFF" 
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="130dp"
+        app:layout_anchor="@id/mapContainer"
+        app:layout_anchorGravity="top">
+
+        <LinearLayout
+            android:id="@+id/cityButtonsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- City buttons will be added programmatically -->
+            
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Legend card with improved visibility -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/legendCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        style="@style/RomCardView"
+        app:cardElevation="6dp"
+        app:layout_anchor="@id/mapContainer"
+        app:layout_anchorGravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Legendă"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@android:color/holo_red_light"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Orașe principale"
+                    android:layout_marginStart="8dp"/>
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Locații vizitate"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@android:color/holo_purple"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Misiuni disponibile"
+                    android:layout_marginStart="8dp"/>
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Regiuni"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Region info bottomsheet -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/regionInfoCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        style="@style/RomCardView"
+        app:behavior_peekHeight="0dp"
+        app:behavior_hideable="true"
+        android:visibility="gone"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/regionNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/regionDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/questRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:minHeight="200dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exploreButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Explorează regiunea"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Navigation buttons -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="Înapoi"
+        android:src="@drawable/ic_back"
+        style="@style/RomMapMarkerFab"
+        app:layout_anchor="@id/mapContainer"
+        app:layout_anchorGravity="start|top"/>
+
+    <!-- FAB pentru descoperire - cu margini mai bune -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/discoverFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="90dp"
+        android:contentDescription="Descoperă activități noi"
+        android:src="@drawable/ic_discovery"
+        style="@style/RomMapMarkerFab"
+        app:layout_anchor="@id/mapContainer"
+        app:layout_anchorGravity="bottom|end"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.example.myapplication.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ public class ImageCarouselAdapter extends RecyclerView.Adapter<ImageCarouselAdap
     public interface OnImageClickListener {
         void onImageClick(int position, String imageUrl);
     }
-    
+
     /**
      * Interface for image added events
      */
@@ -43,7 +44,7 @@ public class ImageCarouselAdapter extends RecyclerView.Adapter<ImageCarouselAdap
     public ImageCarouselAdapter(List<String> imageUrls) {
         this.imageUrls = imageUrls != null ? imageUrls : new ArrayList<>();
     }
-    
+
     public ImageCarouselAdapter(Activity activity, List<String> imageUrls) {
         this.imageUrls = imageUrls != null ? imageUrls : new ArrayList<>();
     }
@@ -51,7 +52,7 @@ public class ImageCarouselAdapter extends RecyclerView.Adapter<ImageCarouselAdap
     public void setOnImageClickListener(OnImageClickListener listener) {
         this.clickListener = listener;
     }
-    
+
     public void setOnImageAddedListener(OnImageAddedListener listener) {
         this.imageAddedListener = listener;
     }
@@ -87,17 +88,37 @@ public class ImageCarouselAdapter extends RecyclerView.Adapter<ImageCarouselAdap
             itemView.setOnClickListener(this);
         }
 
+        @SuppressLint("StringFormatInvalid")
         void bind(String imageUrl, int position) {
             this.currentImageUrl = imageUrl;
             this.currentPosition = position;
+            // Încercăm să obținem resource ID din numele fișierului
+            int resourceId = itemView.getContext().getResources().getIdentifier(
+                    imageUrl, "drawable", itemView.getContext().getPackageName());
 
+            if (resourceId != 0) {
+                // Dacă am găsit resursa, o încărcăm direct
+                Glide.with(itemView.getContext())
+                        .load(resourceId)
+                        .placeholder(R.drawable.image_placeholder_background)
+                        .error(R.drawable.image_placeholder_background)
+                        .transform(new CenterCrop())
+                        .into(imageView);
+
+                // Logăm succesul în consolă pentru debug
+                android.util.Log.d("ImageCarousel", "Imagine încărcată cu succes: " + imageUrl + " (ID: " + resourceId + ")");
+            } else {
+                // Dacă nu am găsit resursa, încercăm să o încărcăm ca URL
             Glide.with(itemView.getContext())
                     .load(imageUrl)
                     .placeholder(R.drawable.image_placeholder_background)
                     .error(R.drawable.image_placeholder_background)
                     .transform(new CenterCrop())
                     .into(imageView);
-            
+
+                // Logăm eroarea în consolă pentru debug
+                android.util.Log.e("ImageCarousel", "Imagine negăsită! Nu există resursă pentru: " + imageUrl);
+            }
             // Set content description
             imageView.setContentDescription(
                     itemView.getContext().getString(R.string.recipe_image_description, position + 1));

@@ -53,6 +53,8 @@ public class Banat extends RegionTemplate {
         return images;
     }
 
+
+
     protected String getIntroductionText() {
         return "Banatul este o regiune istorică situată în sud-vestul României, învecinată cu Serbia și Ungaria. " +
                "Este renumită pentru diversitatea culturală, tradițiile bogate, arhitectura specifică și pentru peisajele naturale spectaculoase, incluzând Munții Banatului și Dunăre.";
@@ -383,9 +385,17 @@ public class Banat extends RegionTemplate {
     }
 
     private void updatePointsDisplay() {
+        int points = pointsManager.getPoints(this);
+        
+        // Update the textBalance TextView
         if (pointsText != null) {
-            int points = pointsManager.getPoints(this);
             pointsText.setText(String.valueOf(points));
+        }
+        
+        // Also update the pointsTextView if it exists (used by EnhancedCityActivity)
+        TextView pointsTextView = findViewById(R.id.pointsTextView);
+        if (pointsTextView != null) {
+            pointsTextView.setText(String.valueOf(points));
         }
     }
 

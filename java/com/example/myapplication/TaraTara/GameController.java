@@ -79,6 +79,13 @@ public class GameController {
 
     private void setGameState(GameState newState) {
         Log.d("GameController", "Changing state from " + currentState + " to " + newState);
+        
+        // Verifică dacă starea nouă este validă în contextul actual
+        if (!isValidStateTransition(currentState, newState)) {
+            Log.e("GameController", "Invalid state transition from " + currentState + " to " + newState);
+            return;
+        }
+        
         currentState = newState;
         updateUIForState();
 
@@ -141,6 +148,48 @@ public class GameController {
                     SoundController.SoundType.SUCCESS : 
                     SoundController.SoundType.FAILURE);
                 break;
+        }
+    }
+
+    // Verifică dacă tranziția de stare este validă
+    private boolean isValidStateTransition(GameState fromState, GameState toState) {
+        // Dacă jocul s-a terminat, nu mai permite alte tranziții
+        if (fromState == GameState.GAME_OVER) {
+            return false;
+        }
+        
+        // Verifică tranziții specifice
+        switch (fromState) {
+            case PLAYER_TURN_START:
+                return toState == GameState.PLAYER_SHOUTED;
+                
+            case PLAYER_SHOUTED:
+                return toState == GameState.PLAYER_SELECTING_ENEMY;
+                
+            case PLAYER_SELECTING_ENEMY:
+                return toState == GameState.PLAYER_CHASING;
+                
+            case PLAYER_CHASING:
+                return toState == GameState.ROUND_OVER || toState == GameState.GAME_OVER;
+                
+            case ENEMY_TURN_START:
+                return toState == GameState.ENEMY_SHOUTED;
+                
+            case ENEMY_SHOUTED:
+                return toState == GameState.ENEMY_SELECTING_PLAYER;
+                
+            case ENEMY_SELECTING_PLAYER:
+                return toState == GameState.ENEMY_CHASING;
+                
+            case ENEMY_CHASING:
+                return toState == GameState.ROUND_OVER || toState == GameState.GAME_OVER;
+                
+            case ROUND_OVER:
+                return toState == GameState.PLAYER_TURN_START || toState == GameState.ENEMY_TURN_START;
+                
+            default:
+                // Dacă suntem în starea inițială sau într-o stare nespecificată, permitem orice tranziție
+                return true;
         }
     }
 
@@ -319,6 +368,13 @@ public class GameController {
 
     public void activateChaseMechanic() {
         Log.d("TaraTaraVremOstasi", "Activating Chase Mechanic (State: " + currentState + ")");
+        
+        // Verifică dacă suntem într-o stare validă pentru chase
+        if (currentState != GameState.PLAYER_CHASING && currentState != GameState.ENEMY_CHASING) {
+            Log.e("GameController", "Cannot activate chase in state: " + currentState);
+            return;
+        }
+        
         isActionActive = true;
         isActionSuccessful = false;
         actionStartTime = System.currentTimeMillis();
@@ -338,8 +394,13 @@ public class GameController {
     }
 
     public void reportChaseOutcome(boolean successful) {
-        if (!isActionActive) return;
+        if (!isActionActive) {
+            Log.w("GameController", "Ignoring chase outcome report because chase is not active");
+            return;
+        }
+        
         isActionActive = false;
+        isActionSuccessful = successful;
 
         Log.d("GameController", "Chase outcome reported: " + successful);
         soundController.vibrate(successful ? 
@@ -349,25 +410,45 @@ public class GameController {
             SoundController.SoundType.SUCCESS : 
             SoundController.SoundType.FAILURE);
 
+        // Make sure we update the UI immediately to reflect the outcome
+        uiController.showGameMessage(successful ? 
+            (isPlayerTurn ? R.string.player_success : R.string.enemy_success) : 
+            (isPlayerTurn ? R.string.player_failure : R.string.enemy_failure));
+        
         endChase(successful);
     }
 
     private void endChase(boolean successful) {
-        isActionSuccessful = successful;
         Log.d("GameController", "Ending Chase Sequence. Success: " + successful + " by " + 
             (isPlayerTurn ? "Player" : "Enemy"));
 
         uiController.handleChaseEnd(successful, () -> {
-            if (isPlayerTurn) {
-                updateTeamStates(activePlayerTeam, enemyTeam, successful);
-            } else {
-                updateTeamStates(enemyTeam, activePlayerTeam, successful);
-            }
+            try {
+                // Make sure we have valid teams before updating
+                if (activePlayerTeam == null || enemyTeam == null) {
+                    Log.e("GameController", "Teams are null during endChase");
+                    setGameState(GameState.ROUND_OVER);
+                    return;
+                }
+                
+                if (isPlayerTurn) {
+                    updateTeamStates(activePlayerTeam, enemyTeam, successful);
+                } else {
+                    updateTeamStates(enemyTeam, activePlayerTeam, successful);
+                }
 
-            // Check for game over
-            if (getTotalPlayerSoldierCount() == 0 || enemyTeam.getSoldierCount() == 0) {
-                setGameState(GameState.GAME_OVER);
-            } else {
+                // Force UI update after team changes
+                uiController.updateTeamUI(activePlayerTeam, enemyTeam, isPlayerTurn);
+
+                // Check for game over
+                if (getTotalPlayerSoldierCount() == 0 || enemyTeam.getSoldierCount() == 0) {
+                    setGameState(GameState.GAME_OVER);
+                } else {
+                    setGameState(GameState.ROUND_OVER);
+                }
+            } catch (Exception e) {
+                Log.e("GameController", "Error in endChase: " + e.getMessage(), e);
+                // Try to continue the game in case of error
                 setGameState(GameState.ROUND_OVER);
             }
         });
@@ -390,6 +471,11 @@ public class GameController {
             return;
         }
 
+        // Debug team states before update
+        Log.d("GameController", "Before update - Chasing team: " + getTeamName(chasingTeam) + 
+              " (" + chasingTeam.getSoldierCount() + " soldiers), Target team: " + 
+              getTeamName(targetTeam) + " (" + targetTeam.getSoldierCount() + " soldiers)");
+        
         Team winnerTeam = chaseSuccessful ? chasingTeam : targetTeam;
         Team loserTeam = chaseSuccessful ? targetTeam : chasingTeam;
         Soldier transferredSoldier = null;
@@ -405,8 +491,10 @@ public class GameController {
             }
 
             if (transferredSoldier != null) {
+                // Make sure we actually remove and add soldiers
                 loserTeam.removeSoldier(transferredSoldier);
                 winnerTeam.addSoldier();
+                
                 Log.d("GameController", "Soldier transferred from " +
                         getTeamName(loserTeam) + " to " +
                         getTeamName(winnerTeam) + " team.");
@@ -417,6 +505,11 @@ public class GameController {
         } else {
             Log.w("GameController", "Loser team has no soldiers left to transfer.");
         }
+
+        // Debug team states after update
+        Log.d("GameController", "After update - Chasing team: " + getTeamName(chasingTeam) + 
+              " (" + chasingTeam.getSoldierCount() + " soldiers), Target team: " + 
+              getTeamName(targetTeam) + " (" + targetTeam.getSoldierCount() + " soldiers)");
 
         currentTargetSoldier = null;
         uiController.updateTeamUI(activePlayerTeam, enemyTeam, isPlayerTurn);

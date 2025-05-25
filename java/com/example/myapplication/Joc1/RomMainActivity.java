@@ -25,8 +25,8 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Joc1.Culinary.ModernCulinaryActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.RomApp.LoginActivity;
 import com.example.myapplication.RomApplication;
 import com.example.myapplication.TaraTara.TaraTaraVremOstasi;
 import com.example.myapplication.security.SecurityManager;
@@ -34,6 +34,7 @@ import com.example.myapplication.utils.TransitionHelper;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +44,11 @@ public class RomMainActivity extends AppCompatActivity {
     
     private TextView fuelText, moneyText, foodText, culturePointsText;
     private MaterialCardView resourcePanel;
-    private RecyclerView destinationsRecyclerView;
     private FloatingActionButton achievementsFab;
     private RomGameState gameState;
     private Handler uiHandler = new Handler(Looper.getMainLooper());
     private SecurityManager securityManager;
+    private FirebaseAuth mAuth;
 
     // City data
     private static final String[] CITY_NAMES = {
@@ -75,6 +76,21 @@ public class RomMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         
         try {
+            // Inițializăm Firebase Auth
+            mAuth = FirebaseAuth.getInstance();
+            
+            // Verificăm dacă utilizatorul este autentificat
+            if (mAuth.getCurrentUser() == null) {
+                // Utilizatorul nu este autentificat, afișăm un mesaj și redirecționăm către LoginActivity
+                Toast.makeText(this, "Trebuie să fii conectat pentru a accesa această secțiune", Toast.LENGTH_LONG).show();
+                
+                // Creăm intent pentru activitatea de login
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish(); // Închidem activitatea curentă
+                return; // Ieșim din metoda onCreate pentru a nu continua inițializarea
+            }
+            
             // Get security manager from application
             securityManager = ((RomApplication) getApplication()).getSecurityManager();
             
@@ -128,7 +144,6 @@ public class RomMainActivity extends AppCompatActivity {
         foodText = findViewById(R.id.foodText);
         culturePointsText = findViewById(R.id.culturePointsText);
         resourcePanel = findViewById(R.id.resourcePanel);
-        destinationsRecyclerView = findViewById(R.id.destinationsRecyclerView);
         achievementsFab = findViewById(R.id.achievementsFab);
     }
     
@@ -152,29 +167,9 @@ public class RomMainActivity extends AppCompatActivity {
     }
 
     private void setupDestinationsRecyclerView() {
-        try {
-            // Create list of destination items
-            List<DestinationItem> destinations = new ArrayList<>();
-            for (int i = 0; i < CITY_NAMES.length; i++) {
-                // Validate city names for security
-                String sanitizedName = securityManager.sanitizeInput(CITY_NAMES[i]);
-                destinations.add(new DestinationItem(sanitizedName, CITY_IMAGES[i]));
-            }
-            
-            // Set up layout manager and adapter
-            int orientation = getResources().getConfiguration().orientation;
-            int spanCount = (orientation == Configuration.ORIENTATION_LANDSCAPE) ? 3 : 2;
-            
-            destinationsRecyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
-            destinationsRecyclerView.setAdapter(new DestinationsAdapter(destinations));
-            
-            // Add animation to items
-            destinationsRecyclerView.setLayoutAnimation(
-                    AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_fall_down));
-        } catch (Exception e) {
-            securityManager.handleException(this, e, 
-                    "Failed to set up destinations.", false);
-        }
+        // This entire method is not needed anymore as destinationsRecyclerView is removed
+        // Just add a log statement to document the change
+        Log.d(TAG, "setupDestinationsRecyclerView: RecyclerView not used in current UI version");
     }
 
     private void updateResourceDisplay() {
@@ -210,21 +205,14 @@ public class RomMainActivity extends AppCompatActivity {
                 .setStartDelay(600)
                 .start();
                 
-        // Animație pentru RecyclerView
-        uiHandler.postDelayed(() -> {
-            destinationsRecyclerView.scheduleLayoutAnimation();
-        }, 400);
+        // Remove RecyclerView animation
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         
-        // Update UI for the new orientation
-        int spanCount = (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) ? 3 : 2;
-        ((GridLayoutManager) destinationsRecyclerView.getLayoutManager()).setSpanCount(spanCount);
-        
-        // No need to reset data as we're using configChanges attribute in manifest
+        // Update UI for the new orientation - removed destinationsRecyclerView reference
         Log.d(TAG, "Configuration changed: " + (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? "landscape" : "portrait"));
     }
 
@@ -311,13 +299,20 @@ public class RomMainActivity extends AppCompatActivity {
     public void startCulinaryMode(View view) {
         animateButtonClick(view);
         try {
-            Intent intent = new Intent(this, com.example.myapplication.Joc1.Culinary.ModernCulinaryActivity.class);
+            // Try to find the class by name to avoid compile-time dependency
+            Class<?> culinaryClass = Class.forName("com.example.myapplication.recipe.ui.RecipeListActivity");
+            Intent intent = new Intent(this, culinaryClass);
+            
             // Validate intent before use
             if (securityManager.validateIntent(intent)) {
                 TransitionHelper.startActivityWithFade(this, intent);
             } else {
                 showErrorMessage("Cannot start culinary mode. Invalid intent detected.");
             }
+        } catch (ClassNotFoundException e) {
+            // Show a friendly message if the culinary activity isn't available
+            showErrorMessage("Culinary mode is not available in this version.");
+            Log.e(TAG, "Culinary class not found", e);
         } catch (Exception e) {
             securityManager.handleException(this, e, 
                     "Failed to start culinary mode.", false);
@@ -331,13 +326,20 @@ public class RomMainActivity extends AppCompatActivity {
     public void startCulinaryWelcome(View view) {
         animateButtonClick(view);
         try {
-            Intent intent = new Intent(this, com.example.myapplication.Joc1.Culinary.CulinaryWelcomeActivity.class);
+            // Try to find the class by name to avoid compile-time dependency
+            Class<?> culinaryWelcomeClass = Class.forName("com.example.myapplication.recipe.ui.RecipeWelcomeActivity");
+            Intent intent = new Intent(this, culinaryWelcomeClass);
+            
             // Validate intent before use
             if (securityManager.validateIntent(intent)) {
                 TransitionHelper.startActivityWithFade(this, intent);
             } else {
                 showErrorMessage("Cannot start culinary welcome. Invalid intent detected.");
             }
+        } catch (ClassNotFoundException e) {
+            // Redirect to the main culinary activity instead
+            showErrorMessage("Welcome activity not available, starting main culinary mode.");
+            startCulinaryMode(view);
         } catch (Exception e) {
             securityManager.handleException(this, e, 
                     "Failed to start culinary welcome.", false);
@@ -523,7 +525,7 @@ public class RomMainActivity extends AppCompatActivity {
                                     String safeCityName = securityManager.sanitizeInput(item.name);
                                     
                                     // Afișează un Snackbar în loc de Toast pentru o experiență mai bună
-                                    Snackbar.make(destinationsRecyclerView, 
+                                    Snackbar.make(findViewById(android.R.id.content), 
                                             "Călătorești spre " + safeCityName, 
                                             Snackbar.LENGTH_SHORT).show();
                                     
@@ -574,5 +576,14 @@ public class RomMainActivity extends AppCompatActivity {
                 this.textView = textView;
             }
         }
+    }
+
+    /**
+     * Method called from layout via onClick attribute
+     * Redirects to the culinary journey activity
+     */
+    public void openRecipesActivity(View view) {
+        // Redirectăm către funcționalitatea culinară existentă
+        startCulinaryMode(view);
     }
 }

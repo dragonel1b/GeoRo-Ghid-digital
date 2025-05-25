@@ -1,9 +1,13 @@
 package com.example.myapplication.viewmodel;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -14,11 +18,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.LayoutInflater;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.myapplication.RomApp.PointsManager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,15 +44,15 @@ import nl.dionsegijn.konfetti.core.emitter.Emitter;
 import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
 import nl.dionsegijn.konfetti.core.models.Shape;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.Arrays;
 
 public class EnhancedCityActivity extends BaseCityActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
 
-    private ArrayList<String> cityImages;
+    protected ArrayList<String> cityImages;
     protected CityImageAdapter imageAdapter;
     private CityViewModel viewModel;
     private MediaPlayer soundEffect;
@@ -69,6 +78,60 @@ public class EnhancedCityActivity extends BaseCityActivity {
         setupSoundEffects();
         setupFloatingActionButton();
         setupConfetti();
+        updatePointsDisplay(); // Actualizăm afișarea punctelor la pornirea activității
+        
+        // Adăugăm butonul flotant pentru încărcarea imaginilor în toate activitățile
+        FloatingButtonHelper.addPhotoButton(this);
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAllImageResources(); // Adăugat pentru depanare
+        updatePointsDisplay(); // Actualizăm punctele când utilizatorul revine la activitate
+    }
+    
+    // Metodă pentru actualizarea afișării punctelor în bara de sus
+    private void updatePointsDisplay() {
+        // Mai întâi obținem PointsManager
+        PointsManager pointsManager = PointsManager.getInstance(this);
+        
+        // Obținem numele regiunii curente (standardizat)
+        String region = pointsManager.standardizeRegionName(getRegionName().toLowerCase());
+        
+        // Obținem punctele
+        int totalPoints = pointsManager.getTotalPoints(this);
+        int regionPoints = pointsManager.getRegionPoints(this, region);
+        
+        // Actualizăm TextView-ul din bara de sus (dacă există)
+        TextView pointsTextView = findViewById(R.id.pointsTextView);
+        if (pointsTextView != null) {
+            pointsTextView.setText("Puncte: " + totalPoints + " (" + region + ": " + regionPoints + ")");
+            
+            // Aplicăm animație pentru a atrage atenția la schimbare
+            Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.button_bounce);
+            if (bounceAnim != null) {
+                pointsTextView.startAnimation(bounceAnim);
+            }
+        }
+        
+        // Actualizăm și TextView-ul cu iconiță (dacă există)
+        TextView iconPointsTextView = findViewById(R.id.pointsText);
+        if (iconPointsTextView != null) {
+            iconPointsTextView.setText(totalPoints + " Puncte");
+            
+            // Aplicăm animație și aici
+            Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.button_bounce);
+            if (bounceAnim != null) {
+                iconPointsTextView.startAnimation(bounceAnim);
+            }
+        }
+        
+        // Dacă niciunul dintre TextView-uri nu există, afișăm un mesaj Toast
+        if (pointsTextView == null && iconPointsTextView == null) {
+            Toast.makeText(this, "Puncte totale: " + totalPoints + " (" + region + ": " + regionPoints + ")", 
+                           Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setupViews() {
@@ -105,18 +168,6 @@ public class EnhancedCityActivity extends BaseCityActivity {
         mainContainer.setBackgroundResource(R.drawable.gradient_background);
     }
 
-    private void setupImageCarousel() {
-        imageCarousel = findViewById(R.id.imageCarousel);
-        imageIndicator = findViewById(R.id.imageIndicator);
-        
-        imageAdapter = new CityImageAdapter(images, this);
-        imageCarousel.setAdapter(imageAdapter);
-
-        new TabLayoutMediator(imageIndicator, imageCarousel,
-                (tab, position) -> tab.setIcon(R.drawable.tab_selector)
-        ).attach();
-    }
-
     private void setupImagePickers() {
         imagePickerLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -125,6 +176,8 @@ public class EnhancedCityActivity extends BaseCityActivity {
                     Uri imageUri = result.getData().getData();
                     if (imageUri != null) {
                         addImageToCarousel(imageUri, true);
+                        // Salvăm imaginea adăugată de utilizator
+                        saveUserImage(imageUri.toString());
                     }
                 }
             }
@@ -136,12 +189,76 @@ public class EnhancedCityActivity extends BaseCityActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Bundle extras = result.getData().getExtras();
                     if (extras != null && extras.containsKey("data")) {
-                        Uri imageUri = Uri.parse(extras.getString("data"));
+                        // Pentru imagini capturate cu camera, primim un Bitmap
+                        android.graphics.Bitmap imageBitmap = (android.graphics.Bitmap) extras.get("data");
+                        
+                        // Salvăm bitmap-ul ca fișier temporar și obținem URI-ul
+                        Uri imageUri = saveImageToCache(imageBitmap);
+                        if (imageUri != null) {
                         addImageToCarousel(imageUri, true);
+                            // Salvăm imaginea adăugată de utilizator
+                            saveUserImage(imageUri.toString());
+                        }
                     }
                 }
             }
         );
+    }
+
+    // Metodă pentru salvarea bitmap-ului ca fișier temporar
+    private Uri saveImageToCache(android.graphics.Bitmap bitmap) {
+        try {
+            String fileName = "city_image_" + System.currentTimeMillis() + ".jpg";
+            java.io.File cacheDir = new java.io.File(getCacheDir(), "city_images");
+            if (!cacheDir.exists()) {
+                cacheDir.mkdirs();
+            }
+            
+            java.io.File outputFile = new java.io.File(cacheDir, fileName);
+            java.io.FileOutputStream fos = new java.io.FileOutputStream(outputFile);
+            bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 90, fos);
+            fos.flush();
+            fos.close();
+            
+            // Returnăm URI-ul fișierului
+            return Uri.fromFile(outputFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Eroare la salvarea imaginii: " + e.getMessage(), 
+                          Toast.LENGTH_SHORT).show();
+            return null;
+        }
+    }
+
+    // Metodă pentru salvarea URI-ului imaginii în SharedPreferences
+    private void saveUserImage(String imageUriString) {
+        try {
+            SharedPreferences prefs = getSharedPreferences("UserImagesPrefs", MODE_PRIVATE);
+            String cityKey = "city_images_" + getCityName().toLowerCase().replace(" ", "_");
+            
+            // Obținem lista curentă de imagini
+            String currentImages = prefs.getString(cityKey, "");
+            ArrayList<String> imagesList = new ArrayList<>();
+            
+            if (!currentImages.isEmpty()) {
+                imagesList.addAll(Arrays.asList(currentImages.split(",")));
+            }
+            
+            // Adăugăm noua imagine dacă nu există deja
+            if (!imagesList.contains(imageUriString)) {
+                imagesList.add(imageUriString);
+                
+                // Salvăm lista actualizată
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(cityKey, TextUtils.join(",", imagesList));
+                editor.apply();
+                
+                Toast.makeText(this, "Imagine salvată pentru " + getCityName(), 
+                              Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupFloatingActionButton() {
@@ -651,6 +768,15 @@ public class EnhancedCityActivity extends BaseCityActivity {
         titleView.setText(title);
         contentView.setText(content);
 
+        // Verificăm dacă secțiunea a fost vizitată anterior
+        String region = getRegionName().toLowerCase();
+        String landmarkKey = "landmark_" + region + "_" + title.replace(" ", "_").toLowerCase();
+        SharedPreferences prefs = getSharedPreferences("LandmarkPrefs", MODE_PRIVATE);
+        boolean wasVisited = prefs.getBoolean(landmarkKey, false);
+        
+        // Setăm starea checkbox-ului în funcție de vizitele anterioare
+        checkBox.setChecked(wasVisited);
+
         if (isHighlighted) {
             sectionView.setBackgroundResource(R.drawable.enhanced_card_background);
             titleView.setTextAppearance(android.R.style.TextAppearance_Large);
@@ -664,6 +790,50 @@ public class EnhancedCityActivity extends BaseCityActivity {
                 soundEffect.start();
             }
             buttonView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+            
+            // Actualizează punctele utilizând PointsManager
+            PointsManager pointsManager = PointsManager.getInstance(this);
+            pointsManager.updateLandmarkStatus(this, getRegionName().toLowerCase(), isChecked);
+            
+            // Salvăm starea checkbox-ului în SharedPreferences
+            String currentRegion = getRegionName().toLowerCase();
+            String currentLandmarkKey = "landmark_" + currentRegion + "_" + title.replace(" ", "_").toLowerCase();
+            SharedPreferences landmarkPrefs = getSharedPreferences("LandmarkPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = landmarkPrefs.edit();
+            editor.putBoolean(currentLandmarkKey, isChecked);
+            editor.apply();
+            
+            // Actualizăm ambele TextView-uri pentru afișarea punctelor
+            int totalPoints = pointsManager.getTotalPoints(this);
+            
+            // 1. Actualizăm TextView-ul din bara de sus
+            TextView topPointsTextView = findViewById(R.id.pointsTextView);
+            if (topPointsTextView != null) {
+                // Setăm textul cu font mai mare și culoare evidentă
+                topPointsTextView.setTextSize(18);
+                topPointsTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+                topPointsTextView.setText("PUNCTE: " + totalPoints);
+                
+                // Animăm TextView-ul pentru a atrage atenția
+                topPointsTextView.startAnimation(
+                    AnimationUtils.loadAnimation(this, R.anim.button_bounce));
+            }
+            
+            // 2. Actualizăm TextView-ul cu iconiță (pointsText)
+            TextView iconPointsTextView = findViewById(R.id.pointsText);
+            if (iconPointsTextView != null) {
+                iconPointsTextView.setText(totalPoints + " Puncte");
+                
+                // Animăm și acest TextView pentru a atrage atenția
+                iconPointsTextView.startAnimation(
+                    AnimationUtils.loadAnimation(this, R.anim.button_bounce));
+            }
+            
+            // Dacă niciunul din TextView-uri nu există, afișăm un mesaj Toast
+            if (topPointsTextView == null && iconPointsTextView == null) {
+                Toast.makeText(this, "Puncte totale: " + totalPoints, 
+                              Toast.LENGTH_LONG).show();
+            }
         });
 
         sectionView.setOnClickListener(v -> {
@@ -692,9 +862,58 @@ public class EnhancedCityActivity extends BaseCityActivity {
     protected ArrayList<String> getCityImages() {
         if (cityImages == null) {
             cityImages = new ArrayList<>();
-            // Add your image resources here
-            cityImages.add("dobrogea_constanta_1");
-            cityImages.add("dobrogea_constanta_casino");
+            
+            // Determinăm ce imagini să încărcăm în funcție de regiunea/orașul curent
+            String className = getClass().getSimpleName();
+            
+            if (className.contains("Dobrogea") || className.contains("Constanta")) {
+                cityImages.add("constanta_port");
+                cityImages.add("cernavoda");
+                cityImages.add("tulcea");
+            } else if (className.contains("Transilvania")) {
+                cityImages.add("cluj");
+                cityImages.add("brasov");
+                cityImages.add("sibiu");
+                cityImages.add("targumures");
+                cityImages.add("alba_iulia");
+            } else if (className.contains("Oltenia")) {
+                cityImages.add("craiova");
+                cityImages.add("targujiu");
+                cityImages.add("oltenia_landscape");
+                cityImages.add("valcea");
+                cityImages.add("slatina");
+            } else if (className.contains("Banat")) {
+                cityImages.add("timisoara");
+                cityImages.add("banat_panorama");
+                cityImages.add("piata_unirii");
+            } else if (className.contains("Moldova")) {
+                cityImages.add("iasi");
+                cityImages.add("suceava");
+                cityImages.add("bacau");
+                cityImages.add("piatra_neamt");
+                cityImages.add("copou_iasi");
+                cityImages.add("rapa_galbena_iasi");
+            } else if (className.contains("Crisana")) {
+                cityImages.add("oradea");
+                cityImages.add("salonta");
+            } else if (className.contains("Bucovina")) {
+                cityImages.add("suceava");
+                cityImages.add("vatra_dornei");
+                cityImages.add("campulung");
+            } else if (className.contains("Muntenia")) {
+                cityImages.add("bucuresti");
+                cityImages.add("alexandria");
+                cityImages.add("pitesti");
+                cityImages.add("curtea_de_arges");
+            } else if (className.contains("Maramures")) {
+                cityImages.add("baia_mare");
+                cityImages.add("muzeu_sat_mar");
+                cityImages.add("turn_cetatii");
+            } else {
+                // Imagini implicite pentru orice alt caz
+                cityImages.add("romania_harta");
+                cityImages.add("comp_baroc");
+            }
         }
         return cityImages;
     }
@@ -738,6 +957,173 @@ public class EnhancedCityActivity extends BaseCityActivity {
                 
             default:
                 return "Informații detaliate despre acest oraș nu sunt disponibile momentan.";
+        }
+    }
+
+        private void setupImageCarousel() {
+    imageCarousel = findViewById(R.id.imageCarousel);
+    imageIndicator = findViewById(R.id.imageIndicator);
+    
+    // Încărcăm imaginile specifice orașului
+    images = new ArrayList<>();
+    
+    try {
+        // 1. Mai întâi adăugăm imaginile predefinite
+        ArrayList<String> cityImagesList = getCityImages();
+        if (cityImagesList != null && !cityImagesList.isEmpty()) {
+            Log.d("ImageCarousel", "Regiunea: " + getRegionName() + ", Imagini de încărcat: " + cityImagesList.size());
+            
+            for (String imageName : cityImagesList) {
+                // Adăugăm direct imaginea folosind ID-ul resursei
+                try {
+                    int resourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
+                    
+                    if (resourceId != 0) {
+                        // Folosim Constructor care ia direct resursele
+                        ImageView testImageView = new ImageView(this);
+                        testImageView.setImageResource(resourceId);
+                        
+                        // Creăm corect URI pentru resursă
+                        Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/" + resourceId);
+                        images.add(new CityImage(imageUri, false));
+                        Log.d("ImageCarousel", "Imagine găsită și adăugată: " + imageName + " (resourceId=" + resourceId + ")");
+                    } else {
+                        // Încercăm cu extensia jpg/png exact
+                        int jpgId = getResources().getIdentifier(imageName + ".jpg", "drawable", getPackageName());
+                        if (jpgId != 0) {
+                            Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/" + jpgId);
+                            images.add(new CityImage(imageUri, false));
+                            Log.d("ImageCarousel", "Imagine găsită cu extensie .jpg: " + imageName);
+                            continue;
+                        }
+                        
+                        int pngId = getResources().getIdentifier(imageName + ".png", "drawable", getPackageName());
+                        if (pngId != 0) {
+                            Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/" + pngId);
+                            images.add(new CityImage(imageUri, false));
+                            Log.d("ImageCarousel", "Imagine găsită cu extensie .png: " + imageName);
+                            continue;
+                        }
+                        
+                        Log.e("ImageCarousel", "Imagine negăsită: " + imageName);
+                        // Adăugăm un placeholder pentru imaginile negăsite
+                        int placeholderId = getResources().getIdentifier("city_image_placeholder", "drawable", getPackageName());
+                        if (placeholderId == 0) {
+                            placeholderId = android.R.drawable.ic_menu_gallery; // Folosim un placeholder din Android
+                        }
+                        Uri placeholderUri = Uri.parse("android.resource://" + getPackageName() + "/" + placeholderId);
+                        images.add(new CityImage(placeholderUri, false));
+                    }
+                } catch (Exception e) {
+                    Log.e("ImageCarousel", "Eroare la încărcarea imaginii " + imageName + ": " + e.getMessage());
+                    // În caz de eroare, adăugăm un placeholder
+                    int placeholderId = android.R.drawable.ic_menu_gallery;
+                    Uri placeholderUri = Uri.parse("android.resource://" + getPackageName() + "/" + placeholderId);
+                    images.add(new CityImage(placeholderUri, false));
+                }
+            }
+            
+            Log.d("ImageCarousel", "Număr total de imagini adăugate: " + images.size());
+        } else {
+            Log.e("ImageCarousel", "Lista de imagini este goală sau null pentru " + getRegionName());
+        }
+        
+        // 2. Apoi încărcăm imaginile adăugate de utilizator
+        loadUserImages();
+        
+        // 3. Dacă nu avem nicio imagine, adăugăm un placeholder
+        if (images.isEmpty()) {
+            Log.w("ImageCarousel", "Nu s-a găsit nicio imagine, se adaugă placeholder");
+            int placeholderId = android.R.drawable.ic_menu_gallery;
+            Uri placeholderUri = Uri.parse("android.resource://" + getPackageName() + "/" + placeholderId);
+            images.add(new CityImage(placeholderUri, false));
+        }
+        
+    } catch (Exception e) {
+        Log.e("ImageCarousel", "Eroare la încărcarea imaginilor: " + e.getMessage(), e);
+        e.printStackTrace();
+        // În caz de eroare, adăugăm placeholder-ul
+        int placeholderId = android.R.drawable.ic_menu_gallery;
+        Uri placeholderUri = Uri.parse("android.resource://" + getPackageName() + "/" + placeholderId);
+        images.add(new CityImage(placeholderUri, false));
+    }
+        
+        imageAdapter = new CityImageAdapter(images, this);
+        imageCarousel.setAdapter(imageAdapter);
+
+        if (imageIndicator != null && imageCarousel != null && images.size() > 1) {
+            new TabLayoutMediator(imageIndicator, imageCarousel,
+                    (tab, position) -> tab.setIcon(R.drawable.tab_selector)
+            ).attach();
+            
+            imageIndicator.setVisibility(View.VISIBLE);
+        } else if (imageIndicator != null) {
+            imageIndicator.setVisibility(View.GONE);
+        }
+    }
+
+    // Metodă pentru încărcarea imaginilor adăugate de utilizator
+    private void loadUserImages() {
+        try {
+            SharedPreferences prefs = getSharedPreferences("UserImagesPrefs", MODE_PRIVATE);
+            String cityKey = "city_images_" + getCityName().toLowerCase().replace(" ", "_");
+            
+            String savedImages = prefs.getString(cityKey, "");
+            if (!savedImages.isEmpty()) {
+                String[] imageUris = savedImages.split(",");
+                
+                for (String uriString : imageUris) {
+                    try {
+                        Uri uri = Uri.parse(uriString);
+                        // Verificăm dacă URI-ul este valid
+                        getContentResolver().getType(uri);
+                        // Adăugăm imaginea
+                        images.add(new CityImage(uri, true));
+                    } catch (Exception e) {
+                        // Ignorăm imaginile care nu mai sunt valide
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metodă ajutătoare pentru verificarea tuturor imaginilor
+    private void checkAllImageResources() {
+        ArrayList<String> imagesToCheck = getCityImages();
+        if (imagesToCheck == null || imagesToCheck.isEmpty()) {
+            Log.e("ImageChecker", "Lista de imagini este goală sau null!");
+            return;
+        }
+        
+        Log.d("ImageChecker", "Verificare resurse pentru " + getRegionName() + ", " + imagesToCheck.size() + " imagini:");
+        
+        for (String imageName : imagesToCheck) {
+            int resourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
+            
+            if (resourceId != 0) {
+                Log.d("ImageChecker", "✅ Imagine găsită: " + imageName);
+            } else {
+                Log.e("ImageChecker", "❌ Imagine NEGĂSITĂ: " + imageName);
+                
+                // Încercăm cu diverse extensii
+                String[] extensions = {".jpg", ".jpeg", ".png", ".webp"};
+                boolean found = false;
+                
+                for (String ext : extensions) {
+                    int resId = getResources().getIdentifier(imageName + ext, "drawable", getPackageName());
+                    if (resId != 0) {
+                        found = true;
+                        Log.d("ImageChecker", "   Dar a fost găsită ca: " + imageName + ext);
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    Log.e("ImageChecker", "   Sugestie: Adaugă fișierul " + imageName + ".jpg în folderul drawable!");
+                }
+            }
         }
     }
 }

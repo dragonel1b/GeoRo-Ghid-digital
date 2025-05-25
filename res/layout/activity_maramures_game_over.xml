@@ -9,16 +9,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="8dp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="24dp">
+
+        <!-- Confetti Animation View could be added here -->
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/scoreCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/maramures_primary_light"
             app:cardBackgroundColor="@color/maramures_card_bg"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -26,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/gameOverTitle"
@@ -35,82 +39,163 @@
                     android:gravity="center"
                     android:text="Joc Terminat!"
                     android:textColor="@color/maramures_primary"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:layout_margin="8dp"
+                    android:layout_margin="16dp"
                     android:src="@drawable/maramures_icon"
                     android:contentDescription="Maramureș Icon" />
 
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginVertical="8dp"
+                    android:background="@color/maramures_primary_light" />
+
+                <!-- Final Score with larger display -->
                 <TextView
                     android:id="@+id/finalScoreText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="Scor Final: 0"
-                    android:textColor="@color/maramures_text"
-                    android:textSize="20sp"
+                    android:textColor="@color/maramures_primary"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/streakText"
+                <!-- Stats Card -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Cel mai lung streak: 0"
-                    android:textColor="@color/maramures_text"
-                    android:textSize="18sp" />
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/maramures_secondary_light">
 
-                <TextView
-                    android:id="@+id/correctAnswersText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Răspunsuri corecte: 0/0"
-                    android:textColor="@color/maramures_text"
-                    android:textSize="18sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
-                <TextView
-                    android:id="@+id/accuracyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Acuratețe: 0.0%"
-                    android:textColor="@color/maramures_text"
-                    android:textSize="18sp" />
+                        <!-- Stats Header -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Statistici Joc"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_marginBottom="8dp" />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:baselineAligned="false">
+
+                            <!-- Left column -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_streak"
+                                    android:tint="@color/white"
+                                    android:contentDescription="Streak Icon" />
+
+                                <TextView
+                                    android:id="@+id/streakText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:gravity="center"
+                                    android:text="Streak: 0"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                            <!-- Right column -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_accuracy"
+                                    android:tint="@color/white"
+                                    android:contentDescription="Accuracy Icon" />
+
+                                <TextView
+                                    android:id="@+id/accuracyText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:gravity="center"
+                                    android:text="Acuratețe: 0.0%"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/correctAnswersText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="Răspunsuri corecte: 0/0"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Achievements section with improved styling -->
                 <TextView
                     android:id="@+id/achievementsText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/card_gradient_background_maramures"
-                    android:gravity="center"
-                    android:padding="8dp"
+                    android:gravity="start"
+                    android:padding="12dp"
                     android:text="Realizări"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:lineSpacingExtra="4dp"
                     android:visibility="gone" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Buttons with improved spacing and styling -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/buttonsCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/maramures_secondary_light"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/maramures_primary_light"
+            app:cardBackgroundColor="@color/maramures_card_bg"
             app:layout_constraintTop_toBottomOf="@id/scoreCard"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -118,51 +203,60 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="16dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/playAgainButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
+                    android:layout_marginVertical="6dp"
+                    android:paddingVertical="14dp"
                     android:text="Joacă din nou"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:backgroundTint="@color/maramures_primary"
-                    app:cornerRadius="8dp"
+                    app:cornerRadius="12dp"
                     app:icon="@drawable/ic_replay"
                     app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="24dp"
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/shareButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
+                    android:layout_marginVertical="6dp"
+                    android:paddingVertical="14dp"
                     android:text="Distribuie scorul"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:backgroundTint="@color/maramures_accent"
-                    app:cornerRadius="8dp"
+                    app:cornerRadius="12dp"
                     app:icon="@drawable/ic_share"
                     app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="24dp"
                     app:iconTint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/exitButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
+                    android:layout_marginVertical="6dp"
+                    android:paddingVertical="14dp"
                     android:text="Înapoi la Maramureș"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:backgroundTint="@color/maramures_secondary"
-                    app:cornerRadius="8dp"
+                    app:cornerRadius="12dp"
                     app:icon="@drawable/ic_back"
                     app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="24dp"
                     app:iconTint="@color/white" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

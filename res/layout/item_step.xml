@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="8dp"
-    app:strokeColor="?attr/colorOutline"
-    app:strokeWidth="1dp"
-    app:cardElevation="0dp">
+    android:paddingVertical="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/stepNumberTextView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/holo_blue_light"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/stepTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stepNumberTextView"
+        app:layout_constraintTop_toTopOf="@+id/stepNumberTextView"
+        tools:text="Într-o cratiță mare, încălziți uleiul de măsline la foc mediu. Adăugați ceapa și usturoiul și căliți-le până devin translucide, aproximativ 5 minute." />
 
-        <TextView
-            android:id="@+id/stepNumberText"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/step_number_background"
-            android:gravity="center"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?attr/colorOnPrimary"
-            android:textStyle="bold"
-            tools:text="1" />
-
-        <TextView
-            android:id="@+id/stepDescriptionText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:lineSpacingMultiplier="1.2"
-            tools:text="Într-un castron mare, amestecați carnea tocată cu orezul spălat și scurs bine." />
-
-    </LinearLayout>
-
-</com.google.android.material.card.MaterialCardView> 
+</androidx.constraintlayout.widget.ConstraintLayout> 

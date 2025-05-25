@@ -172,6 +172,11 @@ public class CityFeaturesActivity extends AppCompatActivity {
                     Uri imageUri = result.getData().getData();
                     if (imageUri != null) {
                         addImageToCarousel(imageUri, true);
+                        
+                        // Show a special message for photo challenge participants
+                        Snackbar.make(findViewById(android.R.id.content), 
+                            "Mulțumim pentru participarea la provocarea foto! Fotografia ta a fost adăugată cu succes.", 
+                            Snackbar.LENGTH_LONG).show();
                     }
                 }
             }
@@ -429,7 +434,7 @@ public class CityFeaturesActivity extends AppCompatActivity {
         
         addPhotoButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            imagePickerLauncher.launch(intent);
         });
         
         cardContent.addView(challengeTitle);

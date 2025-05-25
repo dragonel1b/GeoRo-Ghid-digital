@@ -22,6 +22,7 @@ import com.example.myapplication.viewmodel.CityImageAdapter;
 import com.example.myapplication.viewmodel.CityFeaturesActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.os.AsyncTask;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -36,6 +37,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.annotation.NonNull;
 import com.example.myapplication.viewmodel.AttractionHelper;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Sibiu extends EnhancedCityActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -55,6 +58,7 @@ public class Sibiu extends EnhancedCityActivity {
     private static final String SIBIU_CITY_ID = "667268";
     private static final String WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?id=" + SIBIU_CITY_ID + "&appid=" + WEATHER_API_KEY + "&units=metric&lang=ro";
     private boolean contentInitialized = false;
+    private FloatingActionButton addPhotoFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +117,60 @@ public class Sibiu extends EnhancedCityActivity {
             ViewGroup parent = (ViewGroup) tabLayout.getParent();
             if (parent != null) {
                 parent.addView(mapButton);
+            }
+        }
+        
+        // Inițializăm FloatingActionButton înainte de a seta parametrii
+        addPhotoFab = new FloatingActionButton(this);
+        addPhotoFab.setImageResource(android.R.drawable.ic_input_add);
+        addPhotoFab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor("#FF8F00")));
+        addPhotoFab.setSize(FloatingActionButton.SIZE_NORMAL);
+        
+        // Setăm layoutParams pentru a poziționa butonul în colțul din dreapta, mai sus
+        androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams fabParams = 
+                new androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+        fabParams.gravity = android.view.Gravity.BOTTOM | android.view.Gravity.END;
+        fabParams.setMargins(0, 0, 32, 300);  // Marginea în dreapta și mult mai sus (300dp de la partea de jos)
+        addPhotoFab.setLayoutParams(fabParams);
+        
+        // Adăugăm listener pentru deschiderea galeriei
+        addPhotoFab.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        });
+        
+        // Obținem CoordinatorLayout-ul principal corect, fără cast periculos
+        ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content);
+        if (rootView != null && rootView.getChildCount() > 0) {
+            View firstChild = rootView.getChildAt(0);
+            if (firstChild instanceof androidx.coordinatorlayout.widget.CoordinatorLayout) {
+                // Dacă primul copil este CoordinatorLayout, adăugăm FAB-ul direct
+                ((androidx.coordinatorlayout.widget.CoordinatorLayout) firstChild).addView(addPhotoFab);
+            } else {
+                // Dacă nu găsim CoordinatorLayout, adăugăm un buton alternativ în container-ul principal
+                Button addPhotoButton = new Button(this);
+                addPhotoButton.setText("Adaugă Fotografie");
+                addPhotoButton.setBackgroundColor(Color.parseColor("#FF8F00"));
+                addPhotoButton.setTextColor(Color.WHITE);
+                
+                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                buttonParams.gravity = android.view.Gravity.END;
+                buttonParams.setMargins(0, 16, 16, 16);
+                addPhotoButton.setLayoutParams(buttonParams);
+                
+                addPhotoButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                });
+                
+                if (mainContainer != null) {
+                    mainContainer.addView(addPhotoButton, 0);
+                }
             }
         }
 
@@ -202,6 +260,9 @@ public class Sibiu extends EnhancedCityActivity {
     private void setupImageCarousel() {
         ArrayList<String> images = getCityImages();
         if (images != null && !images.isEmpty()) {
+            // Debugging - afișăm imaginile care vor fi afișate
+            Toast.makeText(this, "Se afișează " + images.size() + " imagini în carusel", Toast.LENGTH_SHORT).show();
+            
             androidx.viewpager2.widget.ViewPager2 viewPager = findViewById(R.id.imageCarousel);
             if (viewPager != null) {
                 com.example.myapplication.adapter.ImageCarouselAdapter adapter =
@@ -212,7 +273,7 @@ public class Sibiu extends EnhancedCityActivity {
                     userImages.add(imageUri);
                     saveImages();
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(this, "Fotografie adăugată cu succes!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Fotografie adăugată cu succes prin listener!", Toast.LENGTH_SHORT).show();
                 });
 
                 viewPager.setAdapter(adapter);
@@ -222,7 +283,11 @@ public class Sibiu extends EnhancedCityActivity {
                     new com.google.android.material.tabs.TabLayoutMediator(tabLayout, viewPager,
                             (tab, position) -> {}).attach();
                 }
+            } else {
+                Toast.makeText(this, "ViewPager nu a fost găsit!", Toast.LENGTH_LONG).show();
             }
+        } else {
+            Toast.makeText(this, "Nu există imagini pentru carusel!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -243,13 +308,26 @@ public class Sibiu extends EnhancedCityActivity {
     private void loadSavedImages() {
         Set<String> savedImages = sharedPreferences.getStringSet(USER_IMAGES_KEY, new HashSet<>());
         userImages.clear();
-        userImages.addAll(savedImages);
+        if (savedImages != null && !savedImages.isEmpty()) {
+            userImages.addAll(savedImages);
+            Toast.makeText(this, "S-au încărcat " + userImages.size() + " imagini salvate", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Nu există imagini salvate", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void saveImages() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet(USER_IMAGES_KEY, new HashSet<>(userImages));
-        editor.apply();
+        Set<String> imageSet = new HashSet<>(userImages);
+        editor.putStringSet(USER_IMAGES_KEY, imageSet);
+        boolean success = editor.commit(); // Use commit instead of apply to get immediate result
+        
+        // Debugging toast to check if images were saved successfully
+        if (success) {
+            Toast.makeText(this, "Imagini salvate: " + userImages.size(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Eroare la salvarea imaginilor!", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setupSpecialFeatures() {
@@ -422,35 +500,41 @@ public class Sibiu extends EnhancedCityActivity {
     }
 
     private void fetchWeatherData(TextView weatherInfoView) {
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(WEATHER_API_URL);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        
+        executor.execute(() -> {
+            // Cod executat în background
+            String result = null;
+            try {
+                URL url = new URL(WEATHER_API_URL);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
 
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
 
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
-                    }
-                    reader.close();
-
-                    return response.toString();
-                } catch (Exception e) {
-                    return null;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
                 }
-            }
+                reader.close();
 
-            @Override
-            protected void onPostExecute(String result) {
-                if (result != null) {
+                result = response.toString();
+            } catch (Exception e) {
+                result = null;
+            }
+            
+            // Rezultatul final pentru a fi utilizat în Handler
+            final String finalResult = result;
+            
+            // Actualizare UI pe thread-ul principal
+            handler.post(() -> {
+                // Cod identic cu onPostExecute original
+                if (finalResult != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject(result);
+                        JSONObject jsonObject = new JSONObject(finalResult);
                         JSONObject main = jsonObject.getJSONObject("main");
                         JSONObject weather = jsonObject.getJSONArray("weather").getJSONObject(0);
 
@@ -470,8 +554,8 @@ public class Sibiu extends EnhancedCityActivity {
                 } else {
                     weatherInfoView.setText("Nu s-au putut încărca datele meteo. Verificați conexiunea la internet.");
                 }
-            }
-        }.execute();
+            });
+        });
     }
 
     private void addWelcomeBackMessage() {
@@ -507,10 +591,20 @@ public class Sibiu extends EnhancedCityActivity {
             Uri selectedImageUri = data.getData();
             if (selectedImageUri != null) {
                 try {
-                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                    getContentResolver().takePersistableUriPermission(selectedImageUri, takeFlags);
+                    // Obținem permisiune persistentă pentru URI, dacă e disponibilă
+                    try {
+                        int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                        getContentResolver().takePersistableUriPermission(selectedImageUri, takeFlags);
+                        Toast.makeText(this, "Permisiune persistentă obținută", Toast.LENGTH_SHORT).show();
+                    } catch (SecurityException se) {
+                        // În caz că nu putem obține permisiune persistentă, continuăm oricum
+                        Toast.makeText(this, "Nu s-a putut obține permisiune persistentă, dar continuăm", Toast.LENGTH_SHORT).show();
+                    }
 
                     String imageUri = selectedImageUri.toString();
+                    
+                    // Debugging toast to confirm URI was captured
+                    Toast.makeText(this, "URI imagine: " + imageUri, Toast.LENGTH_SHORT).show();
 
                     // Verificăm dacă avem deja 5 imagini pentru Sibiu
                     if (userImages.size() >= 5) {
@@ -520,20 +614,29 @@ public class Sibiu extends EnhancedCityActivity {
 
                     // Adăugăm noua imagine
                     userImages.add(imageUri);
+                    
+                    // Debugging - afișăm câte imagini avem acum
+                    Toast.makeText(this, "Total imagini: " + userImages.size(), Toast.LENGTH_SHORT).show();
+                    
+                    // Salvăm imaginile
                     saveImages();
 
                     // Reconfigurăm caruselul pentru a include noua imagine
                     setupImageCarousel();
 
-                    Toast.makeText(this, "Fotografie adăugată cu succes!", Toast.LENGTH_SHORT).show();
-
                     Snackbar.make(findViewById(android.R.id.content),
-                            "Mulțumim pentru participarea la provocarea foto! Fotografia ta a fost adăugată cu succes.",
+                            "Imaginea a fost adăugată cu succes în carusel!",
                             Snackbar.LENGTH_LONG).show();
                 } catch (SecurityException e) {
-                    Toast.makeText(this, "Nu s-a putut accesa imaginea: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Nu s-a putut accesa imaginea: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(this, "Eroare: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+            } else {
+                Toast.makeText(this, "URI imagine null", Toast.LENGTH_LONG).show();
             }
+        } else if (requestCode == PICK_IMAGE_REQUEST) {
+            Toast.makeText(this, "Selectare imagine anulată sau eșuată", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -545,6 +648,8 @@ public class Sibiu extends EnhancedCityActivity {
         if (userImages != null && !userImages.isEmpty()) {
             int startIndex = Math.max(0, userImages.size() - 5);
             images.addAll(userImages.subList(startIndex, userImages.size()));
+            // Debugging - afișăm câte imagini ale utilizatorului sunt folosite
+            Toast.makeText(this, "Se folosesc " + images.size() + " imagini ale utilizatorului", Toast.LENGTH_SHORT).show();
         }
 
         // Add default images if needed
@@ -561,6 +666,9 @@ public class Sibiu extends EnhancedCityActivity {
             for (int i = 0; i < remainingSlots && i < defaultImages.size(); i++) {
                 images.add(defaultImages.get(i));
             }
+            
+            // Debugging - afișăm câte imagini implicite sunt folosite
+            Toast.makeText(this, "Se adaugă " + remainingSlots + " imagini implicite", Toast.LENGTH_SHORT).show();
         }
 
         return images;

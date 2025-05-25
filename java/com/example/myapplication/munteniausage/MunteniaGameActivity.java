@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.example.myapplication.R;
@@ -54,11 +55,15 @@ public class MunteniaGameActivity extends AppCompatActivity {
     private MaterialButton answerButton2;
     private MaterialButton answerButton3;
     private MaterialButton answerButton4;
-    private Button finishButton;
+    private MaterialButton finishButton;
     private ImageView questionImage;
-    private Button backButton;
-    private ImageButton fiftyFiftyButton;
-    private ImageButton skipQuestionButton;
+    private MaterialButton fiftyFiftyButton;
+    private MaterialButton skipQuestionButton;
+    private MaterialCardView answerCard1;
+    private MaterialCardView answerCard2;
+    private MaterialCardView answerCard3;
+    private MaterialCardView answerCard4;
+    private CardView questionImageCard;
     
     // Additional fields
     private TextView tvQuestion;
@@ -134,20 +139,23 @@ public class MunteniaGameActivity extends AppCompatActivity {
         finishButton = findViewById(R.id.finishButton);
         progressBar = findViewById(R.id.progressBar);
         questionImage = findViewById(R.id.questionImage);
-        questionCard = findViewById(R.id.questionCard);
-        backButton = findViewById(R.id.backButton);
+        questionImageCard = findViewById(R.id.questionImageCard);
         fiftyFiftyButton = findViewById(R.id.fiftyFiftyButton);
         skipQuestionButton = findViewById(R.id.skipQuestionButton);
+        answerCard1 = findViewById(R.id.answerCard1);
+        answerCard2 = findViewById(R.id.answerCard2);
+        answerCard3 = findViewById(R.id.answerCard3);
+        answerCard4 = findViewById(R.id.answerCard4);
 
         // Set progress bar max and progress
         progressBar.setMax(QUESTION_COUNT);
         progressBar.setProgress(currentQuestionIndex);
 
-        // Set click listeners for answer buttons
-        answerButton1.setOnClickListener(v -> checkAnswer(0));
-        answerButton2.setOnClickListener(v -> checkAnswer(1));
-        answerButton3.setOnClickListener(v -> checkAnswer(2));
-        answerButton4.setOnClickListener(v -> checkAnswer(3));
+        // Set click listeners for answer cards
+        answerCard1.setOnClickListener(v -> checkAnswer(0));
+        answerCard2.setOnClickListener(v -> checkAnswer(1));
+        answerCard3.setOnClickListener(v -> checkAnswer(2));
+        answerCard4.setOnClickListener(v -> checkAnswer(3));
 
         // Set click listener for finish button
         finishButton.setOnClickListener(v -> showFinalScore());
@@ -156,9 +164,6 @@ public class MunteniaGameActivity extends AppCompatActivity {
         // Set click listeners for lifelines
         fiftyFiftyButton.setOnClickListener(v -> useFiftyFifty());
         skipQuestionButton.setOnClickListener(v -> skipQuestion());
-
-        // Back button
-        backButton.setOnClickListener(v -> showExitConfirmation());
     }
 
     private void setupSounds() {
@@ -289,67 +294,77 @@ public class MunteniaGameActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void displayQuestion(int index) {
-        if (index < selectedQuestions.size()) {
-            QuizQuestion currentQuestion = selectedQuestions.get(index);
-            
-            // Update UI with question
-            questionTextView.setText(currentQuestion.getQuestion());
-            
-            // Set image if available
-            if (currentQuestion.getImageResource() != 0) {
-                questionImage.setVisibility(View.VISIBLE);
-                questionImage.setImageResource(currentQuestion.getImageResource());
-            } else {
-                questionImage.setVisibility(View.GONE);
-            }
-            
-            // Set up answers (shuffled)
-            List<String> answers = new ArrayList<>(currentQuestion.getAnswers());
-            
-            // Set answer text
-            answerButton1.setText(answers.get(0));
-            answerButton2.setText(answers.get(1));
-            answerButton3.setText(answers.get(2));
-            answerButton4.setText(answers.get(3));
-            
-            // Reset button styles
-            resetButtonStyles();
-            
-            // Update progress
-            progressBar.setProgress(index + 1);
-            
-            // Hide fact text
-            factTextView.setVisibility(View.GONE);
-            
-            // Reset answered state
-            answered = false;
-            
-            // Show answer buttons
-            enableAnswerButtons(true);
-            
-            // Hide finish button if not at the end
-            if (index < selectedQuestions.size() - 1) {
-                finishButton.setVisibility(View.GONE);
-            }
-            
-            // Update streak text
-            streakTextView.setText(String.format(Locale.getDefault(), "🔥 Reușite consecutive: %d", streak));
-        } else {
-            // All questions answered, show final score
+        if (index >= selectedQuestions.size()) {
             showFinalScore();
+            return;
         }
+
+        timeLeftInMillis = TIME_PER_QUESTION;
+        QuizQuestion currentQuestion = selectedQuestions.get(index);
+        questionTextView.setText(currentQuestion.getQuestion());
+
+        // Hide fact text initially
+        factTextView.setVisibility(View.GONE);
+
+        // Reset button styles
+        resetButtonStyles();
+
+        // Set answers
+        List<String> answers = currentQuestion.getAnswers();
+        answerButton1.setText(answers.get(0));
+        answerButton2.setText(answers.get(1));
+        answerButton3.setText(answers.get(2));
+        answerButton4.setText(answers.get(3));
+
+        // Reset button click states
+        enableAnswerButtons(true);
+
+        // Setup image if available
+        int imageResource = currentQuestion.getImageResource();
+        if (imageResource != 0) {
+            questionImage.setImageResource(imageResource);
+            questionImageCard.setVisibility(View.VISIBLE);
+        } else {
+            questionImageCard.setVisibility(View.GONE);
+        }
+
+        // Update progress
+        progressBar.setProgress(index + 1);
+        
+        // Cancel previous timer if running
+        if (timer != null) {
+            timer.cancel();
+        }
+        
+        // Start new timer
+        startTimer();
+        
+        // Continue with the next question
+        answered = false;
     }
 
     private void resetButtonStyles() {
-        answerButton1.setBackgroundTintList(getColorStateList(R.color.rom_primary));
-        answerButton2.setBackgroundTintList(getColorStateList(R.color.rom_primary));
-        answerButton3.setBackgroundTintList(getColorStateList(R.color.rom_primary));
-        answerButton4.setBackgroundTintList(getColorStateList(R.color.rom_primary));
+        // Reset button styles to default
+        answerButton1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.rom_card_background));
+        answerButton2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.rom_card_background));
+        answerButton3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.rom_card_background));
+        answerButton4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.rom_card_background));
         
-        answerButton1.setTextColor(Color.WHITE);
-        answerButton2.setTextColor(Color.WHITE);
-        answerButton3.setTextColor(Color.WHITE);
-        answerButton4.setTextColor(Color.WHITE);
+        answerButton1.setTextColor(ContextCompat.getColor(this, R.color.rom_text));
+        answerButton2.setTextColor(ContextCompat.getColor(this, R.color.rom_text));
+        answerButton3.setTextColor(ContextCompat.getColor(this, R.color.rom_text));
+        answerButton4.setTextColor(ContextCompat.getColor(this, R.color.rom_text));
+        
+        // Reset card styles
+        answerCard1.setStrokeColor(ContextCompat.getColor(this, R.color.muntenia_primary));
+        answerCard2.setStrokeColor(ContextCompat.getColor(this, R.color.muntenia_primary));
+        answerCard3.setStrokeColor(ContextCompat.getColor(this, R.color.muntenia_primary));
+        answerCard4.setStrokeColor(ContextCompat.getColor(this, R.color.muntenia_primary));
+        
+        answerCard1.setStrokeWidth(2);
+        answerCard2.setStrokeWidth(2);
+        answerCard3.setStrokeWidth(2);
+        answerCard4.setStrokeWidth(2);
     }
 
     private void startTimer() {
@@ -388,64 +403,37 @@ public class MunteniaGameActivity extends AppCompatActivity {
     private void checkAnswer(int selectedAnswerIndex) {
         if (answered) return;
         
+        // Mark question as answered
         answered = true;
         
-        // Stop the timer
+        // Stop timer
         if (timer != null) {
             timer.cancel();
         }
         
-        // Stop the clock sound if playing
-        if (clockSound != null && clockSound.isPlaying()) {
-            clockSound.stop();
-            try {
-                clockSound.prepare();
-            } catch (Exception e) {
-                Log.e("MunteniaGame", "Error preparing clock sound: " + e.getMessage());
-            }
-        }
-        
         QuizQuestion currentQuestion = selectedQuestions.get(currentQuestionIndex);
         int correctAnswerIndex = currentQuestion.getCorrectAnswerIndex();
+        MaterialCardView selectedCard = getCardByIndex(selectedAnswerIndex);
+        MaterialCardView correctCard = getCardByIndex(correctAnswerIndex);
         
-        // Get the button that was clicked
-        MaterialButton selectedButton = getButtonByIndex(selectedAnswerIndex);
+        // Disable all buttons
+        enableAnswerButtons(false);
+        
+        // Highlight correct answer
         MaterialButton correctButton = getButtonByIndex(correctAnswerIndex);
+        correctButton.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.correct_answer));
+        correctButton.setTextColor(ContextCompat.getColor(this, R.color.white));
+        correctCard.setStrokeColor(ContextCompat.getColor(this, R.color.correct_answer));
+        correctCard.setStrokeWidth(4);
         
-        // Check if the answer is correct
-        if (selectedAnswerIndex == correctAnswerIndex) {
-            // Correct answer
-            selectedButton.setBackgroundTintList(getColorStateList(R.color.rom_correct_answer));
-            
-            // Play correct sound
-            if (correctSound != null) {
-                correctSound.start();
-            }
-            
-            // Calculate score (base + time bonus + streak bonus)
-            int questionScore = CORRECT_POINTS + (timeLeft * TIME_BONUS_FACTOR);
-            if (streak > 0) {
-                questionScore += streak * STREAK_BONUS;
-            }
-            
-            // Update streak
-            streak++;
-            streakTextView.setText(String.format(Locale.getDefault(), "🔥 Reușite consecutive: %d", streak));
-            
-            // Update score
-            score += questionScore;
-            updateScoreDisplay();
-            
-            // Show a toast with the score for this question
-            Toast.makeText(this, 
-                    String.format(Locale.getDefault(), "+%d puncte! (%d bază, %d timp, %d streak)", 
-                            questionScore, CORRECT_POINTS, timeLeft * TIME_BONUS_FACTOR, (streak - 1) * STREAK_BONUS), 
-                    Toast.LENGTH_SHORT).show();
-            
-        } else {
+        // If selected answer is wrong, highlight it in red
+        if (selectedAnswerIndex != correctAnswerIndex) {
             // Wrong answer
-            selectedButton.setBackgroundTintList(getColorStateList(R.color.rom_wrong_answer));
-            correctButton.setBackgroundTintList(getColorStateList(R.color.rom_correct_answer));
+            MaterialButton selectedButton = getButtonByIndex(selectedAnswerIndex);
+            selectedButton.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.wrong_answer));
+            selectedButton.setTextColor(ContextCompat.getColor(this, R.color.white));
+            selectedCard.setStrokeColor(ContextCompat.getColor(this, R.color.wrong_answer));
+            selectedCard.setStrokeWidth(4);
             
             // Play wrong sound
             if (wrongSound != null) {
@@ -454,27 +442,59 @@ public class MunteniaGameActivity extends AppCompatActivity {
             
             // Reset streak
             streak = 0;
-            streakTextView.setText(String.format(Locale.getDefault(), "🔥 Reușite consecutive: %d", streak));
+        } else {
+            // Correct answer
+            // Calculate score based on time left
+            int timeBonus = (int) (timeLeftInMillis / 1000) * TIME_BONUS_POINTS;
+            int questionScore = CORRECT_ANSWER_POINTS + timeBonus;
+            score += questionScore;
+            
+            // Increase streak
+            streak++;
+            
+            // Play correct sound
+            if (correctSound != null) {
+                correctSound.start();
+            }
+            
+            // Add streak bonus if applicable
+            if (streak >= 3) {
+                score += (streak - 2) * 10; // 10 bonus points per streak above 2
+                Toast.makeText(this, "Bonus pentru " + streak + " răspunsuri consecutive!", Toast.LENGTH_SHORT).show();
+            }
         }
         
-        // Show fact about the answer
-        factTextView.setText(currentQuestion.getFact());
-        factTextView.setVisibility(View.VISIBLE);
+        // Show fact if available
+        String fact = currentQuestion.getFact();
+        if (fact != null && !fact.isEmpty()) {
+            factTextView.setText(fact);
+            factTextView.setVisibility(View.VISIBLE);
+        }
         
-        // Disable all answer buttons
-        enableAnswerButtons(false);
+        // Update score display
+        updateScoreDisplay();
         
-        // Show next question after delay or show finish button if this is the last question
+        // Move to next question after delay
         new Handler().postDelayed(() -> {
-            if (currentQuestionIndex < selectedQuestions.size() - 1) {
-                currentQuestionIndex++;
-                displayQuestion(currentQuestionIndex);
-                startTimer();
-            } else {
-                // This was the last question
+            currentQuestionIndex++;
+            
+            // Check if we're at the end
+            if (currentQuestionIndex >= selectedQuestions.size()) {
                 finishButton.setVisibility(View.VISIBLE);
+            } else {
+                displayQuestion(currentQuestionIndex);
             }
-        }, 3000);
+        }, 2000);
+    }
+    
+    private MaterialCardView getCardByIndex(int index) {
+        switch (index) {
+            case 0: return answerCard1;
+            case 1: return answerCard2;
+            case 2: return answerCard3;
+            case 3: return answerCard4;
+            default: return answerCard1;
+        }
     }
 
     private MaterialButton getButtonByIndex(int index) {
@@ -530,10 +550,20 @@ public class MunteniaGameActivity extends AppCompatActivity {
     }
 
     private void enableAnswerButtons(boolean enable) {
-        answerButton1.setEnabled(enable);
-        answerButton2.setEnabled(enable);
-        answerButton3.setEnabled(enable);
-        answerButton4.setEnabled(enable);
+        answerCard1.setClickable(enable);
+        answerCard2.setClickable(enable);
+        answerCard3.setClickable(enable);
+        answerCard4.setClickable(enable);
+        
+        answerCard1.setEnabled(enable);
+        answerCard2.setEnabled(enable);
+        answerCard3.setEnabled(enable);
+        answerCard4.setEnabled(enable);
+        
+        answerButton1.setClickable(false); // Buttons are always not clickable, we use the cards
+        answerButton2.setClickable(false);
+        answerButton3.setClickable(false);
+        answerButton4.setClickable(false);
     }
 
     private void updateScoreDisplay() {
@@ -541,61 +571,67 @@ public class MunteniaGameActivity extends AppCompatActivity {
     }
 
     private void useFiftyFifty() {
-        if (fiftyFiftyUsed || answered) return;
+        if (fiftyFiftyUsed) {
+            Toast.makeText(this, "Ai folosit deja opțiunea 50:50!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         
         fiftyFiftyUsed = true;
-        fiftyFiftyButton.setAlpha(0.5f);
         fiftyFiftyButton.setEnabled(false);
+        fiftyFiftyButton.setAlpha(0.5f);
         
+        // Get current question and correct answer
         QuizQuestion currentQuestion = selectedQuestions.get(currentQuestionIndex);
-        int correctIndex = currentQuestion.getCorrectAnswerIndex();
+        int correctAnswerIndex = currentQuestion.getCorrectAnswerIndex();
         
-        // Get two wrong answers to eliminate
-        List<Integer> wrongIndices = new ArrayList<>();
+        // Create list of wrong answer indices
+        List<Integer> wrongAnswerIndices = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            if (i != correctIndex) {
-                wrongIndices.add(i);
+            if (i != correctAnswerIndex) {
+                wrongAnswerIndices.add(i);
             }
         }
         
-        // Shuffle and pick two
-        Collections.shuffle(wrongIndices);
-        List<Integer> toRemove = wrongIndices.subList(0, 2);
+        // Randomly select 2 wrong answers to hide
+        Collections.shuffle(wrongAnswerIndices);
+        List<Integer> answersToHide = wrongAnswerIndices.subList(0, 2);
         
-        // Disable these buttons
-        for (int index : toRemove) {
-            MaterialButton button = getButtonByIndex(index);
-            button.setEnabled(false);
-            button.setAlpha(0.3f);
+        // Hide selected wrong answers
+        for (int index : answersToHide) {
+            MaterialCardView card = getCardByIndex(index);
+            card.setVisibility(View.INVISIBLE);
+            card.setClickable(false);
         }
         
-        // Show toast
         Toast.makeText(this, "Două răspunsuri greșite au fost eliminate!", Toast.LENGTH_SHORT).show();
     }
 
     private void skipQuestion() {
-        if (skipUsed || answered) return;
+        if (skipQuestionUsed) {
+            Toast.makeText(this, "Ai folosit deja opțiunea de a sări peste o întrebare!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         
-        skipUsed = true;
-        skipQuestionButton.setAlpha(0.5f);
+        skipQuestionUsed = true;
         skipQuestionButton.setEnabled(false);
+        skipQuestionButton.setAlpha(0.5f);
         
-        // Skip to next question
+        // Cancel the current timer
         if (timer != null) {
             timer.cancel();
         }
         
-        if (currentQuestionIndex < selectedQuestions.size() - 1) {
-            currentQuestionIndex++;
-            displayQuestion(currentQuestionIndex);
-            startTimer();
-            
-            // Show toast
-            Toast.makeText(this, "Întrebare omisă!", Toast.LENGTH_SHORT).show();
-        } else {
-            // This was the last question
+        // Show toast message
+        Toast.makeText(this, "Ai sărit peste această întrebare!", Toast.LENGTH_SHORT).show();
+        
+        // Move to the next question
+        currentQuestionIndex++;
+        
+        // Check if we're at the end
+        if (currentQuestionIndex >= selectedQuestions.size()) {
             finishButton.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Nu mai sunt întrebări disponibile!", Toast.LENGTH_SHORT).show();
+        } else {
+            displayQuestion(currentQuestionIndex);
         }
     }
 
@@ -692,26 +728,28 @@ public class MunteniaGameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         showExitConfirmation();
     }
 
     private void showExitConfirmation() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Ieșire");
-        builder.setMessage("Ești sigur că vrei să părăsești jocul? Progresul va fi pierdut.");
-        builder.setPositiveButton("Da", (dialog, which) -> {
-            if (timer != null) {
-                timer.cancel();
-            }
-            finish();
-        });
-        builder.setNegativeButton("Nu", null);
-        builder.show();
-    }
-
-    public void goBack(View view) {
-        showExitConfirmation();
+        if (timer != null) {
+            timer.cancel();
+        }
+        
+        new AlertDialog.Builder(this)
+                .setTitle("Ieșire")
+                .setMessage("Ești sigur că vrei să părăsești jocul? Progresul va fi pierdut.")
+                .setPositiveButton("Da", (dialog, which) -> {
+                    saveHighScore();
+                    finish();
+                })
+                .setNegativeButton("Nu", (dialog, which) -> {
+                    if (timer != null) {
+                        startTimer();
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 
     // Quiz Question class

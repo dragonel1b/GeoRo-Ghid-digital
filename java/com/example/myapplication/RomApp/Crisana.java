@@ -137,13 +137,15 @@ public class Crisana extends RegionTemplate {
 
     @Override
     protected ArrayList<String> getCityImages() {
-        ArrayList<String> images = new ArrayList<>();
-        images.add("oradea");
-        images.add("arad");
-        images.add("salonta");
-        images.add("beius");
-        images.add("baile_felix");
-        return images;
+        if (cityImages == null) {
+            cityImages = new ArrayList<>();
+            cityImages.add("oradea");
+            cityImages.add("arad");
+            cityImages.add("salonta");
+            cityImages.add("beius");
+            cityImages.add("baile_felix");
+        }
+        return cityImages;
     }
 
     private final String[] cityDescriptions = {
@@ -187,7 +189,7 @@ public class Crisana extends RegionTemplate {
         viewModel = new CrisanaViewModel();
 
         // Initialize views - using correct IDs from the layout
-        pointsText = findViewById(R.id.textBalance);
+        pointsText = findViewById(R.id.pointsText);
         storyButton = findViewById(R.id.buttonGoToCrisanaStory);
         gameButton = findViewById(R.id.buttonGoToCrisanaGame);
         citiesButton = findViewById(R.id.buttonGoToCities);
@@ -285,8 +287,8 @@ public class Crisana extends RegionTemplate {
 
     private void updatePointsDisplay() {
         if (pointsText != null) {
-            int currentPoints = pointsManager.getPoints(this);
-            pointsText.setText(String.valueOf(currentPoints));
+            int points = pointsManager.getPoints(this);
+            pointsText.setText(String.valueOf(points));
         }
     }
 
@@ -309,18 +311,30 @@ public class Crisana extends RegionTemplate {
     }
 
     public void onCheckboxClicked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
+        if (view instanceof CheckBox) {
+            CheckBox checkBox = (CheckBox) view;
+            boolean isChecked = checkBox.isChecked();
+            
         String checkboxId = getResources().getResourceEntryName(view.getId());
         String checkboxNumber = checkboxId.replace("checkbox", "");
+            String key = REGION.toLowerCase() + "_checkbox_" + checkboxNumber + "_" + getCurrentUserId();
         
-        String key = REGION + "_checkbox_" + checkboxNumber + "_" + getCurrentUserId();
-        
+            // Salvăm starea în SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(key, checked);
+            editor.putBoolean(key, isChecked);
         editor.apply();
         
-        if (checked) {
-            pointsManager.addPoints(this, "crisana", 10);
+            // Adaugă puncte când este bifat
+            if (isChecked) {
+                pointsManager.addPoints(this, REGION.toLowerCase(), 10);
+                // Actualizează și statusul landmark-ului
+                pointsManager.updateLandmarkStatus(this, REGION.toLowerCase(), true);
+            } else {
+                // Actualizează statusul landmark-ului
+                pointsManager.updateLandmarkStatus(this, REGION.toLowerCase(), false);
+            }
+            
+            // Actualizează afișarea punctelor imediat
             updatePointsDisplay();
         }
     }

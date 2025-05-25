@@ -235,8 +235,130 @@ public class OlteniaGameActivity extends AppCompatActivity {
             "Ansamblul Monumental realizat de Constantin Brâncuși la Târgu Jiu cuprinde Coloana Infinitului, Poarta Sărutului și Masa Tăcerii."
         ));
         
+        // Adăugăm mai multe întrebări despre Oltenia
+        questions.add(new Question(
+            "Care este cea mai veche mănăstire din Oltenia?",
+            new String[]{"Mănăstirea Cozia", "Mănăstirea Tismana", "Mănăstirea Polovragi", "Mănăstirea Horezu"},
+            1,
+            R.drawable.tismana,
+            "Mănăstirea Tismana a fost fondată în secolul al XIV-lea de către Sfântul Nicodim și este cea mai veche mănăstire din Oltenia."
+        ));
+        
+        questions.add(new Question(
+            "Ce peșteră importantă se află în Oltenia?",
+            new String[]{"Peștera Muierilor", "Peștera Urșilor", "Peștera Scărișoara", "Peștera Polovragi"},
+            0,
+            R.drawable.pestera_muierilor,
+            "Peștera Muierilor din județul Gorj este una dintre cele mai vechi peșteri din România, cu o vechime de aproximativ 1,5 milioane de ani."
+        ));
+        
+        questions.add(new Question(
+            "Care este dansul popular specific Olteniei?",
+            new String[]{"Călușul", "Hora", "Sârba", "Alunelul"},
+            0,
+            R.drawable.calusul,
+            "Călușul este un dans popular specific Olteniei, inclus în patrimoniul UNESCO ca parte a patrimoniului cultural imaterial al umanității."
+        ));
+        
+        questions.add(new Question(
+            "Ce eveniment cultural important se desfășoară anual la Craiova?",
+            new String[]{"Festivalul Shakespeare", "Festivalul George Enescu", "Festivalul Internațional de Teatru", "Festivalul Medieval"},
+            0,
+            R.drawable.craiova,
+            "Festivalul Shakespeare este un eveniment cultural important care se desfășoară anual la Craiova și atrage artiști din întreaga lume."
+        ));
+        
+        questions.add(new Question(
+            "Care dintre următoarele personalități nu s-a născut în Oltenia?",
+            new String[]{"Tudor Vladimirescu", "Constantin Brâncuși", "Mihai Eminescu", "Petrache Poenaru"},
+            2,
+            R.drawable.oltenia_map,
+            "Mihai Eminescu s-a născut la Botoșani, în Moldova, nu în Oltenia."
+        ));
+        
+        questions.add(new Question(
+            "Ce monument natural spectaculos se află în Gorj?",
+            new String[]{"Sfinxul", "Babele", "Cheile Sohodolului", "Cascada Bigăr"},
+            2,
+            R.drawable.cheile_sohodolului,
+            "Cheile Sohodolului din județul Gorj sunt considerate printre cele mai spectaculoase chei din România."
+        ));
+        
+        questions.add(new Question(
+            "Care este cel mai important port dunărean din Oltenia?",
+            new String[]{"Orșova", "Calafat", "Drobeta-Turnu Severin", "Corabia"},
+            2,
+            R.drawable.drobeta,
+            "Drobeta-Turnu Severin este cel mai important port dunărean din Oltenia și unul dintre cele mai vechi orașe din România."
+        ));
+        
+        questions.add(new Question(
+            "Ce parc național important se află în Oltenia?",
+            new String[]{"Parcul Național Domogled-Valea Cernei", "Parcul Național Retezat", "Parcul Național Piatra Craiului", "Parcul Național Ceahlău"},
+            0,
+            R.drawable.domogled,
+            "Parcul Național Domogled-Valea Cernei este situat în sud-vestul României, în Oltenia, și este cel mai mare parc național din țară."
+        ));
+        
+        questions.add(new Question(
+            "Care este cea mai importantă stațiune balneară din Oltenia?",
+            new String[]{"Băile Herculane", "Băile Felix", "Călimănești-Căciulata", "Sovata"},
+            2,
+            R.drawable.calimanesti,
+            "Călimănești-Căciulata este cea mai importantă stațiune balneară din Oltenia, situată pe Valea Oltului."
+        ));
+        
+        questions.add(new Question(
+            "Ce pod celebru traversează Dunărea între România și Bulgaria, în Oltenia?",
+            new String[]{"Podul Prieteniei", "Podul Calafat-Vidin", "Podul Giurgiu-Ruse", "Podul Cernavodă"},
+            1,
+            R.drawable.pod_calafat,
+            "Podul Calafat-Vidin (Podul Nova Europa) a fost inaugurat în 2013 și leagă orașul Calafat din Oltenia de orașul Vidin din Bulgaria."
+        ));
+        
+        questions.add(new Question(
+            "Care este cel mai vechi oraș din Oltenia?",
+            new String[]{"Craiova", "Râmnicu Vâlcea", "Drobeta-Turnu Severin", "Slatina"},
+            2,
+            R.drawable.drobeta,
+            "Drobeta-Turnu Severin este cel mai vechi oraș din Oltenia, fiind fondat de romani în anul 105 d.Hr."
+        ));
+        
+        questions.add(new Question(
+            "Care este mâncarea tradițională specifică Olteniei?",
+            new String[]{"Sarmale", "Piftie", "Ciorbă de burtă", "Praz cu ciolan afumat"},
+            3,
+            R.drawable.praz_ciolan,
+            "Prazul cu ciolan afumat este o mâncare tradițională specifică Olteniei, foarte apreciată în gastronomia locală."
+        ));
+        
+        questions.add(new Question(
+            "Ce rezervație naturală importantă se află în Mehedinți?",
+            new String[]{"Rezervația Naturală Ponoarele", "Rezervația Naturală Retezat", "Rezervația Naturală Bucegi", "Rezervația Naturală Apuseni"},
+            0,
+            R.drawable.ponoarele,
+            "Rezervația Naturală Ponoarele din județul Mehedinți este cunoscută pentru fenomenele carstice spectaculoase, inclusiv Podul Natural de la Ponoarele."
+        ));
+        
+        questions.add(new Question(
+            "Ce lac de acumulare important se află pe râul Olt, în Oltenia?",
+            new String[]{"Lacul Vidraru", "Lacul Vidra", "Lacul Izvorul Muntelui", "Lacul Călimănești"},
+            3,
+            R.drawable.lac_calimanesti,
+            "Lacul Călimănești este un lac de acumulare important pe râul Olt, în Oltenia, utilizat pentru producerea de energie electrică."
+        ));
+        
+        questions.add(new Question(
+            "Ce castel important se află în județul Gorj?",
+            new String[]{"Castelul Peleș", "Castelul Bran", "Castelul Corvinilor", "Castelul de la Măldărești"},
+            3,
+            R.drawable.castel_maldaresti,
+            "Castelul de la Măldărești (Cula Măldărești) este un monument istoric important din județul Gorj, reprezentativ pentru arhitectura tradițională oltenească."
+        ));
+        
         Collections.shuffle(questions);
         progressBar.setMax(questions.size());
+        totalQuestions = questions.size();
     }
 
     private void displayQuestion() {
@@ -248,7 +370,22 @@ public class OlteniaGameActivity extends AppCompatActivity {
         Question currentQuestion = questions.get(currentQuestionIndex);
         questionTextView.setText(currentQuestion.question);
         
-        // Set question image
+        // Resetăm starea butoanelor pentru noua întrebare
+        for (Button button : answerButtons) {
+            button.setEnabled(true);
+            button.setAlpha(1.0f);
+            button.setBackgroundColor(getResources().getColor(R.color.oltenia_primary));
+            button.setTextColor(getResources().getColor(R.color.oltenia_card_bg));
+        }
+        
+        // Setăm răspunsurile
+        for (int i = 0; i < currentQuestion.answers.length; i++) {
+            answerButtons[i].setText(currentQuestion.answers[i]);
+            final int index = i;
+            answerButtons[i].setOnClickListener(v -> checkAnswer(index, currentQuestion.answers[index]));
+        }
+        
+        // Setăm imaginea
         if (currentQuestion.imageResourceId != 0) {
             questionImage.setVisibility(View.VISIBLE);
             questionImage.setImageResource(currentQuestion.imageResourceId);
@@ -256,67 +393,52 @@ public class OlteniaGameActivity extends AppCompatActivity {
             questionImage.setVisibility(View.GONE);
         }
         
-        // Enable all buttons
-        for (int i = 0; i < answerButtons.length; i++) {
-            final int answerIndex = i;
-            final String answer = currentQuestion.answers[i];
-            
-            answerButtons[i].setText(answer);
-            answerButtons[i].setEnabled(true);
-            answerButtons[i].setBackgroundTintList(getResources().getColorStateList(R.color.oltenia_primary));
-            
-            // Set click listeners for answer buttons
-            answerButtons[i].setOnClickListener(v -> checkAnswer(answerIndex, answer));
-        }
-        
-        // Update progress
+        // Actualizăm progress bar
         progressBar.setProgress(currentQuestionIndex + 1);
     }
 
     private void checkAnswer(int selectedAnswerIndex, String selectedAnswer) {
         Question currentQuestion = questions.get(currentQuestionIndex);
-        boolean isCorrect = selectedAnswerIndex == currentQuestion.correctAnswerIndex;
-
-        if (isCorrect) {
-            score += POINTS_PER_CORRECT_ANSWER;
-            correctAnswers++;
-            
-            Toast.makeText(this, "Corect! +" + POINTS_PER_CORRECT_ANSWER + " puncte", Toast.LENGTH_SHORT).show();
-            
-            // Highlight correct answer
-            answerButtons[selectedAnswerIndex].setBackgroundColor(getResources().getColor(R.color.rom_correct_answer));
-        } else {
-            Toast.makeText(this, "Răspuns greșit! Răspunsul corect era: " + 
-                    currentQuestion.answers[currentQuestion.correctAnswerIndex], Toast.LENGTH_SHORT).show();
-            
-            // Highlight wrong answer and show correct one
-            answerButtons[selectedAnswerIndex].setBackgroundColor(getResources().getColor(R.color.rom_wrong_answer));
-            answerButtons[currentQuestion.correctAnswerIndex].setBackgroundColor(getResources().getColor(R.color.rom_correct_answer));
-        }
-
-        totalQuestions++;
-        updateScore();
-
-        // Disable all answer buttons
+        int correctIndex = currentQuestion.correctAnswerIndex;
+        
+        // Dezactivăm toate butoanele pentru a preveni răspunsuri multiple
         for (Button button : answerButtons) {
             button.setEnabled(false);
         }
-
-        // Display fact in a toast
-        new Handler().postDelayed(() -> {
-            Toast.makeText(this, currentQuestion.fact, Toast.LENGTH_LONG).show();
+        
+        if (selectedAnswerIndex == correctIndex) {
+            // Răspuns corect
+            answerButtons[selectedAnswerIndex].setBackgroundColor(getResources().getColor(R.color.correct_answer));
+            score += POINTS_PER_CORRECT_ANSWER;
+            correctAnswers++;
+            updateScore();
             
-            // Reset button colors
-            for (Button button : answerButtons) {
-                button.setBackgroundTintList(getResources().getColorStateList(R.color.oltenia_primary));
-            }
+            // Afișăm informația suplimentară
+            TextView factTextView = findViewById(R.id.factTextView);
+            factTextView.setText("Corect! " + currentQuestion.fact);
+            factTextView.setVisibility(View.VISIBLE);
             
-            moveToNextQuestion();
-        }, 2000);
+            // Trecem la următoarea întrebare după o scurtă pauză
+            new Handler().postDelayed(this::moveToNextQuestion, 2000);
+        } else {
+            // Răspuns greșit
+            answerButtons[selectedAnswerIndex].setBackgroundColor(getResources().getColor(R.color.wrong_answer));
+            answerButtons[correctIndex].setBackgroundColor(getResources().getColor(R.color.correct_answer));
+            
+            // Afișăm informația suplimentară
+            TextView factTextView = findViewById(R.id.factTextView);
+            factTextView.setText("Greșit! Răspunsul corect este: " + currentQuestion.answers[correctIndex] + ". " + currentQuestion.fact);
+            factTextView.setVisibility(View.VISIBLE);
+            
+            // Trecem la următoarea întrebare după o scurtă pauză
+            new Handler().postDelayed(this::moveToNextQuestion, 3000);
+        }
     }
 
     private void moveToNextQuestion() {
         currentQuestionIndex++;
+        TextView factTextView = findViewById(R.id.factTextView);
+        factTextView.setVisibility(View.GONE);
         displayQuestion();
     }
 

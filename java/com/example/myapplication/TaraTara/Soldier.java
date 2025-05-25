@@ -3,8 +3,11 @@ package com.example.myapplication.TaraTara;
 import android.graphics.drawable.Drawable;
 import android.graphics.RectF;
 import android.graphics.Canvas;
+import android.util.Log;
+import android.graphics.Paint;
 
 public class Soldier {
+    private static final String TAG = "Soldier";
     private Team team;
     private float x;
     private float y;
@@ -28,6 +31,10 @@ public class Soldier {
         this.drawable = drawable;
         this.health = 100.0f; // Default health
         this.strength = 10.0f; // Default strength
+        
+        if (drawable == null) {
+            Log.w(TAG, "Created soldier with null drawable at position " + x + "," + y);
+        }
     }
 
     public void setTeam(Team team) {
@@ -93,6 +100,10 @@ public class Soldier {
     public Drawable getDrawable() {
         return drawable;
     }
+    
+    public void setDrawable(Drawable drawable) {
+        this.drawable = drawable;
+    }
 
     public boolean contains(float x, float y) {
         return (x >= this.x - 25 && x <= this.x + 25) && (y >= this.y - 25 && y <= this.y + 25);
@@ -103,7 +114,50 @@ public class Soldier {
     }
 
     public void update() {
-        // Update soldier's position or state if needed
+        // Implementare pentru mișcarea soldatului către țintă
+        if (isMoving) {
+            float dx = targetX - x;
+            float dy = targetY - y;
+            float distance = (float) Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance > speed) {
+                // Normalizare și scalare cu viteza
+                x += dx / distance * speed;
+                y += dy / distance * speed;
+            } else {
+                // Soldatul a ajuns la destinație
+                x = targetX;
+                y = targetY;
+                isMoving = false;
+            }
+            
+            // Make sure soldier stays within reasonable bounds
+            if (team != null) {
+                // Get screen dimensions from team
+                float screenWidth = 0;
+                float screenHeight = 0;
+                
+                try {
+                    // Try to get screen dimensions from team center positions
+                    float teamCenterX = team.getTeamCenterX();
+                    float teamCenterY = team.getTeamCenterY();
+                    
+                    // Estimate screen dimensions (assuming team centers are placed reasonably)
+                    if (teamCenterX > 0 && teamCenterY > 0) {
+                        screenWidth = teamCenterX * 2.5f;
+                        screenHeight = teamCenterY * 2.5f;
+                    }
+                    
+                    // Apply bounds
+                    if (screenWidth > 0 && screenHeight > 0) {
+                        x = Math.max(50, Math.min(screenWidth - 50, x));
+                        y = Math.max(50, Math.min(screenHeight - 50, y));
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error applying bounds to soldier position", e);
+                }
+            }
+        }
     }
 
     public void takeDamage(float damage) {
@@ -127,12 +181,30 @@ public class Soldier {
     }
 
     public void draw(Canvas canvas) {
-        drawable.setBounds(
-                (int)x - 25,
-                (int)y - 25,
-                (int)x + 25,
-                (int)y + 25
-        );
-        drawable.draw(canvas);
+        try {
+            if (drawable != null) {
+                drawable.setBounds(
+                        (int)x - 25,
+                        (int)y - 25,
+                        (int)x + 25,
+                        (int)y + 25
+                );
+                drawable.draw(canvas);
+            } else {
+                Log.w(TAG, "Attempted to draw soldier with null drawable at position " + x + "," + y);
+                
+                // Draw a fallback circle if drawable is null
+                Paint paint = new Paint();
+                paint.setColor(color);
+                canvas.drawCircle(x, y, 25, paint);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error drawing soldier at " + x + "," + y, e);
+            
+            // Simple fallback
+            Paint paint = new Paint();
+            paint.setColor(color);
+            canvas.drawCircle(x, y, 25, paint);
+        }
     }
 }

@@ -23,11 +23,18 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.widget.Button;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.myapplication.R;
+import com.example.myapplication.Joc1.RomSplashActivity;
+import com.google.android.material.button.MaterialButton;
+import android.app.AlertDialog;
+import android.widget.Toast;
+import android.graphics.Color;
+import android.util.TypedValue;
 
 public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
@@ -44,11 +51,17 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CheckBox termsCheckbox;
     private ProgressBar passwordStrengthBar;
+    private FloatingActionButton helpButton;
+
+    private static boolean hasVisitedTuristiActivity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        boolean fromLogin = getIntent().getBooleanExtra("FROM_LOGIN", false);
+        boolean fromTuristi = getIntent().getBooleanExtra("FROM_TURISTI", false);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -58,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
         setupConfetti();
         setupClickListeners();
         startEntryAnimations();
+        
+        addHelpButton();
+        
+        if (fromTuristi) {
+            hasVisitedTuristiActivity = true;
+            showWelcomeMessage();
+        }
     }
 
     private void initializeViews() {
@@ -77,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             termsCheckbox = findViewById(R.id.termsCheckbox);
             passwordStrengthBar = findViewById(R.id.passwordStrengthBar);
 
-            // Verify all critical views
             if (mainLayout == null) throw new NullPointerException("mainLayout not found");
             if (logoImage == null) throw new NullPointerException("logoImage not found");
             if (welcomeText == null) throw new NullPointerException("welcomeText not found");
@@ -86,14 +105,64 @@ public class MainActivity extends AppCompatActivity {
             if (confirmPasswordLayout == null) throw new NullPointerException("confirmPasswordLayout not found");
             if (signUpButton == null) throw new NullPointerException("signUpButton not found");
 
-            // Initialize login redirect text view
             loginRedirectText = findViewById(R.id.textViewRedirectLogin);
             if (loginRedirectText == null) {
                 Log.e("Navigation", "Login redirect TextView not found!");
             }
+            
+            addSkipButton();
         } catch (NullPointerException e) {
             Log.e("ViewInit", "Critical view initialization failed", e);
-            throw e; // Re-throw to fail fast
+            throw e;
+        }
+    }
+
+    private void addHelpButton() {
+        helpButton = new FloatingActionButton(this);
+        helpButton.setId(View.generateViewId());
+        helpButton.setImageResource(android.R.drawable.ic_menu_help);
+        helpButton.setBackgroundTintList(android.content.res.ColorStateList.valueOf(getResources().getColor(android.R.color.holo_blue_light)));
+        
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+        params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        params.setMargins(0, 0, 32, 32);
+        helpButton.setLayoutParams(params);
+        
+        helpButton.setOnClickListener(v -> {
+            v.startAnimation(buttonBounce);
+            navigateToTuristiActivity();
+        });
+        
+        mainLayout.addView(helpButton);
+        
+        helpButton.setScaleX(0f);
+        helpButton.setScaleY(0f);
+        helpButton.setAlpha(0f);
+        helpButton.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setStartDelay(2000)
+                .setDuration(500)
+                .start();
+    }
+
+    private void navigateToTuristiActivity() {
+        Intent intent = new Intent(MainActivity.this, TuristiActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    private void showWelcomeMessage() {
+        View rootView = findViewById(android.R.id.content);
+        if (rootView != null) {
+            Snackbar.make(rootView, "Bine ai revenit! Acum poți crea un cont sau te poți conecta.", Snackbar.LENGTH_LONG)
+                    .setAction("Înapoi la ghid", v -> navigateToTuristiActivity())
+                    .show();
         }
     }
 
@@ -123,11 +192,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startEntryAnimations() {
         try {
-            // Start animations only if views are available
             if (logoImage != null) logoImage.startAnimation(scaleUp);
             if (welcomeText != null) welcomeText.startAnimation(slideInUp);
 
-            // Safely handle fade-in animations
             if (emailLayout != null) {
                 emailLayout.setAlpha(0f);
                 emailLayout.animate().alpha(1f).setDuration(1000).setStartDelay(500);
@@ -162,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                // Navigate to UserActivity after confetti
                 Intent intent = new Intent(MainActivity.this, UserActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_exit, R.anim.fade_out);
@@ -177,13 +243,12 @@ public class MainActivity extends AppCompatActivity {
     private void setupClickListeners() {
         signUpButton.setOnClickListener(v -> {
             v.startAnimation(buttonBounce);
-            v.setEnabled(false); // Disable during sign up
+            v.setEnabled(false);
 
             if (validateInput()) {
                 createAccount();
             }
 
-            // Re-enable after delay if validation fails
             v.postDelayed(() -> v.setEnabled(true), 2000);
         });
 
@@ -208,7 +273,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Add touch feedback to input fields
         emailInput.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 emailLayout.animate().scaleX(1.02f).scaleY(1.02f).setDuration(200);
@@ -225,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         
-        // Add password strength check
         passwordInput.addTextChangedListener(new android.text.TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -239,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(android.text.Editable s) {}
         });
         
-        // Add confirm password validation in real-time
         confirmPasswordInput.addTextChangedListener(new android.text.TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -266,7 +328,6 @@ public class MainActivity extends AppCompatActivity {
         String confirmPassword = confirmPasswordInput.getText().toString().trim();
         boolean isValid = true;
 
-        // Reset errors
         emailLayout.setError(null);
         passwordLayout.setError(null);
         confirmPasswordLayout.setError(null);
@@ -291,7 +352,6 @@ public class MainActivity extends AppCompatActivity {
             isValid = false;
         }
         
-        // Validate confirm password
         if (confirmPassword.isEmpty()) {
             confirmPasswordLayout.setError("Please confirm your password");
             confirmPasswordLayout.startAnimation(shake);
@@ -302,7 +362,6 @@ public class MainActivity extends AppCompatActivity {
             isValid = false;
         }
         
-        // Check terms and conditions
         if (!termsCheckbox.isChecked()) {
             termsCheckbox.startAnimation(shake);
             Snackbar.make(mainLayout, "Please accept the terms and conditions", Snackbar.LENGTH_SHORT).show();
@@ -316,13 +375,11 @@ public class MainActivity extends AppCompatActivity {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
-        // Show progress
         setLoading(true);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Show confetti and then navigate
                         setLoading(false);
                         showSuccessConfetti();
                     } else {
@@ -334,7 +391,6 @@ public class MainActivity extends AppCompatActivity {
                         emailLayout.startAnimation(shake);
                         passwordLayout.startAnimation(shake);
 
-                        // Trigger error vibration
                         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         if (vibrator != null && vibrator.hasVibrator()) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -380,19 +436,15 @@ public class MainActivity extends AppCompatActivity {
         int score = 0;
         
         if (password.length() > 0) {
-            // Basic score based on length
             score = Math.min(20, password.length() * 4);
             
-            // Add score for complexity
-            if (password.matches(".*[A-Z].*")) score += 20; // Uppercase
-            if (password.matches(".*[a-z].*")) score += 20; // Lowercase
-            if (password.matches(".*[0-9].*")) score += 20; // Digits
-            if (password.matches(".*[^A-Za-z0-9].*")) score += 20; // Special characters
+            if (password.matches(".*[A-Z].*")) score += 20;
+            if (password.matches(".*[a-z].*")) score += 20;
+            if (password.matches(".*[0-9].*")) score += 20;
+            if (password.matches(".*[^A-Za-z0-9].*")) score += 20;
             
-            // Update progress bar
             passwordStrengthBar.setProgress(score);
             
-            // Update color based on strength
             if (score < 40) {
                 passwordStrengthBar.setProgressTintList(android.content.res.ColorStateList.valueOf(
                         getResources().getColor(R.color.rom_error)));
@@ -406,5 +458,104 @@ public class MainActivity extends AppCompatActivity {
         } else {
             passwordStrengthBar.setProgress(0);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (hasVisitedTuristiActivity) {
+            navigateToTuristiActivity();
+        } else {
+            Intent intent = new Intent(this, RomSplashActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void addSkipButton() {
+        try {
+            if (mainLayout == null || loginRedirectText == null) {
+                Log.e("ViewInit", "Cannot add skip button, layout or reference view missing");
+                return;
+            }
+            
+            MaterialButton skipButton = new MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle);
+            skipButton.setId(View.generateViewId());
+            skipButton.setText("Mai târziu");
+            skipButton.setTextColor(getResources().getColor(android.R.color.white));
+            
+            // Configurare pentru un design mai atrăgător
+            skipButton.setStrokeColor(android.content.res.ColorStateList.valueOf(
+                    Color.parseColor("#80FFFFFF"))); // 50% transparent white
+            skipButton.setStrokeWidth(dpToPx(1));
+            skipButton.setCornerRadius(dpToPx(20));
+            skipButton.setRippleColor(android.content.res.ColorStateList.valueOf(
+                    Color.parseColor("#40FFFFFF"))); // 25% transparent white
+            skipButton.setElevation(dpToPx(4));
+            skipButton.setPadding(dpToPx(24), dpToPx(8), dpToPx(24), dpToPx(8));
+            skipButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            
+            ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.topToBottom = loginRedirectText.getId();
+            params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+            params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+            params.topMargin = dpToPx(16);
+            skipButton.setLayoutParams(params);
+            
+            mainLayout.addView(skipButton);
+            
+            skipButton.setOnClickListener(v -> {
+                v.startAnimation(buttonBounce);
+                showSkipRegistrationDialog();
+            });
+            
+            skipButton.setAlpha(0f);
+            skipButton.animate()
+                    .alpha(1f)
+                    .setDuration(500)
+                    .setStartDelay(1300)
+                    .start();
+                    
+            Log.d("ViewInit", "Skip button added successfully");
+        } catch (Exception e) {
+            Log.e("ViewInit", "Error adding skip button", e);
+        }
+    }
+    
+    // Helper pentru convertirea dp la pixeli
+    private int dpToPx(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
+    private void showSkipRegistrationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenție")
+               .setMessage("Dacă continui fără a crea un cont, nu vei putea folosi toate utilitățile aplicației, iar progresul tău nu va putea fi salvat. Funcționalitățile de explorare și hărți interactive vor fi limitate. Ești sigur?")
+               .setCancelable(false)
+               .setPositiveButton("Da, continuă", (dialog, id) -> {
+                   skipToUserActivity();
+               })
+               .setNegativeButton("Nu, mă întorc", (dialog, id) -> {
+                   dialog.dismiss();
+               });
+        
+        AlertDialog alert = builder.create();
+        alert.show();
+        
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.rom_warning));
+    }
+
+    private void skipToUserActivity() {
+        Intent intent = new Intent(MainActivity.this, UserActivity.class);
+        intent.putExtra("SKIP_LOGIN", true);
+        startActivity(intent);
+        
+        Toast.makeText(this, "Funcționalitățile aplicației vor fi limitate în modul fără autentificare", Toast.LENGTH_LONG).show();
+        
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
     }
 }

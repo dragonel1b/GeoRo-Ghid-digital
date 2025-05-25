@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/action_search"
+        android:title="Căutare"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/action_filter"
+        android:title="Filtrare"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/action_favorites"
+        android:title="Favorite"
+        android:icon="@android:drawable/btn_star_big_off"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/action_reset_filters"
+        android:title="Resetează filtrele"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/action_categories"
+        android:title="Categorii">
+        <menu>
+            <item
+                android:id="@+id/category_appetizers"
+                android:title="Aperitive" />
+            <item
+                android:id="@+id/category_soups"
+                android:title="Supe și ciorbe" />
+            <item
+                android:id="@+id/category_main_courses"
+                android:title="Feluri principale" />
+            <item
+                android:id="@+id/category_desserts"
+                android:title="Deserturi" />
+            <item
+                android:id="@+id/category_bakery"
+                android:title="Pâine și produse de patiserie" />
+        </menu>
+    </item>
+</menu> 

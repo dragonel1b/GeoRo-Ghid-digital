@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -130,13 +131,15 @@ public class Bucovina extends RegionTemplate {
 
     @Override
     protected ArrayList<String> getCityImages() {
-        ArrayList<String> images = new ArrayList<>();
-        images.add("suceava");
-        images.add("gura_humorului");
-        images.add("radauti");
-        images.add("campulung");
-        images.add("vatra_dornei");
-        return images;
+        if (cityImages == null) {
+            cityImages = new ArrayList<>();
+            cityImages.add("suceava");
+            cityImages.add("gura_humorului");
+            cityImages.add("radauti");
+            cityImages.add("campulung");
+            cityImages.add("vatra_dornei");
+        }
+        return cityImages;
     }
 
     private final String[] cityDescriptions = {
@@ -203,7 +206,7 @@ public class Bucovina extends RegionTemplate {
         viewModel = new BucovinaViewModel();
 
         // Find views - updated IDs based on new layout
-        pointsText = findViewById(R.id.textBalance);
+        pointsText = findViewById(R.id.pointsText);
         casinoButton = findViewById(R.id.buttonGoToCasinoStory);
         gameButton = findViewById(R.id.buttonGoToDobrogeaGame);
         citiesButton = findViewById(R.id.buttonGoToCities);
@@ -384,8 +387,27 @@ public class Bucovina extends RegionTemplate {
     }
 
     public void onCheckboxClicked(View view) {
-        // Nu mai facem nimic deoarece checkbox-urile au fost eliminate din layout
-        // Lăsăm metoda goală pentru a evita erorile
+        if (view instanceof CheckBox) {
+            CheckBox checkBox = (CheckBox) view;
+            boolean isChecked = checkBox.isChecked();
+            
+            // Adaugă puncte când este bifat
+            if (isChecked) {
+                pointsManager.addPoints(this, REGION.toLowerCase(), 10);
+            }
+            
+            pointsManager.updateLandmarkStatus(this, REGION.toLowerCase(), isChecked);
+
+            // Salvăm starea checkbox-ului
+            String userId = getCurrentUserId();
+            String checkBoxId = getResources().getResourceEntryName(view.getId());
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(userId + "_" + checkBoxId + "_" + REGION, isChecked);
+            editor.apply();
+            
+            // Actualizăm afișarea punctelor imediat
+            updatePointsDisplay();
+        }
     }
 
     private void saveCheckboxStates() {

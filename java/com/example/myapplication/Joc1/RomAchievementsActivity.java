@@ -394,7 +394,7 @@ public class RomAchievementsActivity extends AppCompatActivity {
                 iconView = itemView.findViewById(R.id.achievementIcon);
                 titleText = itemView.findViewById(R.id.achievementTitle);
                 descriptionText = itemView.findViewById(R.id.achievementDescription);
-                progressText = itemView.findViewById(R.id.achievementProgress);
+                progressText = itemView.findViewById(R.id.achievementProgressText);
                 progressBar = itemView.findViewById(R.id.achievementProgressBar);
                 unlockedBadge = itemView.findViewById(R.id.achievementUnlockedBadge);
             }

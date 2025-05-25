@@ -56,11 +56,13 @@ public abstract class RegionTemplate extends EnhancedCityActivity {
 
     @Override
     protected ArrayList<String> getCityImages() {
-        ArrayList<String> images = new ArrayList<>();
+        if (cityImages == null) {
+            cityImages = new ArrayList<>();
         // Default images - can be overridden
-        images.add("default_region_1");
-        images.add("default_region_2");
-        images.add("default_region_3");
-        return images;
+            cityImages.add("default_region_1");
+            cityImages.add("default_region_2");
+            cityImages.add("default_region_3");
+        }
+        return cityImages;
     }
 }

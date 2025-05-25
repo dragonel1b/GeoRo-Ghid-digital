@@ -143,7 +143,7 @@ public class ObjectivesAdapter extends RecyclerView.Adapter<ObjectivesAdapter.Vi
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             objectiveText = itemView.findViewById(R.id.objectiveText);
-            completedCheckbox = itemView.findViewById(R.id.completedCheckbox);
+            completedCheckbox = itemView.findViewById(R.id.objectiveCheckbox);
         }
     }
 } 

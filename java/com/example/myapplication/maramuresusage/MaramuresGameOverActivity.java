@@ -51,7 +51,7 @@ public class MaramuresGameOverActivity extends AppCompatActivity {
         String achievements = intent.getStringExtra("achievements");
 
         if (finalScoreText != null) finalScoreText.setText("Scor Final: " + finalScore);
-        if (streakText != null) streakText.setText("Cel mai lung streak: " + longestStreak);
+        if (streakText != null) streakText.setText("Streak: " + longestStreak);
         if (correctAnswersText != null) correctAnswersText.setText("Răspunsuri corecte: " + correctAnswers + "/" + totalQuestions);
         
         float accuracy = totalQuestions > 0 ? (float) correctAnswers / totalQuestions * 100 : 0;
@@ -69,13 +69,36 @@ public class MaramuresGameOverActivity extends AppCompatActivity {
 
     private void setupAnimations() {
         View[] views = {finalScoreText, streakText, correctAnswersText, accuracyText, achievementsText};
+        int baseDuration = 500;
+        
         for (int i = 0; i < views.length; i++) {
             if (views[i] != null && views[i].getVisibility() == View.VISIBLE) {
                 views[i].setAlpha(0f);
+                views[i].setTranslationY(30f);
+                
                 views[i].animate()
                         .alpha(1f)
-                        .setDuration(500)
-                        .setStartDelay(i * 200)
+                        .translationY(0f)
+                        .setDuration(baseDuration)
+                        .setStartDelay(i * 150)
+                        .start();
+            }
+        }
+        
+        // Animate buttons
+        View[] buttons = {playAgainButton, shareButton, exitButton};
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i] != null) {
+                buttons[i].setAlpha(0f);
+                buttons[i].setScaleX(0.8f);
+                buttons[i].setScaleY(0.8f);
+                
+                buttons[i].animate()
+                        .alpha(1f)
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(baseDuration)
+                        .setStartDelay(views.length * 150 + i * 100)
                         .start();
             }
         }
@@ -102,8 +125,12 @@ public class MaramuresGameOverActivity extends AppCompatActivity {
 
         if (shareButton != null) {
             shareButton.setOnClickListener(v -> {
+                String scoreValue = finalScoreText.getText().toString().contains(":") ? 
+                    finalScoreText.getText().toString().split(": ")[1] : 
+                    finalScoreText.getText().toString();
+                
                 String shareText = String.format("Am terminat jocul Maramureș cu un scor de %s puncte! Poți să-mi depășești scorul?",
-                        finalScoreText.getText().toString().split(": ")[1]);
+                        scoreValue);
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);

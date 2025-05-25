@@ -147,7 +147,7 @@ public class GameUIController {
                 .alpha(1f)
                 .setDuration(500)
                 .withEndAction(() -> {
-                    overlayMessage.setText(playerWon ? context.getString(R.string.victory) : context.getString(R.string.defeat));
+                    overlayMessage.setText((CharSequence)(playerWon ? context.getString(R.string.victory) : context.getString(R.string.defeat)));
                     overlayMessage.setTextColor(playerWon ? Color.GREEN : Color.RED);
                     overlayMessage.startAnimation(scaleIn);
 
@@ -337,7 +337,7 @@ public class GameUIController {
             swipeArrowIndicator.setVisibility(View.GONE);
         }
 
-        showGameMessage(successful ? context.getString(R.string.chase_success) : context.getString(R.string.chase_failure));
+        showGameMessage((String)(successful ? context.getString(R.string.chase_success) : context.getString(R.string.chase_failure)));
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             swipeChaseContainer.performHapticFeedback(

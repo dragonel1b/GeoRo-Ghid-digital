@@ -56,17 +56,44 @@ public class TaraMinigameGameView extends View {
     }
 
     public void startGame(Team playerTeam1, Team enemyTeam, Team playerTeam2) {
+        Log.d("TaraMinigameGameView", "startGame called with teams: " + 
+              (playerTeam1 != null ? "Player1 OK" : "Player1 NULL") + ", " + 
+              (enemyTeam != null ? "Enemy OK" : "Enemy NULL") + ", " + 
+              (playerTeam2 != null ? "Player2 OK" : "Player2 NULL"));
+              
         this.playerTeam1 = playerTeam1;
         this.enemyTeam = enemyTeam;
         this.playerTeam2 = playerTeam2;
         
+        // Reset initialization flag
+        teamsInitialized = false;
+        
         // Only initialize teams if dimensions are valid
-        if (!teamsInitialized && getWidth() > 0 && getHeight() > 0) {
+        if (getWidth() > 0 && getHeight() > 0) {
             calculateGameField();
             initializeTeams();
+            teamsInitialized = true;
+            invalidate();
+        } else {
+            // Post a delayed initialization if dimensions aren't ready yet
+            Log.d("TaraMinigameGameView", "View dimensions not ready, posting delayed initialization");
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    if (getWidth() > 0 && getHeight() > 0 && !teamsInitialized) {
+                        Log.d("TaraMinigameGameView", "Delayed initialization running with dimensions: " + 
+                              getWidth() + "x" + getHeight());
+                        calculateGameField();
+                        initializeTeams();
+                        teamsInitialized = true;
+                        invalidate();
+                    } else if (!teamsInitialized) {
+                        // Try again later
+                        postDelayed(this, 100);
+                    }
+                }
+            });
         }
-        
-        invalidate();
     }
     
     private void calculateGameField() {
@@ -87,6 +114,9 @@ public class TaraMinigameGameView extends View {
         // Enemy team at top center
         enemyCenterX = getWidth() * 0.5f;
         enemyCenterY = getHeight() * 0.3f;
+        
+        Log.d("TaraMinigameGameView", "Game field calculated: center(" + fieldCenterX + "," + fieldCenterY + 
+              "), radius=" + fieldRadius + ", dimensions: " + getWidth() + "x" + getHeight());
     }
     
     private void initializeTeams() {
@@ -97,40 +127,70 @@ public class TaraMinigameGameView extends View {
         
         int initialSoldiers = 5;
         
-        // Initialize player team 1 with its center position
-        playerTeam1.setTeamCenter(team1CenterX, team1CenterY);
-        playerTeam1.initializeTeam(getWidth(), getHeight(), initialSoldiers);
+        Log.d("TaraMinigameGameView", "Initializing teams with " + initialSoldiers + " soldiers each");
         
-        // Initialize enemy team with its center position
-        enemyTeam.setTeamCenter(enemyCenterX, enemyCenterY);
-        enemyTeam.initializeTeam(getWidth(), getHeight(), initialSoldiers);
-        
-        if (playerTeam2 != null) {
-            // Initialize player team 2 with its center position
-            playerTeam2.setTeamCenter(team2CenterX, team2CenterY);
-            playerTeam2.initializeTeam(getWidth(), getHeight(), initialSoldiers);
+        try {
+            // Initialize player team 1 with its center position
+            playerTeam1.setTeamCenter(team1CenterX, team1CenterY);
+            playerTeam1.initializeTeam(getWidth(), getHeight(), initialSoldiers);
+            
+            // Initialize enemy team with its center position
+            enemyTeam.setTeamCenter(enemyCenterX, enemyCenterY);
+            enemyTeam.initializeTeam(getWidth(), getHeight(), initialSoldiers);
+            
+            if (playerTeam2 != null) {
+                // Initialize player team 2 with its center position
+                playerTeam2.setTeamCenter(team2CenterX, team2CenterY);
+                playerTeam2.initializeTeam(getWidth(), getHeight(), initialSoldiers);
+            }
+            
+            teamsInitialized = true;
+            
+            // Notify that teams have been initialized
+            if (teamUpdateListener != null) {
+                teamUpdateListener.onTeamUpdate(playerTeam1);
+                teamUpdateListener.onTeamUpdate(enemyTeam);
+                if (playerTeam2 != null) {
+                    teamUpdateListener.onTeamUpdate(playerTeam2);
+                }
+            }
+            
+            Log.d("TaraMinigameGameView", "Teams initialized successfully - Player1: " + 
+                  playerTeam1.getSoldierCount() + 
+                  (playerTeam2 != null ? ", Player2: " + playerTeam2.getSoldierCount() : "") + 
+                  ", Enemy: " + enemyTeam.getSoldierCount());
+        } catch (Exception e) {
+            Log.e("TaraMinigameGameView", "Error initializing teams", e);
         }
-        
-        teamsInitialized = true;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // Draw the game background with field
-        drawBackground(canvas);
-
-        // Draw team areas
-        drawTeamAreas(canvas);
-        
-        // Draw teams if initialized
-        if (playerTeam1 != null && enemyTeam != null) {
-            drawTeam(canvas, playerTeam1);
-            drawTeam(canvas, enemyTeam);
-        }
-        if (playerTeam2 != null) {
-            drawTeam(canvas, playerTeam2);
+        try {
+            // Draw the game background with field
+            drawBackground(canvas);
+    
+            // Draw team areas
+            drawTeamAreas(canvas);
+            
+            // Draw teams if initialized
+            if (teamsInitialized && playerTeam1 != null && enemyTeam != null) {
+                drawTeam(canvas, playerTeam1);
+                drawTeam(canvas, enemyTeam);
+                if (playerTeam2 != null) {
+                    drawTeam(canvas, playerTeam2);
+                }
+            } else if (!teamsInitialized && getWidth() > 0 && getHeight() > 0 && 
+                      playerTeam1 != null && enemyTeam != null) {
+                // Try to initialize if not done yet but dimensions are available
+                calculateGameField();
+                initializeTeams();
+                invalidate();
+            }
+        } catch (Exception e) {
+            Log.e("TaraMinigameGameView", "Error in onDraw", e);
         }
     }
     
@@ -182,6 +242,8 @@ public class TaraMinigameGameView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         
+        Log.d("TaraMinigameGameView", "onSizeChanged: " + w + "x" + h + " (old: " + oldw + "x" + oldh + ")");
+        
         // Recalculate the game field when size changes
         calculateGameField();
         
@@ -195,6 +257,11 @@ public class TaraMinigameGameView extends View {
     }
 
     private void drawTeam(Canvas canvas, Team team) {
+        if (team == null) {
+            Log.e("TaraMinigameGameView", "Attempted to draw null team");
+            return;
+        }
+        
         int teamColor = team.getColor();
         
         paint.setColor(teamColor);
@@ -211,39 +278,60 @@ public class TaraMinigameGameView extends View {
     }
     
     private void drawSoldierWithEffects(Canvas canvas, Soldier soldier, int size, int teamColor) {
+        if (soldier == null) {
+            Log.e("TaraMinigameGameView", "Attempted to draw null soldier");
+            return;
+        }
+        
         float x = soldier.getX();
         float y = soldier.getY();
         
-        // Create a glow effect with radial gradient
-        RadialGradient gradient = new RadialGradient(
-            x, y, size * 1.5f,
-            Color.argb(100, Color.red(teamColor), Color.green(teamColor), Color.blue(teamColor)),
-            Color.argb(0, Color.red(teamColor), Color.green(teamColor), Color.blue(teamColor)),
-            Shader.TileMode.CLAMP
-        );
-        glowPaint.setShader(gradient);
-        
-        // Draw the glow
-        canvas.drawCircle(x, y, size * 1.5f, glowPaint);
-        
-        // Draw the soldier body
-        canvas.drawCircle(x, y, size, paint);
-        
-        // Draw white border
-        canvas.drawCircle(x, y, size, borderPaint);
-        
-        // Draw the soldier drawable
-        soldier.getDrawable().setBounds(
-            (int)x - size, 
-            (int)y - size, 
-            (int)x + size, 
-            (int)y + size
-        );
-        soldier.getDrawable().setAlpha(255);
-        soldier.getDrawable().draw(canvas);
-        
-        // Reset shader
-        glowPaint.setShader(null);
+        try {
+            // Create a glow effect with radial gradient
+            RadialGradient gradient = new RadialGradient(
+                x, y, size * 1.5f,
+                Color.argb(100, Color.red(teamColor), Color.green(teamColor), Color.blue(teamColor)),
+                Color.argb(0, Color.red(teamColor), Color.green(teamColor), Color.blue(teamColor)),
+                Shader.TileMode.CLAMP
+            );
+            glowPaint.setShader(gradient);
+            
+            // Draw the glow
+            canvas.drawCircle(x, y, size * 1.5f, glowPaint);
+            
+            // Draw the soldier body
+            canvas.drawCircle(x, y, size, paint);
+            
+            // Draw white border
+            canvas.drawCircle(x, y, size, borderPaint);
+            
+            // Draw the soldier drawable if available
+            if (soldier.getDrawable() != null) {
+                soldier.getDrawable().setBounds(
+                    (int)x - size, 
+                    (int)y - size, 
+                    (int)x + size, 
+                    (int)y + size
+                );
+                soldier.getDrawable().setAlpha(255);
+                soldier.getDrawable().draw(canvas);
+            } else {
+                // Fallback if drawable is null
+                Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                textPaint.setColor(Color.WHITE);
+                textPaint.setTextSize(size);
+                textPaint.setTextAlign(Paint.Align.CENTER);
+                canvas.drawText("S", x, y + size/3, textPaint);
+            }
+            
+            // Reset shader
+            glowPaint.setShader(null);
+        } catch (Exception e) {
+            Log.e("TaraMinigameGameView", "Error drawing soldier", e);
+            
+            // Simple fallback drawing if gradient fails
+            canvas.drawCircle(x, y, size, paint);
+        }
     }
 
     public void pause() {
@@ -320,16 +408,20 @@ public class TaraMinigameGameView extends View {
     }
 
     public void updateSoldier(Soldier soldier) {
-        soldier.update();
+        if (soldier != null) {
+            soldier.update();
+        }
     }
 
     public void drawSoldier(Canvas canvas, Soldier soldier) {
-        soldier.getDrawable().setBounds(
-                (int)soldier.getX() - 25,
-                (int)soldier.getY() - 25,
-                (int)soldier.getX() + 25,
-                (int)soldier.getY() + 25
-        );
-        soldier.getDrawable().draw(canvas);
+        if (soldier != null && soldier.getDrawable() != null) {
+            soldier.getDrawable().setBounds(
+                    (int)soldier.getX() - 25,
+                    (int)soldier.getY() - 25,
+                    (int)soldier.getX() + 25,
+                    (int)soldier.getY() + 25
+            );
+            soldier.getDrawable().draw(canvas);
+        }
     }
 }

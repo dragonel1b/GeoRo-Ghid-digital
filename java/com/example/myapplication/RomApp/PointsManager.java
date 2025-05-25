@@ -2,6 +2,7 @@ package com.example.myapplication.RomApp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 public class PointsManager {
     private static final String POINTS_PREFS = "PointsPrefs";
@@ -75,11 +76,56 @@ public class PointsManager {
     }
 
     public void updateLandmarkStatus(Context context, String region, boolean isChecked) {
+        // Standardizăm numele regiunii pentru a evita probleme cu case-sensitivity
+        String standardizedRegion = standardizeRegionName(region);
+        
         if (isChecked) {
-            addPoints(context, region, POINTS_PER_LANDMARK);
+            // Adăugăm exact 20 de puncte
+            addPoints(context, standardizedRegion, 20);
+            
+            // Afișăm un mesaj de confirmare
+            Toast.makeText(context, "+" + POINTS_PER_LANDMARK + 
+                          " puncte adăugate în " + standardizedRegion + "!", 
+                          Toast.LENGTH_SHORT).show();
         } else {
-            removePoints(context, region, POINTS_PER_LANDMARK);
+            // Scădem exact 20 de puncte
+            removePoints(context, standardizedRegion, 20);
+            
+            // Afișăm un mesaj de confirmare
+            Toast.makeText(context, "-" + POINTS_PER_LANDMARK + 
+                          " puncte eliminate din " + standardizedRegion + "!", 
+                          Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // Metodă pentru standardizarea numelor regiunilor
+    public String standardizeRegionName(String region) {
+        if (region == null) return "romania";
+        
+        region = region.toLowerCase().trim();
+        
+        // Mapăm posibile variante de scriere la numele standard
+        if (region.contains("trans") || region.contains("ardeal")) {
+            return "transilvania";
+        } else if (region.contains("mold")) {
+            return "moldova";
+        } else if (region.contains("olten")) {
+            return "oltenia";
+        } else if (region.contains("munte") || region.contains("valah")) {
+            return "muntenia";
+        } else if (region.contains("dobr")) {
+            return "dobrogea";
+        } else if (region.contains("bana")) {
+            return "banat";
+        } else if (region.contains("crisa")) {
+            return "crisana";
+        } else if (region.contains("mara")) {
+            return "maramures";
+        } else if (region.contains("buco")) {
+            return "bucovina";
+        }
+        
+        return region; // Păstrăm numele original dacă nu se potrivește cu nicio regiune
     }
 
     public static int getPointsPerLandmark() {

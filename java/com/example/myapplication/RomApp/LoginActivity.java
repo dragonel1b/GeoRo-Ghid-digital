@@ -16,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView welcomeText, signUpLink, forgotPasswordLink;
     private TextInputLayout emailLayout, passwordLayout;
     private EditText emailInput, passwordInput;
-    private MaterialButton loginButton;
+    private MaterialButton loginButton, skipButton;
     private CircularProgressIndicator progressBar;
     private Animation fadeIn, scaleUp, slideInUp, buttonBounce, shake, iconHoverScale, confettiAnim;
     private AnimationDrawable gradientAnimation;
@@ -44,10 +46,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPref;
     private CheckBox rememberMeCheckbox;
+    
+    // Flag pentru a verifica dacă utilizatorul vine de la submiterea unei sugestii
+    private boolean isFromSuggestion = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Verificăm dacă utilizatorul vine de la trimiterea unei sugestii
+        isFromSuggestion = getIntent().getBooleanExtra("FROM_SUGGESTION", false);
 
         sharedPref = getSharedPreferences("login_prefs", MODE_PRIVATE);
         boolean rememberMe = sharedPref.getBoolean("remember_me", false);
@@ -67,6 +75,17 @@ public class LoginActivity extends AppCompatActivity {
         setupConfetti();
         setupClickListeners();
         startEntryAnimations();
+
+        // Verificăm dacă activitatea a fost lansată din TuristiActivity
+        boolean fromTuristi = getIntent().getBooleanExtra("FROM_TURISTI", false);
+        
+        // Afișăm un mesaj specific dacă utilizatorul vine după trimiterea unei sugestii
+        if (isFromSuggestion) {
+            showSuggestionThanksMessage();
+        } else if (fromTuristi) {
+            // Afișăm un mesaj de bun venit diferit dacă vine direct din ghid
+            welcomeAfterGuide();
+        }
     }
 
     private void initializeViews() {
@@ -82,6 +101,30 @@ public class LoginActivity extends AppCompatActivity {
         signUpLink = findViewById(R.id.textViewSignUp);
         forgotPasswordLink = findViewById(R.id.textViewForgotPassword);
         progressBar = findViewById(R.id.progressBarLogin);
+        
+        // Inițializăm butonul Skip
+        skipButton = findViewById(R.id.buttonSkip);
+        if (skipButton == null) {
+            // Dacă butonul nu există în layout, îl creăm programatic
+            skipButton = new MaterialButton(this);
+            skipButton.setId(View.generateViewId());
+            skipButton.setText("Mai târziu");
+            skipButton.setTextColor(getResources().getColor(android.R.color.white));
+            skipButton.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            skipButton.setAlpha(0.7f);
+            
+            // Adăugăm butonul în layout sub loginButton
+            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.topToBottom = loginButton.getId();
+            layoutParams.startToStart = loginButton.getId();
+            layoutParams.endToEnd = loginButton.getId();
+            layoutParams.topMargin = 16;
+            
+            mainLayout.addView(skipButton, layoutParams);
+        }
     }
 
     private void initializeAnimations() {
@@ -118,10 +161,12 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setAlpha(0f);
         signUpLink.setAlpha(0f);
         forgotPasswordLink.setAlpha(0f);
+        skipButton.setAlpha(0f);
 
         emailLayout.animate().alpha(1f).setDuration(1000).setStartDelay(500);
         passwordLayout.animate().alpha(1f).setDuration(1000).setStartDelay(700);
         loginButton.animate().alpha(1f).setDuration(1000).setStartDelay(900);
+        skipButton.animate().alpha(0.7f).setDuration(1000).setStartDelay(900);
         signUpLink.animate().alpha(1f).setDuration(1000).setStartDelay(1100);
         forgotPasswordLink.animate().alpha(1f).setDuration(1000).setStartDelay(1100);
 
@@ -215,6 +260,12 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         });
+        
+        // Adăugăm listener pentru butonul "Mai târziu"
+        skipButton.setOnClickListener(v -> {
+            v.startAnimation(buttonBounce);
+            showSkipDialog();
+        });
 
         // Add touch feedback to input fields
         emailInput.setOnFocusChangeListener((v, hasFocus) -> {
@@ -233,7 +284,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
+    
+    /**
+     * Procesează încercarea de conectare, verificând datele introduse și
+     * autentificând utilizatorul cu Firebase
+     */
     private void attemptLogin() {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
@@ -281,8 +336,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Show progress
-        loginButton.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
+        loginButton.setEnabled(false);
 
         // Attempt Firebase login
         mAuth.signInWithEmailAndPassword(email, password)
@@ -317,6 +372,84 @@ public class LoginActivity extends AppCompatActivity {
                         passwordLayout.startAnimation(shake);
                     }
                 });
+    }
+    
+    /**
+     * Afișează un dialog de confirmare când utilizatorul alege să continue fără login
+     */
+    private void showSkipDialog() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Atenție")
+               .setMessage("Dacă continui fără cont, nu vei putea folosi toate utilitățile aplicației, iar progresul tău nu va putea fi salvat. Funcționalitățile de explorare și hărți interactive vor fi limitate. Ești sigur?")
+               .setCancelable(false)
+               .setPositiveButton("Da, continuă", (dialog, id) -> {
+                   // Redirecționează către UserActivity fără autentificare
+                   skipToMainActivity();
+               })
+               .setNegativeButton("Nu, mă întorc", (dialog, id) -> {
+                   dialog.dismiss();
+               });
+        
+        // Creează un efect de pulsare pentru dialog
+        androidx.appcompat.app.AlertDialog alert = builder.create();
+        alert.show();
+        
+        // Personalizează butonul de confirmare
+        alert.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.rom_warning));
+    }
+    
+    /**
+     * Navighează către UserActivity fără autentificare
+     */
+    private void skipToMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+        intent.putExtra("SKIP_LOGIN", true);
+        startActivity(intent);
+        
+        // Afișăm un mesaj Toast despre limitările modului fără autentificare
+        Toast.makeText(this, "Funcționalitățile aplicației vor fi limitate în modul fără autentificare", Toast.LENGTH_LONG).show();
+        
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+    
+    /**
+     * Afișează un mesaj de mulțumire după trimiterea unei sugestii
+     */
+    private void showSuggestionThanksMessage() {
+        View rootView = findViewById(android.R.id.content);
+        if (rootView != null) {
+            Snackbar.make(rootView, 
+                "Mulțumim pentru sugestie! Conectează-te pentru a-ți salva progresul.", 
+                Snackbar.LENGTH_LONG)
+                .show();
+        }
+    }
+    
+    /**
+     * Personalizează mesajul de bun venit când utilizatorul vine din ghid
+     */
+    private void welcomeAfterGuide() {
+        TextView welcomeText = findViewById(R.id.textViewLogin);
+        if (welcomeText != null) {
+            welcomeText.setText("Continuă aventura!");
+        }
+    }
+    
+    @Override
+    public void onBackPressed() {
+        // Verificăm dacă utilizatorul a venit din TuristiActivity
+        boolean fromTuristi = getIntent().getBooleanExtra("FROM_TURISTI", false);
+        
+        if (fromTuristi) {
+            // Îl trimitem înapoi la ghid
+            Intent intent = new Intent(this, TuristiActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        } else {
+            // Comportament normal
+            super.onBackPressed();
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
     }
 
     @Override

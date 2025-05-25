@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Activity Title -->
+    <string name="interactive_romania_map_title">Harta Interactivă a României</string>
+    
+    <!-- HUD Labels -->
+    <string name="rom_map_fuel_label">%d L</string>
+    <string name="rom_map_money_label">%d RON</string>
+    <string name="rom_map_food_label">%d kg</string>
+    <string name="culture_points_label">%d</string>
+    
+    <!-- Discovery Mode -->
+    <string name="discovery_mode">Mod Descoperire</string>
+    <string name="discovery_mode_active">Mod de descoperire activat! Apasă pe hartă pentru a găsi misiuni.</string>
+    <string name="discovery_mode_inactive">Mod de descoperire dezactivat.</string>
+    
+    <!-- Region Subtitles -->
+    <string name="rom_subtitle_transilvania">Țara de dincolo de păduri</string>
+    <string name="rom_subtitle_moldova">Țara Moldovei</string>
+    <string name="rom_subtitle_muntenia">Țara Românească</string>
+    <string name="rom_subtitle_dobrogea">Țara dintre Dunăre și Mare</string>
+    <string name="rom_subtitle_oltenia">Țara de Peste Olt</string>
+    <string name="rom_subtitle_banat">Banatul Montan</string>
+    <string name="rom_subtitle_crisana">Țara Crișurilor</string>
+    <string name="rom_subtitle_maramures">Țara Maramureșului</string>
+    <string name="rom_subtitle_bucovina">Țara Fagilor</string>
+    
+    <!-- Region Descriptions - Using rom_description prefix -->
+    <string name="rom_description_transilvania">Transilvania este o regiune istorică din centrul României, cunoscută pentru castelele sale medievale, orașele săsești și peisajele montane spectaculoase. Aici se află celebrul Castel Bran și multe alte obiective turistice de renume mondial.</string>
+    <string name="rom_description_moldova">Moldova este o regiune din estul României, bogată în tradiții și cultură. Cunoscută pentru mănăstirile sale pictate, vinurile de calitate și ospitalitatea locuitorilor săi.</string>
+    <string name="rom_description_muntenia">Muntenia, cunoscută și ca Țara Românească, este regiunea din sudul României unde se află capitala București. O zonă cu o istorie bogată și multe obiective culturale importante.</string>
+    <string name="rom_description_dobrogea">Dobrogea este regiunea din sud-estul României, situată între Dunăre și Marea Neagră. Cunoscută pentru Delta Dunării, stațiunile de pe litoral și diversitatea culturală.</string>
+    <string name="rom_description_oltenia">Oltenia este o regiune din sud-vestul României, cunoscută pentru tradițiile sale populare, artizanatul și peisajele pitorești ale Gorjului și Vâlcii.</string>
+    <string name="rom_description_banat">Banatul este o regiune din vestul României, cunoscută pentru diversitatea culturală, arhitectura austro-ungară și peisajele montane ale Carpaților Occidentali.</string>
+    <string name="rom_description_crisana">Crișana este o regiune din vestul României, situată în bazinul râurilor Criș. Cunoscută pentru stațiunile balneare și peisajele de câmpie.</string>
+    <string name="rom_description_maramures">Maramureșul este o regiune din nordul României, cunoscută pentru tradițiile sale autentice, bisericile de lemn și portul popular colorat.</string>
+    <string name="rom_description_bucovina">Bucovina este o regiune din nordul României, faimoasă pentru mănăstirile sale pictate, declarate patrimoniu mondial UNESCO, și pentru peisajele montane.</string>
+    
+    <!-- Bottom Sheet Sections -->
+    <string name="available_resources">Resurse Disponibile</string>
+    <string name="available_quests">Misiuni Disponibile</string>
+    <string name="rom_map_exploration_progress">Progres Explorare</string>
+    
+    <!-- Action Buttons -->
+    <string name="navigate_here">Navighează Aici</string>
+    <string name="start_quest">Începe Misiunea</string>
+    <string name="view_details">Vezi Detalii</string>
+    <string name="rom_map_close">Închide</string>
+    
+    <!-- Quest Status -->
+    <string name="quest_status_available">DISPONIBIL</string>
+    <string name="quest_status_active">ACTIV</string>
+    <string name="quest_status_completed">COMPLETAT</string>
+    <string name="quest_status_locked">BLOCAT</string>
+    
+    <!-- Quest Types -->
+    <string name="quest_type_cultural">Cultural</string>
+    <string name="quest_type_exploration">Explorare</string>
+    <string name="quest_type_challenge">Provocare</string>
+    <string name="quest_type_historical">Istoric</string>
+    <string name="quest_type_culinary">Culinar</string>
+    
+    <!-- Cities -->
+    <string name="city_cluj_napoca">Cluj-Napoca</string>
+    <string name="city_alba_iulia">Alba Iulia</string>
+    <string name="city_sibiu">Sibiu</string>
+    <string name="city_brasov">Brașov</string>
+    <string name="city_iasi">Iași</string>
+    <string name="city_bacau">Bacău</string>
+    <string name="city_piatra_neamt">Piatra Neamț</string>
+    <string name="city_bucuresti">București</string>
+    <string name="city_ploiesti">Ploiești</string>
+    <string name="city_pitesti">Pitești</string>
+    <string name="city_constanta">Constanța</string>
+    <string name="city_tulcea">Tulcea</string>
+    <string name="city_craiova">Craiova</string>
+    <string name="city_targu_jiu">Târgu Jiu</string>
+    <string name="city_timisoara">Timișoara</string>
+    <string name="city_resita">Reșița</string>
+    <string name="city_oradea">Oradea</string>
+    <string name="city_arad">Arad</string>
+    <string name="city_baia_mare">Baia Mare</string>
+    <string name="city_sighetu_marmatiei">Sighetu Marmației</string>
+    <string name="city_suceava">Suceava</string>
+    <string name="city_radauti">Rădăuți</string>
+    
+    <!-- Sample Quests -->
+    <string name="quest_title_bran_castle">Descoperă Castelul Bran</string>
+    <string name="quest_description_bran_castle">Vizitează celebrul castel al lui Dracula și află secretele sale istorice.</string>
+    
+    <string name="quest_title_painted_monasteries">Mănăstirile Pictate</string>
+    <string name="quest_description_painted_monasteries">Explorează mănăstirile pictate din Bucovina, patrimoniu mondial UNESCO.</string>
+    
+    <string name="quest_title_danube_delta">Delta Dunării</string>
+    <string name="quest_description_danube_delta">Descoperă biodiversitatea unică a Deltei Dunării și observă păsările migratoare.</string>
+    
+    <string name="quest_title_wooden_churches">Bisericile de Lemn</string>
+    <string name="quest_description_wooden_churches">Vizitează bisericile de lemn din Maramureș, mărturii ale arhitecturii tradiționale.</string>
+    
+    <string name="quest_title_corvin_castle">Castelul Corvinilor</string>
+    <string name="quest_description_corvin_castle">Explorează unul dintre cele mai frumoase castele gotice din Europa.</string>
+    
+    <!-- Progress Messages -->
+    <string name="exploration_progress_format" formatted="false">%d/%d locații vizitate (%d%%)</string>
+    <string name="quest_progress_format" formatted="false">%d/%d</string>
+    
+    <!-- Error Messages -->
+    <string name="error_loading_map">Eroare la încărcarea hărții</string>
+    <string name="error_loading_regions">Eroare la încărcarea regiunilor</string>
+    <string name="error_no_internet">Nu există conexiune la internet</string>
+    
+    <!-- Loading Messages -->
+    <string name="loading_map">Se încarcă harta...</string>
+    <string name="loading_regions">Se încarcă regiunile...</string>
+    <string name="loading_quests">Se încarcă misiunile...</string>
+    
+    <!-- Accessibility -->
+    <string name="accessibility_region_chip">Chip pentru regiunea %s</string>
+    <string name="accessibility_quest_card">Card misiune: %s</string>
+    <string name="accessibility_resource_hud">Panoul de resurse</string>
+    <string name="accessibility_map_view">Harta interactivă a României</string>
+    <string name="accessibility_close_button">Buton de închidere</string>
+    <string name="accessibility_theme_toggle">Comutare temă zi/noapte</string>
+    
+    <!-- Notifications -->
+    <string name="notification_quest_completed">Misiune completată!</string>
+    <string name="notification_new_region_unlocked">Regiune nouă deblocată!</string>
+    <string name="notification_achievement_unlocked">Realizare deblocată!</string>
+
+    <!-- Region names -->
+    <string name="rom_region_moldova">Moldova</string>
+    <string name="rom_region_bucovina">Bucovina</string>
+    <string name="rom_region_maramures">Maramureș</string>
+    <string name="rom_region_crisana">Crișana</string>
+    <string name="rom_region_banat">Banat</string>
+    <string name="rom_region_transilvania">Transilvania</string>
+    <string name="rom_region_oltenia">Oltenia</string>
+    <string name="rom_region_muntenia">Muntenia</string>
+    <string name="rom_region_dobrogea">Dobrogea</string>
+
+    <!-- Region descriptions -->
+    <string name="rom_region_moldova_desc">Moldova este o regiune istorică din estul României, cunoscută pentru mănăstirile sale pictate, tradițiile populare și bucătăria delicioasă.</string>
+    <string name="rom_region_bucovina_desc">Bucovina este faimoasă pentru mănăstirile sale pictate în exterior, incluse în patrimoniul UNESCO, cum ar fi Voroneț, Moldovița și Sucevița.</string>
+    <string name="rom_region_maramures_desc">Maramureșul este o regiune unde tradițiile străvechi sunt încă păstrate, fiind cunoscută pentru porțile maramureșene sculptate în lemn și bisericile din lemn.</string>
+    <string name="rom_region_crisana_desc">Crișana este o regiune diversă din vestul României, cu o bogată moștenire culturală și peisaje frumoase, de la câmpii fertile la zone muntoase.</string>
+    <string name="rom_region_banat_desc">Banatul este o regiune multiculturală din sud-vestul României, cu influențe germane, sârbești și maghiare, cunoscută pentru arhitectura sa impresionantă.</string>
+    <string name="rom_region_transilvania_desc">Transilvania este inima României, faimoasă pentru castelele medievale, cetățile săsești, peisajele montane și legenda lui Dracula.</string>
+    <string name="rom_region_oltenia_desc">Oltenia este o regiune din sud-vestul României, cunoscută pentru arta populară, ceramica de Horezu și mănăstirile istorice.</string>
+    <string name="rom_region_muntenia_desc">Muntenia (sau Țara Românească) găzduiește capitala București și este o regiune cu o bogată istorie, cultură și arhitectură variată.</string>
+    <string name="rom_region_dobrogea_desc">Dobrogea este o regiune unică între Dunăre și Marea Neagră, cu influențe grecești și turcești, cunoscută pentru Delta Dunării și plajele de la Marea Neagră.</string>
+
+    <!-- Added strings for interactive map -->
+    <string name="major_cities">Orașe Principale</string>
+    <string name="map_style_day">Temă Zi</string>
+    <string name="map_style_night">Temă Noapte</string>
+    <string name="select_region_hint">Selectează o regiune de pe hartă</string>
+    <string name="all_regions">Toate Regiunile</string>
+    <string name="map_region_tooltip">Apasă pentru informații despre %s</string>
+    
+    <!-- Cities for each region -->
+    <string name="cities_transilvania">Cluj-Napoca, Alba Iulia, Sibiu, Brașov</string>
+    <string name="cities_moldova">Iași, Bacău, Piatra Neamț</string>
+    <string name="cities_muntenia">București, Ploiești, Pitești</string>
+    <string name="cities_dobrogea">Constanța, Tulcea</string>
+    <string name="cities_oltenia">Craiova, Târgu Jiu</string>
+    <string name="cities_banat">Timișoara, Reșița</string>
+    <string name="cities_crisana">Oradea, Arad</string>
+    <string name="cities_maramures">Baia Mare, Sighetu Marmației</string>
+    <string name="cities_bucovina">Suceava, Rădăuți</string>
+</resources>

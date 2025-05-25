@@ -66,10 +66,10 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.QuestViewHol
             super(itemView);
             titleText = itemView.findViewById(R.id.questTitle);
             typeText = itemView.findViewById(R.id.questType);
-            progressText = itemView.findViewById(R.id.questProgress);
-            progressBar = itemView.findViewById(R.id.questProgressBar);
+            progressText = itemView.findViewById(R.id.questProgressText);
+            progressBar = itemView.findViewById(R.id.questProgress);
             missionIcon = itemView.findViewById(R.id.questIcon);
-            cardView = itemView.findViewById(R.id.questCard);
+            cardView = (MaterialCardView) itemView;
             chapterText = itemView.findViewById(R.id.questChapter);
         }
 

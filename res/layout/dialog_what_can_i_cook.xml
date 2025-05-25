@@ -219,8 +219,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/close"
-                    android:contentDescription="@string/close" />
+                    android:text="@string/rom_map_close"
+                    android:contentDescription="@string/rom_map_close" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addMissingIngredientsButton"

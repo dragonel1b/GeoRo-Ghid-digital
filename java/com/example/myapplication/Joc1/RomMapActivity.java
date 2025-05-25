@@ -1,5 +1,7 @@
 package com.example.myapplication.Joc1;
 
+import static android.content.ContentValues.TAG;
+
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;

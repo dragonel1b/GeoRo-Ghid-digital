@@ -8,4 +8,62 @@
         <item>Expert</item>
         <item>Chef Profesionist</item>
     </string-array>
+
+    <!-- Quiz questions for the Romania minigame -->
+    <string-array name="minigame_questions">
+        <item>Care este cel mai înalt vârf montan din România?</item>
+        <item>În ce an a devenit România membră a Uniunii Europene?</item>
+        <item>Care dintre următoarele nu este o regiune istorică din România?</item>
+        <item>Care este cea mai lungă râu care curge exclusiv prin România?</item>
+        <item>Unde se află mănăstirile pictate, parte din patrimoniul UNESCO?</item>
+    </string-array>
+
+    <!-- Options for question 1 -->
+    <string-array name="minigame_options_1">
+        <item>Moldoveanu</item>
+        <item>Negoiu</item>
+        <item>Omu</item>
+        <item>Ceahlău</item>
+    </string-array>
+
+    <!-- Options for question 2 -->
+    <string-array name="minigame_options_2">
+        <item>2004</item>
+        <item>2007</item>
+        <item>2010</item>
+        <item>2013</item>
+    </string-array>
+
+    <!-- Options for question 3 -->
+    <string-array name="minigame_options_3">
+        <item>Transilvania</item>
+        <item>Moldova</item>
+        <item>Valahia</item>
+        <item>Carpatia</item>
+    </string-array>
+
+    <!-- Options for question 4 -->
+    <string-array name="minigame_options_4">
+        <item>Mureș</item>
+        <item>Olt</item>
+        <item>Siret</item>
+        <item>Prut</item>
+    </string-array>
+
+    <!-- Options for question 5 -->
+    <string-array name="minigame_options_5">
+        <item>Maramureș</item>
+        <item>Bucovina</item>
+        <item>Banat</item>
+        <item>Dobrogea</item>
+    </string-array>
+
+    <!-- Correct answers for each question -->
+    <string-array name="minigame_correct_answers">
+        <item>Moldoveanu</item>
+        <item>2007</item>
+        <item>Carpatia</item>
+        <item>Mureș</item>
+        <item>Bucovina</item>
+    </string-array>
 </resources> 

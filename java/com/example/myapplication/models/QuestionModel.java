@@ -56,4 +56,21 @@ public class QuestionModel {
     public String getFact() {
         return fact;
     }
+    
+    /**
+     * Gets all answers (correct + incorrect) as a single array
+     */
+    public String[] getAnswers() {
+        String[] allAnswers = new String[incorrectAnswers.length + 1];
+        allAnswers[0] = correctAnswer;
+        System.arraycopy(incorrectAnswers, 0, allAnswers, 1, incorrectAnswers.length);
+        return allAnswers;
+    }
+    
+    /**
+     * Returns the index of the correct answer (always 0 as per current implementation)
+     */
+    public int getCorrectAnswerIndex() {
+        return 0; // Correct answer is always at index 0 in the getAnswers() array
+    }
 } 

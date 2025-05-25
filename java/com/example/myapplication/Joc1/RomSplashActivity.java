@@ -20,7 +20,7 @@ import com.example.myapplication.RomApp.MainActivity;
 import com.example.myapplication.RomApp.TuristiActivity;
 
 public class RomSplashActivity extends AppCompatActivity {
-    private static final long SPLASH_DELAY = 6000; // 6 seconds total duration
+    private static final long SPLASH_DELAY = 4000; // redus la 4 secunde pentru o experiență mai rapidă
     private boolean isLogoAnimating = false;
     private Handler handler;
     private Runnable navigationRunnable;
@@ -35,7 +35,7 @@ public class RomSplashActivity extends AppCompatActivity {
 
         // Initialize handler and navigation runnable
         handler = new Handler();
-        navigationRunnable = () -> navigateToMain();
+        navigationRunnable = this::navigateToTuristiActivity;
 
         // Initialize views
         ConstraintLayout rootLayout = findViewById(R.id.root);
@@ -49,8 +49,8 @@ public class RomSplashActivity extends AppCompatActivity {
 
         // Start background animation
         AnimationDrawable gradientAnimation = (AnimationDrawable) rootLayout.getBackground();
-        gradientAnimation.setEnterFadeDuration(2000);
-        gradientAnimation.setExitFadeDuration(4000);
+        gradientAnimation.setEnterFadeDuration(1500);
+        gradientAnimation.setExitFadeDuration(3000);
         gradientAnimation.start();
 
         // Load animations
@@ -77,29 +77,29 @@ public class RomSplashActivity extends AppCompatActivity {
         handler.postDelayed(() -> {
             subtitleText.setVisibility(View.VISIBLE);
             subtitleText.startAnimation(fadeIn);
-            handler.postDelayed(() -> subtitleText.startAnimation(textTrembling), 1000);
-        }, 500);
+            handler.postDelayed(() -> subtitleText.startAnimation(textTrembling), 800);
+        }, 400);
 
         // Tagline animation
         handler.postDelayed(() -> {
             taglineText.setVisibility(View.VISIBLE);
             taglineText.startAnimation(fadeIn);
-            handler.postDelayed(() -> taglineText.startAnimation(textTrembling), 1000);
-        }, 1000);
+            handler.postDelayed(() -> taglineText.startAnimation(textTrembling), 800);
+        }, 800);
 
         // Flag animation
         handler.postDelayed(() -> {
             flagContainer.setVisibility(View.VISIBLE);
             flagContainer.startAnimation(fadeIn);
             flagStrip.startAnimation(flagWave);
-        }, 1500);
+        }, 1200);
 
         // Version text animation
         handler.postDelayed(() -> {
             versionText.setVisibility(View.VISIBLE);
             versionText.startAnimation(fadeIn);
-            handler.postDelayed(() -> versionText.startAnimation(textTrembling), 1000);
-        }, 2000);
+            handler.postDelayed(() -> versionText.startAnimation(textTrembling), 800);
+        }, 1600);
 
         // Enhanced logo interactivity
         logoImage.setOnClickListener(v -> {
@@ -113,6 +113,9 @@ public class RomSplashActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         isLogoAnimating = false;
+                        // Skip waiting and navigate directly when user interacts with logo
+                        handler.removeCallbacks(navigationRunnable);
+                        navigateToTuristiActivity();
                     }
 
                     @Override
@@ -122,21 +125,26 @@ public class RomSplashActivity extends AppCompatActivity {
             }
         });
 
-        // Set up navigation
-        handler.postDelayed(this::navigateToMain, SPLASH_DELAY);
+        // Set up automatic navigation after delay
+        handler.postDelayed(navigationRunnable, SPLASH_DELAY);
     }
 
-    private void navigateToMain() {
+    private void navigateToTuristiActivity() {
+        // Creăm intenția pentru activitatea Turiști
         Intent intent = new Intent(RomSplashActivity.this, TuristiActivity.class);
-        startActivity(intent);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         
-        // After a delay, navigate to MainActivity
-        new Handler().postDelayed(() -> {
-            Intent mainIntent = new Intent(RomSplashActivity.this, MainActivity.class);
-            startActivity(mainIntent);
-            finish();
-        }, 2000); // 2 second delay
+        // Adăugăm un flag care indică că această activitate a fost lansată din splash
+        intent.putExtra("FROM_SPLASH", true);
+        
+        // Adăugăm flag-uri suplimentare pentru comportamentul de navigare
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        
+        // Lansăm activitatea cu o animație de tranziție elegantă
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        
+        // Închidem activitatea splash pentru a nu reveni la ea pe back press
+        finish();
     }
 
     @Override

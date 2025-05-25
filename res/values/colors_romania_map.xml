@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Map Background -->
+    <color name="map_background">#F5F5F5</color>
+    
+    <!-- Region Colors - Distinct palette for each region -->
+    <color name="transilvania_color">#3F51B5</color>
+    <color name="moldova_color">#4CAF50</color>
+    <color name="muntenia_color">#FF9800</color>
+    <color name="dobrogea_color">#00BCD4</color>
+    <color name="oltenia_color">#9C27B0</color>
+    <color name="banat_color">#F44336</color>
+    <color name="crisana_color">#FFEB3B</color>
+    <color name="maramures_color">#795548</color>
+    <color name="bucovina_color">#607D8B</color>
+    
+    <!-- Region Colors - Semi-transparent for polygons -->
+    <color name="transilvania_polygon">#4D3F51B5</color>
+    <color name="moldova_polygon">#4D4CAF50</color>
+    <color name="muntenia_polygon">#4DFF9800</color>
+    <color name="dobrogea_polygon">#4D00BCD4</color>
+    <color name="oltenia_polygon">#4D9C27B0</color>
+    <color name="banat_polygon">#4DF44336</color>
+    <color name="crisana_polygon">#4DFFEB3B</color>
+    <color name="maramures_polygon">#4D795548</color>
+    <color name="bucovina_polygon">#4D607D8B</color>
+    
+    <!-- HUD Colors -->
+    <color name="hud_background">#E8FFFFFF</color>
+    <color name="hud_text">#212121</color>
+    <color name="fuel_color">#FF5722</color>
+    <color name="money_color">#4CAF50</color>
+    <color name="food_color">#FF9800</color>
+    <color name="culture_color">#9C27B0</color>
+    
+    <!-- FAB Colors -->
+    <color name="fab_background">#FFFFFF</color>
+    <color name="fab_icon">#757575</color>
+    <color name="discovery_fab_background">#2196F3</color>
+    <color name="discovery_fab_icon">#FFFFFF</color>
+    
+    <!-- Bottom Sheet Colors -->
+    <color name="bottom_sheet_background">#FFFFFF</color>
+    <color name="region_title_color">#212121</color>
+    <color name="region_subtitle_color">#757575</color>
+    <color name="region_description_color">#424242</color>
+    <color name="section_title_color">#212121</color>
+    <color name="resource_text_color">#424242</color>
+    <color name="close_button_color">#757575</color>
+    
+    <!-- Quest Colors -->
+    <color name="quest_card_background">#FFFFFF</color>
+    <color name="quest_card_stroke">#E0E0E0</color>
+    <color name="quest_card_ripple">#1A2196F3</color>
+    <color name="quest_title_color">#212121</color>
+    <color name="quest_description_color">#757575</color>
+    <color name="quest_progress_color">#4CAF50</color>
+    <color name="quest_progress_text_color">#424242</color>
+    <color name="quest_reward_text_color">#424242</color>
+    <color name="quest_status_text_color">#FFFFFF</color>
+    <color name="quest_difficulty_color">#FFD700</color>
+    <color name="quest_difficulty_empty_color">#E0E0E0</color>
+    <color name="quest_count_text">#FFFFFF</color>
+    
+    <!-- Button Colors -->
+    <color name="navigate_button_background">#2196F3</color>
+    <color name="navigate_button_icon">#FFFFFF</color>
+    <color name="quest_button_background">#4CAF50</color>
+    <color name="quest_button_icon">#FFFFFF</color>
+    
+    <!-- Progress Colors -->
+    <color name="progress_bar_color">#4CAF50</color>
+    <color name="progress_text_color">#424242</color>
+    
+    <!-- Loading Colors -->
+    <color name="loading_color">#2196F3</color>
+    
+    <!-- Chip Colors -->
+    <color name="chip_background_selected">#E3F2FD</color>
+    <color name="chip_background_unselected">#FFFFFF</color>
+    <color name="chip_text_selected">#1976D2</color>
+    <color name="chip_text_unselected">#757575</color>
+    <color name="chip_stroke_selected">#1976D2</color>
+    <color name="chip_stroke_unselected">#E0E0E0</color>
+    
+    <!-- Marker Colors -->
+    <color name="city_marker_color">#2196F3</color>
+    <color name="mission_marker_color">#FF5722</color>
+    <color name="completed_mission_color">#4CAF50</color>
+    
+    <!-- Night Theme Colors -->
+    <color name="map_background_night">#121212</color>
+    <color name="hud_background_night">#E81F1F1F</color>
+    <color name="hud_text_night">#FFFFFF</color>
+    <color name="bottom_sheet_background_night">#1F1F1F</color>
+    <color name="region_title_color_night">#FFFFFF</color>
+    <color name="region_subtitle_color_night">#BDBDBD</color>
+    <color name="region_description_color_night">#E0E0E0</color>
+    <color name="section_title_color_night">#FFFFFF</color>
+    <color name="resource_text_color_night">#E0E0E0</color>
+    <color name="quest_card_background_night">#2C2C2C</color>
+    <color name="quest_card_stroke_night">#424242</color>
+    <color name="quest_title_color_night">#FFFFFF</color>
+    <color name="quest_description_color_night">#BDBDBD</color>
+    <color name="chip_background_unselected_night">#2C2C2C</color>
+    <color name="chip_text_unselected_night">#BDBDBD</color>
+    <color name="chip_stroke_unselected_night">#424242</color>
+</resources>

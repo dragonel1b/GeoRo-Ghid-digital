@@ -135,13 +135,15 @@ public class Muntenia extends RegionTemplate {
 
     @Override
     protected ArrayList<String> getCityImages() {
-        ArrayList<String> images = new ArrayList<>();
-        images.add("bucuresti");
-        images.add("ploiesti");
-        images.add("targoviste");
-        images.add("sinaia");
-        images.add("curtea_de_arges");
-        return images;
+        if (cityImages == null) {
+            cityImages = new ArrayList<>();
+            cityImages.add("bucuresti");
+            cityImages.add("ploiesti");
+            cityImages.add("targoviste");
+            cityImages.add("sinaia");
+            cityImages.add("curtea_de_arges");
+        }
+        return cityImages;
     }
 
     private final String[] cityDescriptions = {
@@ -356,9 +358,17 @@ public class Muntenia extends RegionTemplate {
     }
 
     private void updatePointsDisplay() {
+        int points = pointsManager.getPoints(this);
+        
+        // Update the textBalance TextView
         if (pointsText != null) {
-            int points = pointsManager.getPoints(this);
             pointsText.setText(String.valueOf(points));
+        }
+        
+        // Also update the pointsTextView if it exists (used by EnhancedCityActivity)
+        TextView pointsTextView = findViewById(R.id.pointsTextView);
+        if (pointsTextView != null) {
+            pointsTextView.setText(String.valueOf(points));
         }
     }
 

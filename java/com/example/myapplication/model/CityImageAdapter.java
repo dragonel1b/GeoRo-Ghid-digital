@@ -35,10 +35,31 @@ public class CityImageAdapter extends RecyclerView.Adapter<CityImageAdapter.Imag
         CityImage cityImage = images.get(position);
         Uri imageUri = cityImage.getImageUri();
 
-        Glide.with(context)
-                .load(imageUri)
-                .centerCrop()
-                .into(holder.imageView);
+        try {
+            // Încarcă imaginea direct prin ImageView pentru teste
+            String uriString = imageUri.toString();
+            if (uriString.startsWith("android.resource://")) {
+                // Încercăm să obținem resourse ID din URI
+                String[] parts = uriString.split("/");
+                if (parts.length > 0) {
+                    try {
+                        int resourceId = Integer.parseInt(parts[parts.length - 1]);
+                        // Setăm direct imaginea pentru a testa dacă resursa este validă
+                        holder.imageView.setImageResource(resourceId);
+                    } catch (NumberFormatException e) {
+                        // Folosim Glide ca backup
+                        loadWithGlide(holder, imageUri);
+                    }
+                } else {
+                    loadWithGlide(holder, imageUri);
+                }
+            } else {
+                loadWithGlide(holder, imageUri);
+            }
+        } catch (Exception e) {
+            // În caz de orice eroare, încercăm încărcarea cu Glide ca ultimă opțiune
+            loadWithGlide(holder, imageUri);
+        }
 
         holder.imageView.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -46,6 +67,15 @@ public class CityImageAdapter extends RecyclerView.Adapter<CityImageAdapter.Imag
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(intent);
         });
+    }
+
+    private void loadWithGlide(ImageViewHolder holder, Uri imageUri) {
+        Glide.with(context)
+                .load(imageUri)
+                .placeholder(android.R.drawable.ic_menu_gallery) // placeholder standard Android
+                .error(android.R.drawable.ic_menu_report_image) // folosim o imagine de eroare standard Android
+                .centerCrop()
+                .into(holder.imageView);
     }
 
     @Override
@@ -60,10 +90,9 @@ public class CityImageAdapter extends RecyclerView.Adapter<CityImageAdapter.Imag
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-
         ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.cityImage);
+            imageView = itemView.findViewById(R.id.city_image);
         }
     }
 } 

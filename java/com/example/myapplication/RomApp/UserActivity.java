@@ -21,6 +21,9 @@ import com.example.myapplication.Joc1.RomSplashActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import android.content.SharedPreferences;
+import com.google.android.material.snackbar.Snackbar;
+import android.widget.Button;
+import androidx.appcompat.app.AlertDialog;
 
 public class UserActivity extends AppCompatActivity {
     private CardView welcomeCard;
@@ -32,12 +35,16 @@ public class UserActivity extends AppCompatActivity {
     private AnimationDrawable gradientAnimation;
     private static final int COLOR_CHANGE_DELAY = 15000; // 15 seconds
     private int currentColorSet = 0;
+    private boolean isUserLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        // Verificăm dacă utilizatorul este autentificat
+        isUserLoggedIn = FirebaseAuth.getInstance().getCurrentUser() != null;
+        
         // Initialize views
         mainLayout = findViewById(R.id.mainWelcome);
         setupGradientBackground();
@@ -53,6 +60,12 @@ public class UserActivity extends AppCompatActivity {
 
         // Start color cycling
         startColorCycling();
+        
+        // Verificăm dacă utilizatorul a sărit peste autentificare sau nu este autentificat
+        boolean skipLogin = getIntent().getBooleanExtra("SKIP_LOGIN", false);
+        if (skipLogin || !isUserLoggedIn) {
+            showLimitedFunctionalityWarning();
+        }
     }
 
     private void applyEntranceAnimations() {
@@ -198,42 +211,77 @@ public class UserActivity extends AppCompatActivity {
         Intent intent = new Intent();
         String region = "";
 
-        if (view.getId() == R.id.buttonTransilvania) {
+        // Obținem ID-ul butonului apăsat pentru a determina regiunea
+        int id = view.getId();
+        if (id == R.id.buttonTransilvania) {
             intent.setClass(this, Transilvania.class);
             region = "Transilvania";
-        } else if (view.getId() == R.id.buttonMoldova) {
+        } else if (id == R.id.buttonMoldova) {
             intent.setClass(this, Moldova.class);
             region = "Moldova";
-        } else if (view.getId() == R.id.buttonBucovina) {
+        } else if (id == R.id.buttonBucovina) {
             intent.setClass(this, Bucovina.class);
             region = "Bucovina";
-        } else if (view.getId() == R.id.buttonOltenia) {
+        } else if (id == R.id.buttonOltenia) {
             intent.setClass(this, Oltenia.class);
             region = "Oltenia";
-        } else if (view.getId() == R.id.buttonDobrogea) {
+        } else if (id == R.id.buttonDobrogea) {
             intent.setClass(this, Dobrogea.class);
             region = "Dobrogea";
-        } else if (view.getId() == R.id.buttonMuntenia) {
+        } else if (id == R.id.buttonMuntenia) {
             intent.setClass(this, Muntenia.class);
             region = "Muntenia";
-        } else if (view.getId() == R.id.buttonBanat) {
+        } else if (id == R.id.buttonBanat) {
             intent.setClass(this, Banat.class);
             region = "Banat";
-        } else if (view.getId() == R.id.buttonCrisana) {
+        } else if (id == R.id.buttonCrisana) {
             intent.setClass(this, Crisana.class);
             region = "Crișana";
-        } else if (view.getId() == R.id.buttonMaramures) {
+        } else if (id == R.id.buttonMaramures) {
             intent.setClass(this, Maramures.class);
             region = "Maramureș";
-        } else if (view.getId() == R.id.buttonRom) {
+        } else if (id == R.id.buttonRom) {
+            // Pentru joc, verificăm autentificarea
+            if (!isUserLoggedIn) {
+                // Utilizatorul nu este autentificat, afișăm un dialog de avertizare
+                showLoginRequiredDialog("Mini Game");
+                return; // Nu continuăm cu navigarea
+            }
             intent.setClass(this, RomMainActivity.class);
             region = "Mini Game";
+        } else {
+            return;
         }
+        
+        // Pentru regiuni, permitem accesul tuturor utilizatorilor
+        if (id != R.id.buttonRom) {
+            Toast.makeText(this, "Explorezi regiunea " + region, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Accesezi " + region, Toast.LENGTH_SHORT).show();
+        }
+        
+        // Adăugăm tranziție elegantă
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
 
-        if (!region.isEmpty()) {
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
+    private void showLoginRequiredDialog(String region) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.RomDialogStyle);
+        builder.setTitle("Autentificare necesară")
+               .setMessage("Pentru a explora regiunea " + region + " și pentru a accesa toate funcționalitățile aplicației, trebuie să fii conectat. Doriți să vă conectați acum?")
+               .setPositiveButton("Conectare", (dialog, which) -> {
+                   // Redirecționăm utilizatorul către ecranul de autentificare
+                   Intent loginIntent = new Intent(UserActivity.this, LoginActivity.class);
+                   startActivity(loginIntent);
+                   overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+               })
+               .setNegativeButton("Anulare", (dialog, which) -> {
+                   dialog.dismiss();
+                   // Afișăm un mesaj suplimentar despre limitările modului neautentificat
+                   Toast.makeText(UserActivity.this, "Funcționalități limitate în modul neautentificat", Toast.LENGTH_SHORT).show();
+               })
+               .setIcon(android.R.drawable.ic_dialog_alert)
+               .show();
     }
 
     private void handleLogout() {
@@ -268,6 +316,15 @@ public class UserActivity extends AppCompatActivity {
         if (gradientAnimation != null && !gradientAnimation.isRunning()) {
             gradientAnimation.start();
         }
+        
+        // Verificăm din nou starea de autentificare (în cazul în care utilizatorul s-a conectat între timp)
+        boolean previousState = isUserLoggedIn;
+        isUserLoggedIn = FirebaseAuth.getInstance().getCurrentUser() != null;
+        
+        // Dacă starea s-a schimbat (utilizatorul s-a conectat), actualizăm interfața
+        if (!previousState && isUserLoggedIn) {
+            updateUIForLoggedInUser();
+        }
     }
 
     @Override
@@ -283,5 +340,84 @@ public class UserActivity extends AppCompatActivity {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
         colorHandler.removeCallbacksAndMessages(null);
+    }
+    
+    /**
+     * Afișează un banner de avertizare când utilizatorul folosește aplicația fără autentificare
+     */
+    private void showLimitedFunctionalityWarning() {
+        // Afișăm cardView-ul de avertizare
+        CardView warningBanner = findViewById(R.id.warningBanner);
+        if (warningBanner != null) {
+            warningBanner.setVisibility(View.VISIBLE);
+            
+            // Animăm apariția banner-ului
+            warningBanner.setAlpha(0f);
+            warningBanner.animate()
+                    .alpha(1f)
+                    .setDuration(500)
+                    .setStartDelay(500)
+                    .start();
+            
+            // Configurăm butonul de conectare din banner
+            Button loginFromWarningButton = findViewById(R.id.loginFromWarningButton);
+            if (loginFromWarningButton != null) {
+                loginFromWarningButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                });
+            }
+        }
+        
+        // Afișăm un avertisment global pentru utilizatorii neautentificați
+        Snackbar.make(mainLayout, 
+                "Acces limitat! Conectați-vă pentru a utiliza toate funcționalitățile aplicației.", 
+                Snackbar.LENGTH_LONG)
+                .setAction("Conectare", v -> {
+                    Intent loginIntent = new Intent(UserActivity.this, LoginActivity.class);
+                    startActivity(loginIntent);
+                })
+                .show();
+        
+        // Schimbăm textul butonului de logout în "Conectare"
+        if (logoutButton != null) {
+            logoutButton.setText("Conectare");
+            
+            // Modificăm comportamentul butonului pentru a deschide ecranul de login
+            logoutButton.setOnClickListener(v -> {
+                v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_press));
+                handler.postDelayed(() -> {
+                    Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }, 150);
+            });
+        }
+    }
+    
+    /**
+     * Actualizează interfața pentru utilizatorii autentificați
+     */
+    private void updateUIForLoggedInUser() {
+        // Ascundem banner-ul de avertizare
+        CardView warningBanner = findViewById(R.id.warningBanner);
+        if (warningBanner != null) {
+            warningBanner.setVisibility(View.GONE);
+        }
+        
+        // Actualizăm textul butonului de deconectare
+        if (logoutButton != null) {
+            logoutButton.setText("Deconectare");
+            
+            // Resetăm comportamentul butonului pentru deconectare
+            logoutButton.setOnClickListener(v -> {
+                v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_press));
+                handler.postDelayed(() -> handleLogout(), 150);
+            });
+        }
+        
+        // Afișăm un mesaj de bun venit
+        Toast.makeText(this, "Bine ai revenit! Acum ai acces la toate funcționalitățile.", Toast.LENGTH_SHORT).show();
     }
 }

@@ -179,7 +179,7 @@
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
                 app:cornerRadius="32dp"
-                app:icon="@drawable/ic_casino"
+                app:icon="@drawable/ic_story"
                 app:iconGravity="textStart"
                 app:iconPadding="12dp"
                 app:iconSize="24dp"

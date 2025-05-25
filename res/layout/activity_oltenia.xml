@@ -58,7 +58,7 @@
             app:rippleColor="@color/oltenia_primary_light"/>
 
         <TextView
-            android:id="@+id/textBalance"
+            android:id="@+id/pointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"

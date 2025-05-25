@@ -23,7 +23,7 @@
             android:layout_height="32dp"
             android:src="@drawable/ic_back"
             android:contentDescription="Back"
-            android:tint="?attr/colorOnSurface"/>
+            app:tint="?attr/colorOnSurface" />
 
         <TextView
             android:id="@+id/regionTitle"

@@ -10,4 +10,15 @@
         <attr name="selectedDotColor" format="color|reference" />
         <attr name="progressMode" format="boolean|reference" />
     </declare-styleable>
+
+    <!-- Region color attributes -->
+    <attr name="colorTransilvania" format="color" />
+    <attr name="colorMoldova" format="color" />
+    <attr name="colorMuntenia" format="color" />
+    <attr name="colorDobrogea" format="color" />
+    <attr name="colorOltenia" format="color" />
+    <attr name="colorBanat" format="color" />
+    <attr name="colorCrisana" format="color" />
+    <attr name="colorMaramures" format="color" />
+    <attr name="colorBucovina" format="color" />
 </resources> 
