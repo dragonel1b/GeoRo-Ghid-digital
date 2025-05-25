@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rom_background_light">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/legendCard"/>
+
+    <com.google.android.material.search.SearchBar
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Caută regiuni sau orașe"
+        app:layout_anchor="@id/mapView"
+        app:layout_anchorGravity="top|end"/>
+
+    <!-- Keep existing legend card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/legendCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        style="@style/RomCardView"
+        app:layout_anchor="@id/mapView"
+        app:layout_anchorGravity="bottom">
+
+        <!-- Existing legend content -->
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Keep existing back button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="Înapoi"
+        android:src="@drawable/ic_back"
+        style="@style/RomMapMarkerFab"
+        app:layout_anchor="@id/mapView"
+        app:layout_anchorGravity="top|start"/>
+
+    <!-- City navigation buttons -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_anchor="@id/legendCard"
+        app:layout_anchorGravity="top">
+
+        <LinearLayout
+            android:id="@+id/cityButtonsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <!-- Buttons will be added programmatically -->
+            
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

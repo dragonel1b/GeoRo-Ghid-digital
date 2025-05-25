@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient1"
     android:padding="24dp"
-    android:theme="@style/Theme.Romania">
+    android:theme="@style/Theme.MyApplication.NoActionBar">
 
     <!-- Logo with Ripple Effect Container -->
     <FrameLayout

@@ -12,10 +12,4 @@
     <cache-path
         name="cache"
         path="/" />
-    <external-files-path
-        name="my_images"
-        path="/" />
-    <cache-path
-        name="my_cache_images"
-        path="/" />
 </paths>

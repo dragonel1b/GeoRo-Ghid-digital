@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rom_background_new"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aplicația România - Prezentare"
+            style="@style/RomTextTitle"
+            android:textColor="#000000"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Resource Panel -->
+        <include
+            android:id="@+id/resourcePanel"
+            layout="@layout/resource_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+        <!-- Game Modes Section -->
+        <TextView
+            android:id="@+id/gameModesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moduri de joc:"
+            style="@style/RomTextSubtitle"
+            app:layout_constraintTop_toBottomOf="@id/resourcePanel"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Game Modes Grid -->
+        <GridLayout
+            android:id="@+id/gameModesGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:useDefaultMargins="true"
+            app:layout_constraintTop_toBottomOf="@id/gameModesTitle">
+
+            <!-- Minigame Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showcaseMinigameButton"
+                style="@style/RomButton"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:text="Minijocuri"
+                app:icon="@drawable/ic_player_character" />
+
+            <!-- Map Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showcaseMapButton"
+                style="@style/RomButton"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:text="Hartă"
+                app:icon="@drawable/ic_attraction" />
+
+            <!-- Quiz Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showcaseQuizButton"
+                style="@style/RomButton"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:text="Quiz"
+                app:icon="@drawable/ic_check" />
+
+            <!-- Quest Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showcaseQuestButton"
+                style="@style/RomButton"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:text="Quest"
+                app:icon="@drawable/ic_attraction" />
+
+            <!-- Culinary Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showcaseCulinaryButton"
+                style="@style/RomButton"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:text="Culinar"
+                app:icon="@drawable/ic_food" />
+
+            <!-- Traditional Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showcaseTraditionalButton"
+                style="@style/RomButton"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:text="Jocuri tradiționale"
+                app:icon="@drawable/ic_traditional_item" />
+        </GridLayout>
+
+        <!-- Animation Showcase -->
+        <TextView
+            android:id="@+id/animationsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animații:"
+            style="@style/RomTextSubtitle"
+            app:layout_constraintTop_toBottomOf="@id/gameModesGrid"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/animationDemo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/app_logo"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/animationsTitle"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/playAnimationButton"
+            style="@style/RomButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Demonstrează animația"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/animationDemo"
+            app:layout_constraintStart_toEndOf="@id/animationDemo"
+            app:layout_constraintTop_toTopOf="@id/animationDemo" />
+
+        <!-- Map Preview -->
+        <TextView
+            android:id="@+id/mapPreviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previzualizare hartă:"
+            style="@style/RomTextSubtitle"
+            app:layout_constraintTop_toBottomOf="@id/animationDemo"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/mapPreview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/romania_harta"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/mapPreviewTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

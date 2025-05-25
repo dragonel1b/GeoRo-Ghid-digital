@@ -64,7 +64,7 @@
             android:name=".RomApp.Tulcea"
             android:exported="false" />
         <activity
-            android:name=".RomApp.ConstantaActivity"
+            android:name=".RomApp.Constanta"
             android:exported="false" />
         <activity
             android:name=".RomApp.Valcea"
@@ -93,6 +93,10 @@
         <activity
             android:name=".RomApp.Dobrogea"
             android:exported="false" />
+        <activity
+            android:name=".RomApp.AppShowcaseActivity"
+            android:label="Prezentare Aplicație"
+            android:exported="true" />
         <activity
             android:name=".RomApp.Transilvania"
             android:exported="false" />
@@ -172,10 +176,6 @@
             android:name=".RomApp.Drobetaturnuseverin"
             android:exported="false" />
 
-        <!-- Add CityPreviewActivity declaration -->
-        <activity
-            android:name=".RomApp.CityPreviewActivity"
-            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

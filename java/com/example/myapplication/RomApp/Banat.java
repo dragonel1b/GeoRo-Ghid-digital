@@ -9,14 +9,74 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Joc1.RomCityActivity;
 import com.example.myapplication.R;
+import java.util.ArrayList;
 
-public class Banat extends AppCompatActivity {
+public class Banat extends RegionTemplate {
 
     private TextView textBalance;
     private PointsManager pointsManager;
     private SharedPreferences sharedPreferences;
     private static final String REGION = "banat";
+
+    @Override
+    protected String getIntroductionText() {
+        return "Banatul este o regiune istorică în vestul României, cunoscută pentru diversitatea sa culturală " +
+               "și peisajele sale variate, de la câmpii la zone montane.";
+    }
+
+    @Override
+    protected String getHistoryGeographyText() {
+        return "Banatul a fost locuit încă din antichitate, cu influențe romane, otomane și habsburgice. " +
+               "Regiunea este străbătută de râurile Timiș, Bega și Caraș, cu o climă temperat-continentală.";
+    }
+
+    @Override
+    protected String getCultureTraditionsText() {
+        return "Banatul este un adevărat mozaic cultural, cu comunități de români, sârbi, maghiari, germani " +
+               "și alte minorități. Portul popular și muzica tradițională sunt foarte variate.";
+    }
+
+    @Override
+    protected String getAttractionsText() {
+        return "Principalele atracții includ Castelul Huniade din Timișoara, Cheile Nerei-Beușnița, " +
+               "Stațiunea Băile Herculane și Parcul Național Semenic-Cheile Carașului.";
+    }
+
+    @Override
+    protected String getGastronomyText() {
+        return "Specificul culinar include ciorba bănățeană, gulaș, salam de Sibiu și alte preparate " +
+               "cu influențe centrale-europene.";
+    }
+
+    @Override
+    protected String getPersonalitiesEventsText() {
+        return "Personalități: Nicolae Bălcescu, Ion Dragalina, Johnny Weissmuller.\n" +
+               "Evenimente: Festivalul Timișoara European Capital of Culture, JazzTM.";
+    }
+
+    @Override
+    protected String getCuriositiesText() {
+        return "Timișoara a fost primul oraș european cu iluminat public electric (1884). " +
+               "Banatul are cel mai mare procent de locuitori care vorbesc două limbi străine.";
+    }
+
+    @Override
+    protected String getRegionName() {
+        return "Banat";
+    }
+
+    @Override
+    protected ArrayList<String> getCityImages() {
+        ArrayList<String> images = new ArrayList<>();
+        images.add("timisoara");
+        images.add("resita");
+        images.add("lugoj");
+        images.add("caransebes");
+        images.add("oravita");
+        return images;
+    }
 
     private final String[] cityDescriptions = {
             "Timișoara este cel mai important oraș al Banatului. " +
@@ -105,22 +165,47 @@ public class Banat extends AppCompatActivity {
 
     public void showPopup1(View view) {
         showPopup("Timișoara", cityDescriptions[0]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Timișoara");
+        intent.putExtra("city_lat", 45.7597);
+        intent.putExtra("city_lng", 21.2300);
+        startActivity(intent);
     }
 
     public void showPopup2(View view) {
         showPopup("Reșița", cityDescriptions[1]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Reșița");
+        intent.putExtra("city_lat", 45.3000);
+        intent.putExtra("city_lng", 21.8900);
+        startActivity(intent);
     }
 
     public void showPopup3(View view) {
         showPopup("Lugoj", cityDescriptions[2]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Lugoj");
+        intent.putExtra("city_lat", 45.6861);
+        intent.putExtra("city_lng", 21.9000);
+        startActivity(intent);
     }
 
     public void showPopup4(View view) {
         showPopup("Caransebeș", cityDescriptions[3]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Caransebeș");
+        intent.putExtra("city_lat", 45.4167);
+        intent.putExtra("city_lng", 22.2167);
+        startActivity(intent);
     }
 
     public void showPopup5(View view) {
         showPopup("Oravița", cityDescriptions[4]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Oravița");
+        intent.putExtra("city_lat", 45.0333);
+        intent.putExtra("city_lng", 21.6833);
+        startActivity(intent);
     }
 
     private void showPopup(String title, String description) {
@@ -134,9 +219,6 @@ public class Banat extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        Intent intent = new Intent(this, UserActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
         finish();
     }
 

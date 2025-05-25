@@ -2,101 +2,94 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/dobrogeaLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient1">
+    android:background="@drawable/gradient_background">
 
-    <!-- Back Button -->
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back button"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/rom_text_primary" />
-
-    <!-- Region Title Card with Compass Icon -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/regionTitleCard"
+    <!-- Header with back button -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
-        app:strokeColor="@color/rom_flag_blue"
-        app:strokeWidth="1dp"
-        app:cardBackgroundColor="@color/rom_card_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backButton">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back"
+            android:tint="@color/black"/>
+
+        <TextView
+            android:id="@+id/regionTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="16dp">
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="Dobrogea"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-            <!-- Compass Icon -->
-            <ImageView
-                android:id="@+id/regionFlagIcon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_region_flag"
-                android:contentDescription="Region compass icon"
-                app:tint="@color/rom_flag_blue"/>
+        <TextView
+            android:id="@+id/pointsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000 Puncte"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_money"
+            android:drawablePadding="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+    </LinearLayout>
 
-            <!-- Region Title -->
-            <TextView
-                android:id="@+id/textViewRegionTitle"
-                style="@style/RomanianText.Title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Dobrogea"
-                android:textSize="28sp"/>
+    <!-- Image Carousel -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/imageCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"/>
 
-            <!-- Progress Indicator -->
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/progressIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:indicatorColor="@color/rom_flag_blue"
-                app:trackColor="@color/rom_overlay_light"
-                app:indicatorSize="40dp"
-                app:trackThickness="4dp"/>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/imageIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageCarousel"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"/>
 
-    <!-- Cities RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cityRecyclerView"
+    <!-- Content Sections -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/regionTitleCard"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/imageIndicator"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <!-- Confetti Animation View -->
-    <View
-        android:id="@+id/confettiView"
+        <LinearLayout
+            android:id="@+id/cityContentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"/>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Confetti Animation -->
+    <ImageView
+        android:id="@+id/confetti_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"/>
+        android:src="@drawable/confetti_animation"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#FFFF0000"
+        android:pathData="M0,0h200v200h-200z"/>
+    <text
+        android:x="100dp"
+        android:y="100dp"
+        android:text="Mamaia"
+        android:textColor="#FFFFFFFF"
+        android:textSize="20dp"
+        android:textAlignment="center"/>
+</vector>

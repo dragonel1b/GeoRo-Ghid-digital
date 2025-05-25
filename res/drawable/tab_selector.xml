@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Selected tab -->
     <item android:state_selected="true">
-        <shape android:shape="oval">
-            <solid android:color="@color/rom_flag_blue"/>
-            <size android:width="8dp" android:height="8dp"/>
-        </shape>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/design_default_color_primary"/>
+                    <size android:width="8dp" android:height="8dp"/>
+                </shape>
+            </item>
+            <item
+                android:top="1dp"
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp">
+                <shape android:shape="oval">
+                    <stroke
+                        android:width="2dp"
+                        android:color="@color/design_default_color_primary"/>
+                    <size android:width="8dp" android:height="8dp"/>
+                </shape>
+            </item>
+        </layer-list>
     </item>
+
+    <!-- Unselected tab -->
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/rom_overlay_light"/>
-            <size android:width="6dp" android:height="6dp"/>
+            <solid android:color="#CCCCCC"/>
+            <size android:width="8dp" android:height="8dp"/>
         </shape>
     </item>
 </selector>

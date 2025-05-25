@@ -1,153 +1,264 @@
 package com.example.myapplication.RomApp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.appcompat.app.AlertDialog;
 
-import com.example.myapplication.RomApp.RegionBaseActivity;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+import com.example.myapplication.Joc1.RomCityActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.RomApp.CityImageAdapter;
-import com.example.myapplication.RomApp.DobrogeaCityAdapter;
-import com.example.myapplication.RomApp.DobrogeaCityAdapter.City;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class Dobrogea extends RegionBaseActivity {
-    private RecyclerView cityRecyclerView;
-    private CircularProgressIndicator progressIndicator;
-    private TextView regionTitle;
-    private DobrogeaCityAdapter cityAdapter;
-    private List<City> cities;
+public class Dobrogea extends RegionTemplate {
+
+    private TextView textBalance;
+    private PointsManager pointsManager;
+    private SharedPreferences sharedPreferences;
+    private static final String REGION = "dobrogea";
+
+    @Override
+    protected String getIntroductionText() {
+        return "Dobrogea este o regiune istorică în sud-estul României, cunoscută pentru " +
+               "litoralul său pe Marea Neagr și Delta Dunării, un ecosistem unic în Europa.";
+    }
+
+    @Override
+    protected String getHistoryGeographyText() {
+        return "Dobrogea a fost locuită încă din antichitate, cu influențe grecești, romane " +
+               "și otomane. Regiunea este străbătută de Dunăre și are o climă moderat-continentală.";
+    }
+
+    @Override
+    protected String getCultureTraditionsText() {
+        return "Dobrogea este un mozaic cultural cu comunități de români, lipoveni, turci " +
+               "și tătari. Portul popular și muzica tradițională reflectă această diversitate.";
+    }
+
+    @Override
+    protected String getAttractionsText() {
+        return "Principalele atracții includ Delta Dunării (rezervație biosferei UNESCO), " +
+               "Mamaia, Constanța (cu ruinele Tomis) și Histria (cel mai vechi oraș atestat pe teritoriul României).";
+    }
+
+    @Override
+    protected String getGastronomyText() {
+        return "Specificul culinar include plăcinte lipovenești, saramură de crap, " +
+               "icre de scrumbie și alte preparate cu influențe orientale și balcanice.";
+    }
+
+    @Override
+    protected String getPersonalitiesEventsText() {
+        return "Personalități: Ovidiu, Mihai Eminescu (a trăit în exil la Constanța).\n" +
+               "Evenimente: Festivalul Callatis, Zilele Tomisului.";
+    }
+
+    @Override
+    protected String getCuriositiesText() {
+        return "Delta Dunării este cea mai mare rezervație de stuf din lume și găzduiește " +
+               "peste 300 de specii de păsări. Constanța a fost primul oraș electrificat din România (1882).";
+    }
+
+    @Override
+    protected String getRegionName() {
+        return "Dobrogea";
+    }
+
+    @Override
+    protected ArrayList<String> getCityImages() {
+        ArrayList<String> images = new ArrayList<>();
+        images.add("constanta");
+        images.add("tulcea");
+        images.add("mamaia");
+        images.add("histria");
+        images.add("sulina");
+        return images;
+    }
+
+    private final String[] cityDescriptions = {
+            "Constanța este principalul oraș al Dobrogei și al doilea ca mărime din România. " +
+            "Orașul găzduiește Portul Constanța, cel mai mare port al Mării Negre, și numeroase " +
+            "atracții turistice precum Casino-ul Constanța, Catedrala Sfinții Apostoli Petru și Pavel " +
+            "și Muzeul de Istorie Națională și Arheologie.",
+
+            "Tulcea este considerată poarta de intrare în Delta Dunării. Orașul este un important " +
+            "centru cultural și economic, găzduind Muzeul Deltei Dunării și numeroase monumente " +
+            "istorice. Este punctul de plecare pentru excursiile în Delta Dunării.",
+
+            "Mamaia este cea mai mare stațiune de pe litoralul românesc, cunoscută pentru plajele " +
+            "sale de nisip fin și viața de noapte animată. Stațiunea oferă multiple facilități " +
+            "de cazare și agrement pentru turiști.",
+
+            "Histria este cel mai vechi oraș atestat pe teritoriul României, fondat de greci în " +
+            "secolul al VII-lea î.Hr. Ruinele antice includ temple, băi publice și un muzeu.",
+
+            "Sulina este orașul de la vărsarea Dunării în Marea Neagră. Cunoscută pentru farul " +
+            "sau istoric și pentru comunitatea lipovenească, Sulina oferă peisaje unice din Delta Dunării."
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setRegionName("Dobrogea");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dobrogea);
 
-        initializeCities();
-        initializeViews();
-        setupRecyclerView();
-        setupAnimations();
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
+
+        // Initialize PointsManager
+        pointsManager = PointsManager.getInstance(this);
+
+        // Initialize UI elements
+        textBalance = findViewById(R.id.textBalance);
+
+        // Set up image carousel
+        ArrayList<String> images = getCityImages();
+        if (images != null && !images.isEmpty()) {
+            androidx.viewpager2.widget.ViewPager2 viewPager = findViewById(R.id.imageCarousel);
+            com.example.myapplication.adapter.ImageCarouselAdapter adapter = 
+                new com.example.myapplication.adapter.ImageCarouselAdapter(this, images);
+            viewPager.setAdapter(adapter);
+            
+            // Connect with tab indicator
+            com.google.android.material.tabs.TabLayout tabLayout = findViewById(R.id.imageIndicator);
+            new com.google.android.material.tabs.TabLayoutMediator(tabLayout, viewPager, 
+                (tab, position) -> {}).attach();
+        }
+
+        // Initialize content sections
+        initializeSpecificContent();
+
+        // Load saved states
+        loadCheckboxStates();
+        updatePointsDisplay();
     }
 
-    private void initializeCities() {
-        cities = Arrays.asList(
-                new City("Constanța", Arrays.asList("url1", "url2"), "Constanța este un oraș-port la Marea Neagră și cel mai mare port maritim al României. Este un important centru cultural, istoric și economic."),
-                new City("Tulcea", Arrays.asList("url1", "url2"), "Tulcea este poarta de intrare în Delta Dunării și un important centru turistic și industrial. Orașul are o istorie bogată și o cultură diversă."),
-                new City("Mangalia", Arrays.asList("url1", "url2"), "Mangalia este cel mai vechi oraș din România, cu o istorie de peste 2500 de ani. Este o stațiune balneară importantă și un port maritim."),
-                new City("Medgidia", Arrays.asList("url1", "url2"), "Medgidia este un important nod feroviar și rutier în Dobrogea. Orașul are o istorie bogată și este cunoscut pentru industria sa."),
-                new City("Cernavodă", Arrays.asList("url1", "url2"), "Cernavodă este cunoscută pentru centrala nucleară și podul peste Dunăre. Este un important centru energetic al României.")
-        );
+    private String getCurrentUserId() {
+        SharedPreferences userPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        return userPrefs.getString("current_user_id", "default");
     }
 
-    private void initializeViews() {
-        cityRecyclerView = findViewById(R.id.cityRecyclerView);
-        progressIndicator = findViewById(R.id.progressIndicator);
-        regionTitle = findViewById(R.id.textViewRegionTitle);
-        regionTitle.setText(getRegionName());
+    private void loadCheckboxStates() {
+        String userId = getCurrentUserId();
+        CheckBox checkBox1 = findViewById(R.id.checkBox1);
+        CheckBox checkBox2 = findViewById(R.id.checkBox2);
+        CheckBox checkBox3 = findViewById(R.id.checkBox3);
+        CheckBox checkBox4 = findViewById(R.id.checkBox4);
+        CheckBox checkBox5 = findViewById(R.id.checkBox5);
 
-        // Set up back button
-        ImageButton backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> {
-            backButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_press));
-            finish();
-        });
+        if (checkBox1 != null) checkBox1.setChecked(sharedPreferences.getBoolean(userId + "_checkBox1_" + REGION, false));
+        if (checkBox2 != null) checkBox2.setChecked(sharedPreferences.getBoolean(userId + "_checkBox2_" + REGION, false));
+        if (checkBox3 != null) checkBox3.setChecked(sharedPreferences.getBoolean(userId + "_checkBox3_" + REGION, false));
+        if (checkBox4 != null) checkBox4.setChecked(sharedPreferences.getBoolean(userId + "_checkBox4_" + REGION, false));
+        if (checkBox5 != null) checkBox5.setChecked(sharedPreferences.getBoolean(userId + "_checkBox5_" + REGION, false));
     }
 
-    private void setupRecyclerView() {
-        cityAdapter = new DobrogeaCityAdapter(this, cities);
-        cityRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        cityRecyclerView.setAdapter(cityAdapter);
-        cityRecyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(
-                this, R.anim.layout_animation_fall_down));
-    }
+    public void onCheckboxClicked(View view) {
+        if (view instanceof CheckBox) {
+            CheckBox checkBox = (CheckBox) view;
+            pointsManager.updateLandmarkStatus(this, REGION, checkBox.isChecked());
 
-    private void setupAnimations() {
-        // Animate title and progress
-        regionTitle.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_slide_in));
-        progressIndicator.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_slide_in));
-    }
+            // Save state with user ID
+            String userId = getCurrentUserId();
+            String checkBoxId = getResources().getResourceEntryName(view.getId());
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(userId + "_" + checkBoxId + "_" + REGION, checkBox.isChecked());
+            editor.apply();
 
-    public void showCityDetails(City city) {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.RomanianBottomSheetDialog);
-        View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_city_details, null);
-        bottomSheetDialog.setContentView(bottomSheetView);
-
-        // Initialize views
-        TextView cityName = bottomSheetView.findViewById(R.id.cityName);
-        TextView cityDescription = bottomSheetView.findViewById(R.id.cityDescription);
-        ViewPager2 imageCarousel = bottomSheetView.findViewById(R.id.imageCarousel);
-        TabLayout imageIndicator = bottomSheetView.findViewById(R.id.imageIndicator);
-        ImageButton closeButton = bottomSheetView.findViewById(R.id.closeButton);
-
-        // Set data
-        cityName.setText(city.getName());
-        cityDescription.setText(city.getDescription());
-
-        // Set up image carousel in bottom sheet
-        CityImageAdapter detailImageAdapter = new CityImageAdapter(this, new ArrayList<>(city.getImageUrls()));
-        imageCarousel.setAdapter(detailImageAdapter);
-        imageCarousel.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-
-        // Connect TabLayout with ViewPager2
-        new TabLayoutMediator(imageIndicator, imageCarousel,
-                (tab, position) -> tab.setText("")
-        ).attach();
-
-        // Add page transformer for smooth transitions
-        imageCarousel.setPageTransformer((page, position) -> {
-            float absPosition = Math.abs(position);
-            // Fade effect
-            page.setAlpha(1 - (0.5f * absPosition));
-            // Scale effect
-            float scale = 0.85f + (0.15f * (1 - absPosition));
-            page.setScaleX(scale);
-            page.setScaleY(scale);
-        });
-
-        // Set up image click listener for full-screen view
-        detailImageAdapter.setOnImageClickListener((position, imageView) -> {
-            imageView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.icon_hover_scale));
-            // TODO: Implement full-screen image view
-        });
-
-        // Close button
-        closeButton.setOnClickListener(v -> {
-            v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.icon_hover_scale));
-            bottomSheetDialog.dismiss();
-        });
-
-        bottomSheetDialog.show();
-    }
-
-    public void onCitySelected(boolean isChecked) {
-        updatePoints(isChecked ? POINTS_PER_CITY : -POINTS_PER_CITY);
-    }
-
-    @Override
-    protected void updatePoints(int points) {
-        super.updatePoints(points);
-        progressIndicator.setProgress((int) ((totalPoints / (float) (cities.size() * POINTS_PER_CITY)) * 100));
-
-        if (totalPoints == cities.size() * POINTS_PER_CITY) {
-            onRegionComplete();
+            updatePointsDisplay();
         }
     }
 
+    private void updatePointsDisplay() {
+        if (textBalance != null) {
+            int points = pointsManager.getTotalPoints(this);
+            textBalance.setText("💰 Total Puncte: " + points);
+        }
+    }
+
+    public void showPopup1(View view) {
+        showPopup("Constanța", cityDescriptions[0]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Constanța");
+        intent.putExtra("city_lat", 44.1733);
+        intent.putExtra("city_lng", 28.6383);
+        startActivity(intent);
+    }
+
+    public void showPopup2(View view) {
+        showPopup("Tulcea", cityDescriptions[1]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Tulcea");
+        intent.putExtra("city_lat", 45.1792);
+        intent.putExtra("city_lng", 28.7969);
+        startActivity(intent);
+    }
+
+    public void showPopup3(View view) {
+        showPopup("Mamaia", cityDescriptions[2]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Mamaia");
+        intent.putExtra("city_lat", 44.2500);
+        intent.putExtra("city_lng", 28.6333);
+        startActivity(intent);
+    }
+
+    public void showPopup4(View view) {
+        showPopup("Histria", cityDescriptions[3]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Histria");
+        intent.putExtra("city_lat", 44.5469);
+        intent.putExtra("city_lng", 28.7750);
+        startActivity(intent);
+    }
+
+    public void showPopup5(View view) {
+        showPopup("Sulina", cityDescriptions[4]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Sulina");
+        intent.putExtra("city_lat", 45.1556);
+        intent.putExtra("city_lng", 29.6539);
+        startActivity(intent);
+    }
+
+    private void showPopup(String title, String description) {
+        if (!isFinishing()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(title)
+                    .setMessage(description)
+                    .setPositiveButton("Închide", null)
+                    .show();
+        }
+    }
+
+    public void goBack(View view) {
+        finish();
+    }
+
     @Override
-    protected void onRegionComplete() {
-        // TODO: Show completion animation and unlock next region
+    protected void onPause() {
+        super.onPause();
+        saveCheckboxStates();
+    }
+
+    private void saveCheckboxStates() {
+        String userId = getCurrentUserId();
+        CheckBox checkBox1 = findViewById(R.id.checkBox1);
+        CheckBox checkBox2 = findViewById(R.id.checkBox2);
+        CheckBox checkBox3 = findViewById(R.id.checkBox3);
+        CheckBox checkBox4 = findViewById(R.id.checkBox4);
+        CheckBox checkBox5 = findViewById(R.id.checkBox5);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (checkBox1 != null) editor.putBoolean(userId + "_checkBox1_" + REGION, checkBox1.isChecked());
+        if (checkBox2 != null) editor.putBoolean(userId + "_checkBox2_" + REGION, checkBox2.isChecked());
+        if (checkBox3 != null) editor.putBoolean(userId + "_checkBox3_" + REGION, checkBox3.isChecked());
+        if (checkBox4 != null) editor.putBoolean(userId + "_checkBox4_" + REGION, checkBox4.isChecked());
+        if (checkBox5 != null) editor.putBoolean(userId + "_checkBox5_" + REGION, checkBox5.isChecked());
+
+        editor.apply();
     }
 }

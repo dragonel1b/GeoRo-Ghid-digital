@@ -1,113 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:oneshot="false">
+    android:oneshot="true">
 
-    <!-- Frame 1 -->
-    <item android:duration="80">
-        <layer-list>
-            <item android:left="50dp" android:top="10dp">
-                <shape android:shape="oval">
-                    <solid android:color="#7C4DFF"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-            <item android:left="70dp" android:top="20dp">
-                <shape android:shape="oval">
-                    <solid android:color="#651FFF"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-            <item android:left="80dp" android:top="40dp">
-                <shape android:shape="oval">
-                    <solid android:color="#6200EA"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-            <item android:left="70dp" android:top="60dp">
-                <shape android:shape="oval">
-                    <solid android:color="#7C4DFF"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-            <item android:left="50dp" android:top="70dp">
-                <shape android:shape="oval">
-                    <solid android:color="#651FFF"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-            <item android:left="30dp" android:top="60dp">
-                <shape android:shape="oval">
-                    <solid android:color="#6200EA"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-            <item android:left="20dp" android:top="40dp">
-                <shape android:shape="oval">
-                    <solid android:color="#7C4DFF"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-            <item android:left="30dp" android:top="20dp">
-                <shape android:shape="oval">
-                    <solid android:color="#651FFF"/>
-                    <size android:width="6dp" android:height="6dp"/>
-                </shape>
-            </item>
-        </layer-list>
-    </item>
-
-    <!-- Frame 2 -->
-    <item android:duration="80">
-        <layer-list>
-            <item android:left="52dp" android:top="12dp">
-                <shape android:shape="oval">
-                    <solid android:color="#7C4DFF"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-            <item android:left="72dp" android:top="22dp">
-                <shape android:shape="oval">
-                    <solid android:color="#651FFF"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-            <item android:left="82dp" android:top="42dp">
-                <shape android:shape="oval">
-                    <solid android:color="#6200EA"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-            <item android:left="72dp" android:top="62dp">
-                <shape android:shape="oval">
-                    <solid android:color="#7C4DFF"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-            <item android:left="52dp" android:top="72dp">
-                <shape android:shape="oval">
-                    <solid android:color="#651FFF"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-            <item android:left="32dp" android:top="62dp">
-                <shape android:shape="oval">
-                    <solid android:color="#6200EA"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-            <item android:left="22dp" android:top="42dp">
-                <shape android:shape="oval">
-                    <solid android:color="#7C4DFF"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-            <item android:left="32dp" android:top="22dp">
-                <shape android:shape="oval">
-                    <solid android:color="#651FFF"/>
-                    <size android:width="7dp" android:height="7dp"/>
-                </shape>
-            </item>
-        </layer-list>
-    </item>
+    <item
+        android:drawable="@drawable/confetti_frame1"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/confetti_frame2"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/confetti_frame3"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/confetti_frame4"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/confetti_frame5"
+        android:duration="100" />
 
 </animation-list>

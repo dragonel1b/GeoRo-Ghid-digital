@@ -5,48 +5,32 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
 
-    <!-- Header Card -->
-    <androidx.cardview.widget.CardView
+    <!-- Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="#80FFFFFF"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="8dp"
+        android:background="@color/card_background"
+        android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:text="Crișana"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textViewCrisanaTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Crișana"
-                android:textColor="#000000"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:text="💰 Total Puncte: 0"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Cities ScrollView -->
+    <!-- Attractions ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -61,130 +45,8 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Oradea -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#80FFFFFF"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/checkBox1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onCheckboxClicked" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Oradea"
-                            android:textColor="#000000"
-                            android:textSize="18sp" />
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:onClick="showPopup1"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_info" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageOradea"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/oradea" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Orașul Art Nouveau"
-                        android:textColor="#000000" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Zalău -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#80FFFFFF"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <CheckBox
-                            android:id="@+id/checkBox2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onCheckboxClicked" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Zalău"
-                            android:textColor="#000000"
-                            android:textSize="18sp" />
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:onClick="showPopup2"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_info" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageZalau"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/zalau" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Poarta Meseșului"
-                        android:textColor="#000000" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+            <!-- Add Crișana attractions here following same pattern -->
+            
         </LinearLayout>
     </ScrollView>
 

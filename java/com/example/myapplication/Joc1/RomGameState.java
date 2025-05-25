@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.android.gms.maps.model.LatLng;
 
 public class RomGameState {
     private static RomGameState instance;
@@ -22,6 +27,9 @@ public class RomGameState {
     private static final String KEY_MERINDE = "merinde"; // Food renamed to "Merinde"
     private static final String KEY_PUNCTE_INTELEPTE = "puncte_intelepte"; // Culture points renamed to "Puncte Înțelepte"
     private static final String KEY_ACHIEVEMENTS = "achievements";
+    private static final String KEY_VISITED_LOCATIONS = "visited_locations";
+    private static final String KEY_CITY_PHOTOS = "city_photos";
+    private static final String KEY_BUCKET_LIST = "bucket_list";
 
     // Achievement IDs
     public static final String ACHIEVEMENT_PRIMUL_PAS = "primul_pas"; // "First Step"
@@ -29,6 +37,9 @@ public class RomGameState {
     public static final String ACHIEVEMENT_CALATOR_LEGENDAR = "calator_legendar"; // "Legendary Traveler"
     public static final String ACHIEVEMENT_BUCATAR_REGAL = "bucatar_regal"; // "Royal Chef"
     public static final String ACHIEVEMENT_SPIRIT_DACIC = "spirit_dacic"; // "Dacian Spirit"
+    public static final String ACHIEVEMENT_MEDALIE_BRONZ = "medalie_bronz"; // "Bronze Medal"
+    public static final String ACHIEVEMENT_MEDALIE_ARGINT = "medalie_argint"; // "Silver Medal"
+    public static final String ACHIEVEMENT_MEDALIE_AUR = "medalie_aur"; // "Gold Medal"
 
     // Default values with Romanian-themed descriptions
     private static final float DEFAULT_ESENTA = 50.0f; // Starting essence for your journey
@@ -42,10 +53,16 @@ public class RomGameState {
     private float merinde; // Provisions
     private int puncteIntelepte; // Wisdom points
     private Set<String> unlockedAchievements;
+    private List<LatLng> visitedLocations;
+    private Map<String, String> cityPhotos; // Maps city names to photo URIs
+    private Set<String> bucketListCities;
 
     private RomGameState() {
         // Private constructor for singleton
         unlockedAchievements = new HashSet<>();
+        visitedLocations = new ArrayList<>();
+        cityPhotos = new HashMap<>();
+        bucketListCities = new HashSet<>();
     }
 
     public static RomGameState getInstance() {
@@ -74,6 +91,26 @@ public class RomGameState {
             unlockedAchievements = new HashSet<>(
                     preferences.getStringSet(KEY_ACHIEVEMENTS, defaultSet)
             );
+            
+            // Load visited locations
+            Set<String> locationStrings = preferences.getStringSet(KEY_VISITED_LOCATIONS, defaultSet);
+            visitedLocations = new ArrayList<>();
+            for (String locStr : locationStrings) {
+                String[] parts = locStr.split(",");
+                if (parts.length == 2) {
+                    visitedLocations.add(new LatLng(
+                        Double.parseDouble(parts[0]),
+                        Double.parseDouble(parts[1])
+                    ));
+                }
+            }
+            
+            // Load city photos
+            String photosJson = preferences.getString(KEY_CITY_PHOTOS, "{}");
+            cityPhotos = new Gson().fromJson(photosJson, new TypeToken<Map<String, String>>(){}.getType());
+            
+            // Load bucket list
+            bucketListCities = new HashSet<>(preferences.getStringSet(KEY_BUCKET_LIST, defaultSet));
         } catch (Exception e) {
             e.printStackTrace();
             resetToDefaults();
@@ -88,6 +125,19 @@ public class RomGameState {
             editor.putFloat(KEY_MERINDE, merinde);
             editor.putInt(KEY_PUNCTE_INTELEPTE, puncteIntelepte);
             editor.putStringSet(KEY_ACHIEVEMENTS, unlockedAchievements);
+            
+            // Save visited locations
+            Set<String> locationStrings = new HashSet<>();
+            for (LatLng loc : visitedLocations) {
+                locationStrings.add(loc.latitude + "," + loc.longitude);
+            }
+            editor.putStringSet(KEY_VISITED_LOCATIONS, locationStrings);
+            
+            // Save city photos
+            editor.putString(KEY_CITY_PHOTOS, new Gson().toJson(cityPhotos));
+            
+            // Save bucket list
+            editor.putStringSet(KEY_BUCKET_LIST, bucketListCities);
             editor.apply();
         } catch (Exception e) {
             e.printStackTrace();
@@ -230,6 +280,28 @@ public class RomGameState {
         }
     }
 
+    // Location tracking methods
+    public void addVisitedLocation(LatLng location, Context context) {
+        if (!visitedLocations.contains(location)) {
+            visitedLocations.add(location);
+            saveState();
+            
+            // Check for Legendary Traveler achievement
+            if (visitedLocations.size() >= 5 && 
+                !isAchievementUnlocked(ACHIEVEMENT_CALATOR_LEGENDAR)) {
+                unlockAchievement(ACHIEVEMENT_CALATOR_LEGENDAR, context);
+            }
+        }
+    }
+    
+    public List<LatLng> getActivityLocations() {
+        return new ArrayList<>(visitedLocations);
+    }
+    
+    public boolean hasVisitedLocation(LatLng location) {
+        return visitedLocations.contains(location);
+    }
+
     public static final Map<String, Achievement> ACHIEVEMENTS = new HashMap<String, Achievement>() {{
         put(ACHIEVEMENT_PRIMUL_PAS, new Achievement(
                 ACHIEVEMENT_PRIMUL_PAS,
@@ -261,5 +333,62 @@ public class RomGameState {
                 "Acumulează 500 de puncte înțelepte",
                 500
         ));
+        put(ACHIEVEMENT_MEDALIE_BRONZ, new Achievement(
+                ACHIEVEMENT_MEDALIE_BRONZ,
+                "Medalie de Bronz",
+                "Vizitează 5 orașe",
+                0
+        ));
+        put(ACHIEVEMENT_MEDALIE_ARGINT, new Achievement(
+                ACHIEVEMENT_MEDALIE_ARGINT,
+                "Medalie de Argint",
+                "Vizitează 10 orașe",
+                0
+        ));
+        put(ACHIEVEMENT_MEDALIE_AUR, new Achievement(
+                ACHIEVEMENT_MEDALIE_AUR,
+                "Medalie de Aur",
+                "Vizitează toate orașele",
+                0
+        ));
     }};
+
+    // New methods for city photos
+    public void addCityPhoto(String cityName, String photoUri) {
+        cityPhotos.put(cityName, photoUri);
+        saveState();
+    }
+
+    public String getCityPhoto(String cityName) {
+        return cityPhotos.get(cityName);
+    }
+
+    // New methods for bucket list
+    public void addToBucketList(String cityName) {
+        bucketListCities.add(cityName);
+        saveState();
+    }
+
+    public void removeFromBucketList(String cityName) {
+        bucketListCities.remove(cityName);
+        saveState();
+    }
+
+    public boolean isInBucketList(String cityName) {
+        return bucketListCities.contains(cityName);
+    }
+
+    // New methods for progress tracking
+    public int getVisitedCityCount() {
+        return visitedLocations.size();
+    }
+
+    public int getTotalCityCount() {
+        // This should be updated with actual total city count
+        return 20; // Example value - should match your actual city count
+    }
+
+    public float getProgressPercentage() {
+        return (float)getVisitedCityCount() / getTotalCityCount() * 100;
+    }
 }

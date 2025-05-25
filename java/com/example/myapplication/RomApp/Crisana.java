@@ -7,16 +7,90 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Joc1.RomCityActivity;
 import com.example.myapplication.R;
 
-public class Crisana extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Crisana extends RegionTemplate {
 
     private TextView textBalance;
     private PointsManager pointsManager;
     private SharedPreferences sharedPreferences;
     private static final String REGION = "crisana";
+
+    @Override
+    protected String getIntroductionText() {
+        return "Crișana este o regiune istorică în vestul României, cunoscută pentru peisajele sale de câmpie " +
+               "și pentru orașele sale bogate în patrimoniu cultural și arhitectural.";
+    }
+
+    @Override
+    protected String getHistoryGeographyText() {
+        return "Crișana a fost locuită încă din epoca bronzului, cu influențe dacice, romane și maghiare.\n\n" +
+               "Rețea hidrografică: Crișul Alb, Crișul Negru, Crișul Repede, Barcău";
+    }
+
+    @Override
+    protected String getCultureTraditionsText() {
+        return "Crișana este un teritoriu multicultural, cu comunități de români, maghiari și germani.\n\n" +
+               "Tradiții: Dansuri populare (brâul), portul popular crișean, meșteșuguri tradiționale";
+    }
+
+    @Override
+    protected String getAttractionsText() {
+        return "Principalele atracții:\n" +
+               "- Cetatea Oradea\n" +
+               "- Cetatea Arad\n" +
+               "- Băile Felix\n" +
+               "- Complexul Apiferă din Salonta\n" +
+               "- Rezervația Naturală Pădurea Craiului";
+    }
+
+    @Override
+    protected String getGastronomyText() {
+        return "Specificul culinar:\n" +
+               "- Ciorbă de burtă\n" +
+               "- Gulaș crișean\n" +
+               "- Salam de Sibiu\n" +
+               "- Pâine de Pecica";
+    }
+
+    @Override
+    protected String getPersonalitiesEventsText() {
+        return "Personalități:\n" +
+               "- Ioan Slavici\n" +
+               "- George Coșbuc\n" +
+               "- Arany János\n\n" +
+               "Evenimente:\n" +
+               "- Festivalul Medieval de la Oradea\n" +
+               "- Zilele Aradului";
+    }
+
+    @Override
+    protected String getCuriositiesText() {
+        return "Curiozități:\n" +
+               "- Oradea are cea mai mare concentrație de clădiri Art Nouveau din România\n" +
+               "- Aradul a fost primul oraș european cu iluminat stradal pe gaz\n" +
+               "- Salonta este locul de naștere al poetului maghiar Arany János";
+    }
+
+    @Override
+    protected String getRegionName() {
+        return "Crișana";
+    }
+
+    @Override
+    protected ArrayList<String> getCityImages() {
+        ArrayList<String> images = new ArrayList<>();
+        images.add("oradea");
+        images.add("arad");
+        images.add("salonta");
+        images.add("ineu");
+        images.add("chisineu_cris");
+        return images;
+    }
 
     private final String[] cityDescriptions = {
             "Oradea este cel mai important oraș al Crișanei. " +
@@ -109,22 +183,47 @@ public class Crisana extends AppCompatActivity {
 
     public void showPopup1(View view) {
         showPopup("Oradea", cityDescriptions[0]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Oradea");
+        intent.putExtra("city_lat", 47.0722);
+        intent.putExtra("city_lng", 21.9211);
+        startActivity(intent);
     }
 
     public void showPopup2(View view) {
         showPopup("Arad", cityDescriptions[1]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Arad");
+        intent.putExtra("city_lat", 46.1866);
+        intent.putExtra("city_lng", 21.3123);
+        startActivity(intent);
     }
 
     public void showPopup3(View view) {
         showPopup("Salonta", cityDescriptions[2]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Salonta");
+        intent.putExtra("city_lat", 46.8000);
+        intent.putExtra("city_lng", 21.6500);
+        startActivity(intent);
     }
 
     public void showPopup4(View view) {
         showPopup("Ineu", cityDescriptions[3]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Ineu");
+        intent.putExtra("city_lat", 46.4333);
+        intent.putExtra("city_lng", 21.8500);
+        startActivity(intent);
     }
 
     public void showPopup5(View view) {
         showPopup("Chișineu-Criș", cityDescriptions[4]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Chișineu-Criș");
+        intent.putExtra("city_lat", 46.5167);
+        intent.putExtra("city_lng", 21.5167);
+        startActivity(intent);
     }
 
     private void showPopup(String title, String description) {
@@ -138,9 +237,6 @@ public class Crisana extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        Intent intent = new Intent(this, UserActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
         finish();
     }
 

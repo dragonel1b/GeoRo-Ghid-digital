@@ -7,16 +7,92 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Joc1.RomCityActivity;
 import com.example.myapplication.R;
 
-public class Maramures extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Maramures extends RegionTemplate {
 
     private TextView textBalance;
     private PointsManager pointsManager;
     private SharedPreferences sharedPreferences;
     private static final String REGION = "maramures";
+
+    @Override
+    protected String getIntroductionText() {
+        return "Maramureșul este o regiune istorică în nordul României, cunoscută pentru tradițiile sale " +
+               "păstrate vii, arhitectura de lemn unică și peisajele montane spectaculoase.";
+    }
+
+    @Override
+    protected String getHistoryGeographyText() {
+        return "Maramureșul a fost locuit încă din epoca bronzului, cu influențe dacice și medievale.\n\n" +
+               "Rețea hidrografică: Tisa, Vișeu, Iza, Mara, Cosău";
+    }
+
+    @Override
+    protected String getCultureTraditionsText() {
+        return "Maramureșul păstrează tradiții unice în Europa:\n\n" +
+               "- Portul popular cu motive geometrice\n" +
+               "- Dansuri populare (brâul bătrânesc)\n" +
+               "- Obiceiuri de nuntă și sărbători tradiționale";
+    }
+
+    @Override
+    protected String getAttractionsText() {
+        return "Principalele atracții:\n" +
+               "- Mocănița de la Vișeu de Sus\n" +
+               "- Bisericile de lemn din Maramureș (UNESCO)\n" +
+               "- Cimitirul Vesel de la Săpânța\n" +
+               "- Stațiunea Borșa\n" +
+               "- Rezervația Naturală Creasta Cocoșului";
+    }
+
+    @Override
+    protected String getGastronomyText() {
+        return "Specificul culinar:\n" +
+               "- Balmoș\n" +
+               "- Brânză de burduf\n" +
+               "- Ciolan afumat\n" +
+               "- Plăcinte cu varză și brânză";
+    }
+
+    @Override
+    protected String getPersonalitiesEventsText() {
+        return "Personalități:\n" +
+               "- Ion Țuculescu\n" +
+               "- Grigore Leșe\n" +
+               "- Ilie Ilaș\n\n" +
+               "Evenimente:\n" +
+               "- Târgul de Fete pe Muntele Găina\n" +
+               "- Festivalul de la Săpânța";
+    }
+
+    @Override
+    protected String getCuriositiesText() {
+        return "Curiozități:\n" +
+               "- Cel mai înalt turn de lemn din lume (Biserica din Șurdești - 72m)\n" +
+               "- Singurul cimitir vesel din lume (Săpânța)\n" +
+               "- Tradiția măștilor de iarnă (Turca, Capra)";
+    }
+
+    @Override
+    protected String getRegionName() {
+        return "Maramureș";
+    }
+
+    @Override
+    protected ArrayList<String> getCityImages() {
+        ArrayList<String> images = new ArrayList<>();
+        images.add("baia_mare");
+        images.add("sighet");
+        images.add("borsa");
+        images.add("viseu");
+        images.add("targu_lapus");
+        return images;
+    }
 
     private final String[] cityDescriptions = {
             "Baia Mare este reședința județului Maramureș. " +
@@ -109,22 +185,47 @@ public class Maramures extends AppCompatActivity {
 
     public void showPopup1(View view) {
         showPopup("Baia Mare", cityDescriptions[0]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Baia Mare");
+        intent.putExtra("city_lat", 47.6667);
+        intent.putExtra("city_lng", 23.5833);
+        startActivity(intent);
     }
 
     public void showPopup2(View view) {
         showPopup("Sighetu Marmației", cityDescriptions[1]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Sighetu Marmației");
+        intent.putExtra("city_lat", 47.9333);
+        intent.putExtra("city_lng", 23.8833);
+        startActivity(intent);
     }
 
     public void showPopup3(View view) {
         showPopup("Borșa", cityDescriptions[2]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Borșa");
+        intent.putExtra("city_lat", 47.6500);
+        intent.putExtra("city_lng", 24.6667);
+        startActivity(intent);
     }
 
     public void showPopup4(View view) {
         showPopup("Vișeu de Sus", cityDescriptions[3]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Vișeu de Sus");
+        intent.putExtra("city_lat", 47.7167);
+        intent.putExtra("city_lng", 24.4333);
+        startActivity(intent);
     }
 
     public void showPopup5(View view) {
         showPopup("Târgu Lăpuș", cityDescriptions[4]);
+        Intent intent = new Intent(this, RomCityActivity.class);
+        intent.putExtra("CITY_NAME", "Târgu Lăpuș");
+        intent.putExtra("city_lat", 47.4500);
+        intent.putExtra("city_lng", 23.8667);
+        startActivity(intent);
     }
 
     private void showPopup(String title, String description) {
@@ -138,9 +239,6 @@ public class Maramures extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        Intent intent = new Intent(this, UserActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
         finish();
     }
 

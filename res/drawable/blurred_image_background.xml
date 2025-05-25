@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base color with slight transparency -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FAFAFA"/>
+        </shape>
+    </item>
+
+    <!-- Frosted glass effect -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:startColor="#22FFFFFF"
+                android:centerColor="#11FFFFFF"
+                android:endColor="#33FFFFFF"
+                android:type="linear"/>
+        </shape>
+    </item>
+
+    <!-- Subtle pattern -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="#05000000"
+                android:centerColor="#00000000"
+                android:endColor="#05000000"
+                android:type="linear"/>
+        </shape>
+    </item>
+
+    <!-- Light border -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="0.5dp"
+                android:color="#15000000"/>
+            <corners android:radius="25dp"/>
+        </shape>
+    </item>
+</layer-list>

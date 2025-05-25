@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class RomCityActivity extends AppCompatActivity {
     private RomGameState gameState;
     private String cityName;
+    private LatLng cityLocation;
     private TextView cityTitleText, cityDescriptionText;
     private ImageView cityImageView;
     private MaterialCardView infoCard;
@@ -30,39 +32,96 @@ public class RomCityActivity extends AppCompatActivity {
 
     // City information database
     private static final Map<String, CityInfo> CITY_DATABASE = new HashMap<String, CityInfo>() {{
+        // Transilvania
         put("Sibiu", new CityInfo(
                 "Sibiu",
-                "Unul dintre cele mai frumoase și bine păstrate orașe medievale din România. " +
-                        "Cunoscut pentru arhitectura sa gotică, Piața Mare, și Podul Minciunilor.",
+                "Unul dintre cele mai frumoase și bine păstrate orașe medievale din România.",
                 new String[] {
-                        "Piața Mare - Centrul istoric al orașului",
-                        "Podul Minciunilor - Primul pod din fontă din România",
-                        "Muzeul Brukenthal - Cel mai vechi muzeu din România",
-                        "Turnul Sfatului - Symbol al orașului medieval"
+                        "Piața Mare", "Podul Minciunilor", "Muzeul Brukenthal", "Turnul Sfatului"
                 }
         ));
-
-        put("Cluj", new CityInfo(
+        put("Cluj-Napoca", new CityInfo(
                 "Cluj-Napoca",
-                "Capitala neoficială a Transilvaniei, un important centru cultural și universitar. " +
-                        "Orașul îmbină perfect istoria medievală cu viața modernă și dinamică.",
+                "Capitala neoficială a Transilvaniei, centru cultural și universitar.",
                 new String[] {
-                        "Piața Unirii - Centrul istoric cu Biserica Sf. Mihail",
-                        "Grădina Botanică - Una dintre cele mai mari din sud-estul Europei",
-                        "Muzeul Etnografic al Transilvaniei",
-                        "Cetățuia - Oferă o panoramă spectaculoasă asupra orașului"
+                        "Piața Unirii", "Grădina Botanică", "Muzeul Etnografic", "Cetățuia"
                 }
         ));
-
         put("Brașov", new CityInfo(
                 "Brașov",
-                "Oraș medieval fascinant, înconjurat de Munții Carpați. " +
-                        "Biserica Neagră și zidurile cetății oferă o atmosferă autentică medievală.",
+                "Oraș medieval înconjurat de Munții Carpați.",
                 new String[] {
-                        "Biserica Neagră - Cel mai mare edificiu gotic din Europa de Est",
-                        "Piața Sfatului - Centrul istoric medieval",
-                        "Tampa - Muntele care oferă o vedere panoramică",
-                        "Poarta Ecaterinei - Monument istoric din secolul XVI"
+                        "Biserica Neagră", "Piața Sfatului", "Tampa", "Poarta Ecaterinei"
+                }
+        ));
+        put("Târgu Mureș", new CityInfo(
+                "Târgu Mureș",
+                "Oraș multicultural cu arhitectură secession.",
+                new String[] {
+                        "Palatul Culturii", "Cetatea medievală", "Piața Trandafirilor"
+                }
+        ));
+
+        // Banat
+        put("Timișoara", new CityInfo(
+                "Timișoara",
+                "Primul oraș european cu iluminat electric.",
+                new String[] {
+                        "Piața Unirii", "Opera", "Catedrala Mitropolitană", "Bega"
+                }
+        ));
+
+        // Crișana
+        put("Oradea", new CityInfo(
+                "Oradea",
+                "Orașul art nouveau al României.",
+                new String[] {
+                        "Cetatea Oradea", "Piața Unirii", "Biserica cu Lună", "Str. Republicii"
+                }
+        ));
+
+        // Maramureș
+        put("Baia Mare", new CityInfo(
+                "Baia Mare",
+                "Poarta de intrare în Maramureș.",
+                new String[] {
+                        "Turnul lui Ștefan", "Piața Libertății", "Muzeul de Mineralogie"
+                }
+        ));
+
+        // Bucovina
+        put("Suceava", new CityInfo(
+                "Suceava",
+                "Fostă capitală a Moldovei medievale.",
+                new String[] {
+                        "Cetatea de Scaun", "Muzeul Satului Bucovinean", "Mănăstirea Zamca"
+                }
+        ));
+
+        // Moldova
+        put("Iași", new CityInfo(
+                "Iași",
+                "Orașul celor 7 coline, capitală culturală.",
+                new String[] {
+                        "Palatul Culturii", "Teatrul Național", "Copou", "Mănăstirea Trei Ierarhi"
+                }
+        ));
+
+        // Oltenia
+        put("Craiova", new CityInfo(
+                "Craiova",
+                "Orașul cu tradiție culturală și industrială.",
+                new String[] {
+                        "Parcul Nicolae Romanescu", "Muzeul Olteniei", "Teatrul Marin Sorescu"
+                }
+        ));
+
+        // Dobrogea
+        put("Constanța", new CityInfo(
+                "Constanța",
+                "Cel mai mare port al României la Marea Neagră.",
+                new String[] {
+                        "Cazinoul", "Farul Genovez", "Moscheea Carol I", "Plaja Modern"
                 }
         ));
     }};
@@ -73,6 +132,16 @@ public class RomCityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rom_city);
 
         gameState = RomGameState.getInstance();
+        
+        // Get city location from intent extras
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            cityLocation = new LatLng(
+                extras.getDouble("city_lat"),
+                extras.getDouble("city_lng")
+            );
+            gameState.addVisitedLocation(cityLocation, this);
+        }
 
         // Get city name from intent
         cityName = getIntent().getStringExtra("CITY_NAME");
