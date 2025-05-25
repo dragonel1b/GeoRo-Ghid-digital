@@ -3,16 +3,18 @@ package com.example.myapplication.RomApp;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.example.myapplication.R;
+import com.example.myapplication.RomApp.CityImageAdapter;
 import java.util.ArrayList;
 
 public abstract class BaseCityActivity extends AppCompatActivity {
-    protected ViewPager2 imageCarousel;
+    protected ViewPager2 imageCarousel; // Updated from imageViewPager to imageCarousel
     protected CityImageAdapter imageAdapter;
 
     @Override
@@ -26,14 +28,10 @@ public abstract class BaseCityActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getCityName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get images before setting up the carousel
-        ArrayList<String> images = getCityImages();
-        if (images != null) {
-            // Set up image carousel only if we have images
-            imageCarousel = findViewById(R.id.imageCarousel);
-            imageAdapter = new CityImageAdapter(this, images);
-            imageCarousel.setAdapter(imageAdapter);
-        }
+        // Set up image carousel
+        imageCarousel = findViewById(R.id.imageCarousel); // Updated to match the layout
+        imageAdapter = new CityImageAdapter(this, getCityImages());
+        imageCarousel.setAdapter(imageAdapter);
 
         // Initialize content
         initializeSpecificContent();
@@ -64,7 +62,6 @@ public abstract class BaseCityActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    // Abstract methods that must be implemented by child classes
     protected abstract String getCityName();
     protected abstract ArrayList<String> getCityImages();
     protected abstract void initializeSpecificContent();
