@@ -14,9 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -34,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.myapplication.Joc1.Culinary.ModernCulinaryActivity.Recipe;
-import android.view.Gravity;
 
 /**
  * Activity pentru detalii rețetă cu suport Material Design 3
@@ -130,19 +126,23 @@ public class RecipeDetailActivity extends AppCompatActivity {
     
     private void setupTabLayout() {
         // Configurează ViewPager2 cu adapter pentru fragmente
-        setupViewPager();
+        RecipeFragmentAdapter adapter = new RecipeFragmentAdapter(this, recipeId);
+        viewPager.setAdapter(adapter);
         
         // Conectează TabLayout cu ViewPager2 folosind TabLayoutMediator
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Detalii");
-                    break;
-                case 1:
                     tab.setText("Ingrediente");
                     break;
+                case 1:
+                    tab.setText("Pași");
+                    break;
                 case 2:
-                    tab.setText("Preparare");
+                    tab.setText("Recenzii");
+                    break;
+                case 3:
+                    tab.setText("Nutriție");
                     break;
             }
         }).attach();
@@ -238,6 +238,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
     
     /**
+     * Deschide activity pentru ghidul pas cu pas de gătit
+     */
+    private void startCookingGuide() {
+        // Intent cookingIntent = CookingGuideActivity.newIntent(this, recipeId);
+        // startActivity(cookingIntent);
+        Snackbar.make(findViewById(R.id.recipeInfoCard), "Funcționalitatea de ghid de gătit va fi disponibilă în curând", Snackbar.LENGTH_SHORT).show();
+    }
+    
+    /**
      * Partajează rețeta cu alte aplicații
      */
     private void shareRecipe() {
@@ -261,17 +270,47 @@ public class RecipeDetailActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Distribuie rețeta"));
     }
     
+    /**
+     * Afișează dialogul pentru adăugare în planul de mese
+     */
+    private void showAddToMealPlanDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_to_meal_plan, null);
+        dialog.setContentView(dialogView);
+        
+        // TODO: Configurează elemente din dialog
+        
+        dialog.show();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_recipe_detail, menu);
         return true;
     }
     
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        /*
+        int id = item.getItemId();
+        
+        if (id == R.id.action_share) {
+            shareRecipe();
+            return true;
+        } else if (id == R.id.action_add_to_meal_plan) {
+            showAddToMealPlanDialog();
+            return true;
+        }
+        */
+        
+        return super.onOptionsItemSelected(item);
+    }
+    
     /**
      * Configurează butoanele de acțiune
      */
     public void onStartCookingClicked(View view) {
-        // Eliminăm apelul către funcționalitatea indisponibilă
+        startCookingGuide();
     }
     
     public void onShareButtonClicked(View view) {
@@ -279,7 +318,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
     
     public void onAddToMealPlanClicked(View view) {
-        // Eliminăm apelul către funcționalitatea indisponibilă
+        showAddToMealPlanDialog();
     }
     
     /**
@@ -419,99 +458,5 @@ public class RecipeDetailActivity extends AppCompatActivity {
         builder.append(getString(R.string.sugar)).append(": ").append(info.getSugar()).append("g\n");
         builder.append(getString(R.string.sodium)).append(": ").append(info.getSodium()).append("mg");
         return builder.toString();
-    }
-
-    private void setupViewPager() {
-        ViewPager2 viewPager = findViewById(R.id.viewPager);
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        
-        // Simplificăm implementarea pentru a evita referințele la clase care nu există
-        // Vom folosi un adapter simplu fără fragmente
-        
-        // Creăm un adapter de bază ce nu depinde de fragmente
-        viewPager.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                // Creăm un ViewHolder simplu
-                TextView textView = new TextView(parent.getContext());
-                textView.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
-                textView.setGravity(Gravity.CENTER);
-                textView.setPadding(16, 16, 16, 16);
-                
-                return new RecyclerView.ViewHolder(textView) {};
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                TextView textView = (TextView) holder.itemView;
-                
-                switch (position) {
-                    case 0:
-                        textView.setText("Detalii rețetă " + recipe.getTitle());
-                        break;
-                    case 1:
-                        textView.setText("Ingrediente:\n" + getIngredientsAsString());
-                        break;
-                    case 2:
-                        textView.setText("Pași de preparare:\n" + getPreparationStepsAsString());
-                        break;
-                }
-            }
-
-            @Override
-            public int getItemCount() {
-                return 3; // Detalii, Ingrediente, Pași
-            }
-        });
-        
-        // Configurăm TabLayout fără fragment-uri
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            switch (position) {
-                case 0:
-                    tab.setText("Detalii");
-                    break;
-                case 1:
-                    tab.setText("Ingrediente");
-                    break;
-                case 2:
-                    tab.setText("Preparare");
-                    break;
-            }
-        }).attach();
-    }
-
-    /**
-     * Converts recipe ingredients to a formatted string
-     * @return Formatted ingredients string
-     */
-    private String getIngredientsAsString() {
-        if (recipe == null || recipe.getIngredients() == null) {
-            return "Nu există ingrediente disponibile";
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        for (String ingredient : recipe.getIngredients()) {
-            sb.append("• ").append(ingredient).append("\n");
-        }
-        return sb.toString();
-    }
-    
-    /**
-     * Converts preparation steps to a formatted string
-     * @return Formatted preparation steps string
-     */
-    private String getPreparationStepsAsString() {
-        if (recipe == null || recipe.getSteps() == null) {
-            return "Nu există pași de preparare disponibili";
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < recipe.getSteps().length; i++) {
-            sb.append(i + 1).append(". ").append(recipe.getSteps()[i]).append("\n\n");
-        }
-        return sb.toString();
     }
 }

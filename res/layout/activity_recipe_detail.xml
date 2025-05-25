@@ -170,6 +170,17 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/startCookingButton"
+                            style="@style/Widget.Material3.Button.Icon"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:contentDescription="Începe procesul de gătit cu instrucțiuni pas cu pas"
+                            android:text="Gătește"
+                            app:icon="@android:drawable/ic_menu_send" />
+
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/shareButton"
                             style="@style/Widget.Material3.Button.TonalIcon"
                             android:layout_width="0dp"
@@ -180,6 +191,17 @@
                             android:contentDescription="Distribuie această rețetă"
                             android:text="Distribuie"
                             app:icon="@android:drawable/ic_menu_share" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/addToMealPlanButton"
+                            style="@style/Widget.Material3.Button.TonalIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:contentDescription="Adaugă această rețetă în planul tău de mese"
+                            android:text="Adaugă"
+                            app:icon="@android:drawable/ic_menu_add" />
 
                     </LinearLayout>
 

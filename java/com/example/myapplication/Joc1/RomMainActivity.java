@@ -325,13 +325,19 @@ public class RomMainActivity extends AppCompatActivity {
     }
 
     /**
-     * Start culinary module
+     * Method called from layout via onClick attribute
+     * Opens the CulinaryWelcomeActivity
      */
     public void startCulinaryWelcome(View view) {
         animateButtonClick(view);
         try {
-            // Folosim metoda showCulinaryModule în loc de a porni CulinaryWelcomeActivity
-            showCulinaryModule();
+            Intent intent = new Intent(this, com.example.myapplication.Joc1.Culinary.CulinaryWelcomeActivity.class);
+            // Validate intent before use
+            if (securityManager.validateIntent(intent)) {
+                TransitionHelper.startActivityWithFade(this, intent);
+            } else {
+                showErrorMessage("Cannot start culinary welcome. Invalid intent detected.");
+            }
         } catch (Exception e) {
             securityManager.handleException(this, e, 
                     "Failed to start culinary welcome.", false);
@@ -568,11 +574,5 @@ public class RomMainActivity extends AppCompatActivity {
                 this.textView = textView;
             }
         }
-    }
-
-    private void showCulinaryModule() {
-        // Folosim ModernCulinaryActivity în loc
-        Intent intent = new Intent(this, com.example.myapplication.Joc1.Culinary.ModernCulinaryActivity.class);
-        startActivity(intent);
     }
 }

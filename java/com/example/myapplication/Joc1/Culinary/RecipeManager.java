@@ -176,19 +176,19 @@ public class RecipeManager {
     }
     
     /**
-     * Get recommended recipes
+     * Get recommended recipes based on user profile
+     * @param userProfile User culinary profile
      * @param limit Maximum number of recommendations
      * @return List of recommended recipes
      */
-    public List<ModernCulinaryActivity.Recipe> getRecommendedRecipes(int limit) {
+    public List<ModernCulinaryActivity.Recipe> getRecommendedRecipes(UserCulinaryProfile userProfile, int limit) {
         List<ModernCulinaryActivity.Recipe> allRecipes = getAllRecipes();
         Map<ModernCulinaryActivity.Recipe, Integer> scores = new HashMap<>();
         
-        // UserCulinaryProfile removed
-        Set<String> dietaryPreferences = new HashSet<>();
-        Set<String> allergies = new HashSet<>();
-        Set<String> favoriteCuisines = new HashSet<>();
-        String skillLevel = "BEGINNER";
+        Set<String> dietaryPreferences = userProfile.getDietaryPreferences();
+        Set<String> allergies = userProfile.getAllergies();
+        Set<String> favoriteCuisines = userProfile.getFavoriteCuisines();
+        String skillLevel = userProfile.getSkillLevel();
         
         for (ModernCulinaryActivity.Recipe recipe : allRecipes) {
             // Skip recipes that don't match dietary preferences or contain allergens
@@ -229,7 +229,8 @@ public class RecipeManager {
      */
     private boolean isCompatibleWithDiet(ModernCulinaryActivity.Recipe recipe, Set<String> dietaryPreferences) {
         // If no preferences, all recipes are compatible
-        if (dietaryPreferences == null || dietaryPreferences.isEmpty()) {
+        if (dietaryPreferences == null || dietaryPreferences.isEmpty() || 
+                dietaryPreferences.contains(UserCulinaryProfile.DIET_NONE)) {
             return true;
         }
         
@@ -279,13 +280,13 @@ public class RecipeManager {
         
         int userScore;
         switch (skillLevel) {
-            case "BEGINNER":
+            case UserCulinaryProfile.SKILL_BEGINNER:
                 userScore = 1;
                 break;
-            case "INTERMEDIATE":
+            case UserCulinaryProfile.SKILL_INTERMEDIATE:
                 userScore = 2;
                 break;
-            case "ADVANCED":
+            case UserCulinaryProfile.SKILL_ADVANCED:
                 userScore = 3;
                 break;
             default:

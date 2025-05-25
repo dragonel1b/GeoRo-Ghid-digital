@@ -36,16 +36,17 @@ public class RomCulinaryActivity extends AppCompatActivity implements RecipeAdap
     private ChipGroup regionChipGroup;
     private ChipGroup categoryChipGroup;
     private TextView emptyStateText;
+    private FloatingActionButton addRecipeButton;
     
     // RecyclerViews for categories, popular and recent recipes
     private RecyclerView categoriesRecyclerView;
     private RecyclerView popularRecipesRecyclerView;
     private RecyclerView recentRecipesRecyclerView;
     
-    // Adapters - RecipeCardAdapter removed
-    private RecipeAdapter categoriesAdapter;
-    private RecipeAdapter popularRecipesAdapter;
-    private RecipeAdapter recentRecipesAdapter;
+    // Adapters
+    private RecipeCardAdapter categoriesAdapter;
+    private RecipeCardAdapter popularRecipesAdapter;
+    private RecipeCardAdapter recentRecipesAdapter;
 
     public static List<Recipe> getRecipes() {
         return recipes;
@@ -91,11 +92,17 @@ public class RomCulinaryActivity extends AppCompatActivity implements RecipeAdap
         regionChipGroup = findViewById(R.id.regionChipGroup);
         categoryChipGroup = findViewById(R.id.categoryChipGroup);
         emptyStateText = findViewById(R.id.emptyStateText);
+        addRecipeButton = findViewById(R.id.addRecipeButton);
         
         // Initialize new RecyclerViews
         categoriesRecyclerView = findViewById(R.id.categories_recycler);
         popularRecipesRecyclerView = findViewById(R.id.popular_recipes_recycler);
         recentRecipesRecyclerView = findViewById(R.id.recent_recipes_recycler);
+        
+        addRecipeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddRecipeActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void loadRecipes() {
@@ -190,8 +197,28 @@ public class RomCulinaryActivity extends AppCompatActivity implements RecipeAdap
                 this, LinearLayoutManager.HORIZONTAL, false);
         categoriesRecyclerView.setLayoutManager(layoutManager);
         
-        // Creează și setează adapter (RecipeCardAdapter înlocuit cu RecipeAdapter)
-        categoriesAdapter = new RecipeAdapter(categoryRecipes, this, this);
+        // Creează și setează adapter
+        categoriesAdapter = new RecipeCardAdapter(categoryRecipes, recipe -> {
+            // Filtrează rețetele după categorie când se face click
+            Chip chip = null;
+            
+            // Găsește chip-ul corespunzător categoriei
+            for (int i = 0; i < categoryChipGroup.getChildCount(); i++) {
+                View view = categoryChipGroup.getChildAt(i);
+                if (view instanceof Chip) {
+                    Chip c = (Chip) view;
+                    if (c.getText().toString().equals(recipe.getCategory())) {
+                        chip = c;
+                        break;
+                    }
+                }
+            }
+            
+            // Aplică filtrul selectând chip-ul
+            if (chip != null) {
+                chip.setChecked(true);
+            }
+        });
         
         categoriesRecyclerView.setAdapter(categoriesAdapter);
     }
@@ -208,8 +235,11 @@ public class RomCulinaryActivity extends AppCompatActivity implements RecipeAdap
                 this, LinearLayoutManager.HORIZONTAL, false);
         popularRecipesRecyclerView.setLayoutManager(layoutManager);
         
-        // Creează și setează adapter (RecipeCardAdapter înlocuit cu RecipeAdapter)
-        popularRecipesAdapter = new RecipeAdapter(popularRecipes, this, this);
+        // Creează și setează adapter
+        popularRecipesAdapter = new RecipeCardAdapter(popularRecipes, recipe -> {
+            // Deschide detaliile rețetei când se face click
+            openRecipeDetail(recipe);
+        });
         
         popularRecipesRecyclerView.setAdapter(popularRecipesAdapter);
     }
@@ -227,8 +257,11 @@ public class RomCulinaryActivity extends AppCompatActivity implements RecipeAdap
                 this, LinearLayoutManager.HORIZONTAL, false);
         recentRecipesRecyclerView.setLayoutManager(horizontalLayoutManager);
         
-        // Creează și setează adapter (RecipeCardAdapter înlocuit cu RecipeAdapter)
-        recentRecipesAdapter = new RecipeAdapter(recentRecipes, this, this);
+        // Creează și setează adapter
+        recentRecipesAdapter = new RecipeCardAdapter(recentRecipes, recipe -> {
+            // Deschide detaliile rețetei când se face click
+            openRecipeDetail(recipe);
+        });
         
         recentRecipesRecyclerView.setAdapter(recentRecipesAdapter);
     }

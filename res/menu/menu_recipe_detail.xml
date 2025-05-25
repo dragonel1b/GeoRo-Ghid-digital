@@ -8,6 +8,19 @@
         android:title="Distribuie"
         app:showAsAction="ifRoom" />
     
-    <!-- Eliminăm elementele indisponibile din meniu -->
+    <item
+        android:id="@+id/action_add_to_meal_plan"
+        android:title="Adaugă în planul de mese"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/action_add_to_shopping_list"
+        android:title="Adaugă ingrediente în lista de cumpărături"
+        app:showAsAction="never" />
+    
+    <item
+        android:id="@+id/action_print"
+        android:title="Printează rețeta"
+        app:showAsAction="never" />
     
 </menu> 

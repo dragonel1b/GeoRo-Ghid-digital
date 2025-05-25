@@ -171,6 +171,9 @@ public class RomRecipeDetailActivity extends AppCompatActivity {
         submitRatingButton = findViewById(R.id.submitRatingButton);
         recipeRatingText = findViewById(R.id.recipeRatingText);
         
+        // Shopping list button
+        MaterialButton addToShoppingListButton = findViewById(R.id.addToShoppingListButton);
+        
         // Initialize nutritional information views
         caloriesValue = findViewById(R.id.caloriesValue);
         proteinValue = findViewById(R.id.proteinValue);
@@ -182,6 +185,9 @@ public class RomRecipeDetailActivity extends AppCompatActivity {
         noNutritionalInfoText = findViewById(R.id.noNutritionalInfoText);
         additionalNutrientsSection = findViewById(R.id.additionalNutrientsSection);
         nutritionalInfoCard = findViewById(R.id.nutritionalInfoCard);
+        
+        // Setup shopping list button
+        addToShoppingListButton.setOnClickListener(v -> addIngredientsToShoppingList());
         
         // Initialize tab views
         recipeDetailTabs = findViewById(R.id.recipeDetailTabs);
@@ -732,6 +738,26 @@ public class RomRecipeDetailActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         prepareResultAndFinish();
+    }
+    
+    /**
+     * Add recipe ingredients to shopping list
+     */
+    private void addIngredientsToShoppingList() {
+        String[] ingredients = recipe.getIngredients();
+        
+        if (ingredients == null || ingredients.length == 0) {
+            Toast.makeText(this, "Nu există ingrediente pentru această rețetă", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        // Launch ShoppingListActivity with ingredients and recipe title
+        Intent intent = new Intent(this, ShoppingListActivity.class);
+        intent.putExtra("recipe_ingredients", ingredients);
+        intent.putExtra("recipe_title", recipe.getTitle());
+        startActivity(intent);
+        
+        Toast.makeText(this, "Ingredientele au fost adăugate în lista de cumpărături", Toast.LENGTH_SHORT).show();
     }
     
     private void setupDetailTabs() {

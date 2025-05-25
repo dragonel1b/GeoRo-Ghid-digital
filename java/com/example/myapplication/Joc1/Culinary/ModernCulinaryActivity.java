@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,13 +33,15 @@ import java.util.List;
  * Activitate principală modernă pentru modulul culinar
  * Folosește Material Design 3 și arhitectura MVVM
  */
-public class ModernCulinaryActivity extends AppCompatActivity implements CulinaryActivityInterface, RecipeAdapter.OnRecipeActionListener {
+public class ModernCulinaryActivity extends AppCompatActivity implements CulinaryActivityInterface {
 
     private ViewPager categoryViewPager;
     private TabLayout categoryTabLayout;
     private RecyclerView featuredRecipesRecyclerView;
     private ChipGroup regionsChipGroup;
-    // CulinaryViewModel removed
+    private CulinaryViewModel viewModel;
+    private BottomNavigationView bottomNav;
+    private FloatingActionButton addRecipeFab;
 
     /**
      * Recipe class representing a culinary recipe
@@ -226,11 +227,13 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modern_culinary);
 
-        // Inițializare ViewModel - removed
+        // Inițializare ViewModel
+        viewModel = new ViewModelProvider(this).get(CulinaryViewModel.class);
 
         // Inițializare UI
         initializeViews();
         setupToolbar();
+        setupBottomNavigation();
         setupCategoryPager();
         setupFeaturedRecipes();
         setupFilters();
@@ -248,27 +251,47 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
         }
     }
 
+    private void setupBottomNavigation() {
+        bottomNav = findViewById(R.id.bottomNavigationView);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                return true;
+            } else if (itemId == R.id.nav_explore) {
+                navigateToSearch();
+                return true;
+            } else if (itemId == R.id.nav_recipes) {
+                showMyRecipesScreen();
+                return true;
+            } else if (itemId == R.id.nav_shopping) {
+                showMealPlanScreen();
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                showUserProfile();
+                return true;
+            }
+            return false;
+        });
+    }
+
     @Override
     public void initializeViews() {
         categoryViewPager = findViewById(R.id.categoryViewPager);
         categoryTabLayout = findViewById(R.id.categoryTabLayout);
         featuredRecipesRecyclerView = findViewById(R.id.featuredRecipesRecyclerView);
         regionsChipGroup = findViewById(R.id.regionsChipGroup);
+        addRecipeFab = findViewById(R.id.addRecipeFab);
+
+        addRecipeFab.setOnClickListener(v -> showAddRecipeScreen());
     }
 
     private void setupCategoryPager() {
-        // Inițializare adapter pentru categorii - simplificat pentru a elimina referințele la CategoryPagerAdapter
-        /*CategoryPagerAdapter categoryAdapter = new CategoryPagerAdapter(this);
+        // Inițializare adapter pentru categorii
+        CategoryPagerAdapter categoryAdapter = new CategoryPagerAdapter(this);
         categoryViewPager.setAdapter(categoryAdapter);
 
         // Conectare cu TabLayout pentru a afișa titlurile categoriilor
         for (String category : CulinaryUtils.CATEGORIES) {
-            categoryTabLayout.addTab(categoryTabLayout.newTab().setText(category));
-        }*/
-        
-        // Folosim categorii definite static
-        String[] categories = {"Aperitive", "Supe și ciorbe", "Feluri principale", "Deserturi", "Pâine și produse de patiserie"};
-        for (String category : categories) {
             categoryTabLayout.addTab(categoryTabLayout.newTab().setText(category));
         }
 
@@ -311,23 +334,7 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
     @Override
     public void setupFilters() {
         // Adăugare filtre de regiune
-        /*for (String region : CulinaryUtils.REGIONS) {
-            Chip chip = new Chip(this);
-            chip.setText(region);
-            chip.setCheckable(true);
-            chip.setClickable(true);
-            chip.setCheckedIconVisible(true);
-            chip.setChipBackgroundColorResource(R.color.chip_background_color);
-            chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                // Aplică filtrul
-                applyFilters();
-            });
-            regionsChipGroup.addView(chip);
-        }*/
-        
-        // Folosim regiuni definite static
-        String[] regions = {"Moldova", "Transilvania", "Muntenia", "Oltenia", "Banat", "Dobrogea", "Bucovina", "Maramureș"};
-        for (String region : regions) {
+        for (String region : CulinaryUtils.REGIONS) {
             Chip chip = new Chip(this);
             chip.setText(region);
             chip.setCheckable(true);
@@ -345,26 +352,28 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
     @Override
     public void setupRecipes() {
         // Încarcă lista de rețete
-        //viewModel.loadRecipes();
-        // Implementare simplificată fără ViewModel
+        viewModel.loadRecipes();
     }
 
     private void setupFeaturedRecipes() {
         // Simulare date
         List<Recipe> recipes = createSampleRecipes();
         
-        // Setare adapter pentru lista de rețete recomandate - înlocuim FeaturedRecipeAdapter cu RecipeAdapter
-        /*FeaturedRecipeAdapter adapter = new FeaturedRecipeAdapter(recipes, recipe -> {
+        // Setare adapter pentru lista de rețete recomandate
+        FeaturedRecipeAdapter adapter = new FeaturedRecipeAdapter(recipes, recipe -> {
             // Deschide detalii rețetă
             openRecipeDetail(recipe);
-        });*/
+        });
         
-        RecipeAdapter adapter = new RecipeAdapter(recipes, this, this);
         featuredRecipesRecyclerView.setAdapter(adapter);
     }
 
     private void observeViewModel() {
-        // ViewModel removed
+        // Observă schimbările de date din ViewModel
+        viewModel.getRecipes().observe(this, recipes -> {
+            // Actualizare UI cu lista de rețete
+            updateRecipesList(recipes);
+        });
     }
 
     private void updateRecipesList(List<Recipe> recipes) {
@@ -374,24 +383,29 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
 
     @Override
     public void navigateToSearch() {
-        // Metoda menținută pentru compatibilitatea cu interfața, dar nu mai afișează Toast
+        Intent intent = new Intent(this, RecipeSearchActivity.class);
+        startActivity(intent);
     }
 
     private void showAddRecipeScreen() {
-        // Metoda menținută pentru compatibilitatea cu codul, dar nu mai afișează Toast
+        Intent intent = new Intent(this, ShareMyRecipeActivity.class);
+        startActivity(intent);
     }
 
     private void showMyRecipesScreen() {
-        // Metoda menținută pentru compatibilitatea cu codul, dar nu mai afișează Toast
+        Intent intent = new Intent(this, MyRecipesActivity.class);
+        startActivity(intent);
     }
 
     private void showMealPlanScreen() {
-        // Metoda menținută pentru compatibilitatea cu codul, dar nu mai afișează Toast
+        Intent intent = new Intent(this, ModernMealPlannerActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void showUserProfile() {
-        // Metoda menținută pentru compatibilitatea cu interfața, dar nu mai afișează Toast
+        Intent intent = new Intent(this, CulinaryProfileSetupActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -407,7 +421,8 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
     }
 
     private void showWelcomeScreen() {
-        // Metoda menținută pentru compatibilitatea cu codul, dar nu mai afișează Toast
+        Intent intent = new Intent(this, CulinaryWelcomeActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -430,7 +445,7 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
 
     private Recipe findRecipeById(long recipeId) {
         // Find recipe in all available recipes
-        List<Recipe> allRecipes = createSampleRecipes();
+        List<Recipe> allRecipes = viewModel.getRecipes().getValue();
         if (allRecipes != null) {
             for (Recipe recipe : allRecipes) {
                 if (recipe.getId() == recipeId) {
@@ -456,7 +471,7 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
         }
         
         // Apply filters
-        // viewModel.applyFilters(selectedRegions); - removed
+        viewModel.applyFilters(selectedRegions);
     }
 
     /**
@@ -845,11 +860,5 @@ public class ModernCulinaryActivity extends AppCompatActivity implements Culinar
         recipes.add(recipe10);
         
         return recipes;
-    }
-
-    // Implementare OnRecipeActionListener
-    @Override
-    public void onRecipeAction(Recipe recipe) {
-        openRecipeDetail(recipe);
     }
 }

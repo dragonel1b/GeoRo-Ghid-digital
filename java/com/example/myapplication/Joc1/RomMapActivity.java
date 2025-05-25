@@ -109,8 +109,6 @@ public class RomMapActivity extends AppCompatActivity implements OnMapReadyCallb
     private boolean regionClickListenerAdded = false;
     private FirebaseAnalytics firebaseAnalytics;
 
-    private static final String TAG = "RomMapActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

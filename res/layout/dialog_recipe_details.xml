@@ -281,6 +281,18 @@
                         app:iconPadding="8dp" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addToShoppingListButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/add_to_shopping_list_description"
+                        android:text="Cumpărături"
+                        app:icon="@drawable/ic_shopping_cart"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/saveRecipeButton"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="wrap_content"
