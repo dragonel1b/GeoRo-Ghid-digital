@@ -5,7 +5,13 @@
     <item
         android:id="@+id/action_share"
         android:icon="@android:drawable/ic_menu_share"
-        android:title="Distribuie"
+        android:title="Partajează"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/action_add_comment"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Adaugă comentariu"
         app:showAsAction="ifRoom" />
     
     <!-- Eliminăm elementele indisponibile din meniu -->

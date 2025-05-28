@@ -19,10 +19,10 @@
     <color name="rom_food_color">#F44336</color>
 
     <!-- Theme Colors -->
-    <color name="colorPrimary">#FF5722</color>
-    <color name="colorPrimaryDark">#E64A19</color>
-    <color name="colorPrimaryLight">#42A5F5</color>
-    <color name="colorAccent">#FF9800</color>
+    <color name="colorPrimary">#FF6D00</color>
+    <color name="colorPrimaryDark">#E65100</color>
+    <color name="colorPrimaryLight">#FFD180</color>
+    <color name="colorAccent">#FF9E80</color>
 
     <!-- Text Colors -->
     <color name="text_primary">#212121</color>
@@ -474,4 +474,17 @@
     <color name="gradient_start">#AA000000</color>
     <color name="gradient_center">#55000000</color>
     <color name="gradient_end">#00000000</color>
+
+    <!-- Culori noi pentru UI îmbunătățit -->
+    <color name="backgroundLight">#F5F7FA</color>
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="divider">#E0E0E0</color>
+    
+    <!-- TextInputLayout box stroke colors -->
+    <color name="text_input_box_stroke_default">#BDBDBD</color>
+    <color name="text_input_box_stroke_focused">@color/colorPrimaryLight</color>
+    <color name="text_input_box_stroke_error">#B00020</color>
+    
+    <!-- StateList pentru box stroke -->
+    <color name="text_input_box_stroke">@color/text_input_box_stroke_selector</color>
 </resources>

@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -22,11 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.recipe.adapter.RecipeAdapter;
+import com.example.myapplication.recipe.model.Ingredient;
 import com.example.myapplication.recipe.model.Recipe;
 import com.example.myapplication.recipe.repository.RecipeRepository;
 import com.example.myapplication.utils.TransitionHelper;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +99,8 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
         // Configurare FAB pentru adăugare rețetă nouă
         FloatingActionButton fab = findViewById(R.id.fab_add_recipe);
         fab.setOnClickListener(view -> {
-            Toast.makeText(RecipeListActivity.this, "Adăugare rețetă nouă (în implementare)", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RecipeListActivity.this, AddRecipeActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -127,6 +131,12 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
             public void afterTextChanged(Editable s) {
                 // Not needed
             }
+        });
+        
+        // Add advanced search button
+        ImageButton advancedSearchButton = findViewById(R.id.advancedSearchButton);
+        advancedSearchButton.setOnClickListener(v -> {
+            showAdvancedSearchDialog();
         });
     }
 
@@ -274,5 +284,135 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
         super.onResume();
         // Refresh recipes in case favorites status changed
         loadRecipes();
+    }
+
+    private void showAdvancedSearchDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_advanced_search, null);
+        
+        // Inițializare controale
+        EditText maxTimeEditText = dialogView.findViewById(R.id.edit_max_time);
+        CheckBox vegetarianCheckbox = dialogView.findViewById(R.id.checkbox_vegetarian);
+        CheckBox veganCheckbox = dialogView.findViewById(R.id.checkbox_vegan);
+        CheckBox glutenFreeCheckbox = dialogView.findViewById(R.id.checkbox_gluten_free);
+        CheckBox lactoseFreeCheckbox = dialogView.findViewById(R.id.checkbox_lactose_free);
+        EditText ingredientsEditText = dialogView.findViewById(R.id.edit_ingredients);
+        
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Căutare avansată")
+                .setView(dialogView)
+                .setPositiveButton("Caută", (dialog, which) -> {
+                    // Colectare parametri de căutare
+                    int maxTime = 0;
+                    try {
+                        String maxTimeStr = maxTimeEditText.getText().toString().trim();
+                        if (!maxTimeStr.isEmpty()) {
+                            maxTime = Integer.parseInt(maxTimeStr);
+                        }
+                    } catch (NumberFormatException e) {
+                        // Ignoră
+                    }
+                    
+                    boolean isVegetarian = vegetarianCheckbox.isChecked();
+                    boolean isVegan = veganCheckbox.isChecked();
+                    boolean isGlutenFree = glutenFreeCheckbox.isChecked();
+                    boolean isLactoseFree = lactoseFreeCheckbox.isChecked();
+                    
+                    String ingredientsStr = ingredientsEditText.getText().toString().trim();
+                    List<String> requiredIngredients = new ArrayList<>();
+                    if (!ingredientsStr.isEmpty()) {
+                        String[] ingredients = ingredientsStr.split(",");
+                        for (String ingredient : ingredients) {
+                            requiredIngredients.add(ingredient.trim().toLowerCase());
+                        }
+                    }
+                    
+                    // Aplicare filtre
+                    advancedFilterRecipes(maxTime, isVegetarian, isVegan, isGlutenFree, isLactoseFree, requiredIngredients);
+                })
+                .setNegativeButton("Anulează", null)
+                .show();
+    }
+
+    private void advancedFilterRecipes(int maxTime, boolean isVegetarian, boolean isVegan, 
+                                      boolean isGlutenFree, boolean isLactoseFree, 
+                                      List<String> requiredIngredients) {
+        // Resetare toate filtrele din interfață
+        resetFilters();
+        
+        // Obținere toate rețetele
+        List<Recipe> allRecipes = recipeRepository.getAllRecipes();
+        List<Recipe> filteredRecipes = new ArrayList<>();
+        
+        for (Recipe recipe : allRecipes) {
+            boolean matchesFilters = true;
+            
+            // Verificare timp de preparare
+            if (maxTime > 0 && recipe.getTotalTime() > maxTime) {
+                matchesFilters = false;
+                continue;
+            }
+            
+            // Verificare restricții alimentare
+            if (isVegetarian && !recipe.isVegetarian()) {
+                matchesFilters = false;
+                continue;
+            }
+            
+            if (isVegan && !recipe.isVegan()) {
+                matchesFilters = false;
+                continue;
+            }
+            
+            if (isGlutenFree && !recipe.isGlutenFree()) {
+                matchesFilters = false;
+                continue;
+            }
+            
+            if (isLactoseFree && !recipe.isLactoseFree()) {
+                matchesFilters = false;
+                continue;
+            }
+            
+            // Verificare ingrediente necesare
+            if (!requiredIngredients.isEmpty()) {
+                List<Ingredient> recipeIngredients = recipe.getIngredients();
+                
+                for (String requiredIngredient : requiredIngredients) {
+                    boolean hasIngredient = false;
+                    
+                    for (Ingredient ingredient : recipeIngredients) {
+                        if (ingredient.getName().toLowerCase().contains(requiredIngredient)) {
+                            hasIngredient = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!hasIngredient) {
+                        matchesFilters = false;
+                        break;
+                    }
+                }
+            }
+            
+            if (matchesFilters) {
+                filteredRecipes.add(recipe);
+            }
+        }
+        
+        // Actualizare adapter cu rezultatele filtrării
+        recipeAdapter.setRecipes(filteredRecipes);
+        updateEmptyViewVisibility();
+    }
+
+    private void resetFilters() {
+        // Resetare chipuri de filtrare
+        favoritesChip.setChecked(false);
+        aperitiveChip.setChecked(false);
+        soupChip.setChecked(false);
+        mainChip.setChecked(false);
+        dessertChip.setChecked(false);
+        
+        // Resetare text căutare
+        searchEditText.setText("");
     }
 } 

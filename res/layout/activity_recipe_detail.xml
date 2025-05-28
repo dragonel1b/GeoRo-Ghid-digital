@@ -133,15 +133,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recipe_time_label" />
 
-            <TextView
-                android:id="@+id/recipe_servings"
+            <LinearLayout
+                android:id="@+id/recipe_servings_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textAppearance="?attr/textAppearanceBody2"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 app:layout_constraintStart_toEndOf="@id/recipe_servings_label"
-                app:layout_constraintTop_toTopOf="@id/recipe_servings_label"
-                tools:text="6" />
+                app:layout_constraintTop_toTopOf="@id/recipe_servings_label">
+
+                <TextView
+                    android:id="@+id/recipe_servings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    tools:text="6" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Ajustează porțiile"
+                    android:src="@android:drawable/arrow_down_float" />
+            </LinearLayout>
 
             <!-- Ingredients Section -->
             <TextView
@@ -178,6 +198,87 @@
                 android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintTop_toBottomOf="@id/steps_title" />
+
+            <!-- Dietary restrictions -->
+            <LinearLayout
+                android:id="@+id/dietary_restrictions_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Restricții alimentare:"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/vegetarian_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vegetarian"
+                        android:visibility="gone"
+                        app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/vegan_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vegan"
+                        android:visibility="gone"
+                        app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/gluten_free_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fără gluten"
+                        android:visibility="gone"
+                        app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/lactose_free_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fără lactoză"
+                        android:visibility="gone"
+                        app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+
+            <!-- Author info -->
+            <TextView
+                android:id="@+id/author_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textStyle="italic"
+                android:visibility="gone" />
+
+            <!-- Comments section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Comentarii:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
 
             <!-- Nutritional Info Section -->
             <TextView

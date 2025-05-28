@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/culinary_background"
-    tools:context=".Joc1.Culinary.AddRecipeActivity">
+    android:background="#F5F7FA">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/culinary_primary">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/culinary_primary"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-            app:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+            android:background="?attr/colorPrimary"
+            app:title="Adaugă rețetă nouă"
+            app:titleTextColor="@android:color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -27,305 +25,491 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:padding="16dp">
 
-            <!-- Recipe Details Card -->
+            <!-- Informații de bază - Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/basic_info_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:strokeColor="@color/culinary_card_border"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="@color/culinary_surface">
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/basic_info_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="Detalii Rețetă"
-                        android:textColor="@color/culinary_primary"
-                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                        android:text="Informații de bază"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/titleInput"
+                        android:id="@+id/title_input_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxStrokeColor="@color/culinary_primary"
-                        app:hintTextColor="@color/culinary_primary"
-                        android:hint="Titlu Rețetă">
+                        android:layout_marginTop="16dp"
+                        android:hint="Denumire rețetă"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/ic_menu_edit"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/basic_info_title"
+                        app:layout_constraintEnd_toEndOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_recipe_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:textColor="@color/culinary_text"
-                            android:maxLines="1" />
+                            android:inputType="text" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/descriptionInput"
+                        android:id="@+id/description_input_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxStrokeColor="@color/culinary_primary"
-                        app:hintTextColor="@color/culinary_primary"
-                        android:hint="Descriere Rețetă">
+                        android:layout_marginTop="16dp"
+                        android:hint="Descriere"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/ic_menu_info_details"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title_input_layout"
+                        app:layout_constraintEnd_toEndOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_recipe_description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textMultiLine"
-                            android:textColor="@color/culinary_text"
                             android:minLines="3" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Region Dropdown -->
+                    <!-- Timpi și porții -->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/regionDropdown"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxStrokeColor="@color/culinary_primary"
-                        app:hintTextColor="@color/culinary_primary"
-                        android:hint="Regiune">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/regionAutoCompleteTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/culinary_text"
-                            android:inputType="none" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Category Dropdown -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/categoryDropdown"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxStrokeColor="@color/culinary_primary"
-                        app:hintTextColor="@color/culinary_primary"
-                        android:hint="Categorie">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/categoryAutoCompleteTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/culinary_text"
-                            android:inputType="none" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Difficulty Dropdown -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/difficultyDropdown"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxStrokeColor="@color/culinary_primary"
-                        app:hintTextColor="@color/culinary_primary"
-                        android:hint="Dificultate">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/difficultyAutoCompleteTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/culinary_text"
-                            android:inputType="none" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/prepTimeInput"
+                        android:id="@+id/prep_time_input_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:boxStrokeColor="@color/culinary_primary"
-                        app:hintTextColor="@color/culinary_primary"
-                        android:hint="Timp de preparare (minute)">
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="Timp preparare (min)"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/ic_menu_recent_history"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/description_input_layout"
+                        app:layout_constraintEnd_toStartOf="@id/cook_time_input_layout">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_prep_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:textColor="@color/culinary_text"
-                            android:maxLines="1" />
+                            android:inputType="number" />
+
                     </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/cook_time_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:hint="Timp gătire (min)"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/ic_menu_recent_history"
+                        app:layout_constraintStart_toEndOf="@id/prep_time_input_layout"
+                        app:layout_constraintTop_toTopOf="@id/prep_time_input_layout"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_cook_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/servings_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="Porții"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/ic_menu_more"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/prep_time_input_layout"
+                        app:layout_constraintEnd_toStartOf="@id/difficulty_input_layout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_servings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/difficulty_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:hint="Dificultate"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/btn_star"
+                        app:endIconMode="dropdown_menu"
+                        app:layout_constraintStart_toEndOf="@id/servings_input_layout"
+                        app:layout_constraintTop_toTopOf="@id/servings_input_layout"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/dropdown_difficulty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Categorie și regiune -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/category_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="Categoria"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/ic_menu_sort_by_size"
+                        app:endIconMode="dropdown_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/servings_input_layout"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/dropdown_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/region_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="Regiune"
+                        app:boxStrokeWidth="1dp"
+                        app:startIconDrawable="@android:drawable/ic_dialog_map"
+                        app:endIconMode="dropdown_menu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/category_input_layout"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/dropdown_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Ingredients Card -->
+            <!-- Restricții alimentare - Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dietary_restrictions_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:strokeColor="@color/culinary_card_border"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="@color/culinary_ingredient">
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/basic_info_card"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/dietary_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:text="Restricții alimentare"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_vegetarian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Vegetarian"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dietary_title" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_vegan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Vegan"
+                        app:layout_constraintStart_toEndOf="@id/checkbox_vegetarian"
+                        app:layout_constraintTop_toTopOf="@id/checkbox_vegetarian" />
+
+                    <View
+                        android:id="@+id/diet_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#E0E0E0"
+                        app:layout_constraintTop_toBottomOf="@id/checkbox_vegetarian" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_gluten_free"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Fără gluten"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/diet_divider" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_lactose_free"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Fără lactoză"
+                        app:layout_constraintStart_toEndOf="@id/checkbox_gluten_free"
+                        app:layout_constraintTop_toTopOf="@id/checkbox_gluten_free" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Ingrediente - Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ingredients_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dietary_restrictions_card"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/ingredients_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="Ingrediente"
-                        android:textColor="@color/culinary_accent"
-                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/ingredientsInput"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_ingredients"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:boxStrokeColor="@color/culinary_accent"
-                        app:hintTextColor="@color/culinary_accent"
-                        android:hint="Introduceți ingredientele (câte unul pe linie)">
+                        android:layout_marginTop="8dp"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ingredients_title"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textMultiLine"
-                            android:textColor="@color/culinary_text"
-                            android:minLines="3" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_add_ingredient"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Adaugă ingredient"
+                        app:icon="@android:drawable/ic_menu_add"
+                        app:iconGravity="textStart"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recycler_ingredients"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Preparation Steps Card -->
+            <!-- Pași preparare - Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/steps_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:strokeColor="@color/culinary_card_border"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="@color/culinary_step">
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_card"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/steps_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="Pași de Preparare"
-                        android:textColor="@color/culinary_secondary"
-                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                        android:text="Pași preparare"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/stepsInput"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_steps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:boxStrokeColor="@color/culinary_secondary"
-                        app:hintTextColor="@color/culinary_secondary"
-                        android:hint="Introduceți pașii de preparare (câte unul pe linie)">
+                        android:layout_marginTop="8dp"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/steps_title"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textMultiLine"
-                            android:textColor="@color/culinary_text"
-                            android:minLines="5" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_add_step"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Adaugă pas"
+                        app:icon="@android:drawable/ic_menu_add"
+                        app:iconGravity="textStart"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recycler_steps"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Recipe Image Card -->
+            <!-- Imagine - Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/image_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                app:strokeColor="@color/culinary_card_border"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="@color/culinary_surface">
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/steps_card"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/image_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="Imagine Rețetă"
-                        android:textColor="@color/culinary_primary"
-                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                        android:text="Fotografie rețetă"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <FrameLayout
+                        android:id="@+id/image_container"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:background="#EEEEEE">
+                        android:layout_marginTop="8dp"
+                        android:background="#F0F0F0"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/image_title"
+                        app:layout_constraintEnd_toEndOf="parent">
 
-                        <ImageView
-                            android:id="@+id/recipeImageView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/addImageButton"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        <TextView
+                            android:id="@+id/image_placeholder_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:drawableStart="@android:drawable/ic_menu_camera"
-                            android:drawablePadding="8dp"
-                            app:strokeColor="@color/culinary_primary"
-                            android:textColor="@color/culinary_primary"
-                            android:text="Adaugă Imagine" />
+                            android:drawableTop="@android:drawable/ic_menu_camera"
+                            android:text="Apasă pentru a adăuga o fotografie"
+                            android:textAlignment="center"
+                            android:textColor="#757575" />
+
+                        <ImageView
+                            android:id="@+id/image_preview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone"
+                            android:contentDescription="Previzualizare imagine rețetă" />
                     </FrameLayout>
-                </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_add_image"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Schimbă imaginea"
+                        app:icon="@android:drawable/ic_menu_gallery"
+                        app:iconGravity="textStart"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/image_container"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Save Button -->
+            <!-- Buton salvare -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/saveButton"
-                style="@style/Widget.MaterialComponents.Button"
+                android:id="@+id/button_save_recipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
-                android:drawableStart="@android:drawable/ic_menu_save"
-                android:drawablePadding="8dp"
-                android:padding="12dp"
-                android:text="Salvează Rețeta"
-                android:textColor="@color/white"
-                app:backgroundTint="@color/culinary_primary"
+                android:text="Salvează rețeta"
+                android:textSize="16sp"
                 app:cornerRadius="8dp"
-                app:elevation="4dp" />
+                app:icon="@android:drawable/ic_menu_save"
+                app:iconGravity="textStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout> 

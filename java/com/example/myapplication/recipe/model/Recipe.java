@@ -24,6 +24,18 @@ public class Recipe {
     private NutritionalInfo nutritionalInfo;
     private List<Ingredient> ingredients;
     private List<String> preparationSteps;
+    // Noi câmpuri pentru contribuții utilizatori și funcții sociale
+    private String authorId; // ID-ul utilizatorului care a creat rețeta
+    private String authorName; // Numele utilizatorului care a creat rețeta
+    private List<String> comments; // Lista de comentarii
+    private boolean isUserContributed; // Indicator dacă rețeta este contribuită de utilizator
+    private int shareCount; // Numărul de partajări
+    // Restricții alimentare
+    private boolean isVegetarian;
+    private boolean isVegan;
+    private boolean isGlutenFree;
+    private boolean isLactoseFree;
+    private List<String> allergens; // Lista de alergeni
 
     public Recipe(int id, String title, String description, String category, String region, 
                  String difficulty, int preparationTime, int cookingTime, 
@@ -43,6 +55,14 @@ public class Recipe {
         this.preparationSteps = new ArrayList<>();
         this.rating = 0.0;
         this.ratingCount = 0;
+        this.comments = new ArrayList<>();
+        this.allergens = new ArrayList<>();
+        this.isUserContributed = false;
+        this.shareCount = 0;
+        this.isVegetarian = false;
+        this.isVegan = false;
+        this.isGlutenFree = false;
+        this.isLactoseFree = false;
     }
 
     // Getteri și setteri
@@ -221,5 +241,139 @@ public class Recipe {
 
     public void addPreparationStep(String step) {
         this.preparationSteps.add(step);
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public List<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<String> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(String comment) {
+        this.comments.add(comment);
+    }
+
+    public boolean isUserContributed() {
+        return isUserContributed;
+    }
+
+    public void setUserContributed(boolean userContributed) {
+        isUserContributed = userContributed;
+    }
+
+    public int getShareCount() {
+        return shareCount;
+    }
+
+    public void setShareCount(int shareCount) {
+        this.shareCount = shareCount;
+    }
+
+    public void incrementShareCount() {
+        this.shareCount++;
+    }
+
+    public boolean isVegetarian() {
+        return isVegetarian;
+    }
+
+    public void setVegetarian(boolean vegetarian) {
+        isVegetarian = vegetarian;
+    }
+
+    public boolean isVegan() {
+        return isVegan;
+    }
+
+    public void setVegan(boolean vegan) {
+        isVegan = vegan;
+    }
+
+    public boolean isGlutenFree() {
+        return isGlutenFree;
+    }
+
+    public void setGlutenFree(boolean glutenFree) {
+        isGlutenFree = glutenFree;
+    }
+
+    public boolean isLactoseFree() {
+        return isLactoseFree;
+    }
+
+    public void setLactoseFree(boolean lactoseFree) {
+        isLactoseFree = lactoseFree;
+    }
+
+    public List<String> getAllergens() {
+        return allergens;
+    }
+
+    public void setAllergens(List<String> allergens) {
+        this.allergens = allergens;
+    }
+
+    public void addAllergen(String allergen) {
+        this.allergens.add(allergen);
+    }
+
+    // Metodă pentru a scala ingredientele în funcție de numărul de porții
+    public List<Ingredient> getScaledIngredients(int targetServings) {
+        if (targetServings <= 0 || targetServings == this.servings) {
+            return this.ingredients;
+        }
+
+        List<Ingredient> scaledIngredients = new ArrayList<>();
+        double scaleFactor = (double) targetServings / this.servings;
+
+        for (Ingredient ingredient : this.ingredients) {
+            try {
+                // Convert string quantity to double for scaling
+                double originalQuantity = Double.parseDouble(ingredient.getQuantity());
+                double scaledQuantity = originalQuantity * scaleFactor;
+                
+                // Format back to string with proper decimal places
+                String formattedQuantity;
+                if (scaledQuantity == (int) scaledQuantity) {
+                    formattedQuantity = String.valueOf((int) scaledQuantity);
+                } else {
+                    formattedQuantity = String.format("%.1f", scaledQuantity).replace(",", ".");
+                }
+                
+                Ingredient scaledIngredient = new Ingredient(
+                    ingredient.getName(),
+                    formattedQuantity,
+                    ingredient.getUnit()
+                );
+                scaledIngredients.add(scaledIngredient);
+            } catch (NumberFormatException e) {
+                // For non-numeric quantities (like "1/2" or "un praf"), just keep original
+                scaledIngredients.add(new Ingredient(
+                    ingredient.getName(),
+                    ingredient.getQuantity(),
+                    ingredient.getUnit()
+                ));
+            }
+        }
+
+        return scaledIngredients;
     }
 } 

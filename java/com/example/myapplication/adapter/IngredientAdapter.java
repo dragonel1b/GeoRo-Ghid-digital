@@ -13,7 +13,7 @@ import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
     private final Context context;
-    private final List<Ingredient> ingredients;
+    private List<Ingredient> ingredients;
 
     public IngredientAdapter(Context context, List<Ingredient> ingredients) {
         this.context = context;
@@ -37,6 +37,15 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public int getItemCount() {
         return ingredients.size();
+    }
+
+    /**
+     * Actualizează lista de ingrediente, de exemplu atunci când se schimbă numărul de porții
+     * @param newIngredients noua listă de ingrediente
+     */
+    public void updateIngredients(List<Ingredient> newIngredients) {
+        this.ingredients = newIngredients;
+        notifyDataSetChanged();
     }
 
     static class IngredientViewHolder extends RecyclerView.ViewHolder {

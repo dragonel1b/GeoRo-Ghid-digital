@@ -66,4 +66,38 @@
         <item>Mureș</item>
         <item>Bucovina</item>
     </string-array>
+
+    <!-- Recipe difficulties -->
+    <string-array name="recipe_difficulties">
+        <item>Ușor</item>
+        <item>Mediu</item>
+        <item>Dificil</item>
+    </string-array>
+
+    <!-- Recipe categories -->
+    <string-array name="recipe_categories">
+        <item>Felul principal</item>
+        <item>Supă/Ciorbă</item>
+        <item>Aperitiv</item>
+        <item>Desert</item>
+        <item>Garnitură</item>
+        <item>Salată</item>
+        <item>Pâine/Patiserie</item>
+        <item>Băutură</item>
+        <item>Mâncare tradițională</item>
+        <item>Festiv</item>
+    </string-array>
+
+    <!-- Romanian regions -->
+    <string-array name="romanian_regions">
+        <item>Moldova</item>
+        <item>Transilvania</item>
+        <item>Muntenia</item>
+        <item>Oltenia</item>
+        <item>Banat</item>
+        <item>Dobrogea</item>
+        <item>Bucovina</item>
+        <item>Maramureș</item>
+        <item>Crișana</item>
+    </string-array>
 </resources> 

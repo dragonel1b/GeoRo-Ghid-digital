@@ -80,6 +80,20 @@ public class RecipeRepository {
         recipes.removeIf(r -> r.getId() == recipe.getId());
     }
 
+    /**
+     * Gets the next available ID for a new recipe
+     * @return the next available ID
+     */
+    public int getNextAvailableId() {
+        int maxId = 0;
+        for (Recipe recipe : recipes) {
+            if (recipe.getId() > maxId) {
+                maxId = recipe.getId();
+            }
+        }
+        return maxId + 1;
+    }
+
     private void initializeRecipes() {
         // 1. Sarmale Moldovenești
         Recipe sarmale = new Recipe(

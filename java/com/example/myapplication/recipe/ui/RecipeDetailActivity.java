@@ -1,12 +1,15 @@
 package com.example.myapplication.recipe.ui;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,14 +24,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.IngredientAdapter;
+import com.example.myapplication.adapter.CommentsAdapter;
+import com.example.myapplication.model.UserProfile;
 import com.example.myapplication.recipe.model.Ingredient;
 import com.example.myapplication.recipe.model.NutritionalInfo;
 import com.example.myapplication.recipe.model.Recipe;
 import com.example.myapplication.recipe.repository.RecipeRepository;
+import com.example.myapplication.utils.PreferenceManager;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeDetailActivity extends AppCompatActivity {
@@ -36,6 +44,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     
     private RecipeRepository recipeRepository;
     private Recipe recipe;
+    private int currentServings;
     
     // UI components
     private ImageView recipeImage;
@@ -48,7 +57,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private TextView categoryChip;
     private RecyclerView ingredientsRecyclerView;
     private RecyclerView stepsRecyclerView;
+    private RecyclerView commentsRecyclerView;
     private TextView nutritionalInfoTextView;
+    private TextView authorInfoTextView;
+    private View dietaryRestrictionsContainer;
+    private Chip vegetarianChip;
+    private Chip veganChip;
+    private Chip glutenFreeChip;
+    private Chip lactoseFreeChip;
+    private IngredientAdapter ingredientAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +90,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
             return;
         }
         
+        // Initialize currentServings
+        currentServings = recipe.getServings();
+        
         // Initialize views
         initializeViews();
         
@@ -90,6 +110,18 @@ public class RecipeDetailActivity extends AppCompatActivity {
         
         // Set up preparation steps
         setupPreparationSteps();
+        
+        // Set up dietary restrictions chips
+        setupDietaryRestrictions();
+        
+        // Set up author info if user contributed
+        setupAuthorInfo();
+        
+        // Set up comments section
+        setupComments();
+        
+        // Set up servings adjustment
+        setupServingsAdjustment();
     }
 
     private void initializeViews() {
@@ -105,6 +137,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ingredientsRecyclerView = findViewById(R.id.ingredients_recycler_view);
         stepsRecyclerView = findViewById(R.id.steps_recycler_view);
         nutritionalInfoTextView = findViewById(R.id.nutritional_info_text);
+        
+        // New views
+        commentsRecyclerView = findViewById(R.id.comments_recycler_view);
+        authorInfoTextView = findViewById(R.id.author_info);
+        dietaryRestrictionsContainer = findViewById(R.id.dietary_restrictions_container);
+        vegetarianChip = findViewById(R.id.vegetarian_chip);
+        veganChip = findViewById(R.id.vegan_chip);
+        glutenFreeChip = findViewById(R.id.gluten_free_chip);
+        lactoseFreeChip = findViewById(R.id.lactose_free_chip);
     }
 
     private void setupToolbar() {
@@ -184,8 +225,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Set layout manager
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         
-        // Create and set adapter
-        IngredientAdapter ingredientAdapter = new IngredientAdapter(this, recipe.getIngredients());
+        // Create and set adapter with initial ingredients
+        ingredientAdapter = new IngredientAdapter(this, recipe.getIngredients());
         ingredientsRecyclerView.setAdapter(ingredientAdapter);
     }
     
@@ -197,14 +238,183 @@ public class RecipeDetailActivity extends AppCompatActivity {
         PreparationStepsAdapter stepsAdapter = new PreparationStepsAdapter(recipe.getPreparationSteps());
         stepsRecyclerView.setAdapter(stepsAdapter);
     }
+    
+    private void setupDietaryRestrictions() {
+        boolean hasRestrictions = false;
+        
+        if (recipe.isVegetarian()) {
+            vegetarianChip.setVisibility(View.VISIBLE);
+            hasRestrictions = true;
+        } else {
+            vegetarianChip.setVisibility(View.GONE);
+        }
+        
+        if (recipe.isVegan()) {
+            veganChip.setVisibility(View.VISIBLE);
+            hasRestrictions = true;
+        } else {
+            veganChip.setVisibility(View.GONE);
+        }
+        
+        if (recipe.isGlutenFree()) {
+            glutenFreeChip.setVisibility(View.VISIBLE);
+            hasRestrictions = true;
+        } else {
+            glutenFreeChip.setVisibility(View.GONE);
+        }
+        
+        if (recipe.isLactoseFree()) {
+            lactoseFreeChip.setVisibility(View.VISIBLE);
+            hasRestrictions = true;
+        } else {
+            lactoseFreeChip.setVisibility(View.GONE);
+        }
+        
+        dietaryRestrictionsContainer.setVisibility(hasRestrictions ? View.VISIBLE : View.GONE);
+    }
+    
+    private void setupAuthorInfo() {
+        if (recipe.isUserContributed() && recipe.getAuthorName() != null) {
+            authorInfoTextView.setVisibility(View.VISIBLE);
+            authorInfoTextView.setText(String.format("Adăugată de: %s", recipe.getAuthorName()));
+        } else {
+            authorInfoTextView.setVisibility(View.GONE);
+        }
+    }
+    
+    private void setupComments() {
+        if (recipe.getComments() != null && !recipe.getComments().isEmpty()) {
+            commentsRecyclerView.setVisibility(View.VISIBLE);
+            commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            CommentsAdapter commentsAdapter = new CommentsAdapter(this, recipe.getComments());
+            commentsRecyclerView.setAdapter(commentsAdapter);
+        } else {
+            commentsRecyclerView.setVisibility(View.GONE);
+        }
+    }
+    
+    private void setupServingsAdjustment() {
+        // Set click listener for servings text to adjust number of servings
+        View servingsContainer = findViewById(R.id.recipe_servings_container);
+        servingsContainer.setOnClickListener(v -> showServingsDialog());
+    }
+    
+    private void showServingsDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_adjust_servings, null);
+        EditText servingsEditText = dialogView.findViewById(R.id.edit_servings);
+        servingsEditText.setText(String.valueOf(currentServings));
+        
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Ajustare porții")
+                .setView(dialogView)
+                .setPositiveButton("Aplică", (dialog, which) -> {
+                    try {
+                        int newServings = Integer.parseInt(servingsEditText.getText().toString().trim());
+                        if (newServings > 0) {
+                            updateServings(newServings);
+                        }
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(this, "Valoare invalidă", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Anulează", null)
+                .show();
+    }
+    
+    private void updateServings(int newServings) {
+        currentServings = newServings;
+        servingsTextView.setText(String.valueOf(newServings));
+        
+        // Update ingredients with scaled quantities
+        List<Ingredient> scaledIngredients = recipe.getScaledIngredients(newServings);
+        ingredientAdapter.updateIngredients(scaledIngredients);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_recipe_detail, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
             onBackPressed();
+            return true;
+        } else if (id == R.id.action_share) {
+            shareRecipe();
+            return true;
+        } else if (id == R.id.action_add_comment) {
+            showAddCommentDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    private void shareRecipe() {
+        String shareText = String.format(
+                "Încearcă această rețetă: %s\n\n%s\n\nTrebuie să ai:\n",
+                recipe.getTitle(),
+                recipe.getDescription()
+        );
+        
+        // Add ingredients
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            String unit = ingredient.getUnit() != null && !ingredient.getUnit().isEmpty() ? 
+                    ingredient.getUnit() : "";
+            shareText += String.format("- %.1f %s %s\n", 
+                    ingredient.getQuantity(), unit, ingredient.getName());
+        }
+        
+        // Increment share count
+        recipe.incrementShareCount();
+        recipeRepository.updateRecipe(recipe);
+        
+        // Create share intent
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Rețetă: " + recipe.getTitle());
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        startActivity(Intent.createChooser(shareIntent, "Partajează rețeta"));
+    }
+    
+    private void showAddCommentDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_comment, null);
+        EditText commentEditText = dialogView.findViewById(R.id.edit_comment);
+        
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Adaugă comentariu")
+                .setView(dialogView)
+                .setPositiveButton("Adaugă", (dialog, which) -> {
+                    String comment = commentEditText.getText().toString().trim();
+                    if (!comment.isEmpty()) {
+                        addComment(comment);
+                    }
+                })
+                .setNegativeButton("Anulează", null)
+                .show();
+    }
+    
+    private void addComment(String commentText) {
+        // Get current user info
+        PreferenceManager prefManager = new PreferenceManager(this);
+        UserProfile userProfile = prefManager.getUserProfile();
+        
+        String userName = "Anonim";
+        if (userProfile != null) {
+            userName = userProfile.getDisplayName();
+        }
+        
+        // Format comment with username
+        String formattedComment = String.format("%s: %s", userName, commentText);
+        
+        // Add to recipe
+        recipe.addComment(formattedComment);
+        recipeRepository.updateRecipe(recipe);
+        
+        // Refresh comments
+        setupComments();
     }
     
     // Inner class for preparation steps adapter
