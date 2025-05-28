@@ -530,13 +530,6 @@ public class Timisoara extends EnhancedCityActivity {
 
         addSection(
                 findViewById(R.id.cityContentContainer),
-                "Geografie",
-                "Timișoara este situată în vestul României, în Câmpia Banatului. Este străbătută de râul Bega, care a fost amenajat pentru navigație. Clima este temperat-continentală cu influențe mediteraneene, cu veri calde și ierni blânde.",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
                 "Atracții Turistice",
                 "Piața Unirii, Piața Victoriei, Catedrala Metropolitană, Castelul Huniade, Opera Națională și cartierul Fabric sunt doar câteva dintre atracțiile turistice. Orașul este renumit pentru parcurile sale generoase și pentru arhitectura sa eclectică.",
                 true
@@ -546,13 +539,6 @@ public class Timisoara extends EnhancedCityActivity {
                 findViewById(R.id.cityContentContainer),
                 "Cultură",
                 "Un oraș multicultural unde conviețuiesc armonic români, maghiari, germani, sârbi și alte etnii. Timișoara găzduiește numeroase festivaluri și evenimente culturale, inclusiv JazzTM, Festivalul Plai, și evenimente în cadrul programului Capitală Culturală Europeană 2023.",
-                false
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Gastronomie",
-                "Bucătăria timișoreană reflectă diversitatea etnică a regiunii, îmbinând elemente românești, germane, sârbești și maghiare. Specialitățile locale includ papricașul, gulaș, plăcinta bănățeană și produsele de patiserie tradiționale.",
                 false
         );
 

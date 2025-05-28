@@ -10,38 +10,37 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Clasa NPC reprezintă un personaj non-jucător din joc.
- * NPCs pot oferi dialoguri, misiuni și informații jucătorului.
+ * Clasa pentru personaje non-jucător (NPC) cu care utilizatorul poate interacționa
  */
 public class NPC {
     private float x, y;
-    private List<String> dialogues;
+    private String name;
+    private String description;
+    private int imageResourceId;
+    private List<String> dialogs;
+    private int currentDialogIndex;
     private boolean isInteracted;
     private static final float SIZE = 60;
     private Paint paint;
     private Drawable npcDrawable;
-    private String name;
+    private String id;
+    private String region;
     private Mission npcQuest;
     private int colorFilter;
-    private String id;
-    private String description;
-    private int imageResourceId;
-    private int currentDialogIndex;
     private boolean isQuestGiver;
-    private String region;
 
     /**
-     * Constructor pentru NPC.
-     *
+     * Constructor pentru personaj NPC
+     * 
      * @param name Numele personajului
-     * @param description Descrierea personajului
-     * @param imageResourceId Resursa imaginii pentru personaj
+     * @param description O scurtă descriere a personajului
+     * @param imageResourceId ID-ul resursei drawable pentru imaginea personajului
      */
     public NPC(String name, String description, int imageResourceId) {
         this.name = name;
         this.description = description;
         this.imageResourceId = imageResourceId;
-        this.dialogues = new ArrayList<>();
+        this.dialogs = new ArrayList<>();
         this.currentDialogIndex = 0;
         this.isQuestGiver = false;
 
@@ -79,7 +78,7 @@ public class NPC {
         this.name = name;
         this.npcDrawable = npcDrawable;
         this.colorFilter = colorFilter;
-        this.dialogues = new ArrayList<>();
+        this.dialogs = new ArrayList<>();
         this.currentDialogIndex = 0;
         this.isQuestGiver = false;
 
@@ -90,82 +89,25 @@ public class NPC {
     }
 
     /**
-     * Adaugă un dialog nou personajului.
-     *
-     * @param dialog Textul dialogului
+     * Adaugă o replică de dialog pentru personaj
      */
-    public void addDialog(String dialog) {
-        dialogues.add(dialog);
+    public void addDialog(String dialogText) {
+        dialogs.add(dialogText);
     }
-
+    
     /**
-     * Adaugă un dialog nou personajului (alias pentru addDialog pentru compatibilitate).
-     *
-     * @param dialogue Textul dialogului
+     * Metodă de compatibilitate - alias pentru addDialog
      */
-    public void addDialogue(String dialogue) {
-        addDialog(dialogue);
+    public void addDialogue(String dialogText) {
+        addDialog(dialogText);
     }
-
+    
     /**
-     * Setează o listă completă de dialoguri pentru personaj.
-     *
-     * @param dialogs Lista de dialoguri
-     */
-    public void setDialogs(List<String> dialogs) {
-        this.dialogues = dialogs;
-    }
-
-    /**
-     * Obține dialogul curent al personajului.
-     *
-     * @return Textul dialogului curent, sau null dacă nu există dialoguri
-     */
-    public String getCurrentDialog() {
-        if (dialogues.isEmpty()) {
-            return null;
-        }
-        
-        return dialogues.get(currentDialogIndex);
-    }
-
-    /**
-     * Avansează la următorul dialog disponibil.
-     *
-     * @return Textul următorului dialog, sau null dacă nu mai există dialoguri
-     */
-    public String getNextDialog() {
-        if (dialogues.isEmpty() || currentDialogIndex >= dialogues.size() - 1) {
-            return null;
-        }
-        
-        currentDialogIndex++;
-        return dialogues.get(currentDialogIndex);
-    }
-
-    /**
-     * Declanșează dialogul curent (pentru compatibilitate cu codul existent).
-     *
+     * Metodă de compatibilitate - obține dialogul curent
      * @return Textul dialogului curent
      */
     public String triggerDialogue() {
         return getCurrentDialog();
-    }
-
-    /**
-     * Verifică dacă personajul mai are dialoguri disponibile.
-     *
-     * @return true dacă mai sunt dialoguri, false în caz contrar
-     */
-    public boolean hasMoreDialogs() {
-        return !dialogues.isEmpty() && currentDialogIndex < dialogues.size() - 1;
-    }
-
-    /**
-     * Resetează indexul dialogului la începutul conversației.
-     */
-    public void resetDialog() {
-        currentDialogIndex = 0;
     }
 
     /**
@@ -228,7 +170,7 @@ public class NPC {
      * Getter pentru lista de dialoguri.
      */
     public List<String> getDialogs() {
-        return dialogues;
+        return dialogs;
     }
 
     /**
@@ -241,8 +183,47 @@ public class NPC {
     /**
      * Setter pentru indexul dialogului curent.
      */
-    public void setCurrentDialogIndex(int currentDialogIndex) {
-        this.currentDialogIndex = currentDialogIndex;
+    public void setCurrentDialogIndex(int index) {
+        if (index >= 0 && index < dialogs.size()) {
+            this.currentDialogIndex = index;
+        }
+    }
+
+    /**
+     * Obține replica curentă de dialog
+     */
+    public String getCurrentDialog() {
+        if (dialogs.isEmpty()) {
+            return "...";
+        }
+        return dialogs.get(currentDialogIndex);
+    }
+
+    /**
+     * Avansează la următoarea replică de dialog, dacă există
+     * 
+     * @return true dacă există o replică următoare, false dacă am ajuns la final
+     */
+    public boolean nextDialog() {
+        if (currentDialogIndex < dialogs.size() - 1) {
+            currentDialogIndex++;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Verifică dacă personajul are mai multe replici de dialog
+     */
+    public boolean hasMoreDialogs() {
+        return currentDialogIndex < dialogs.size() - 1;
+    }
+
+    /**
+     * Resetează dialogul la prima replică
+     */
+    public void resetDialog() {
+        currentDialogIndex = 0;
     }
 
     /**

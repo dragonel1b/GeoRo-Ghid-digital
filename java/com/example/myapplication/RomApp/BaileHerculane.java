@@ -520,7 +520,7 @@ public class BaileHerculane extends EnhancedCityActivity {
 
         setTitle("Băile Herculane");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -555,7 +555,7 @@ public class BaileHerculane extends EnhancedCityActivity {
                 "Gastronomia locală îmbină elemente tradiționale bănățene cu influențe austro-ungare. Preparatele din vânat și pește de munte sunt specialități locale, completate de deserturi tradiționale precum plăcinta bănățeană.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

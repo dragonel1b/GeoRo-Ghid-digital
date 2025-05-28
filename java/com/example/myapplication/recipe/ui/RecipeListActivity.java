@@ -122,7 +122,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Filter recipes as user types
                 recipeAdapter.filterByQuery(s.toString());
                 updateEmptyViewVisibility();
             }
@@ -133,9 +132,9 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
             }
         });
         
-        // Add advanced search button
-        ImageButton advancedSearchButton = findViewById(R.id.advancedSearchButton);
-        advancedSearchButton.setOnClickListener(v -> {
+        // Add search filter button
+        ImageButton filterButton = findViewById(R.id.filterButton);
+        filterButton.setOnClickListener(v -> {
             showAdvancedSearchDialog();
         });
     }

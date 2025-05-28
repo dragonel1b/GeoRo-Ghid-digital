@@ -506,7 +506,7 @@ public class Suceava extends EnhancedCityActivity {
 
         setTitle("Suceava");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class Suceava extends EnhancedCityActivity {
                 "Bucătăria suceveană este reprezentativă pentru regiune, cu preparate tradiționale bucovinene precum tochitura, sarmale în foi de varză acră, plăcinte poale-n brâu și mâncăruri cu ciuperci de pădure. Restaurantele locale oferă o experiență culinară autentică într-un cadru cu atmosferă tradițională.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

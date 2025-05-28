@@ -195,6 +195,10 @@ public class Team {
         return color;
     }
 
+    /**
+     * Verifică dacă echipa este a jucătorului sau a adversarului
+     * @return true dacă este echipa jucătorului, false dacă este a adversarului
+     */
     public boolean isPlayerTeam() {
         return isPlayerTeam;
     }
@@ -203,6 +207,10 @@ public class Team {
         return soldierDrawable;
     }
 
+    /**
+     * Obține lista de soldați ai echipei
+     * @return lista de soldați
+     */
     public List<Soldier> getSoldiers() {
         return soldiers;
     }
@@ -243,5 +251,15 @@ public class Team {
     
     public float getTeamCenterY() {
         return teamCenterY;
+    }
+    
+    public void applyMoralePenalty(int penaltyAmount) {
+        // Apply a morale penalty to the team
+        this.morale = Math.max(0, this.morale - penaltyAmount);
+        Log.d(TAG, "Applied morale penalty of " + penaltyAmount + " to team " + id + ". New morale: " + morale);
+    }
+    
+    public int getTeamColor() {
+        return color;
     }
 }

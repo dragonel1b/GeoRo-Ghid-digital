@@ -40,7 +40,7 @@
             android:padding="8dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_sound_on"
-            android:contentDescription="Toggle sound" />
+            android:contentDescription="Activează/dezactivează sunetul" />
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Progress Indicator -->
@@ -181,11 +181,12 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:visibility="gone"
+                android:src="@drawable/ic_bat"
                 app:layout_constraintTop_toTopOf="@id/storyImageView"
                 app:layout_constraintBottom_toBottomOf="@id/storyImageView"
                 app:layout_constraintStart_toStartOf="@id/storyImageView"
                 app:layout_constraintEnd_toEndOf="@id/storyImageView"
-                android:contentDescription="Bat animation" />
+                android:contentDescription="Animație liliac" />
 
             <!-- Story Text -->
             <TextView

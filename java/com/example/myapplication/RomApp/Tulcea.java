@@ -542,7 +542,7 @@ public class Tulcea extends EnhancedCityActivity {
         super.initializeSpecificContent();
 
         setTitle("Tulcea");
-
+/*
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -598,7 +598,7 @@ public class Tulcea extends EnhancedCityActivity {
                 "Vizitați Muzeul Deltei înainte de excursiile în natură - oferă o imagine clară a florei și faunei din zonă.\n\nRezervați din timp excursiile cu barca în deltă - locurile bune se ocupă repede, mai ales vara.\n\nPlimbați-vă pe faleza Dunării la apus - atmosfera este liniștită și panoramică.\n\nÎncercați storceagul preparat de localnici în satele din deltă pentru gustul autentic.",
                 false
         );
-        
+        */
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
         

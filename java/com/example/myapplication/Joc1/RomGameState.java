@@ -16,6 +16,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.android.gms.maps.model.LatLng;
 
+/**
+ * Singleton class to manage game state and progress
+ */
 public class RomGameState {
     private static RomGameState instance;
     private SharedPreferences preferences;
@@ -34,6 +37,7 @@ public class RomGameState {
     private static final String KEY_STORY_STEP = "story_step";
     private static final String KEY_COMPLETED_MISSIONS = "completed_missions";
     private static final String KEY_ACTIVE_MISSIONS = "active_missions";
+    private static final String KEY_POINTS = "wise_points";
 
     // Achievement IDs
     public static final String ACHIEVEMENT_PRIMUL_PAS = "primul_pas"; // "First Step"

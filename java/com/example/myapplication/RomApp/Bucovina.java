@@ -242,18 +242,11 @@ public class Bucovina extends RegionTemplate {
         // Ne bazăm pe implementarea clasei părinte pentru afișarea conținutului
         super.initializeSpecificContent();
         
-        // Adăugăm secțiunile specifice care nu sunt gestionate de clasa părinte
-        // Aceste secțiuni vor fi adăugate în cityContentContainer
-        View containerView = findViewById(R.id.cityContentContainer);
-        if (containerView != null && containerView instanceof LinearLayout) {
-            LinearLayout container = (LinearLayout) containerView;
-            addSection(container, "Gastronomie", getGastronomyText(), false);
-            addSection(container, "Personalități și Evenimente", getPersonalitiesEventsText(), false);
-            addSection(container, "Curiozități", getCuriositiesText(), false);
-
-            // Adăugăm listeneri pentru deschiderea activității de recenzie
-            addSectionReviewListeners();
-        }
+        // Toate secțiunile sunt deja adăugate de clasa părinte RegionTemplate
+        // Nu mai avem nevoie să adăugăm secțiuni duplicate aici
+        
+        // Adăugăm listeneri pentru deschiderea activității de recenzie
+        addSectionReviewListeners();
     }
 
     private void addSectionReviewListeners() {

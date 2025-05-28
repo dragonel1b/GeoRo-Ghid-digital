@@ -520,42 +520,6 @@ public class Resita extends EnhancedCityActivity {
 
         setTitle("Reșița");
 
-        // Add sections
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Istorie și Tradiție",
-                "Reșița este unul dintre cele mai vechi centre industriale din România, cu o istorie ce datează din 1771, când au fost construite primele furnale pentru topitul minereului de fier.",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Geografie",
-                "Reșița este situată în sud-vestul României, în județul Caraș-Severin. Orașul este amplasat într-o vale pitorească, înconjurat de munți, pe râul Bârzava. Clima este temperat-continentală cu influențe mediteraneene.",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Atracții Turistice",
-                "Muzeul de Locomotive cu Abur, Furnalele Istorice, Barajul Secu și Lacul Gura Golumbului sunt unele dintre principalele atracții turistice din Reșița și împrejurimi.",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Cultură",
-                "Orașul are o bogată moștenire culturală influențată de comunitățile germane și austriece. Reșița găzduiește evenimente culturale importante, inclusiv Zilele Reșiței și diverse festivaluri folclorice.",
-                false
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Gastronomie",
-                "Bucătăria din Reșița îmbină elemente tradiționale bănățene cu influențe central-europene. Restaurantele locale oferă specialități precum papricașul, gulaș, și alte preparate specifice.",
-                false
-        );
-
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

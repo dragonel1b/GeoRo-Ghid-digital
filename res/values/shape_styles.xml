@@ -9,4 +9,36 @@
         <item name="cornerSize">16dp</item>
         <item name="cornerFamily">rounded</item>
     </style>
+
+    <!-- Stil pentru colțurile superioare rotunjite ale imaginilor -->
+    <style name="ShapeAppearanceOverlay.App.TopRoundedCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <!-- Stil pentru carduri de rețete -->
+    <style name="RecipeCardShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+    
+    <!-- Styles for culinary map cards -->
+    <style name="ShapeAppearanceOverlay.TopRounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">12dp</item>
+        <item name="cornerSizeTopRight">12dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    
+    <style name="ShapeAppearanceOverlay.BottomRounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">12dp</item>
+        <item name="cornerSizeBottomRight">12dp</item>
+    </style>
 </resources>

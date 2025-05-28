@@ -351,6 +351,14 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putBoolean("remember_me", true);
                             editor.apply();
                         }
+                        
+                        // Save the user ID in UserPrefs for PointsManager to use
+                        String userId = mAuth.getCurrentUser().getUid();
+                        SharedPreferences userPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                        userPrefs.edit()
+                            .putString("current_user_id", userId)
+                            .apply();
+                            
                         showSuccessConfetti();
                     } else {
                         // Login failed
@@ -402,6 +410,12 @@ public class LoginActivity extends AppCompatActivity {
      * Navighează către UserActivity fără autentificare
      */
     private void skipToMainActivity() {
+        // Save a default user ID for anonymous users
+        SharedPreferences userPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        userPrefs.edit()
+            .putString("current_user_id", "anonymous_" + System.currentTimeMillis())
+            .apply();
+            
         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
         intent.putExtra("SKIP_LOGIN", true);
         startActivity(intent);

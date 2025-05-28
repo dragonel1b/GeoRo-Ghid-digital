@@ -1,1179 +1,366 @@
 package com.example.myapplication.Joc1;
 
-import static android.content.ContentValues.TAG;
-
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
-import android.graphics.Rect;
-import android.view.MotionEvent;
-import java.util.Map;
-import java.util.HashMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.GoogleMap;
-import androidx.annotation.NonNull;
-import android.content.res.Configuration;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import androidx.appcompat.widget.SearchView;
-import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
-import android.widget.ImageButton;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.RomApp.Dobrogea;
-import com.example.myapplication.RomApp.Transilvania;
-import com.example.myapplication.RomApp.Moldova;
-import com.example.myapplication.RomApp.Oltenia;
-import com.example.myapplication.RomApp.Muntenia;
+import com.example.myapplication.RomApp.AlbaIulia;
+import com.example.myapplication.RomApp.Arad;
+import com.example.myapplication.RomApp.Bacau;
+import com.example.myapplication.RomApp.BaiaMare;
 import com.example.myapplication.RomApp.Banat;
-import com.example.myapplication.RomApp.Crisana;
-import com.example.myapplication.RomApp.Maramures;
+import com.example.myapplication.RomApp.Brasov;
+import com.example.myapplication.RomApp.Bucuresti;
 import com.example.myapplication.RomApp.Bucovina;
-import java.util.List;
-import java.util.ArrayList;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.card.MaterialCardView;
-import android.widget.LinearLayout;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import android.content.DialogInterface;
-import androidx.appcompat.app.AlertDialog;
-import com.google.android.gms.maps.model.Marker;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.os.Handler;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import com.example.myapplication.RomApp.ClujNapoca;
+import com.example.myapplication.RomApp.Constanta;
+import com.example.myapplication.RomApp.Craiova;
+import com.example.myapplication.RomApp.Crisana;
+import com.example.myapplication.RomApp.Dobrogea;
+import com.example.myapplication.RomApp.Iasi;
+import com.example.myapplication.RomApp.Maramures;
+import com.example.myapplication.RomApp.Moldova;
+import com.example.myapplication.RomApp.Muntenia;
+import com.example.myapplication.RomApp.Oradea;
+import com.example.myapplication.RomApp.PiatraNeamt;
+import com.example.myapplication.RomApp.Ploiesti;
+import com.example.myapplication.RomApp.Resita;
+import com.example.myapplication.RomApp.Sibiu;
+import com.example.myapplication.RomApp.Slatina;
+import com.example.myapplication.RomApp.Suceava;
+import com.example.myapplication.RomApp.TarguMures;
+import com.example.myapplication.RomApp.Timisoara;
+import com.example.myapplication.RomApp.Tulcea;
+import com.example.myapplication.RomApp.Transilvania;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
+import android.content.res.Configuration;
+import android.os.Handler;
+import android.widget.FrameLayout;
 import android.view.ViewGroup;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.ComponentName;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.util.Log;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Activitate pentru harta interactivă a României
+ * Afișează regiuni, orașe importante și permite interacțiunea cu acestea
+ */
 public class RomMapActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private final Map<String, Rect> regionBounds = new HashMap<>();
+
+    // Componente UI principale
     private MapView mapView;
     private GoogleMap googleMap;
-    private RomGameState gameState;
+    private FloatingActionButton styleToggleButton;
+    private ExtendedFloatingActionButton culinaryMapButton;
+    private SearchView searchView;
     private MaterialCardView regionInfoCard;
     private TextView regionNameText;
     private TextView regionDescriptionText;
     private BottomSheetBehavior<View> bottomSheetBehavior;
-    private String currentRegion = null;
-    private List<Mission> availableMissions;
-    private Map<String, Marker> missionMarkers = new HashMap<>();
-    private RecyclerView questRecyclerView;
-    private QuestAdapter questAdapter;
     private ExtendedFloatingActionButton discoverFab;
-    private boolean isDiscoveryMode = false;
+    private AlertDialog dialog; // Dialog for city info
+    // Region filters
+    private com.google.android.material.chip.ChipGroup regionFilterChipGroup;
+    
+    // State
+    private boolean isNightMode = false;
     private final Handler handler = new Handler();
-    private final Map<String, Mission> storyMissions = new HashMap<>();
-    private final Map<String, NPC> storyCharacters = new HashMap<>();
-    private RecyclerView missionsRecyclerView;
-    private MaterialCardView storyCard;
-    private TextView storyTitleText;
-    private TextView storyDescriptionText;
-    private TextView characterNameText;
-    private TextView characterDialogText;
-    private ImageView characterImageView;
-    private int currentStoryChapter = 1;
-    private int currentStoryStep = 1;
-    private boolean isInStoryMode = false;
-    private String currentActiveRegion = null;
-    private NPC currentSpeakingCharacter = null;
-    private List<Mission> activeMissions;
-    private List<Mission> completedMissions;
-    private Map<String, com.google.android.gms.maps.model.Polygon> regionPolygons = new HashMap<>();
-    private boolean regionClickListenerAdded = false;
-    private FirebaseAnalytics firebaseAnalytics;
+    private String currentRegion = null;
+    private boolean isDiscoveryMode = false;
+    private RomGameState gameState;
+    // Add flag to prevent recursion
+    private boolean isUpdatingChipSelection = false;
+    
+    // Missions system
+    private List<Mission> availableMissions = new ArrayList<>();
+    private List<Mission> activeMissions = new ArrayList<>();
+    private List<Mission> completedMissions = new ArrayList<>();
+    private Map<String, Marker> missionMarkers = new HashMap<>();
+    
+    // Stocare date pentru regiuni
+    private final Map<String, LatLng> regionCenters = new HashMap<>();
+    private final Map<String, com.google.android.gms.maps.model.Polygon> regionPolygons = new HashMap<>();
+    
+    // Constante pentru culori
+    private static final int COLOR_TRANSILVANIA = Color.rgb(76, 175, 80);    // Verde
+    private static final int COLOR_MOLDOVA = Color.rgb(33, 150, 243);        // Albastru
+    private static final int COLOR_MUNTENIA = Color.rgb(255, 152, 0);        // Portocaliu  
+    private static final int COLOR_DOBROGEA = Color.rgb(255, 235, 59);       // Galben
+    private static final int COLOR_OLTENIA = Color.rgb(156, 39, 176);        // Violet
+    private static final int COLOR_BANAT = Color.rgb(233, 30, 99);           // Roz
+    private static final int COLOR_CRISANA = Color.rgb(0, 188, 212);         // Cyan
+    private static final int COLOR_MARAMURES = Color.rgb(139, 195, 74);      // Verde deschis
+    private static final int COLOR_BUCOVINA = Color.rgb(121, 85, 72);        // Maro
+
+    private static final String TAG = "RomMapActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rom_story);
+        setContentView(R.layout.activity_rom_map);
 
-        // Initialize Google Map
-        mapView = findViewById(R.id.mapView);
-        if (mapView != null) {
-            mapView.onCreate(savedInstanceState);
-            mapView.getMapAsync(this);
-        }
-
-        // Initialize region bounds
-        regionBounds.put("banat", new Rect(52, 220, 87, 258));
-        regionBounds.put("crisana", new Rect(76, 120, 108, 153));
-        regionBounds.put("maramures", new Rect(104, 84, 130, 111));
-        regionBounds.put("bucovina", new Rect(200, 112, 223, 138));
-        regionBounds.put("transilvania", new Rect(148, 120, 183, 157));
-        regionBounds.put("moldova", new Rect(236, 124, 265, 155));
-        regionBounds.put("oltenia", new Rect(132, 212, 159, 247));
-        regionBounds.put("muntenia", new Rect(200, 256, 236, 290));
-        regionBounds.put("dobrogea", new Rect(284, 244, 316, 267));
-
-        // Initialize views and game state
+        // Initialize game state
         gameState = RomGameState.getInstance();
         gameState.initialize(this);
-        initializeViews();
-        setupRegionButtons();
-        setupCityMarkers();
-        loadAvailableMissions();
-        setupQuestList();
-        applyEntryAnimations();
-        setupSearchBar();
 
-        // Setup story missions and characters
-        setupStoryCharacters();
-        setupStoryMissions();
+        // Inițializare MapView
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+
+        // Inițializare UI și datele regiunilor
+        initializeUI();
+        initializeRegionCenters();
         
-        // Check if we should resume a story
-        checkStoryProgress();
-        
-        // Load missions
+        // Initialize missions
         loadMissions();
-        setupMissionsList();
-
-        // Initialize Firebase Analytics
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        
+        // Set up search functionality
+        setupSearchBar();
     }
 
-    private void initializeViews() {
-        // Back button is now an ImageButton
+    private void initializeUI() {
+        // Buton Back
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());
-        
-        // Adăugăm un listener pentru apăsare lungă pe butonul Back pentru debugging
-        backButton.setOnLongClickListener(v -> {
-            // Afișăm informațiile de debugging
-            showRegionDebugInfo();
-            return true;
-        });
 
-        // Missions FAB setup
-        FloatingActionButton showMissionsFab = findViewById(R.id.showMissionsFab);
-        if (showMissionsFab != null) {
-            showMissionsFab.setOnClickListener(v -> toggleMissionsPanel());
-        }
-        
-        // Missions panel close button
-        MaterialButton closeMissionsButton = findViewById(R.id.closeMissionsButton);
-        if (closeMissionsButton != null) {
-            closeMissionsButton.setOnClickListener(v -> hideMissionsPanel());
-        }
+        // Buton Toggle Mod Zi/Noapte
+        styleToggleButton = findViewById(R.id.styleToggleButton);
+        styleToggleButton.setOnClickListener(v -> toggleMapStyle());
 
-        // Region info card setup
-        View regionInfoCard = findViewById(R.id.regionInfoCard);
+        // Buton pentru Harta Culinară
+        culinaryMapButton = new ExtendedFloatingActionButton(this);
+        culinaryMapButton.setText("Hartă culinară");
+        culinaryMapButton.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_restaurant));
+        
+        // Poziționare buton în partea stânga jos a ecranului
+        FrameLayout mapContainer = findViewById(R.id.mapContainer);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.gravity = android.view.Gravity.BOTTOM | android.view.Gravity.START;
+        params.setMargins(16, 0, 0, 16);
+        culinaryMapButton.setLayoutParams(params);
+        
+        culinaryMapButton.setOnClickListener(v -> openCulinaryMap());
+        
+        mapContainer.addView(culinaryMapButton);
+        
+        // Setup Region Info Card with Bottom Sheet Behavior
+        regionInfoCard = findViewById(R.id.regionInfoCard);
         if (regionInfoCard != null) {
-            this.regionInfoCard = (MaterialCardView) regionInfoCard;
-            this.regionNameText = findViewById(R.id.regionNameText);
-            this.regionDescriptionText = findViewById(R.id.regionDescriptionText);
-            this.bottomSheetBehavior = BottomSheetBehavior.from(regionInfoCard);
-            this.bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            regionNameText = findViewById(R.id.regionNameText);
+            regionDescriptionText = findViewById(R.id.regionDescriptionText);
+            bottomSheetBehavior = BottomSheetBehavior.from(regionInfoCard);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         }
         
-        questRecyclerView = findViewById(R.id.questRecyclerView);
+        // Setup Discovery Button
         discoverFab = findViewById(R.id.discoverFab);
-        
         if (discoverFab != null) {
             discoverFab.setOnClickListener(v -> toggleDiscoveryMode());
-            // Adăugăm listener pentru apăsare lungă pentru a afișa informații despre regiuni
-            discoverFab.setOnLongClickListener(v -> {
-                showRegionDebugInfo();
-                return true;
-            });
         }
-
-        storyCard = findViewById(R.id.storyCard);
-        storyTitleText = findViewById(R.id.storyTitleText);
-        storyDescriptionText = findViewById(R.id.storyDescriptionText);
-        characterNameText = findViewById(R.id.characterNameText);
-        characterDialogText = findViewById(R.id.characterDialogText);
-        characterImageView = findViewById(R.id.characterImageView);
-        missionsRecyclerView = findViewById(R.id.missionsRecyclerView);
         
-        // Setup continue button
-        MaterialButton continueButton = findViewById(R.id.continueButton);
-        if (continueButton != null) {
-            continueButton.setOnClickListener(v -> advanceStory());
-        }
-
-        // Setup explore button
-        MaterialButton exploreButton = findViewById(R.id.exploreButton);
-        if (exploreButton != null) {
-            exploreButton.setOnClickListener(v -> {
-                if (currentRegion != null) {
-                    navigateToRegion(currentRegion);
-                }
-            });
-        }
-    }
-
-    private void toggleMissionsPanel() {
-        View missionsPanelCard = findViewById(R.id.missionsPanelCard);
-        if (missionsPanelCard != null) {
-            if (missionsPanelCard.getVisibility() == View.VISIBLE) {
-                hideMissionsPanel();
-            } else {
-                showMissionsPanel();
-            }
-        }
-    }
-
-    private void showMissionsPanel() {
-        View missionsPanelCard = findViewById(R.id.missionsPanelCard);
-        if (missionsPanelCard != null) {
-            missionsPanelCard.setVisibility(View.VISIBLE);
-            missionsPanelCard.setTranslationX(missionsPanelCard.getWidth());
-            missionsPanelCard.animate()
-                    .translationX(0)
-                    .setDuration(300)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .start();
-        }
-    }
-
-    private void hideMissionsPanel() {
-        View missionsPanelCard = findViewById(R.id.missionsPanelCard);
-        if (missionsPanelCard != null && missionsPanelCard.getVisibility() == View.VISIBLE) {
-            missionsPanelCard.animate()
-                    .translationX(missionsPanelCard.getWidth())
-                    .setDuration(300)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .withEndAction(() -> missionsPanelCard.setVisibility(View.GONE))
-                    .start();
-        }
-    }
-
-    private void toggleDiscoveryMode() {
-        isDiscoveryMode = !isDiscoveryMode;
+        // Setup search view
+        searchView = findViewById(R.id.searchBar);
         
-        if (isDiscoveryMode) {
-            Toast.makeText(this, "Mod de descoperire activat! Apasă pe hartă pentru a descoperi activități.", 
-                Toast.LENGTH_SHORT).show();
-            
-            // Using ExtendedFloatingActionButton
-            discoverFab.setIconTint(getColorStateList(R.color.rom_accent_color));
-            discoverFab.setText("Activ");
-            
-            // Animate the FAB
-            AnimatorSet animatorSet = new AnimatorSet();
-            ObjectAnimator scaleX = ObjectAnimator.ofFloat(discoverFab, "scaleX", 1f, 1.1f, 1f);
-            ObjectAnimator scaleY = ObjectAnimator.ofFloat(discoverFab, "scaleY", 1f, 1.1f, 1f);
-            scaleX.setDuration(500);
-            scaleY.setDuration(500);
-            animatorSet.playTogether(scaleX, scaleY);
-            animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
-            animatorSet.start();
-            
-            // Show pulsing animation for missions on map
-            pulseMissionMarkers(true);
-        } else {
-            discoverFab.setIconTint(getColorStateList(R.color.rom_icon_color));
-            discoverFab.setText("Descoperă");
-            pulseMissionMarkers(false);
-        }
+        // Setup region filter chips
+        setupRegionFilters();
     }
-    
-    private void pulseMissionMarkers(boolean enabled) {
-        for (Marker marker : missionMarkers.values()) {
-            if (enabled) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        float[] hsv = new float[3];
-                        android.graphics.Color.colorToHSV(android.graphics.Color.BLUE, hsv);
-                        hsv[0] = (hsv[0] + 10) % 360;
-                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(hsv[0]));
-                        
-                        if (isDiscoveryMode) {
-                            handler.postDelayed(this, 500);
+
+    private void initializeRegionCenters() {
+        // Coordonate centru pentru fiecare regiune a României
+        regionCenters.put("Transilvania", new LatLng(46.7700, 23.6000));
+        regionCenters.put("Moldova", new LatLng(47.0000, 27.5000));
+        regionCenters.put("Muntenia", new LatLng(44.9000, 26.0000));
+        regionCenters.put("Oltenia", new LatLng(44.3000, 23.8000));
+        regionCenters.put("Banat", new LatLng(45.7500, 21.2300));
+        regionCenters.put("Crisana", new LatLng(46.9500, 21.9300));
+        regionCenters.put("Maramures", new LatLng(47.6600, 24.7000));
+        regionCenters.put("Bucovina", new LatLng(47.7000, 25.7000));
+        regionCenters.put("Dobrogea", new LatLng(44.8800, 28.7500));
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        googleMap = map;
+        
+        // Configure map
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setCompassEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
+        
+        // Apply styling based on system night mode
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            isNightMode = true;
+            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style_night));
+        }
+        
+        // Set marker click listener
+        googleMap.setOnMarkerClickListener(marker -> {
+            String title = marker.getTitle();
+            Object tag = marker.getTag();
+            
+            // Animează markerul selectat
+            animateMarker(marker);
+            
+            if (tag != null) {
+                String tagStr = tag.toString();
+                
+                // Verifică tipul de marker
+                if (tagStr.startsWith("mission:")) {
+                    String missionId = tagStr.substring(8);
+                    for (Mission mission : availableMissions) {
+                        if (mission.getId().equals(missionId)) {
+                            Toast.makeText(this, "Misiune: " + mission.getTitle(), Toast.LENGTH_SHORT).show();
+                            return true;
                         }
                     }
-                });
-            } else {
-                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-            }
-        }
-    }
-
-    private void setupSearchBar() {
-        androidx.appcompat.widget.SearchView searchView = findViewById(R.id.searchBar);
-        if (searchView != null) {
-            // Make search text more visible
-            TextView searchText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-            if (searchText != null) {
-                searchText.setTextColor(getResources().getColor(R.color.rom_text_primary));
-                searchText.setHintTextColor(getResources().getColor(R.color.rom_text_secondary));
-            }
-            
-            searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    // Search for regions, cities or activities
-                    performSearch(query);
+                    return false;
+                } else if (tagStr.startsWith("attraction:")) {
+                    // Extract attraction info
+                    String[] parts = tagStr.split("\\|");
+                    String attractionName = parts[0].substring(11);
+                    String description = parts.length > 1 ? parts[1] : "";
+                    showAttractionInfo(attractionName, marker.getSnippet(), description);
+                    return true;
+                } else if (tagStr.startsWith("city:")) {
+                    // City marker
+                    showCityInfo(title, marker.getSnippet());
                     return true;
                 }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    // Real-time filtering could be added here
-                    return false;
-                }
-            });
-        }
-    }
-    
-    private void performSearch(String query) {
-                // Show search dialog with region and city options
-                final String[] searchOptions = new String[] {
-                    "Regiuni", "Orașe", "Obiective turistice", "Activități"
-                };
-                
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Caută în România: " + query)
-                       .setItems(searchOptions, (dialog, which) -> {
-                           switch (which) {
-                               case 0: // Regiuni
-                                   showRegionList();
-                                   break;
-                               case 1: // Orașe
-                                   showCityList();
-                                   break;
-                               case 2: // Obiective turistice
-                                   Toast.makeText(this, "Obiective turistice în curând!", Toast.LENGTH_SHORT).show();
-                                   break;
-                               case 3: // Activități
-                                   showQuestList();
-                                   break;
-                           }
-                       });
-                builder.create().show();
-    }
-    
-    private void showRegionList() {
-        final String[] regions = new String[] {
-            "Banat", "Crișana", "Maramureș", "Bucovina", 
-            "Transilvania", "Moldova", "Oltenia", "Muntenia", "Dobrogea"
-        };
-        
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Alege o regiune")
-               .setItems(regions, (dialog, which) -> {
-                   String regionId = regions[which].toLowerCase();
-                   navigateToRegion(regionId);
-               });
-        builder.create().show();
-    }
-    
-    private void showCityList() {
-        final String[] cities = new String[] {
-            "București", "Cluj-Napoca", "Timișoara", "Iași", 
-            "Constanța", "Craiova", "Brașov", "Galați", "Sibiu"
-        };
-        
-        final String[] cityTags = new String[] {
-            "bucuresti", "cluj", "timisoara", "iasi", 
-            "constanta", "craiova", "brasov", "galati", "sibiu"
-        };
-        
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Alege un oraș")
-               .setItems(cities, (dialog, which) -> {
-                   navigateToRegion(cityTags[which]);
-               });
-        builder.create().show();
-    }
-    
-    private void showQuestList() {
-        if (bottomSheetBehavior != null) {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        }
-    }
-
-    private void setupRegionButtons() {
-        // Setup story progression regions with interactive buttons
-        LinearLayout regionsContainer = findViewById(R.id.regionsContainer);
-        if (regionsContainer != null) {
-            regionsContainer.removeAllViews(); // Clear any existing buttons
-            
-            String[] regions = {"transilvania", "moldova", "muntenia", "dobrogea", "oltenia", "banat"};
-            String[] regionNames = {"Transilvania", "Moldova", "Muntenia", "Dobrogea", "Oltenia", "Banat"};
-            
-            for (int i = 0; i < regions.length; i++) {
-                final String regionId = regions[i];
-                final String regionName = regionNames[i];
-                
-                MaterialButton regionButton = new MaterialButton(this);
-                regionButton.setText(regionName);
-                regionButton.setTag(regionId);
-                regionButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-                regionButton.setPadding(12, 8, 12, 8);
-                
-                // Use chip style for region buttons
-                regionButton.setStrokeWidth(1);
-                regionButton.setStrokeColorResource(R.color.rom_accent_color);
-                regionButton.setBackgroundTintList(getColorStateList(android.R.color.white));
-                regionButton.setTextColor(getResources().getColor(R.color.rom_text_primary));
-                
-                // Disable regions not yet unlocked in the story
-                if (currentStoryChapter < i + 1) {
-                    regionButton.setEnabled(false);
-                    regionButton.setAlpha(0.5f);
-                }
-                
-                regionButton.setOnClickListener(v -> selectRegion(regionId));
-                
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(8, 4, 8, 4);
-                regionsContainer.addView(regionButton, params);
-            }
-        }
-    }
-    
-    private void setupStoryCharacters() {
-        // Create main story characters
-        NPC dragomir = new NPC("Dragomir", "Călăuza ta prin călătoria din România", 
-                R.drawable.ic_character_guide);
-        dragomir.addDialog("Bine ai venit în România! Sunt Dragomir și te voi ghida în această călătorie.");
-        dragomir.addDialog("Vom explora împreună țara și vom descoperi obiceiuri, tradiții și locuri minunate.");
-        dragomir.addDialog("Călătoria noastră începe în Transilvania, ținutul legendelor și castelelor.");
-        storyCharacters.put("dragomir", dragomir);
-        
-        NPC elena = new NPC("Elena", "Cercetătoare în istorie și tradiții populare", 
-                R.drawable.ic_character_historian);
-        elena.addDialog("Salut! Sunt Elena, pasiunea mea este istoria României.");
-        elena.addDialog("Te pot ajuta să înțelegi mai bine tradițiile și obiceiurile noastre străvechi.");
-        elena.addDialog("Sunt multe de descoperit despre originile dacice și romane ale poporului nostru.");
-        storyCharacters.put("elena", elena);
-        
-        NPC mihai = new NPC("Mihai", "Bucătar tradițional și povestitor", 
-                R.drawable.ic_character_chef);
-        mihai.addDialog("Bucătăria românească are o istorie bogată! Eu sunt Mihai și te voi ghida prin gusturile României.");
-        mihai.addDialog("De la sarmale la mămăligă, fiecare regiune are specialitățile ei!");
-        storyCharacters.put("mihai", mihai);
-        
-        NPC ioana = new NPC("Ioana", "Artistă populară și meșter", 
-                R.drawable.ic_character_artist);
-        ioana.addDialog("Arta populară românească este plină de simboluri! Eu sunt Ioana și îți voi arăta tehnicile tradiționale.");
-        ioana.addDialog("Fiecare model și culoare are o semnificație specială în cultura noastră.");
-        storyCharacters.put("ioana", ioana);
-    }
-    
-    private void setupStoryMissions() {
-        availableMissions = new ArrayList<>();
-        activeMissions = new ArrayList<>();
-        completedMissions = new ArrayList<>();
-        
-        // Chapter 1: Transilvania
-        Mission mission1 = new Mission("Primul pas în călătoria ta", 1, 100, Mission.MissionType.VISIT_ATTRACTIONS, "transilvania");
-        mission1.addObjective("Întâlnește-te cu Dragomir, ghidul tău");
-        mission1.addObjective("Află despre tradițiile transilvănene");
-        mission1.addObjective("Vizitează un castel medieval");
-        mission1.setChapter(1);
-        mission1.setStep(1);
-        storyMissions.put("mission1", mission1);
-        
-        Mission mission2 = new Mission("Legendele Transilvaniei", 1, 150, Mission.MissionType.ANSWER_QUIZ, "transilvania");
-        mission2.addObjective("Află trei legende locale");
-        mission2.addObjective("Completează un quiz despre Dracula");
-        mission2.addObjective("Găsește artefacte istorice");
-        mission2.setChapter(1);
-        mission2.setStep(2);
-        storyMissions.put("mission2", mission2);
-        
-        // Chapter 2: Moldova
-        Mission mission3 = new Mission("Mânăstirile pictate", 1, 200, Mission.MissionType.TAKE_PHOTO, "moldova");
-        mission3.addObjective("Vizitează mânăstirea Voroneț");
-        mission3.addObjective("Descoperă secretul albastrul de Voroneț");
-        mission3.addObjective("Fotografiază 3 fresce celebre");
-        mission3.setChapter(2);
-        mission3.setStep(1);
-        storyMissions.put("mission3", mission3);
-        
-        // Chapter 3: Muntenia
-        Mission mission4 = new Mission("Vechea capitală", 1, 150, Mission.MissionType.VISIT_ATTRACTIONS, "muntenia");
-        mission4.addObjective("Explorează Palatul Parlamentului");
-        mission4.addObjective("Vizitează Ateneul Român");
-        mission4.addObjective("Descoperă Bucureștiul istoric");
-        mission4.setChapter(3);
-        mission4.setStep(1);
-        storyMissions.put("mission4", mission4);
-        
-        // Chapter 4: Dobrogea
-        Mission mission5 = new Mission("Poarta spre Mare", 1, 200, Mission.MissionType.INTERACT_NPC, "dobrogea");
-        mission5.addObjective("Vizitează Cazinoul din Constanța");
-        mission5.addObjective("Descoperă cetățile antice");
-        mission5.addObjective("Află despre cultura multietnică din Dobrogea");
-        mission5.setChapter(4);
-        mission5.setStep(1);
-        storyMissions.put("mission5", mission5);
-        
-        // Adaugă misiunile la available sau completed în funcție de progresul salvat
-        for (Mission mission : storyMissions.values()) {
-            if (mission.getChapter() < currentStoryChapter || 
-                (mission.getChapter() == currentStoryChapter && mission.getStep() <= currentStoryStep)) {
-                availableMissions.add(mission);
-            }
-        }
-    }
-    
-    private void checkStoryProgress() {
-        // Load progress from game state
-        currentStoryChapter = gameState.getStoryChapter();
-        currentStoryStep = gameState.getStoryStep();
-        
-        // If first time, start the intro
-        if (currentStoryChapter == 1 && currentStoryStep == 1) {
-            startStoryMode("dragomir");
-        }
-    }
-    
-    private void startStoryMode(String characterId) {
-        isInStoryMode = true;
-        currentSpeakingCharacter = storyCharacters.get(characterId);
-        
-        if (currentSpeakingCharacter != null) {
-            storyCard.setVisibility(View.VISIBLE);
-            characterNameText.setText(currentSpeakingCharacter.getName());
-            characterDialogText.setText(currentSpeakingCharacter.getDialogs().get(0));
-            characterImageView.setImageResource(currentSpeakingCharacter.getImageResourceId());
-            
-            // Hide missions during story
-            missionsRecyclerView.setVisibility(View.GONE);
-            
-            // Show character with animation
-            AnimatorSet animatorSet = new AnimatorSet();
-            ObjectAnimator fadeIn = ObjectAnimator.ofFloat(storyCard, "alpha", 0f, 1f);
-            fadeIn.setDuration(500);
-            animatorSet.play(fadeIn);
-            animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
-            animatorSet.start();
-        }
-    }
-    
-    private void advanceStory() {
-        // Check if we're in story mode
-        if (!isInStoryMode || currentSpeakingCharacter == null) {
-            return;
-        }
-        
-        // Get current dialog index
-        int currentDialogIndex = currentSpeakingCharacter.getCurrentDialogIndex();
-        
-        // Check if there are more dialogs for this character
-        if (currentDialogIndex < currentSpeakingCharacter.getDialogs().size() - 1) {
-            // Show next dialog
-            currentSpeakingCharacter.setCurrentDialogIndex(currentDialogIndex + 1);
-            characterDialogText.setText(currentSpeakingCharacter.getDialogs().get(currentDialogIndex + 1));
-        } else {
-            // End of dialog, exit story mode
-            isInStoryMode = false;
-            storyCard.setVisibility(View.GONE);
-            missionsRecyclerView.setVisibility(View.VISIBLE);
-            
-            // Activate the first mission if not already active
-            if (currentStoryChapter == 1 && currentStoryStep == 1) {
-                Mission firstMission = storyMissions.get("mission1");
-                if (firstMission != null && !firstMission.isActive()) {
-                    firstMission.setActive(true);
-                    activeMissions.add(firstMission);
-                    Toast.makeText(this, "Misiune nouă disponibilă: " + firstMission.getDescription(), 
-                        Toast.LENGTH_LONG).show();
-                    updateMissionsList();
-                }
-            }
-        }
-    }
-    
-    private void loadMissions() {
-        // Load existing missions based on story progress
-        for (Mission mission : storyMissions.values()) {
-            if (mission.isCompleted()) {
-                completedMissions.add(mission);
-            } else if (mission.isActive()) {
-                activeMissions.add(mission);
-            } else if (mission.getChapter() <= currentStoryChapter) {
-                // Only show missions from current or previous chapters
-                availableMissions.add(mission);
-            }
-        }
-    }
-    
-    private void setupMissionsList() {
-        if (missionsRecyclerView != null) {
-            List<Mission> allMissions = new ArrayList<>();
-            allMissions.addAll(activeMissions);
-            allMissions.addAll(availableMissions);
-            allMissions.addAll(completedMissions);
-            
-            questAdapter = new QuestAdapter(allMissions, mission -> {
-                // Show mission details dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                View missionView = getLayoutInflater().inflate(R.layout.dialog_mission_details, null);
-                
-                TextView titleText = missionView.findViewById(R.id.missionTitleText);
-                RecyclerView objectivesRecycler = missionView.findViewById(R.id.objectivesRecyclerView);
-                MaterialButton acceptButton = missionView.findViewById(R.id.acceptMissionButton);
-                TextView missionTypeText = missionView.findViewById(R.id.missionTypeText);
-                
-                if (titleText != null) {
-                    titleText.setText(mission.getDescription());
-                }
-                
-                if (missionTypeText != null) {
-                    missionTypeText.setText("Capitol " + mission.getChapter() + ", Pas " + mission.getStep());
-                }
-                
-                if (objectivesRecycler != null) {
-                    ObjectivesAdapter adapter = ObjectivesAdapter.fromMissionObjectives(mission.getObjectives());
-                    objectivesRecycler.setLayoutManager(new LinearLayoutManager(this));
-                    objectivesRecycler.setAdapter(adapter);
-                }
-                
-                builder.setView(missionView);
-                AlertDialog dialog = builder.create();
-                
-                if (acceptButton != null) {
-                    // Change button text based on mission state
-                    if (mission.isCompleted()) {
-                        acceptButton.setText("Misiune Completată");
-                        acceptButton.setEnabled(false);
-                    } else if (mission.isActive()) {
-                        acceptButton.setText("Continuă Misiunea");
-                    } else {
-                        acceptButton.setText("Acceptă Misiunea");
-                    }
-                    
-                    acceptButton.setOnClickListener(v -> {
-                        if (!mission.isActive() && !mission.isCompleted()) {
-                            activateMission(mission);
-                        } else if (mission.isActive()) {
-                            // Continue mission - go to specific activity
-                            continueActiveMission(mission);
-                        }
-                        dialog.dismiss();
-                    });
-                }
-                
-                dialog.show();
-            });
-            
-            missionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            missionsRecyclerView.setAdapter(questAdapter);
-        }
-    }
-    
-    private void activateMission(Mission mission) {
-        // Check if we can activate this mission based on story progress
-        if (mission.getChapter() <= currentStoryChapter) {
-            // Start story dialog for this mission if needed
-            startMissionDialog(mission);
-            
-            // Activate mission
-            mission.setActive(true);
-            
-            // Update mission lists
-            if (availableMissions.contains(mission)) {
-                availableMissions.remove(mission);
-                activeMissions.add(mission);
             }
             
-            // Update UI
-            updateMissionsList();
-            
-            Toast.makeText(this, "Misiune acceptată: " + mission.getDescription(), 
-                Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Trebuie să completezi capitolele anterioare întâi!", 
-                Toast.LENGTH_SHORT).show();
-        }
-    }
-    
-    private void startMissionDialog(Mission mission) {
-        // Show character dialog for this mission
-        String characterId = "dragomir"; // Default character
+            // Standard marker
+            showCityInfo(title, marker.getSnippet());
+            return true;
+        });
         
-        // Get appropriate character based on mission type
-        if (mission.getType() == Mission.TYPE_CULTURAL) {
-            characterId = "elena"; // Historian for quiz missions
-        } else if (mission.getType() == Mission.TYPE_EXPLORATION) {
-            characterId = "ioana"; // Artist for cultural missions
-        }
-        
-        startStoryMode(characterId);
-    }
-    
-    private void continueActiveMission(Mission mission) {
-        // Navigate to appropriate activity based on mission
-        if (mission.getType() == Mission.TYPE_EXPLORATION) {
-            navigateToRegion(mission.getCityName());
-        } else if (mission.getType() == Mission.TYPE_CULTURAL) {
-            startQuizActivity(mission);
-        } else if (mission.getType() == Mission.TYPE_CULINARY) {
-            startPhotoActivity(mission);
-        } else {
-            navigateToRegion(mission.getCityName());
-        }
-    }
-    
-    private void startQuizActivity(Mission mission) {
-        // In a full implementation, this would launch a quiz activity
-        Toast.makeText(this, "Se lansează quiz-ul pentru " + mission.getDescription(), 
-            Toast.LENGTH_SHORT).show();
-            
-        // For demo purposes, let's simulate completion
-        completeObjectiveWithConfirmation(mission, 0);
-    }
-    
-    private void startPhotoActivity(Mission mission) {
-        // In a full implementation, this would launch a camera activity
-        Toast.makeText(this, "Se lansează camera pentru " + mission.getDescription(), 
-            Toast.LENGTH_SHORT).show();
-            
-        // For demo purposes, let's simulate completion
-        completeObjectiveWithConfirmation(mission, 0);
-    }
-    
-    private void completeObjectiveWithConfirmation(Mission mission, int objectiveIndex) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Simulare completare obiectiv")
-               .setMessage("Vrei să marchezi acest obiectiv ca finalizat?")
-               .setPositiveButton("Da", (dialog, which) -> {
-                   mission.completeObjective(objectiveIndex);
-                   checkMissionCompletion(mission);
-                   updateMissionsList();
-               })
-               .setNegativeButton("Nu", null)
-               .show();
-    }
-    
-    private void checkMissionCompletion(Mission mission) {
-        // Check if all objectives are completed
-        boolean allCompleted = true;
-        for (Mission.MissionObjective objective : mission.getObjectives()) {
-            if (!objective.isCompleted()) {
-                allCompleted = false;
-                break;
+        // Configure polygon (region) click listener
+        googleMap.setOnPolygonClickListener(polygon -> {
+            String regionId = (String) polygon.getTag();
+            if (regionId != null) {
+                selectRegion(regionId);
             }
-        }
+        });
         
-        if (allCompleted) {
-            mission.setCompleted(true);
-            activeMissions.remove(mission);
-            completedMissions.add(mission);
-            
-            // Award points
-            gameState.addPuncteIntelepte(mission.getRewardPoints(), this);
-            
-            // Advance story progress if this was a story mission
-            if (mission.getChapter() == currentStoryChapter && mission.getStep() == currentStoryStep) {
-                advanceStoryProgress();
+        googleMap.setOnMapClickListener(latLng -> {
+            // Hide bottom sheet on map click
+            if (bottomSheetBehavior != null && bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
             }
-            
-            // Update UI and show notification
-            updateMissionsList();
-            showMissionCompletedDialog(mission);
-        }
-    }
-    
-    private void advanceStoryProgress() {
-        // Find next mission in story
-        Mission nextMission = null;
-        int nextStep = currentStoryStep + 1;
-        int nextChapter = currentStoryChapter;
+        });
         
-        // Check if there are more steps in current chapter
-        for (Mission mission : storyMissions.values()) {
-            if (mission.getChapter() == currentStoryChapter && mission.getStep() == nextStep) {
-                nextMission = mission;
-                break;
-            }
-        }
+        // Initial camera position - centered on Romania
+        LatLng romaniaCenter = new LatLng(45.9443, 25.0094);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(romaniaCenter, 6.5f));
         
-        // If no more steps, advance to next chapter
-        if (nextMission == null) {
-            nextChapter++;
-            nextStep = 1;
-            
-            for (Mission mission : storyMissions.values()) {
-                if (mission.getChapter() == nextChapter && mission.getStep() == nextStep) {
-                    nextMission = mission;
-                    break;
-                }
-            }
-        }
-        
-        // Update story progress
-        currentStoryChapter = nextChapter;
-        currentStoryStep = nextStep;
-        gameState.setStoryProgress(currentStoryChapter, currentStoryStep);
-        
-        // Activate next mission if available
-        if (nextMission != null) {
-            // Add to available missions
-            if (!availableMissions.contains(nextMission)) {
-                availableMissions.add(nextMission);
-            }
-            
-            // Update UI
-            updateMissionsList();
-        }
-    }
-    
-    private void showMissionCompletedDialog(Mission mission) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Misiune Completată!")
-               .setMessage("Felicitări! Ai completat misiunea: " + mission.getDescription() + 
-                           "\n\nRecompensă: " + mission.getRewardPoints() + " Puncte Înțelepte")
-               .setPositiveButton("Excelent!", null)
-               .show();
-    }
-    
-    private void updateMissionsList() {
-        if (questAdapter != null) {
-            List<Mission> allMissions = new ArrayList<>();
-            allMissions.addAll(activeMissions);
-            allMissions.addAll(availableMissions);
-            allMissions.addAll(completedMissions);
-            
-            questAdapter.updateMissions(allMissions);
-        }
-    }
-    
-    private void selectRegion(String regionId) {
-        if (regionId == null) return;
-        
-        // Update the current selected region
-        currentRegion = regionId;
-        
-        // Center map on the region
-        centerMapOnRegion(regionId);
-        
-        // Show information about the region
-        showRegionInfo(regionId);
-        
-        // Visual feedback for selection
-        flashRegion(regionId);
-        
-        // Log analytics event
-        try {
-            Bundle params = new Bundle();
-            params.putString("region_id", regionId);
-            firebaseAnalytics.logEvent("region_selected", params);
-        } catch (Exception e) {
-            // Firebase might not be initialized in some contexts
-            Log.e(TAG, "Error logging analytics: " + e.getMessage());
-        }
-        
-        // Update UI elements to reflect the selected region
-        updateRegionSelectionUI(regionId);
-    }
-    
-    private void updateRegionSelectionUI(String regionId) {
-        // Update the region selection buttons
-        LinearLayout regionsContainer = findViewById(R.id.regionsContainer);
-        if (regionsContainer != null) {
-            for (int i = 0; i < regionsContainer.getChildCount(); i++) {
-                View child = regionsContainer.getChildAt(i);
-                if (child instanceof MaterialButton) {
-                    MaterialButton button = (MaterialButton) child;
-                    String buttonRegionId = (String) button.getTag();
-                    
-                    if (buttonRegionId != null && buttonRegionId.equals(regionId)) {
-                        // Highlight the selected region button
-                        button.setStrokeColorResource(R.color.rom_accent);
-                        button.setStrokeWidth(4);
-                        button.setTextColor(getResources().getColor(R.color.rom_accent));
-                    } else {
-                        // Reset other buttons
-                        button.setStrokeColorResource(R.color.rom_accent_color);
-                        button.setStrokeWidth(1);
-                        button.setTextColor(getResources().getColor(R.color.rom_text_primary));
-                    }
-                }
-            }
-        }
-        
-        // Also update the polygon colors if we have them stored
-        if (regionPolygons != null) {
-            for (Map.Entry<String, com.google.android.gms.maps.model.Polygon> entry : regionPolygons.entrySet()) {
-                String polygonRegionId = entry.getKey();
-                com.google.android.gms.maps.model.Polygon polygon = entry.getValue();
-                
-                if (polygonRegionId.equals(regionId)) {
-                    // Highlight the selected region's polygon
-                    int originalColor = getRegionColor(polygonRegionId);
-                    polygon.setFillColor(originalColor & 0x7FFFFFFF); // More opaque
-                    polygon.setStrokeColor(Color.WHITE);
-                    polygon.setStrokeWidth(4);
-                } else {
-                    // Reset other polygons
-                    int originalColor = getRegionColor(polygonRegionId);
-                    polygon.setFillColor(originalColor & 0x4FFFFFFF); // Original transparency
-                    polygon.setStrokeColor(Color.WHITE);
-                    polygon.setStrokeWidth(2.5f);
-                }
-            }
-        }
-    }
-    
-    private int getRegionColor(String regionId) {
-        switch (regionId.toLowerCase()) {
-            case "transilvania": return getResources().getColor(R.color.rom_region_transilvania);
-            case "moldova": return getResources().getColor(R.color.rom_region_moldova);
-            case "muntenia": return getResources().getColor(R.color.rom_region_muntenia);
-            case "dobrogea": return getResources().getColor(R.color.rom_region_dobrogea);
-            case "oltenia": return getResources().getColor(R.color.rom_region_oltenia);
-            case "banat": return getResources().getColor(R.color.rom_region_banat);
-            case "crisana": return getResources().getColor(R.color.rom_region_crisana);
-            case "maramures": return getResources().getColor(R.color.rom_region_maramures);
-            case "bucovina": return getResources().getColor(R.color.rom_region_bucovina);
-            default: return Color.GRAY;
-        }
-    }
-    
-    private void centerMapOnRegion(String regionId) {
-        // Get coordinates for the region center
-        LatLng[] coordinates = getRegionCoordinates(regionId);
-        if (coordinates == null || coordinates.length == 0) return;
-        
-        // Calculate center point of the region
-        double latSum = 0, lngSum = 0;
-        for (LatLng coord : coordinates) {
-            latSum += coord.latitude;
-            lngSum += coord.longitude;
-        }
-        LatLng center = new LatLng(latSum / coordinates.length, lngSum / coordinates.length);
-        
-        // Set appropriate zoom level based on region size
-        float zoom = 7.5f; // Default zoom level
-        float tilt = 15f;  // Default tilt
-        
-        // Adjust zoom for specific regions
-        switch (regionId.toLowerCase()) {
-            case "transilvania":
-                zoom = 7.2f; // Larger region needs less zoom
-                break;
-            case "dobrogea":
-                zoom = 8.0f; // Smaller region can be more zoomed in
-                break;
-            case "bucuresti":
-                zoom = 10.5f; // City needs much more zoom
-                tilt = 30f;   // More tilt for city view
-                break;
-        }
-        
-        // Animate camera to center on the region
-        animateCamera(center, zoom, tilt, 1500);
-    }
-    
-    private void navigateToRegion(String regionId) {
-        Class<?> regionActivity = getRegionActivityClass(regionId);
-        if (regionActivity != null) {
-            try {
-                Intent intent = new Intent(this, regionActivity);
-                // Add flags for debugging
-                intent.putExtra("SOURCE", "ROM_MAP_ACTIVITY");
-                intent.putExtra("REGION_ID", regionId);
-                
-                // Log for debugging
-                Log.d("RomMapActivity", "Attempting to navigate to region: " + regionId 
-                    + " using class: " + regionActivity.getName());
-                
-                // Log analytics event
-                Bundle params = new Bundle();
-                params.putString("region_id", regionId);
-                params.putString("region_class", regionActivity.getName());
-                firebaseAnalytics.logEvent("navigate_to_region", params);
-                
-                startActivity(intent);
-            } catch (Exception e) {
-                // Catch and display any error
-                String errorMessage = "Error navigating to " + regionId + ": " + e.getMessage();
-                Log.e("RomMapActivity", errorMessage, e);
-                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-                
-                // Show an error dialog with details to help with debugging
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Navigation Error")
-                       .setMessage("Could not navigate to region: " + regionId + "\n\n" +
-                                  "Error details: " + e.toString() + "\n\n" +
-                                  "Check the following:\n" +
-                                  "1. Class exists: " + regionActivity.getName() + "\n" +
-                                  "2. Class is a valid activity\n" +
-                                  "3. Activity is declared in AndroidManifest.xml")
-                       .setPositiveButton("OK", null)
-                       .show();
-            }
-        } else {
-            // Show explicit message if region is not found
-            String errorMessage = "Region " + regionId + " was not found or is not available.";
-            Log.e("RomMapActivity", errorMessage);
-            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-        }
-    }
-    
-    private void showRegionInfo(String regionId) {
-        if (regionInfoCard != null && regionNameText != null && regionDescriptionText != null) {
-            // Set region name with proper capitalization
-            String regionName = regionId.substring(0, 1).toUpperCase() + regionId.substring(1);
-            regionNameText.setText(regionName);
-            
-            // Set appropriate description based on region
-            String description = getRegionDescription(regionId);
-            regionDescriptionText.setText(description);
-            
-            // Show bottom sheet
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
-            
-            // Animate the card appearing
-            regionInfoCard.setAlpha(0f);
-            regionInfoCard.animate().alpha(1f).setDuration(300).start();
-            
-            // Update current region
-            currentRegion = regionId;
-        }
-    }
-    
-    private String getRegionDescription(String regionId) {
-        switch (regionId.toLowerCase()) {
-            case "banat":
-                return "Banat este o regiune istorică în vestul României, renumită pentru multiculturalismul și gastronomia sa. Timișoara, capitala regiunii, este un important centru cultural și istoric.";
-            case "crisana":
-                return "Crișana este situată în nord-vestul României, fiind traversată de râurile Crișul Alb, Crișul Negru și Crișul Repede. Oradea, principalul oraș, impresionează prin arhitectura Art Nouveau.";
-            case "maramures":
-                return "Maramureș este una dintre cele mai tradiționale regiuni ale României, faimoasă pentru porțile maramureșene sculptate, bisericile de lemn incluse în patrimoniul UNESCO și tradițiile păstrate neatinse.";
-            case "bucovina":
-                return "Bucovina este renumită pentru mânăstirile pictate incluse în patrimoniul UNESCO. Peisajele naturale spectaculoase și tradițiile populare fac din această regiune o destinație unică.";
-            case "transilvania":
-                return "Transilvania este cea mai mare regiune istorică a României, cu o bogată moștenire istorică și culturală. Castelele medievale, orașele fortificate săsești și legendele despre Dracula atrag turiști din întreaga lume.";
-            case "moldova":
-                return "Moldova este o regiune istorică din estul României, cu o importantă moștenire culturală. Iași, fosta capitală a Moldovei, este un centru spiritual și cultural semnificativ.";
-            case "oltenia":
-                return "Oltenia este o regiune din sud-vestul României, străbătută de râul Olt. Este cunoscută pentru meșteșugurile tradiționale, mânăstirile medievale și folclorul bogat.";
-            case "muntenia":
-                return "Muntenia, sau Țara Românească, găzduiește capitala București. Zona combină influențe balcanice și orientale, reflectate în arhitectură, bucătărie și folclor.";
-            case "dobrogea":
-                return "Dobrogea este situată între Dunăre și Marea Neagră, fiind cea mai veche regiune a României. Delta Dunării, vestigiile romane și influențele multiculturale o fac unică în peisajul românesc.";
-            default:
-                return "Descoperă frumusețea și diversitatea regiunilor României!";
-        }
-    }
-    
-    private void flashRegion(String regionId) {
-        // Implementare pentru a evidenția vizual regiunea selectată
-        // Define region colors pentru a asigura consistența cu markerii
-        final int TRANSILVANIA_COLOR = Color.rgb(76, 175, 80);    // Green
-        final int MOLDOVA_COLOR = Color.rgb(33, 150, 243);        // Blue
-        final int MUNTENIA_COLOR = Color.rgb(255, 152, 0);        // Orange
-        final int DOBROGEA_COLOR = Color.rgb(255, 235, 59);       // Yellow
-        final int OLTENIA_COLOR = Color.rgb(156, 39, 176);        // Purple
-        final int BANAT_COLOR = Color.rgb(233, 30, 99);           // Pink
-        final int CRISANA_COLOR = Color.rgb(0, 188, 212);         // Cyan
-        final int MARAMURES_COLOR = Color.rgb(139, 195, 74);      // Light Green
-        final int BUCOVINA_COLOR = Color.rgb(121, 85, 72);        // Brown
-        
-        // Selectează culoarea potrivită pentru regiune
-        int regionColor;
-        switch (regionId.toLowerCase()) {
-            case "transilvania": regionColor = TRANSILVANIA_COLOR; break;
-            case "moldova": regionColor = MOLDOVA_COLOR; break;
-            case "muntenia": regionColor = MUNTENIA_COLOR; break;
-            case "dobrogea": regionColor = DOBROGEA_COLOR; break;
-            case "oltenia": regionColor = OLTENIA_COLOR; break;
-            case "banat": regionColor = BANAT_COLOR; break;
-            case "crisana": regionColor = CRISANA_COLOR; break;
-            case "maramures": regionColor = MARAMURES_COLOR; break;
-            case "bucovina": regionColor = BUCOVINA_COLOR; break;
-            default: regionColor = Color.RED; break;
-        }
-        
-        // Obține coordonatele poligonului regiunii
-        LatLng[] regionCoordinates = getRegionCoordinates(regionId);
-        if (regionCoordinates == null || regionCoordinates.length == 0) {
-            return;
-        }
-        
-        // Creează un poligon temporar care va fi animat
-        final PolygonOptions highlightOptions = new PolygonOptions()
-                .strokeColor(Color.WHITE)
-                .strokeWidth(3)
-                .fillColor(Color.argb(200, Color.red(regionColor), Color.green(regionColor), Color.blue(regionColor)));
-        
-        for (LatLng point : regionCoordinates) {
-            highlightOptions.add(point);
-        }
-        
-        // Adaugă poligonul pe hartă
-        final com.google.android.gms.maps.model.Polygon highlightPolygon = googleMap.addPolygon(highlightOptions);
-        
-        // Animează poligonul pentru un efect de pulsare
-        final Handler handler = new Handler();
-        final Runnable[] animationRunnable = new Runnable[1];
-        final int[] alpha = {200};
-        final boolean[] increasing = {false};
-        
-        animationRunnable[0] = new Runnable() {
-            @Override
-            public void run() {
-                if (increasing[0]) {
-                    alpha[0] += 10;
-                    if (alpha[0] >= 200) {
-                        alpha[0] = 200;
-                        increasing[0] = false;
-                    }
-                } else {
-                    alpha[0] -= 10;
-                    if (alpha[0] <= 50) {
-                        alpha[0] = 50;
-                        increasing[0] = true;
-                    }
-                }
-                
-                highlightPolygon.setFillColor(Color.argb(alpha[0], Color.red(regionColor), Color.green(regionColor), Color.blue(regionColor)));
-                
-                // Continuă animația
-                handler.postDelayed(this, 50);
-            }
-        };
-        
-        // Începe animația
-        handler.post(animationRunnable[0]);
-        
-        // Oprește animația după 2 secunde
-        handler.postDelayed(() -> {
-            handler.removeCallbacks(animationRunnable[0]);
-            highlightPolygon.remove();
-            
-            // Reîmprospătează harta pentru a afișa din nou poligoanele originale
+        // Draw region boundaries
         drawRegionBoundaries();
-        }, 2000);
+        
+        // Add city markers
+        addCityMarkers();
+        
+        // Add mission markers if in discovery mode
+        if (isDiscoveryMode) {
+            addMissionMarkers();
+            pulseMissionMarkers(true);
+        }
+        
+        // Check if we need to select a specific region based on filter
+        if (regionFilterChipGroup != null) {
+            int checkedId = regionFilterChipGroup.getCheckedChipId();
+            if (checkedId != View.NO_ID && checkedId != R.id.allRegionsChip) {
+                // Get the selected region from the chip
+                com.google.android.material.chip.Chip selectedChip = findViewById(checkedId);
+                if (selectedChip != null) {
+                    String regionName = selectedChip.getText().toString();
+                    // Apply the filter after a short delay to ensure map is ready
+                    new Handler().postDelayed(() -> filterByRegion(regionName), 500);
+                }
+            }
+        }
+    }
+
+    private void drawRegionBoundaries() {
+        // Șterge poligoanele existente dacă există
+        for (com.google.android.gms.maps.model.Polygon polygon : regionPolygons.values()) {
+            polygon.remove();
+        }
+        regionPolygons.clear();
+        
+        // Desenează poligoane pentru fiecare regiune
+        drawRegionPolygon("Transilvania", getRegionCoordinates("Transilvania"), COLOR_TRANSILVANIA);
+        drawRegionPolygon("Moldova", getRegionCoordinates("Moldova"), COLOR_MOLDOVA);
+        drawRegionPolygon("Muntenia", getRegionCoordinates("Muntenia"), COLOR_MUNTENIA);
+        drawRegionPolygon("Dobrogea", getRegionCoordinates("Dobrogea"), COLOR_DOBROGEA);
+        drawRegionPolygon("Oltenia", getRegionCoordinates("Oltenia"), COLOR_OLTENIA);
+        drawRegionPolygon("Banat", getRegionCoordinates("Banat"), COLOR_BANAT);
+        drawRegionPolygon("Crisana", getRegionCoordinates("Crisana"), COLOR_CRISANA);
+        drawRegionPolygon("Maramures", getRegionCoordinates("Maramures"), COLOR_MARAMURES);
+        drawRegionPolygon("Bucovina", getRegionCoordinates("Bucovina"), COLOR_BUCOVINA);
+    }
+    
+    private void drawRegionPolygon(String regionId, LatLng[] coordinates, int color) {
+        if (googleMap == null || coordinates == null || coordinates.length < 3) return;
+        
+        // Creare poligon cu stil îmbunătățit
+        PolygonOptions polygonOptions = new PolygonOptions()
+                .strokeColor(Color.WHITE)
+                .strokeWidth(2.5f)
+                .fillColor(color & 0x4FFFFFFF); // Culoare semi-transparentă (31% opacitate)
+        
+        // Adăugare coordonate la poligon
+        for (LatLng coordinate : coordinates) {
+            polygonOptions.add(coordinate);
+        }
+        
+        // Adăugare poligon pe hartă și stocare referință
+        com.google.android.gms.maps.model.Polygon polygon = googleMap.addPolygon(polygonOptions);
+        
+        // Setare ID regiune ca tag pentru identificare în evenimente de click
+        polygon.setTag(regionId);
+        polygon.setClickable(true);
+        
+        // Stocare poligon pentru referință ulterioară
+        regionPolygons.put(regionId, polygon);
     }
     
     private LatLng[] getRegionCoordinates(String regionId) {
@@ -1243,792 +430,1080 @@ public class RomMapActivity extends AppCompatActivity implements OnMapReadyCallb
                 return null;
         }
     }
-    
-    private void setupQuestList() {
-        if (questRecyclerView != null) {
-            // Initialize questAdapter
-            List<Mission> allMissions = new ArrayList<>();
-            if (availableMissions != null) {
-                allMissions.addAll(availableMissions);
-            }
-            if (activeMissions != null) {
-                allMissions.addAll(activeMissions);
-            }
-            if (completedMissions != null) {
-                allMissions.addAll(completedMissions);
-            }
-            
-            questAdapter = new QuestAdapter(allMissions, mission -> {
-                // Show mission details when clicked
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                View missionView = getLayoutInflater().inflate(R.layout.dialog_mission_details, null);
-                
-                TextView titleText = missionView.findViewById(R.id.missionTitleText);
-                TextView descriptionText = missionView.findViewById(R.id.missionDescriptionText);
-                MaterialButton actionButton = missionView.findViewById(R.id.acceptMissionButton);
-                
-                if (titleText != null) {
-                    titleText.setText(mission.getDescription());
-                }
-                
-                if (descriptionText != null) {
-                    // Show appropriate text based on mission status
-                    if (mission.isCompleted()) {
-                        descriptionText.setText("Misiune completată! Ai primit " + 
-                            mission.getRewardPoints() + " Puncte Înțelepte.");
-                    } else if (mission.isActive()) {
-                        descriptionText.setText("Misiune activă. Completează toate obiectivele pentru a primi " + 
-                            mission.getRewardPoints() + " Puncte Înțelepte.");
-                    } else {
-                        descriptionText.setText("Acceptă această misiune pentru a câștiga " + 
-                            mission.getRewardPoints() + " Puncte Înțelepte.");
-                    }
-                }
-                
-                if (actionButton != null) {
-                    // Set appropriate button text based on mission status
-                    if (mission.isCompleted()) {
-                        actionButton.setText("Misiune completată");
-                        actionButton.setEnabled(false);
-                    } else if (mission.isActive()) {
-                        actionButton.setText("Continuă misiunea");
-                        actionButton.setOnClickListener(v -> {
-                            continueActiveMission(mission);
-                            builder.create().dismiss();
-                        });
-                    } else {
-                        actionButton.setText("Acceptă misiunea");
-                        actionButton.setOnClickListener(v -> {
-                            activateMission(mission);
-                            builder.create().dismiss();
-                        });
-                    }
-                }
-                
-                builder.setView(missionView);
-                builder.create().show();
-            });
-            
-            questRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            questRecyclerView.setAdapter(questAdapter);
-        }
-    }
-    
-    // Inner adapter class for missions
-    private class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> {
-        private List<Mission> missions;
-        private OnMissionClickListener listener;
-        
-        public interface OnMissionClickListener {
-            void onMissionClick(Mission mission);
-        }
-        
-        public QuestAdapter(List<Mission> missions, OnMissionClickListener listener) {
-            this.missions = missions;
-            this.listener = listener;
-        }
-        
-        public void updateMissions(List<Mission> newMissions) {
-            this.missions = newMissions;
-            notifyDataSetChanged();
-        }
-        
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.item_mission, parent, false);
-            return new ViewHolder(view);
-        }
-        
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            Mission mission = missions.get(position);
-            
-            holder.titleText.setText(mission.getDescription());
-            
-            // Set status text and color based on mission completion status
-            if (mission.isCompleted()) {
-                holder.statusText.setText("Completat");
-                holder.statusText.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-                holder.itemCard.setStrokeColor(getResources().getColor(android.R.color.holo_green_light));
-            } else if (mission.isActive()) {
-                holder.statusText.setText("Activ");
-                holder.statusText.setTextColor(getResources().getColor(android.R.color.holo_blue_dark));
-                holder.itemCard.setStrokeColor(getResources().getColor(android.R.color.holo_blue_light));
-            } else {
-                holder.statusText.setText("Disponibil");
-                holder.statusText.setTextColor(getResources().getColor(android.R.color.darker_gray));
-                holder.itemCard.setStrokeColor(getResources().getColor(android.R.color.darker_gray));
-            }
-            
-            // Set region text
-            holder.regionText.setText("Regiune: " + 
-                mission.getCityName().substring(0, 1).toUpperCase() + 
-                mission.getCityName().substring(1));
-            
-            // Set reward text
-            holder.rewardText.setText(mission.getRewardPoints() + " Puncte");
-            
-            // Set click listener
-            holder.itemView.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onMissionClick(mission);
-                }
-            });
-        }
-        
-        @Override
-        public int getItemCount() {
-            return missions.size();
-        }
-        
-        class ViewHolder extends RecyclerView.ViewHolder {
-            TextView titleText;
-            TextView statusText;
-            TextView regionText;
-            TextView rewardText;
-            MaterialCardView itemCard;
-            
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                titleText = itemView.findViewById(R.id.missionTitle);
-                statusText = itemView.findViewById(R.id.missionStatusText);
-                regionText = itemView.findViewById(R.id.missionRegionText);
-                rewardText = itemView.findViewById(R.id.missionRewardText);
-                itemCard = (MaterialCardView) itemView.findViewById(R.id.missionCardView);
-            }
-        }
-    }
 
-    private Class<?> getRegionActivityClass(String regionId) {
-        Class<?> targetClass = null;
-        
-        try {
-            switch (regionId.toLowerCase()) {
-                case "banat": 
-                    targetClass = Banat.class;
-                    break;
-                case "crisana": 
-                    targetClass = Crisana.class;
-                    break;
-                case "maramures": 
-                    targetClass = Maramures.class;
-                    break;
-                case "bucovina": 
-                    targetClass = Bucovina.class;
-                    break;
-                case "transilvania": 
-                    targetClass = Transilvania.class;
-                    break;
-                case "moldova": 
-                    targetClass = Moldova.class;
-                    break;
-                case "oltenia": 
-                    targetClass = Oltenia.class;
-                    break;
-                case "muntenia": 
-                    targetClass = Muntenia.class;
-                    break;
-                case "dobrogea": 
-                    targetClass = Dobrogea.class;
-                    break;
-                default:
-                    throw new IllegalArgumentException("Regiunea necunoscută: " + regionId);
-            }
-            
-            // Verificăm dacă clasa este o activitate
-            boolean isActivity = android.app.Activity.class.isAssignableFrom(targetClass);
-            
-            if (!isActivity) {
-                android.util.Log.w("RomMapActivity", "Atenție: " + targetClass.getName() + 
-                    " nu este o Activity! Redirectarea poate eșua.");
-            }
-            
-            return targetClass;
-            
-        } catch (Exception e) {
-            // Logăm eroarea pentru debugging
-            android.util.Log.e("RomMapActivity", "Eroare la găsirea clasei pentru regiunea: " 
-                + regionId + " - " + e.getMessage());
-            
-            // Afișăm un mesaj informativ despre eroare
-            Toast.makeText(this, "Regiunea " + regionId + " nu este disponibilă momentan: " 
-                + e.getMessage(), Toast.LENGTH_LONG).show();
-                
-            return null;
-        }
-    }
-
-    // Adăugăm această metodă pentru a afișa informații de debugging despre toate regiunile
-    private void showRegionDebugInfo() {
-        StringBuilder debugInfo = new StringBuilder("Informații despre regiuni:\n\n");
-        
-        String[] regions = {"banat", "crisana", "maramures", "bucovina", 
-                          "transilvania", "moldova", "oltenia", "muntenia", "dobrogea"};
-        
-        for (String region : regions) {
-            Class<?> regionClass = null;
-            boolean isActivity = false;
-            boolean isDeclared = false;
-            
-            try {
-                regionClass = getRegionActivityClass(region);
-                if (regionClass != null) {
-                    isActivity = android.app.Activity.class.isAssignableFrom(regionClass);
-                    isDeclared = isActivityDeclaredInManifest(regionClass.getName());
-                }
-            } catch (Exception e) {
-                // Ignorăm erorile aici, le vom afișa în raport
-            }
-            
-            debugInfo.append(region.toUpperCase()).append(":\n");
-            debugInfo.append("- Clasă: ").append(regionClass != null ? regionClass.getName() : "NU EXISTĂ").append("\n");
-            debugInfo.append("- Este Activity: ").append(isActivity).append("\n");
-            debugInfo.append("- Declarată în Manifest: ").append(isDeclared).append("\n\n");
-        }
-        
-        // Afișăm informațiile într-un dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Informații de debugging")
-               .setMessage(debugInfo.toString())
-               .setPositiveButton("OK", null)
-               .show();
-    }
-    
-    // Verifică dacă activitatea este declarată în AndroidManifest.xml
-    private boolean isActivityDeclaredInManifest(String className) {
-        try {
-            PackageManager pm = getPackageManager();
-            ActivityInfo info = pm.getActivityInfo(new ComponentName(getPackageName(), className), 0);
-            return info != null;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
-    // Init methods called from onCreate
-    private void setupCityMarkers() {
-        // Add major cities with proper coordinates and region info
-        
-        // Transilvania
-        addCityMarker(new LatLng(46.7712, 23.6236), "Cluj-Napoca", "Transilvania", BitmapDescriptorFactory.HUE_AZURE);
-        addCityMarker(new LatLng(45.6427, 25.5887), "Brașov", "Transilvania", BitmapDescriptorFactory.HUE_AZURE);
-        addCityMarker(new LatLng(46.2195, 24.7964), "Sighișoara", "Transilvania", BitmapDescriptorFactory.HUE_AZURE);
-        addCityMarker(new LatLng(45.7983, 24.1256), "Sibiu", "Transilvania", BitmapDescriptorFactory.HUE_AZURE);
-        addCityMarker(new LatLng(46.0470, 23.5858), "Alba Iulia", "Transilvania", BitmapDescriptorFactory.HUE_AZURE);
-        
-        // Moldova
-        addCityMarker(new LatLng(47.1585, 27.6014), "Iași", "Moldova", BitmapDescriptorFactory.HUE_GREEN);
-        addCityMarker(new LatLng(46.5667, 26.9145), "Bacău", "Moldova", BitmapDescriptorFactory.HUE_GREEN);
-        addCityMarker(new LatLng(47.6426, 26.2499), "Suceava", "Moldova", BitmapDescriptorFactory.HUE_GREEN);
-        addCityMarker(new LatLng(46.8273, 26.3706), "Piatra Neamț", "Moldova", BitmapDescriptorFactory.HUE_GREEN);
-        
-        // Muntenia
-        addCityMarker(new LatLng(44.4268, 26.1025), "București", "Muntenia", BitmapDescriptorFactory.HUE_ORANGE);
-        addCityMarker(new LatLng(44.9475, 25.6358), "Ploiești", "Muntenia", BitmapDescriptorFactory.HUE_ORANGE);
-        addCityMarker(new LatLng(44.4323, 24.3619), "Slatina", "Muntenia", BitmapDescriptorFactory.HUE_ORANGE);
-        addCityMarker(new LatLng(44.7677, 26.6802), "Buzău", "Muntenia", BitmapDescriptorFactory.HUE_ORANGE);
-        
-        // Dobrogea
-        addCityMarker(new LatLng(44.1598, 28.6348), "Constanța", "Dobrogea", BitmapDescriptorFactory.HUE_CYAN);
-        addCityMarker(new LatLng(44.8998, 28.8041), "Tulcea", "Dobrogea", BitmapDescriptorFactory.HUE_CYAN);
-        addCityMarker(new LatLng(44.1700, 28.6319), "Mamaia", "Dobrogea", BitmapDescriptorFactory.HUE_CYAN);
-        
-        // Oltenia
-        addCityMarker(new LatLng(44.3302, 23.7949), "Craiova", "Oltenia", BitmapDescriptorFactory.HUE_VIOLET);
-        addCityMarker(new LatLng(44.6994, 22.5456), "Drobeta-Turnu Severin", "Oltenia", BitmapDescriptorFactory.HUE_VIOLET);
-        addCityMarker(new LatLng(45.1029, 24.3695), "Râmnicu Vâlcea", "Oltenia", BitmapDescriptorFactory.HUE_VIOLET);
-        
-        // Banat
-        addCityMarker(new LatLng(45.7489, 21.2087), "Timișoara", "Banat", BitmapDescriptorFactory.HUE_YELLOW);
-        addCityMarker(new LatLng(45.3088, 21.8900), "Reșița", "Banat", BitmapDescriptorFactory.HUE_YELLOW);
-        
-        // Crișana
-        addCityMarker(new LatLng(47.0465, 21.9189), "Oradea", "Crișana", BitmapDescriptorFactory.HUE_MAGENTA);
-        addCityMarker(new LatLng(46.1865, 21.3123), "Arad", "Crișana", BitmapDescriptorFactory.HUE_MAGENTA);
-        
-        // Maramureș
-        addCityMarker(new LatLng(47.6635, 23.5823), "Baia Mare", "Maramureș", BitmapDescriptorFactory.HUE_ROSE);
-        addCityMarker(new LatLng(47.9226, 23.8994), "Sighetu Marmației", "Maramureș", BitmapDescriptorFactory.HUE_ROSE);
-        
-        // Bucovina
-        addCityMarker(new LatLng(47.9304, 25.9355), "Rădăuți", "Bucovina", BitmapDescriptorFactory.HUE_BLUE);
-        addCityMarker(new LatLng(47.8557, 25.9230), "Gura Humorului", "Bucovina", BitmapDescriptorFactory.HUE_BLUE);
-    }
-    
-    private void addCityMarker(LatLng position, String title, String region, float hue) {
+    private void addCityMarkers() {
         if (googleMap == null) return;
         
-        // Create marker with custom styling
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(position)
-                .title(title)
-                .snippet(region)
-                .icon(BitmapDescriptorFactory.defaultMarker(hue))
-                .alpha(0.9f);
+        // Transilvania
+        addCustomCityMarker(new LatLng(46.7712, 23.6236), "Cluj-Napoca", "Transilvania", R.drawable.ic_city_marker, COLOR_TRANSILVANIA);
+        addCustomCityMarker(new LatLng(45.6427, 25.5887), "Brașov", "Transilvania", R.drawable.ic_city_marker, COLOR_TRANSILVANIA);
+        addCustomCityMarker(new LatLng(46.2195, 24.7964), "Sighișoara", "Transilvania", R.drawable.ic_city_marker, COLOR_TRANSILVANIA);
+        addCustomCityMarker(new LatLng(45.7983, 24.1256), "Sibiu", "Transilvania", R.drawable.ic_city_marker, COLOR_TRANSILVANIA);
+        addCustomCityMarker(new LatLng(46.0470, 23.5858), "Alba Iulia", "Transilvania", R.drawable.ic_city_marker, COLOR_TRANSILVANIA);
         
-        // Add marker to map
-        googleMap.addMarker(markerOptions);
-    }
-
-    private void loadAvailableMissions() {
-        // Initialize missions list if not already done
-        if (availableMissions == null) {
-            availableMissions = new ArrayList<>();
-        } else {
-            availableMissions.clear();
-        }
+        // Moldova
+        addCustomCityMarker(new LatLng(47.1585, 27.6014), "Iași", "Moldova", R.drawable.ic_city_marker, COLOR_MOLDOVA);
+        addCustomCityMarker(new LatLng(46.5667, 26.9145), "Bacău", "Moldova", R.drawable.ic_city_marker, COLOR_MOLDOVA);
+        addCustomCityMarker(new LatLng(47.6426, 26.2499), "Suceava", "Moldova", R.drawable.ic_city_marker, COLOR_MOLDOVA);
+        addCustomCityMarker(new LatLng(46.8273, 26.3706), "Piatra Neamț", "Moldova", R.drawable.ic_city_marker, COLOR_MOLDOVA);
         
-        // Add some sample missions (in a real app, these would come from a database or server)
-        Mission mission1 = new Mission(
-                "descopera_alba_iulia",
-                "Descoperă Alba Iulia",
-                "Vizitează cetatea Alba Carolina și învață despre istoria acestui important oraș.",
-                "transilvania",
-                150,
-                Mission.TYPE_EXPLORATION);
-        mission1.addObjective("Vizitează Cetatea Alba Carolina");
-        mission1.addObjective("Fă o fotografie la Poarta a III-a");
-        mission1.addObjective("Răspunde la 3 întrebări despre istoria cetății");
-        availableMissions.add(mission1);
+        // Muntenia
+        addCustomCityMarker(new LatLng(44.4268, 26.1025), "București", "Muntenia", R.drawable.ic_capital_marker, COLOR_MUNTENIA); // Capitala cu marker special
+        addCustomCityMarker(new LatLng(44.9475, 25.6358), "Ploiești", "Muntenia", R.drawable.ic_city_marker, COLOR_MUNTENIA);
+        addCustomCityMarker(new LatLng(44.4323, 24.3619), "Slatina", "Muntenia", R.drawable.ic_city_marker, COLOR_MUNTENIA);
         
-        Mission mission2 = new Mission(
-                "traditii_sibiu",
-                "Tradiții din Sibiu",
-                "Descoperă obiceiurile și tradițiile unice ale regiunii Sibiului și ale comunității săsești.",
-                "transilvania",
-                100,
-                Mission.TYPE_CULTURAL);
-        mission2.addObjective("Vizitează Muzeul ASTRA");
-        mission2.addObjective("Fotografiază 3 obiecte tradiționale săsești");
-        availableMissions.add(mission2);
+        // Dobrogea
+        addCustomCityMarker(new LatLng(44.1598, 28.6348), "Constanța", "Dobrogea", R.drawable.ic_beach_marker, COLOR_DOBROGEA); // Oraș de coastă
+        addCustomCityMarker(new LatLng(44.8998, 28.8041), "Tulcea", "Dobrogea", R.drawable.ic_city_marker, COLOR_DOBROGEA);
         
-        Mission mission3 = new Mission(
-                "bucataria_moldoveneasca",
-                "Bucătăria Moldovenească",
-                "Explorează aromele specifice bucătăriei moldovenești.",
-                "moldova",
-                120,
-                Mission.TYPE_CULINARY);
-        mission3.addObjective("Descoperă 3 rețete tradiționale moldovenești");
-        mission3.addObjective("Identifică ingredientele specifice pentru Poale-n brâu");
-        availableMissions.add(mission3);
+        // Oltenia
+        addCustomCityMarker(new LatLng(44.3302, 23.7949), "Craiova", "Oltenia", R.drawable.ic_city_marker, COLOR_OLTENIA);
+        addCustomCityMarker(new LatLng(44.6994, 22.5456), "Drobeta-Turnu Severin", "Oltenia", R.drawable.ic_city_marker, COLOR_OLTENIA);
         
-        Mission mission4 = new Mission(
-                "plimbare_delta",
-                "Plimbare în Delta Dunării",
-                "Explorează frumusețea naturală a Deltei Dunării, unul dintre cele mai importante ecosisteme din Europa.",
-                "dobrogea",
-                200,
-                Mission.TYPE_EXPLORATION);
-        mission4.addObjective("Identifică 5 specii de păsări din Deltă");
-        mission4.addObjective("Fotografiază un peisaj cu apus în Deltă");
-        mission4.addObjective("Învață despre importanța conservării Deltei");
-        availableMissions.add(mission4);
+        // Banat
+        addCustomCityMarker(new LatLng(45.7489, 21.2087), "Timișoara", "Banat", R.drawable.ic_city_marker, COLOR_BANAT);
+        addCustomCityMarker(new LatLng(45.3088, 21.8900), "Reșița", "Banat", R.drawable.ic_city_marker, COLOR_BANAT);
         
-        // If map is ready, add markers for missions
-        if (googleMap != null) {
-            addMissionMarkers();
-        }
+        // Crișana
+        addCustomCityMarker(new LatLng(47.0465, 21.9189), "Oradea", "Crișana", R.drawable.ic_city_marker, COLOR_CRISANA);
+        addCustomCityMarker(new LatLng(46.1865, 21.3123), "Arad", "Crișana", R.drawable.ic_city_marker, COLOR_CRISANA);
+        
+        // Maramureș
+        addCustomCityMarker(new LatLng(47.6635, 23.5823), "Baia Mare", "Maramureș", R.drawable.ic_city_marker, COLOR_MARAMURES);
+        
+        // Bucovina
+        addCustomCityMarker(new LatLng(47.9304, 25.9355), "Rădăuți", "Bucovina", R.drawable.ic_city_marker, COLOR_BUCOVINA);
+        
+        // Adaugă markere pentru atracții culturale și turistice
+        addAttractionsMarkers();
     }
     
-    private void addMissionMarkers() {
-        // Clear existing markers
-        for (Marker marker : missionMarkers.values()) {
-            marker.remove();
-        }
-        missionMarkers.clear();
+    /**
+     * Adaugă markere pentru atracții turistice și culturale
+     */
+    private void addAttractionsMarkers() {
+        // Castele și cetăți
+        addCustomAttractionMarker(new LatLng(45.5149, 25.3672), "Castelul Bran", "Transilvania", R.drawable.ic_castle_marker, "Castel medieval faimos pentru legătura cu mitul lui Dracula");
+        addCustomAttractionMarker(new LatLng(45.5135, 25.4200), "Castelul Peleș", "Transilvania", R.drawable.ic_castle_marker, "Castel regal impresionant din secolul XIX");
+        addCustomAttractionMarker(new LatLng(45.9408, 23.5517), "Cetatea Alba Carolina", "Transilvania", R.drawable.ic_fortress_marker, "Cea mai mare cetate din România");
         
-        // Add new markers
-        for (Mission mission : availableMissions) {
-            LatLng position = getMissionPosition(mission);
-            if (position != null) {
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .position(position)
-                        .title(mission.getTitle())
-                        .snippet(mission.getDescription())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+        // Mănăstiri și biserici
+        addCustomAttractionMarker(new LatLng(47.7647, 26.0973), "Mănăstirea Voroneț", "Bucovina", R.drawable.ic_church_marker, "Mănăstire pictată faimoasă pentru 'albastrul de Voroneț'");
+        addCustomAttractionMarker(new LatLng(47.6284, 26.2045), "Mănăstirea Moldovița", "Bucovina", R.drawable.ic_church_marker, "Mănăstire pictată inclusă în patrimoniul UNESCO");
+        
+        // Atracții naturale
+        addCustomAttractionMarker(new LatLng(45.0079, 29.2143), "Delta Dunării", "Dobrogea", R.drawable.ic_nature_marker, "Rezervație a Biosferei, inclusă în patrimoniul UNESCO");
+        addCustomAttractionMarker(new LatLng(45.4081, 25.5625), "Muntele Bucegi", "Transilvania", R.drawable.ic_mountain_marker, "Masiv montan cu formațiuni spectaculoase");
+        
+        // Orașe turistice principale
+        addCustomAttractionMarker(new LatLng(45.7879, 24.1429), "Sibiu - Centrul Vechi", "Transilvania", R.drawable.ic_historic_marker, "Piața Mare și Piața Mică, bijuterii arhitecturale");
+        addCustomAttractionMarker(new LatLng(46.2243, 24.7936), "Sighișoara - Centrul Medieval", "Transilvania", R.drawable.ic_historic_marker, "Unul dintre cele mai bine conservate orașe medievale din Europa");
+    }
+    
+    /**
+     * Adaugă un marker personalizat pentru orașe
+     */
+    private void addCustomCityMarker(LatLng position, String title, String region, int iconResource, int regionColor) {
+        if (googleMap == null) return;
+        
+        try {
+            // Creez un bitmap colorat pentru iconița markerului
+            com.google.android.gms.maps.model.BitmapDescriptor icon;
+            
+            if (iconResource != 0) {
+                // Încerc să folosesc o iconiță personalizată
+                android.graphics.Bitmap originalBitmap = android.graphics.BitmapFactory.decodeResource(getResources(), iconResource);
                 
-                Marker marker = googleMap.addMarker(markerOptions);
-                missionMarkers.put(mission.getId(), marker);
-            }
-        }
-    }
-    
-    private LatLng getMissionPosition(Mission mission) {
-        // In a real app, this would be stored with the mission data
-        // For now, we'll use some hardcoded positions based on the region
-        switch (mission.getRegionId()) {
-            case "transilvania":
-                if (mission.getId().equals("descopera_alba_iulia")) {
-                    return new LatLng(46.0667, 23.5833);
-                } else if (mission.getId().equals("traditii_sibiu")) {
-                    return new LatLng(45.7892, 24.1450);
+                if (originalBitmap != null) {
+                    // Creez un bitmap colorat cu culoarea regiunii
+                    android.graphics.Bitmap coloredBitmap = changeBitmapColor(originalBitmap, regionColor);
+                    icon = com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap(coloredBitmap);
+                } else {
+                    // Fallback la marker normal
+                    float hue = getHueFromColor(regionColor);
+                    icon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(hue);
                 }
-                return new LatLng(46.2214, 24.7917); // Default for Transilvania
-                
-            case "moldova":
-                return new LatLng(47.1585, 27.6014); // Iași
-                
-            case "dobrogea":
-                return new LatLng(45.1667, 28.8000); // Tulcea (for Delta)
-                
-            case "muntenia":
-                return new LatLng(44.4268, 26.1025); // București
-                
-            case "oltenia":
-                return new LatLng(44.3189, 23.7967); // Craiova
-                
-            case "banat":
-                return new LatLng(45.7427, 21.2259); // Timișoara
-                
-            case "crisana":
-                return new LatLng(47.1333, 22.0500); // Oradea
-                
-            case "maramures":
-                return new LatLng(47.6626, 23.5686); // Baia Mare
-                
-            case "bucovina":
-                return new LatLng(47.6456, 26.2499); // Suceava
-                
-            default:
-                return null;
-        }
-    }
-
-    private void applyEntryAnimations() {
-        // Animate the search controls
-        View topControlsBar = findViewById(R.id.topControlsBar);
-        if (topControlsBar != null) {
-            topControlsBar.setAlpha(0f);
-            topControlsBar.setTranslationY(-100f);
-            topControlsBar.animate()
-                    .alpha(1f)
-                    .translationY(0f)
-                    .setDuration(800)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .start();
-        }
-        
-        // Animate the player status card
-        View playerStatusCard = findViewById(R.id.playerStatusCard);
-        if (playerStatusCard != null) {
-            playerStatusCard.setAlpha(0f);
-            playerStatusCard.setScaleX(0.8f);
-            playerStatusCard.setScaleY(0.8f);
-            playerStatusCard.animate()
-                    .alpha(1f)
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .setDuration(700)
-                    .setStartDelay(200)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .start();
-        }
-        
-        // Animate the discover button
-        if (discoverFab != null) {
-            discoverFab.setScaleX(0f);
-            discoverFab.setScaleY(0f);
-            discoverFab.setAlpha(0f);
+            } else {
+                // Fallback la marker normal
+                float hue = getHueFromColor(regionColor);
+                icon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(hue);
+            }
             
-            discoverFab.animate()
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .alpha(1f)
-                    .setStartDelay(400)
-                    .setDuration(500)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .start();
-        }
-        
-        // Animate the missions FAB
-        FloatingActionButton showMissionsFab = findViewById(R.id.showMissionsFab);
-        if (showMissionsFab != null) {
-            showMissionsFab.setScaleX(0f);
-            showMissionsFab.setScaleY(0f);
-            showMissionsFab.setAlpha(0f);
+            // Creare marker cu stil personalizat
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(position)
+                    .title(title)
+                    .snippet(region)
+                    .icon(icon)
+                    .alpha(0.9f);
             
-            showMissionsFab.animate()
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .alpha(1f)
-                    .setStartDelay(500)
-                    .setDuration(500)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .start();
-        }
-        
-        // Animate region cards (if they're initially visible, which they usually aren't)
-        if (regionInfoCard != null && regionInfoCard.getVisibility() == View.VISIBLE) {
-            regionInfoCard.setTranslationY(300f);
-            regionInfoCard.setAlpha(0f);
-            
-            regionInfoCard.animate()
-                    .translationY(0f)
-                    .alpha(1f)
-                    .setStartDelay(600)
-                    .setDuration(700)
-                    .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .start();
+            // Adăugare marker pe hartă
+            Marker marker = googleMap.addMarker(markerOptions);
+            marker.setTag("city:" + title);
+        } catch (Exception e) {
+            Log.e(TAG, "Error adding custom marker: " + e.getMessage());
+            // Fallback la marker standard
+            addCityMarker(position, title, region, getHueFromColor(regionColor));
         }
     }
     
-    @Override
-    public void onMapReady(GoogleMap map) {
-        googleMap = map;
+    /**
+     * Adaugă un marker personalizat pentru atracții turistice
+     */
+    private void addCustomAttractionMarker(LatLng position, String title, String region, int iconResource, String description) {
+        if (googleMap == null) return;
         
-        // Set initial camera position to view all of Romania
-        LatLng romaniaCentral = new LatLng(45.9443, 25.0094);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-            .target(romaniaCentral)
-            .zoom(6.8f)    // Slightly closer zoom for better details
-            .tilt(10)     // Slight tilt for 3D effect
-            .build();
-        
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        
-        // Apply different map style based on night mode
-        boolean isNightMode = (getResources().getConfiguration().uiMode 
-                & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-        
-        if (isNightMode) {
-            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style_night));
-        } else {
-            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style_day));
-        }
-        
-        // Customize map appearance and UI settings
-        googleMap.getUiSettings().setCompassEnabled(true);
-        googleMap.getUiSettings().setMapToolbarEnabled(false);
-        googleMap.getUiSettings().setRotateGesturesEnabled(true);
-        googleMap.getUiSettings().setTiltGesturesEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true); // Add zoom controls
-        googleMap.getUiSettings().setMyLocationButtonEnabled(false);
-        googleMap.setPadding(0, 220, 0, 0); // Add more padding for controls
-        
-        // Set map type to terrain for better landscape representation
-        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        
-        // Set up map click listener for discovery mode
-        googleMap.setOnMapClickListener(latLng -> {
-            if (isDiscoveryMode) {
-                // Check if click is near any mission marker
-                checkClickForNearbyMissions(latLng);
-            }
-        });
-        
-        // Set up marker click listener
-        googleMap.setOnMarkerClickListener(marker -> {
-            // Check if marker is a mission marker
-            for (Map.Entry<String, Marker> entry : missionMarkers.entrySet()) {
-                if (entry.getValue().equals(marker)) {
-                    // Find the mission
-                    for (Mission mission : availableMissions) {
-                        if (mission.getId().equals(entry.getKey())) {
-                            startMissionDialog(mission);
-                            return true;
-                        }
-                    }
+        try {
+            com.google.android.gms.maps.model.BitmapDescriptor icon;
+            
+            if (iconResource != 0) {
+                android.graphics.Bitmap originalBitmap = android.graphics.BitmapFactory.decodeResource(getResources(), iconResource);
+                
+                if (originalBitmap != null) {
+                    icon = com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap(originalBitmap);
+                } else {
+                    icon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
                 }
+            } else {
+                icon = com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
             }
             
-            // Handle city markers
-            String title = marker.getTitle();
-            String region = marker.getSnippet();
-            if (region != null) {
-                showCityInfo(title, region);
-                return true;
-            }
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(position)
+                    .title(title)
+                    .snippet(region)
+                    .icon(icon)
+                    .zIndex(1.0f); // Pune atracțiile deasupra orașelor
             
-            return false;
-        });
-        
-        // Now that map is ready, we can setup markers and draw region boundaries
-        drawRegionBoundaries();
-        setupCityMarkers();
-        
-        // Add mission markers
-        if (availableMissions != null && !availableMissions.isEmpty()) {
-            addMissionMarkers();
-        } else {
-            loadAvailableMissions();
+            Marker marker = googleMap.addMarker(markerOptions);
+            marker.setTag("attraction:" + title + "|" + description); // Include descrierea în tag
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error adding attraction marker: " + e.getMessage());
         }
-        
-        // Add visual appeal with initial animation
-        animateCamera(romaniaCentral, 7f, 15f, 2000);
     }
     
-    // Helper method for animating camera smoothly
-    private void animateCamera(LatLng target, float zoom, float tilt, int duration) {
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-            .target(target)
-            .zoom(zoom)
-            .tilt(tilt)
-            .build();
+    /**
+     * Schimbă culoarea unui bitmap pentru marker personalizat
+     */
+    private android.graphics.Bitmap changeBitmapColor(android.graphics.Bitmap sourceBitmap, int color) {
+        android.graphics.Bitmap resultBitmap = sourceBitmap.copy(sourceBitmap.getConfig(), true);
+        android.graphics.Paint paint = new android.graphics.Paint();
+        android.graphics.ColorFilter filter = new android.graphics.PorterDuffColorFilter(color, android.graphics.PorterDuff.Mode.SRC_ATOP);
+        paint.setColorFilter(filter);
         
-        googleMap.animateCamera(
-            CameraUpdateFactory.newCameraPosition(cameraPosition),
-            duration,
-            null
-        );
+        android.graphics.Canvas canvas = new android.graphics.Canvas(resultBitmap);
+        canvas.drawBitmap(resultBitmap, 0, 0, paint);
+        
+        return resultBitmap;
     }
     
-    private void checkClickForNearbyMissions(LatLng clickLatLng) {
-        final double CLICK_RADIUS_METERS = 50000; // 50km radius for clicking near a mission marker (large for usability)
-        
-        for (Map.Entry<String, Marker> entry : missionMarkers.entrySet()) {
-            LatLng markerLatLng = entry.getValue().getPosition();
-            
-            float[] results = new float[1];
-            android.location.Location.distanceBetween(
-                    clickLatLng.latitude, clickLatLng.longitude,
-                    markerLatLng.latitude, markerLatLng.longitude,
-                    results);
-            
-            float distanceInMeters = results[0];
-            
-            if (distanceInMeters < CLICK_RADIUS_METERS) {
-                // Find the mission
-                for (Mission mission : availableMissions) {
-                    if (mission.getId().equals(entry.getKey())) {
-                        startMissionDialog(mission);
-                        return;
-                    }
-                }
-            }
-        }
-        
-        // If no mission was found, show a message
-        Toast.makeText(this, "Nu ai descoperit nicio misiune în această zonă.", Toast.LENGTH_SHORT).show();
+    /**
+     * Convertește o culoare RGB în valoarea HUE pentru marker
+     */
+    private float getHueFromColor(int color) {
+        float[] hsv = new float[3];
+        android.graphics.Color.colorToHSV(color, hsv);
+        return hsv[0];
     }
     
     private void showCityInfo(String cityName, String regionName) {
-        // Create a dialog with city information
+        // Create dialog to show city info
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(cityName);
-        
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_city_info, null);
+        
+        // Set up dialog views
         TextView cityNameText = dialogView.findViewById(R.id.cityNameText);
         TextView regionNameText = dialogView.findViewById(R.id.regionNameText);
         TextView cityDescriptionText = dialogView.findViewById(R.id.cityDescriptionText);
         
         cityNameText.setText(cityName);
         regionNameText.setText(regionName);
-        cityDescriptionText.setText(getCityDescription(cityName));
         
+        // Set description based on city
+        String description = getCityDescription(cityName);
+        cityDescriptionText.setText(description);
+        
+        // Set up visit button
+        dialogView.findViewById(R.id.visitCityButton).setOnClickListener(v -> openCityActivity(cityName));
+        
+        // Set up close button
+        dialogView.findViewById(R.id.closeButton).setOnClickListener(v -> {
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        });
+        
+        // Show dialog
         builder.setView(dialogView);
-        builder.setPositiveButton("Vizitează", (dialog, which) -> navigateToRegion(regionName.toLowerCase()));
-        builder.setNegativeButton("Închide", null);
-        
-        AlertDialog dialog = builder.create();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        dialog = builder.create();
         dialog.show();
     }
     
+    /**
+     * Get description for a city
+     */
     private String getCityDescription(String cityName) {
-        // In a real app, we would get this from a database or resources
-        switch (cityName) {
-            case "Cluj-Napoca":
-                return "Un important centru cultural, educațional și economic din Transilvania. " +
-                       "Este cunoscut pentru universitățile sale și vibranta scenă artistică.";
-            case "Timișoara":
-                return "Primul oraș din Europa care a introdus iluminatul stradal electric. " +
-                       "Revoluția română din 1989 a început aici.";
-            case "Alba Iulia":
-                return "Locul unde s-a înfăptuit Marea Unire din 1918. " +
-                       "Cetatea Alba Carolina este una dintre cele mai impresionante fortificații din România.";
-            case "București":
-                return "Capitala României, un oraș dinamic cu o bogată istorie și arhitectură variată, " +
-                       "de la clădiri în stil neoclasic la construcții din perioada comunistă.";
-            case "Constanța":
-                return "Cel mai important port maritim al României la Marea Neagră. " +
-                       "Are o istorie de peste 2500 de ani, fiind fondat de coloniști greci.";
-            case "Iași":
-                return "Fosta capitală a Moldovei și un important centru cultural și religios. " +
-                       "Aici se află cea mai veche universitate din România.";
+        switch(cityName.toLowerCase()) {
+            case "bucuresti":
+                return "București este capitala României și cel mai important centru politic, economic și cultural al țării. Orașul este faimos pentru Palatul Parlamentului, al doilea cel mai mare edificiu administrativ din lume.";
+            case "cluj-napoca":
+            case "cluj":
+                return "Cluj-Napoca este considerat capitala neoficială a Transilvaniei. Oraș universitar, cu o viață culturală intensă și numeroase clădiri istorice în centrul vechi.";
+            case "iasi":
+                return "Iași este un important centru universitar și cultural din nordul Moldovei. A fost capitala istorică a Moldovei și găzduiește impresionantul Palat al Culturii.";
+            case "timisoara":
+                return "Timișoara este un important centru economic și cultural din vestul României. Este primul oraș european iluminat electric și locul unde a început Revoluția din 1989.";
+            case "constanta":
+                return "Constanța este cel mai important port la Marea Neagră și un popular centru turistic cu o istorie ce datează din antichitate, sub numele de Tomis.";
+            case "brasov":
+                return "Brașov este un oraș istoric din Transilvania, înconjurat de munții Carpați. Este cunoscut pentru Biserica Neagră, zidurile medievale și Poarta Ecaterinei.";
+            case "sibiu":
+                return "Sibiu este un fermecător oraș medieval din centrul României. A fost Capitală Culturală Europeană în 2007 și este cunoscut pentru arhitectura sa gotică și piețele sale istorice.";
+            case "oradea":
+                return "Oradea este un important centru economic și cultural din vestul României, cunoscut pentru numeroasele clădiri în stil Art Nouveau și apele termale.";
+            case "craiova":
+                return "Craiova este un important centru urban din Oltenia, cu o istorie bogată. Este un centru universitar important și oraș cu multe spații verzi.";
+            case "alba iulia":
+                return "Alba Iulia este un oraș cu o semnificație istorică deosebită, locul unde s-a înfăptuit Marea Unire din 1918. Cetatea Alba Carolina este principalul punct de atracție.";
             default:
-                return "Descoperă frumusețea și istoria acestui oraș fascinant din România.";
+                return "Un oraș important din România, cu multe atracții turistice și culturale de descoperit.";
         }
     }
     
-    private void drawRegionBoundaries() {
-        if (googleMap == null) return;
+    /**
+     * Open the appropriate activity for a city
+     */
+    private void openCityActivity(String cityName) {
+        Intent intent = null;
         
-        // Draw polygon for each region
+        // Map city name to appropriate activity
+        switch(cityName.toLowerCase()) {
+            case "bucuresti":
+                intent = new Intent(this, Bucuresti.class);
+                break;
+            case "cluj-napoca":
+            case "cluj":
+                intent = new Intent(this, ClujNapoca.class);
+                break;
+            case "brasov":
+                intent = new Intent(this, Brasov.class);
+                break;
+            case "sibiu":
+                intent = new Intent(this, Sibiu.class);
+                break;
+            case "iasi":
+                intent = new Intent(this, Iasi.class);
+                break;
+            case "constanta":
+                intent = new Intent(this, Constanta.class);
+                break;
+            case "timisoara":
+                intent = new Intent(this, Timisoara.class);
+                break;
+            case "oradea":
+                intent = new Intent(this, Oradea.class);
+                break;
+            case "suceava":
+                intent = new Intent(this, Suceava.class);
+                break;
+            case "ploiesti":
+                intent = new Intent(this, Ploiesti.class);
+                break;
+            case "alba iulia":
+                intent = new Intent(this, AlbaIulia.class);
+                break;
+            case "piatra neamt":
+                intent = new Intent(this, PiatraNeamt.class);
+                break;
+            case "targu mures":
+                intent = new Intent(this, TarguMures.class);
+                break;
+            case "tulcea":
+                intent = new Intent(this, Tulcea.class);
+                break;
+            case "arad":
+                intent = new Intent(this, Arad.class);
+                break;
+            case "resita":
+                intent = new Intent(this, Resita.class);
+                break;
+            case "baia mare":
+                intent = new Intent(this, BaiaMare.class);
+                break;
+            case "slatina":
+                intent = new Intent(this, Slatina.class);
+                break;
+            case "craiova":
+                intent = new Intent(this, Craiova.class);
+                break;
+            default:
+                Toast.makeText(this, "Activitate pentru " + cityName + " nu este disponibilă", Toast.LENGTH_SHORT).show();
+                return;
+        }
+        
+        // Launch the activity
+        if (intent != null) {
+            startActivity(intent);
+            Toast.makeText(this, "Vizitare " + cityName, Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    /**
+     * Open the culinary map activity
+     */
+    private void openCulinaryMap() {
+        Intent intent = new Intent(this, com.example.myapplication.recipe.ui.CulinaryMapActivity.class);
+        startActivity(intent);
+        Toast.makeText(this, "Se deschide harta culinară...", Toast.LENGTH_SHORT).show();
+    }
+    
+    /**
+     * Open recipe detail activity for a specific recipe
+     * @param recipeId ID of the recipe to display
+     */
+    private void openRecipeDetail(int recipeId) {
+        Intent intent = new Intent(this, com.example.myapplication.recipe.ui.RecipeDetailActivity.class);
+        intent.putExtra("RECIPE_ID", recipeId);
+        startActivity(intent);
+    }
+
+    private void selectRegion(String regionId) {
+        // Cache the current region ID
+        currentRegion = regionId;
+
+        // Then highlight it in the UI
+        showRegionInfo(regionId);
+        highlightSelectedRegion(regionId);
+        centerMapOnRegion(regionId);
+        
+        // Update the filter chip selection to match the selected region
+        updateRegionFilterSelection(regionId);
+    }
+    
+    /**
+     * Updates the region filter chips to match the selected region
+     * @param regionId The region ID to select in the filter
+     */
+    private void updateRegionFilterSelection(String regionId) {
+        if (regionFilterChipGroup == null) return;
+        
+        // Prevent recursion
+        if (isUpdatingChipSelection) return;
+        
+        // Set flag to indicate we're programmatically changing selection
+        isUpdatingChipSelection = true;
+        
+        // Clear current selection
+        regionFilterChipGroup.clearCheck();
+        
+        // Find the chip corresponding to the selected region
+        int chipId;
+        switch (regionId) {
+            case "Transilvania":
+                chipId = R.id.transylvaniaChip;
+                break;
+            case "Moldova":
+                chipId = R.id.moldovaChip;
+                break;
+            case "Muntenia":
+                chipId = R.id.munteniaChip;
+                break;
+            case "Oltenia":
+                chipId = R.id.olteniaChip;
+                break;
+            case "Dobrogea":
+                chipId = R.id.dobrogeaChip;
+                break;
+            case "Banat":
+                chipId = R.id.banatChip;
+                break;
+            case "Crisana":
+                chipId = R.id.crisanaChip;
+                break;
+            case "Maramures":
+                chipId = R.id.maramuresChip;
+                break;
+            case "Bucovina":
+                chipId = R.id.bucovinaChip;
+                break;
+            default:
+                chipId = R.id.allRegionsChip;
+                break;
+        }
+        
+        // Check the appropriate chip
+        regionFilterChipGroup.check(chipId);
+        
+        // Reset flag
+        isUpdatingChipSelection = false;
+    }
+    
+    private void showRegionInfo(String regionId) {
+        if (regionInfoCard == null || bottomSheetBehavior == null) return;
+        
+        // Set region name
+        if (regionNameText != null) {
+            regionNameText.setText(regionId);
+        }
+        
+        // Set region description
+        if (regionDescriptionText != null) {
+            regionDescriptionText.setText(getRegionDescription(regionId));
+        }
+        
+        // Expand the bottom sheet
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        
+        // Add animation
+        regionInfoCard.setAlpha(0f);
+        regionInfoCard.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .start();
+    }
+    
+    /**
+     * Get description for a region
+     */
+    private String getRegionDescription(String regionId) {
+        switch(regionId.toLowerCase()) {
+            case "transilvania":
+                return "Transilvania este o regiune istorică în centrul României, renumită pentru peisajele sale pitorești, castele medievale și legende. Regiunea este înconjurată de Carpați și păstrează o bogată moștenire culturală săsească și maghiară.";
+            case "moldova":
+                return "Moldova este situată în nord-estul țării și este cunoscută pentru mănăstirile sale pictate, incluse în patrimoniul UNESCO. Regiunea are o bogată istorie și tradiții folclorice unice.";
+            case "muntenia":
+                return "Muntenia, cunoscută și sub numele de Țara Românească, este situată în sud-estul României. Include capitala București și câmpia fertilă din sudul țării, precum și traseele montane din nordul regiunii.";
+            case "dobrogea":
+                return "Dobrogea este situată între Dunăre și Marea Neagră și oferă o diversitate unică în România, cu influențe turcești și tătare. Este cunoscută pentru Delta Dunării, cetăți antice și plaje la Marea Neagră.";
+            case "oltenia":
+                return "Oltenia este situată în sud-vestul țării, formată din câmpii fertile și dealuri subcarpatice. Este cunoscută pentru tradițiile folclorice vibrante, arhitectura tradițională și mănăstiri istorice.";
+            case "banat":
+                return "Banatul este o regiune multiculturală din vestul României, cu influențe germane, maghiare și sârbești. Este cunoscută pentru orașele sale frumoase, în special Timișoara, și pentru arhitectura sa variată.";
+            case "crisana":
+                return "Crișana este situată în vestul României și este caracterizată de peisaje variate, de la câmpii fertile la zone montane. Este cunoscută pentru apele termale și arhitectura Art Nouveau din Oradea.";
+            case "maramures":
+                return "Maramureșul, situat în nordul României, este faimos pentru porțile sale sculptate în lemn, bisericile din lemn incluse în patrimoniul UNESCO și tradițiile bine păstrate în satele izolate.";
+            case "bucovina":
+                return "Bucovina, în nord-estul României, este cunoscută pentru mănăstirile pictate pe exterior, incluse în patrimoniul UNESCO. Peisajele sale montane și tradițiile folclorice atrag vizitatori din întreaga lume.";
+            default:
+                return "O regiune fascinantă a României cu peisaje deosebite și o istorie bogată ce merită explorată.";
+        }
+    }
+    
+    private void highlightSelectedRegion(String regionId) {
+        // Resetare toate poligoanele la stilul normal
+        for (Map.Entry<String, com.google.android.gms.maps.model.Polygon> entry : regionPolygons.entrySet()) {
+            String polygonRegionId = entry.getKey();
+            com.google.android.gms.maps.model.Polygon polygon = entry.getValue();
+            
+            if (polygonRegionId.equalsIgnoreCase(regionId)) {
+                // Evidențiere regiune selectată
+                polygon.setStrokeColor(Color.WHITE);
+                polygon.setStrokeWidth(4);
+            } else {
+                // Resetare alte poligoane
+                polygon.setStrokeColor(Color.WHITE);
+                polygon.setStrokeWidth(2.5f);
+            }
+        }
+    }
+    
+    private void centerMapOnRegion(String regionId) {
+        LatLng center = regionCenters.get(regionId);
+        if (center != null && googleMap != null) {
+            googleMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(center, 7f),
+                1000, // durată animație (ms)
+                null
+            );
+        }
+    }
+    
+    private void toggleMapStyle() {
+        isNightMode = !isNightMode;
+        if (googleMap != null) {
+            if (isNightMode) {
+                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style_night));
+                styleToggleButton.setImageResource(R.drawable.ic_day_mode); // Trebuie creat acest drawable
+            } else {
+                googleMap.setMapStyle(null); // Stil implicit zi
+                styleToggleButton.setImageResource(R.drawable.ic_night_mode);
+            }
+        }
+    }
+    
+    // Metodele de ciclu de viață pentru MapView
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        mapView.onPause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mapView.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    /**
+     * Load all available missions
+     */
+    private void loadMissions() {
+        // Initialize mission lists if not already done
+        if (availableMissions == null) {
+            availableMissions = new ArrayList<>();
+        } else {
+            availableMissions.clear();
+        }
+        
+        if (activeMissions == null) {
+            activeMissions = new ArrayList<>();
+        }
+        
+        if (completedMissions == null) {
+            completedMissions = new ArrayList<>();
+        }
+        
+        // Add sample missions for each region
         // Transilvania
-        drawRegionPolygon("transilvania", getRegionCoordinates("transilvania"), 
-                getResources().getColor(R.color.rom_region_transilvania));
+        Mission mission1 = new Mission(
+                "explore_transilvania",
+                "Descoperă inima Transilvaniei",
+                "Vizitează centrele istorice și culturale din Transilvania pentru a afla despre istoria bogată a regiunii.",
+                "Transilvania",
+                150,
+                Mission.TYPE_EXPLORATION);
+        mission1.addObjective("Vizitează Cetatea Alba Carolina din Alba Iulia");
+        mission1.addObjective("Explorează centrul vechi din Cluj-Napoca");
+        mission1.addObjective("Descoperă Biserica Neagră din Brașov");
+        availableMissions.add(mission1);
         
         // Moldova
-        drawRegionPolygon("moldova", getRegionCoordinates("moldova"), 
-                getResources().getColor(R.color.rom_region_moldova));
+        Mission mission2 = new Mission(
+                "moldova_heritage",
+                "Moștenirea culturală din Moldova",
+                "Descoperă tradițiile și monumentele istorice din Moldova.",
+                "Moldova",
+                120,
+                Mission.TYPE_CULTURAL);
+        mission2.addObjective("Vizitează mănăstirile pictate din Moldova");
+        mission2.addObjective("Explorează Palatul Culturii din Iași");
+        availableMissions.add(mission2);
         
         // Muntenia
-        drawRegionPolygon("muntenia", getRegionCoordinates("muntenia"), 
-                getResources().getColor(R.color.rom_region_muntenia));
-        
-        // Dobrogea
-        drawRegionPolygon("dobrogea", getRegionCoordinates("dobrogea"), 
-                getResources().getColor(R.color.rom_region_dobrogea));
-        
-        // Oltenia
-        drawRegionPolygon("oltenia", getRegionCoordinates("oltenia"), 
-                getResources().getColor(R.color.rom_region_oltenia));
-        
-        // Banat
-        drawRegionPolygon("banat", getRegionCoordinates("banat"), 
-                getResources().getColor(R.color.rom_region_banat));
-        
-        // Crisana
-        drawRegionPolygon("crisana", getRegionCoordinates("crisana"), 
-                getResources().getColor(R.color.rom_region_crisana));
-        
-        // Maramures
-        drawRegionPolygon("maramures", getRegionCoordinates("maramures"), 
-                getResources().getColor(R.color.rom_region_maramures));
-        
-        // Bucovina
-        drawRegionPolygon("bucovina", getRegionCoordinates("bucovina"), 
-                getResources().getColor(R.color.rom_region_bucovina));
+        Mission mission3 = new Mission(
+                "bucharest_adventure",
+                "Aventură în București",
+                "Explorează capitala României și descoperă atracțiile sale principale.",
+                "Muntenia",
+                100,
+                Mission.TYPE_EXPLORATION);
+        mission3.addObjective("Vizitează Palatul Parlamentului");
+        mission3.addObjective("Explorează Centrul Vechi");
+        mission3.addObjective("Descoperă Muzeul Satului");
+        mission3.setCityName("Bucuresti");
+        availableMissions.add(mission3);
     }
     
-    private void drawRegionPolygon(String regionId, LatLng[] coordinates, int color) {
-        if (googleMap == null || coordinates == null) return;
+    /**
+     * Toggle discovery mode for finding missions and points of interest
+     */
+    private void toggleDiscoveryMode() {
+        isDiscoveryMode = !isDiscoveryMode;
         
-        // Create polygon with improved styling
-        PolygonOptions polygonOptions = new PolygonOptions()
-                .strokeColor(Color.WHITE)  // White border for better contrast
-                .strokeWidth(2.5f)         // Slightly thicker border
-                .fillColor(color & 0x4FFFFFFF); // Semi-transparent fill (31% opacity)
-        
-        for (LatLng coordinate : coordinates) {
-            polygonOptions.add(coordinate);
+        if (isDiscoveryMode) {
+            Toast.makeText(this, "Mod de descoperire activat! Caută locuri noi și misiuni ascunse.", 
+                Toast.LENGTH_SHORT).show();
+            
+            discoverFab.setIconTint(ContextCompat.getColorStateList(this, R.color.purple_500));
+            discoverFab.setText("Mod activ");
+            
+            // Animate the button
+            AnimatorSet animatorSet = new AnimatorSet();
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(discoverFab, "scaleX", 1f, 1.1f, 1f);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(discoverFab, "scaleY", 1f, 1.1f, 1f);
+            scaleX.setDuration(500);
+            scaleY.setDuration(500);
+            animatorSet.playTogether(scaleX, scaleY);
+            animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+            animatorSet.start();
+            
+            // Pulse mission markers
+            if (googleMap != null) {
+                pulseMissionMarkers(true);
+            }
+        } else {
+            discoverFab.setIconTint(ContextCompat.getColorStateList(this, R.color.black));
+            discoverFab.setText("Descoperă");
+            
+            // Stop pulsing markers
+            if (googleMap != null) {
+                pulseMissionMarkers(false);
+            }
+        }
+    }
+    
+    /**
+     * Make mission markers pulse to highlight them
+     */
+    private void pulseMissionMarkers(boolean enabled) {
+        if (missionMarkers.isEmpty()) {
+            addMissionMarkers();
         }
         
-        // Add the polygon to the map and store reference
-        com.google.android.gms.maps.model.Polygon polygon = googleMap.addPolygon(polygonOptions);
+        for (Marker marker : missionMarkers.values()) {
+            if (enabled) {
+                // Create a repeating animation on a background thread
+                final Handler handler = new Handler();
+                final Runnable runnable = new Runnable() {
+                    float hue = 0;
+                    
+                    @Override
+                    public void run() {
+                        if (!isDiscoveryMode) return;
+                        
+                        // Change marker color
+                        hue = (hue + 15) % 360;
+                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(hue));
+                        
+                        // Schedule next animation frame
+                        handler.postDelayed(this, 300);
+                    }
+                };
+                
+                handler.post(runnable);
+            } else {
+                // Reset to default color
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            }
+        }
+    }
+    
+    /**
+     * Add markers for available missions
+     */
+    private void addMissionMarkers() {
+        if (googleMap == null) return;
         
-        // Set region ID as tag for identifying in click events
-        polygon.setTag(regionId);
+        // Clear existing mission markers
+        for (Marker marker : missionMarkers.values()) {
+            marker.remove();
+        }
+        missionMarkers.clear();
         
-        // Add click listener to the map
-        if (!regionClickListenerAdded) {
-            regionClickListenerAdded = true;
-            googleMap.setOnPolygonClickListener(clickedPolygon -> {
-                String clickedRegionId = (String) clickedPolygon.getTag();
-                if (clickedRegionId != null) {
-                    selectRegion(clickedRegionId);
+        // Add new markers for available missions
+        for (Mission mission : availableMissions) {
+            // Get appropriate position for the mission marker
+            LatLng position = getMissionPosition(mission);
+            
+            if (position != null) {
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(position)
+                        .title(mission.getTitle())
+                        .snippet("Misiune: " + mission.getDescription())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                
+                Marker marker = googleMap.addMarker(markerOptions);
+                marker.setTag(mission.getId()); // Store mission ID in marker tag
+                missionMarkers.put(mission.getId(), marker);
+            }
+        }
+    }
+    
+    /**
+     * Get position for a mission marker
+     */
+    private LatLng getMissionPosition(Mission mission) {
+        String cityName = mission.getCityName();
+        
+        // Use the region center if no specific city
+        if (cityName.equalsIgnoreCase(mission.getRegionId())) {
+            return regionCenters.get(mission.getRegionId());
+        }
+        
+        // Otherwise, use specific city coordinates
+        switch (cityName.toLowerCase()) {
+            case "bucuresti": return new LatLng(44.4268, 26.1025);
+            case "cluj-napoca": case "cluj": return new LatLng(46.7712, 23.6236);
+            case "brasov": return new LatLng(45.6427, 25.5887);
+            case "sibiu": return new LatLng(45.7983, 24.1256);
+            case "iasi": return new LatLng(47.1585, 27.6014);
+            case "constanta": return new LatLng(44.1598, 28.6348);
+            case "timisoara": return new LatLng(45.7489, 21.2087);
+            case "alba iulia": return new LatLng(46.0470, 23.5858);
+            case "oradea": return new LatLng(47.0465, 21.9189);
+            default: return regionCenters.get(mission.getRegionId());
+        }
+    }
+    
+    /**
+     * Setup search functionality
+     */
+    private void setupSearchBar() {
+        if (searchView != null) {
+            // Configure SearchView
+            searchView.setQueryHint("Caută regiuni, orașe...");
+            searchView.setIconifiedByDefault(false);
+            
+            // Make search bar more visible
+            View searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_plate);
+            if (searchPlate != null) {
+                searchPlate.setBackgroundColor(Color.WHITE);
+            }
+            
+            // Set search icon color for better visibility
+            ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+            if (searchIcon != null) {
+                searchIcon.setColorFilter(Color.BLACK);
+            }
+            
+            // Set text color for better visibility
+            EditText searchText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+            if (searchText != null) {
+                searchText.setTextColor(Color.BLACK);
+                searchText.setHintTextColor(Color.GRAY);
+            }
+            
+            // Set up search listener
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    performSearch(query);
+                    searchView.clearFocus(); // Hide keyboard
+                    return true;
+                }
+                
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    // Could implement suggestions here
+                    return false;
+                }
+            });
+        }
+    }
+    
+    /**
+     * Perform search based on user query
+     */
+    private void performSearch(String query) {
+        // Check for regions first
+        for (String regionName : regionCenters.keySet()) {
+            if (regionName.toLowerCase().contains(query.toLowerCase())) {
+                // Found a region match
+                selectRegion(regionName);
+                return;
+            }
+        }
+        
+        // Check for cities
+        if (searchForCity(query)) {
+            return;
+        }
+        
+        // No matches found
+        Toast.makeText(this, "Nu am găsit rezultate pentru: " + query, Toast.LENGTH_SHORT).show();
+    }
+    
+    /**
+     * Search for a city by name
+     * @return true if found and centered the map on it
+     */
+    private boolean searchForCity(String cityName) {
+        // Map of city names to their coordinates and region
+        Map<String, Object[]> cityData = new HashMap<>();
+        
+        // Add major cities with their coordinates and region
+        cityData.put("bucuresti", new Object[]{new LatLng(44.4268, 26.1025), "Muntenia"});
+        cityData.put("cluj-napoca", new Object[]{new LatLng(46.7712, 23.6236), "Transilvania"});
+        cityData.put("cluj", new Object[]{new LatLng(46.7712, 23.6236), "Transilvania"});
+        cityData.put("timisoara", new Object[]{new LatLng(45.7489, 21.2087), "Banat"});
+        cityData.put("iasi", new Object[]{new LatLng(47.1585, 27.6014), "Moldova"});
+        cityData.put("constanta", new Object[]{new LatLng(44.1598, 28.6348), "Dobrogea"});
+        cityData.put("brasov", new Object[]{new LatLng(45.6427, 25.5887), "Transilvania"});
+        cityData.put("craiova", new Object[]{new LatLng(44.3302, 23.7949), "Oltenia"});
+        cityData.put("sibiu", new Object[]{new LatLng(45.7983, 24.1256), "Transilvania"});
+        cityData.put("oradea", new Object[]{new LatLng(47.0465, 21.9189), "Crisana"});
+        
+        // Check if the search matches any city
+        for (Map.Entry<String, Object[]> entry : cityData.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(cityName.toLowerCase())) {
+                // Found a match, center map and show info
+                LatLng position = (LatLng) entry.getValue()[0];
+                String region = (String) entry.getValue()[1];
+                
+                // Center map on city with higher zoom
+                googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(position, 12f),
+                    1000,
+                    null
+                );
+                
+                // Show city info
+                showCityInfo(entry.getKey(), region);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    /**
+     * Setup region filter chips to filter by regions
+     */
+    private void setupRegionFilters() {
+        regionFilterChipGroup = findViewById(R.id.regionFilterChipGroup);
+        if (regionFilterChipGroup == null) return;
+        
+        // Set up listener for filtering by region
+        regionFilterChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            // Prevent responding to programmatic changes
+            if (isUpdatingChipSelection) return;
+            
+            if (checkedId == View.NO_ID) {
+                // Revert to showing all regions if no chip is selected
+                showAllRegions();
+                return;
+            }
+            
+            // Handle region selection based on the selected chip
+            if (checkedId == R.id.allRegionsChip) {
+                showAllRegions();
+            } else if (checkedId == R.id.transylvaniaChip) {
+                filterByRegion("Transilvania");
+            } else if (checkedId == R.id.moldovaChip) {
+                filterByRegion("Moldova");
+            } else if (checkedId == R.id.munteniaChip) {
+                filterByRegion("Muntenia");
+            } else if (checkedId == R.id.olteniaChip) {
+                filterByRegion("Oltenia");
+            } else if (checkedId == R.id.dobrogeaChip) {
+                filterByRegion("Dobrogea");
+            } else if (checkedId == R.id.banatChip) {
+                filterByRegion("Banat");
+            } else if (checkedId == R.id.crisanaChip) {
+                filterByRegion("Crisana");
+            } else if (checkedId == R.id.maramuresChip) {
+                filterByRegion("Maramures");
+            } else if (checkedId == R.id.bucovinaChip) {
+                filterByRegion("Bucovina");
+            }
+        });
+    }
+    
+    /**
+     * Show all regions on the map
+     */
+    private void showAllRegions() {
+        // Clear any filtering
+        if (googleMap != null) {
+            // Reset the map view to show all of Romania
+            LatLng romaniaCenter = new LatLng(45.9443, 25.0094);
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(romaniaCenter, 6.5f));
+            
+            // Reset any highlighted regions
+            for (Map.Entry<String, com.google.android.gms.maps.model.Polygon> entry : regionPolygons.entrySet()) {
+                entry.getValue().setStrokeWidth(2);
+            }
+            
+            // Hide any opened info windows
+            if (bottomSheetBehavior != null) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            }
+            
+            currentRegion = null;
+        }
+    }
+    
+    /**
+     * Filter the map view to show only the selected region
+     * @param regionId The ID of the region to focus on
+     */
+    private void filterByRegion(String regionId) {
+        if (googleMap != null && regionId != null) {
+            // Select and highlight the region
+            selectRegion(regionId);
+            
+            // Close any open dialogs
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }
+    }
+
+    /**
+     * Animă un marker când este selectat
+     */
+    private void animateMarker(Marker marker) {
+        // Scale animation
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Scale original marker
+                    LatLng startPosition = marker.getPosition();
+                    LatLng endPosition = new LatLng(
+                            startPosition.latitude,
+                            startPosition.longitude
+                    );
+                    
+                    // Start with marker at current position
+                    marker.setAnchor(0.5f, 0.5f);
+                    
+                    // Pulse animation
+                    android.animation.ValueAnimator pulseAnim = android.animation.ValueAnimator.ofFloat(1f, 1.2f, 1f);
+                    pulseAnim.setDuration(400);
+                    pulseAnim.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+                    
+                    pulseAnim.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(android.animation.ValueAnimator animation) {
+                            try {
+                                float scale = (float)animation.getAnimatedValue();
+                                marker.setAlpha(1.0f); // Make sure it's fully visible
+                            } catch (Exception e) {
+                                Log.e(TAG, "Error in marker animation: " + e.getMessage());
+                            }
+                        }
+                    });
+                    
+                    pulseAnim.start();
+                    
+                } catch (Exception e) {
+                    Log.e(TAG, "Error animating marker: " + e.getMessage());
+                }
+            }
+        });
+    }
+    
+    /**
+     * Show attraction info dialog
+     */
+    private void showAttractionInfo(String attractionName, String regionName, String description) {
+        // Create dialog to show attraction info
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_attraction_info, null);
+        
+        // If layout doesn't exist, fall back to city info layout
+        if (dialogView == null) {
+            showCityInfo(attractionName, regionName);
+            return;
+        }
+        
+        // Set up dialog views
+        TextView nameText = dialogView.findViewById(R.id.attractionNameText);
+        TextView regionText = dialogView.findViewById(R.id.attractionRegionText);
+        TextView descriptionText = dialogView.findViewById(R.id.attractionDescriptionText);
+        ImageView imageView = dialogView.findViewById(R.id.attractionImageView);
+        
+        if (nameText != null) nameText.setText(attractionName);
+        if (regionText != null) regionText.setText(regionName);
+        if (descriptionText != null) descriptionText.setText(description);
+        
+        // Set image if available (based on name)
+        if (imageView != null) {
+            int imageResId = getAttractionImageResource(attractionName);
+            if (imageResId != 0) {
+                imageView.setImageResource(imageResId);
+                imageView.setVisibility(View.VISIBLE);
+            } else {
+                imageView.setVisibility(View.GONE);
+            }
+        }
+        
+        // Set up visit button
+        View visitButton = dialogView.findViewById(R.id.visitAttractionButton);
+        if (visitButton != null) {
+            visitButton.setOnClickListener(v -> {
+                // TODO: Implement opening attraction details
+                Toast.makeText(this, "Vizitare " + attractionName, Toast.LENGTH_SHORT).show();
+                if (dialog != null) dialog.dismiss();
+            });
+        }
+        
+        // Set up close button
+        View closeButton = dialogView.findViewById(R.id.closeButton);
+        if (closeButton != null) {
+            closeButton.setOnClickListener(v -> {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
                 }
             });
         }
         
-        // Make polygons clickable
-        polygon.setClickable(true);
-        
-        // Optional: Store the polygon reference for later use if needed
-        if (regionPolygons == null) {
-            regionPolygons = new HashMap<>();
+        // Show dialog
+        builder.setView(dialogView);
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
         }
-        regionPolygons.put(regionId, polygon);
+        dialog = builder.create();
+        dialog.show();
     }
-}
+    
+    /**
+     * Get image resource for an attraction (placeholder implementation)
+     */
+    private int getAttractionImageResource(String attractionName) {
+        // This would be replaced with actual image resources in a real app
+        if (attractionName.toLowerCase().contains("castel")) {
+            return R.drawable.placeholder_castle; // Placeholder, create this drawable
+        } else if (attractionName.toLowerCase().contains("mănăstire") || 
+                   attractionName.toLowerCase().contains("manastire") ||
+                   attractionName.toLowerCase().contains("biserica")) {
+            return R.drawable.placeholder_monastery; // Placeholder, create this drawable
+        } else if (attractionName.toLowerCase().contains("delta")) {
+            return R.drawable.placeholder_delta; // Placeholder, create this drawable
+        }
+        
+        return 0; // No image available
+    }
+
+    /**
+     * Adaugă un marker standard pentru un oraș
+     */
+    private void addCityMarker(LatLng position, String title, String region, float hue) {
+        if (googleMap == null) return;
+        
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(position)
+                .title(title)
+                .snippet(region)
+                .icon(BitmapDescriptorFactory.defaultMarker(hue));
+                
+        Marker marker = googleMap.addMarker(markerOptions);
+        marker.setTag("city:" + title);
+    }
+} 

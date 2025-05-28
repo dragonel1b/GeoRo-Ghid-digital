@@ -53,11 +53,11 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
                     android:src="@android:drawable/ic_menu_search"
-                    android:tint="#757575"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/search_icon_content_description" />
+                    android:contentDescription="@string/search_icon_content_description"
+                    app:tint="#757575" />
 
                 <EditText
                     android:id="@+id/searchEditText"
@@ -68,7 +68,7 @@
                     android:hint="@string/search_recipes_hint"
                     android:importantForAutofill="no"
                     android:inputType="text"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textColorHint="#9E9E9E"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/filterButton"
@@ -83,21 +83,11 @@
                     android:contentDescription="@string/filter_recipes"
                     android:padding="8dp"
                     android:src="@android:drawable/ic_menu_sort_by_size"
-                    android:tint="#757575"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#757575" />
 
-                <ImageButton
-                    android:id="@+id/advancedSearchButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Căutare avansată"
-                    android:src="@android:drawable/ic_menu_search"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -173,7 +163,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:padding="4dp"
+            android:padding="8dp"
+            android:layoutAnimation="@anim/layout_animation"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
+            android:scrollbarSize="4dp"
+            android:overScrollMode="ifContentScrolls"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

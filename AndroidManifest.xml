@@ -264,6 +264,12 @@
             android:theme="@style/Theme.MyApplication" />
 
         <activity
+            android:name=".Joc1.RomQuestChallengeActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.MyApplication" />
+
+        <activity
             android:name=".Joc1.RomAchievementsActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -438,14 +444,23 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".recipe.ui.AddRecipeActivity"
+            android:exported="false"
+            android:parentActivityName=".recipe.ui.RecipeListActivity" />
+        <activity
             android:name=".recipe.ui.RecipeDetailActivity"
             android:exported="false"
             android:parentActivityName=".recipe.ui.RecipeListActivity" />
         <activity
-            android:name=".ui.RomaniaMapActivity"
-            android:exported="false"
+            android:name=".recipe.ui.CulinaryMapActivity"
+            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.RomaniaMapLauncher"
             android:exported="true"

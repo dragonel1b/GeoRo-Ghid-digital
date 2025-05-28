@@ -572,7 +572,7 @@ public class ClujNapoca extends EnhancedCityActivity {
 
         setTitle("Cluj-Napoca");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -607,7 +607,7 @@ public class ClujNapoca extends EnhancedCityActivity {
                 "Bucătăria transilvăneană se regăsește în Cluj-Napoca prin preparate tradiționale precum varza a la Cluj, gulaș, ciorbă ardelenească, plăcinte, cozonaci și kürtőskalács (cozonac secuiesc). Restaurantele din centrul vechi oferă o experiență culinară autentică, iar vinurile din podgoriile Transilvaniei sunt disponibile în enoteicile locale.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

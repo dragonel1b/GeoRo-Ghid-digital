@@ -521,19 +521,6 @@ public class Iasi extends EnhancedCityActivity {
         setTitle("Iași");
 
         // Add sections
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Istorie și Tradiție",
-                "Iași, cunoscută în antichitate sub numele de Tomis, este cel mai vechi oraș atestat de pe teritoriul României. Fondată în secolul al VI-lea î.Hr. de coloniștii greci din Milet, a fost un important centru comercial și cultural în perioada romană, iar mai târziu a devenit parte a Imperiului Bizantin.",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Geografie",
-                "Iași este situată în sud-estul României, pe coasta Mării Negre. Orașul se întinde pe o suprafață de aproximativ 124 km² și include numeroase lacuri precum Siutghiol și Tăbăcărie. Clima este temperat-continentală cu influențe maritime, cu veri călduroase și ierni blânde.",
-                true
-        );
 
         addSection(
                 findViewById(R.id.cityContentContainer),

@@ -326,6 +326,23 @@ public class Oltenia extends RegionTemplate {
 
     private void loadCheckboxStates() {
         String userId = getCurrentUserId();
+        
+        // Iterate through all checkboxes in the layout
+        for (int i = 1; i <= 5; i++) {
+            int checkboxId = getResources().getIdentifier("checkbox" + i, "id", getPackageName());
+            if (checkboxId != 0) {  // The checkbox exists in the layout
+                CheckBox checkbox = findViewById(checkboxId);
+                if (checkbox != null) {
+                    // The key format is: userId_checkboxId_REGION
+                    String key = userId + "_" + getResources().getResourceEntryName(checkboxId) + "_" + REGION;
+                    boolean isChecked = sharedPreferences.getBoolean(key, false);
+                    checkbox.setChecked(isChecked);
+                }
+            }
+        }
+        
+        // Update points display after loading checkboxes
+        updatePointsDisplay();
     }
 
     public void onCheckboxClicked(View view) {
@@ -333,11 +350,7 @@ public class Oltenia extends RegionTemplate {
             CheckBox checkBox = (CheckBox) view;
             boolean isChecked = checkBox.isChecked();
             
-            // Adaugă puncte când este bifat
-            if (isChecked) {
-                pointsManager.addPoints(this, REGION.toLowerCase(), 10);
-            }
-            
+            // Folosim doar updateLandmarkStatus pentru a gestiona punctele
             pointsManager.updateLandmarkStatus(this, REGION.toLowerCase(), isChecked);
 
             // Save state with user ID
@@ -427,6 +440,19 @@ public class Oltenia extends RegionTemplate {
     private void saveCheckboxStates() {
         String userId = getCurrentUserId();
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        
+        // Iterate through all checkboxes in the layout
+        for (int i = 1; i <= 5; i++) {
+            int checkboxId = getResources().getIdentifier("checkbox" + i, "id", getPackageName());
+            if (checkboxId != 0) {  // The checkbox exists in the layout
+                CheckBox checkbox = findViewById(checkboxId);
+                if (checkbox != null) {
+                    // The key format is: userId_checkboxId_REGION
+                    String key = userId + "_" + getResources().getResourceEntryName(checkboxId) + "_" + REGION;
+                    editor.putBoolean(key, checkbox.isChecked());
+                }
+            }
+        }
         
         editor.apply();
     }

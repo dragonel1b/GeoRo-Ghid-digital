@@ -618,7 +618,7 @@ public class Targoviste extends EnhancedCityActivity {
 
         setTitle("Târgoviște");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -653,7 +653,7 @@ public class Targoviste extends EnhancedCityActivity {
                 "Bucătăria tradițională din zona Târgoviște reflectă bogăția și diversitatea regiunii. Preparate locale populare includ: ciorba de burtă dâmbovițeană, sarmalele în foi de viță, pastrama de oaie, plăcinta cu brânză în foi subțiri, și cozonacul tradițional. Restaurantele din zonă oferă preparate autentice românești, iar pensiunile agroturistice din împrejurimi oferă mâncăruri preparate după rețete tradiționale, folosind ingrediente locale. De asemenea, zona este cunoscută pentru producția de prune și țuica tradițională de Dâmbovița.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

@@ -498,12 +498,7 @@ public class Sapanta extends EnhancedCityActivity {
         setTitle("Săpânța");
 
         // Add sections
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Istorie și Tradiție",
-                "Săpânța este o comună situată în partea de nord a județului Maramureș, renumită în întreaga lume pentru Cimitirul Vesel. Localitate cu o istorie bogată, Săpânța păstrează tradițiile maramureșene autentice, iar locuitorii continuă să practice meșteșuguri tradiționale precum sculptura în lemn, țesutul și prelucrarea lânii.",
-                true
-        );
+
 
         addSection(
                 findViewById(R.id.cityContentContainer),

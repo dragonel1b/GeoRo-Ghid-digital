@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TaraTara.TaraTaraVremOstasi">
+
+    <!-- Container pentru GameView -->
+    <FrameLayout
+        android:id="@+id/gameViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Container pentru mini-jocul de sparge zidul -->
+    <FrameLayout
+        android:id="@+id/minigameContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <com.example.myapplication.TaraTara.WallBreakMinigame
+            android:id="@+id/wallBreakMinigame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <!-- Text pentru instrucțiuni și mesaje joc -->
+    <TextView
+        android:id="@+id/gameInstructionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#88000000"
+        android:padding="16dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:visibility="gone" />
+        
+</FrameLayout> 

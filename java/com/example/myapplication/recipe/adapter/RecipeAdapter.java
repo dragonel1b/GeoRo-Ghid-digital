@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +17,7 @@ import com.example.myapplication.recipe.model.Recipe;
 import com.example.myapplication.recipe.repository.RecipeRepository;
 import com.example.myapplication.recipe.ui.RecipeDetailActivity;
 import com.example.myapplication.utils.TransitionHelper;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,8 +137,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         private final TextView recipeDescriptionTextView;
         private final TextView prepTimeTextView;
         private final TextView difficultyTextView;
-        private final ImageButton favoriteButton;
+        private final ShapeableImageView favoriteButton;
         private final TextView categoryTextView;
+        private final TextView regionTextView;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -149,6 +150,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             difficultyTextView = itemView.findViewById(R.id.difficultyTextView);
             favoriteButton = itemView.findViewById(R.id.favoriteButton);
             categoryTextView = itemView.findViewById(R.id.categoryTextView);
+            regionTextView = itemView.findViewById(R.id.regionTextView);
             
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
@@ -164,9 +166,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public void bind(Recipe recipe) {
             recipeTitleTextView.setText(recipe.getTitle());
             recipeDescriptionTextView.setText(recipe.getDescription());
-            prepTimeTextView.setText(recipe.getPreparationTime() + " min");
+            prepTimeTextView.setText(recipe.getFormattedTime());
             difficultyTextView.setText(recipe.getDifficulty());
             categoryTextView.setText(recipe.getCategory());
+            regionTextView.setText(recipe.getRegion());
             
             // Set image resource if available, otherwise use placeholder
             if (recipe.getImageResourceId() != 0) {
@@ -178,25 +181,58 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             // Set favorite button state and click listener
             updateFavoriteButton(recipe);
             favoriteButton.setOnClickListener(v -> {
-                recipe.setFavorite(!recipe.isFavorite());
-                recipeRepository.updateRecipe(recipe);
-                updateFavoriteButton(recipe);
-                
-                // Show toast
-                String message = recipe.isFavorite() ? 
-                        context.getString(R.string.added_to_favorites) : 
-                        context.getString(R.string.removed_from_favorites);
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                // Animate the favorite button
+                favoriteButton.animate()
+                        .scaleX(0.7f)
+                        .scaleY(0.7f)
+                        .setDuration(150)
+                        .withEndAction(() -> {
+                            recipe.setFavorite(!recipe.isFavorite());
+                            recipeRepository.updateRecipe(recipe);
+                            updateFavoriteButton(recipe);
+                            
+                            // Animate back to normal size
+                            favoriteButton.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(150)
+                                    .start();
+                            
+                            // Show toast
+                            String message = recipe.isFavorite() ? 
+                                    context.getString(R.string.added_to_favorites) : 
+                                    context.getString(R.string.removed_from_favorites);
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                        })
+                        .start();
             });
         }
         
         private void updateFavoriteButton(Recipe recipe) {
+            int resourceId = recipe.isFavorite() ? R.drawable.ic_star_filled : R.drawable.ic_star_empty;
+            favoriteButton.setImageResource(resourceId);
+            
+            // Update content description
+            favoriteButton.setContentDescription(
+                recipe.isFavorite() 
+                    ? context.getString(R.string.remove_from_favorites_description) 
+                    : context.getString(R.string.add_to_favorites_description)
+            );
+            
+            // Update alpha for better visual feedback
+            favoriteButton.setAlpha(recipe.isFavorite() ? 1.0f : 0.8f);
+            
+            // Add rotation effect
             if (recipe.isFavorite()) {
-                favoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
-                favoriteButton.setContentDescription(context.getString(R.string.remove_from_favorites_description));
+                favoriteButton.animate()
+                    .rotation(360f)
+                    .setDuration(300)
+                    .start();
             } else {
-                favoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
-                favoriteButton.setContentDescription(context.getString(R.string.add_to_favorites_description));
+                favoriteButton.animate()
+                    .rotation(0f)
+                    .setDuration(300)
+                    .start();
             }
         }
     }

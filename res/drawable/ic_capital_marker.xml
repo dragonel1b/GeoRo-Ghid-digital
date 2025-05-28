@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="40dp"
+    android:viewportWidth="28"
+    android:viewportHeight="40">
+    
+    <!-- Formă bază marker/pin -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,0C6.3,0 0,6.3 0,14c0,8.75 14,26 14,26s14,-17.25 14,-26C28,6.3 21.7,0 14,0z"/>
+        
+    <!-- Icon Capitală (Arc de Triumf stilizat) -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M20,9H8v2h1v4h2v-4h2v10h-1v2h6v-2h-1V11h2v4h2v-4h1V9zM14,23c-0.83,0 -1.5,-0.67 -1.5,-1.5S13.17,20 14,20s1.5,0.67 1.5,1.5S14.83,23 14,23z"/>
+</vector> 

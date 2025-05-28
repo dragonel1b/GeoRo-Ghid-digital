@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="36dp"
+    android:viewportWidth="24"
+    android:viewportHeight="36">
+    
+    <!-- Formă bază marker/pin -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,0C5.4,0 0,5.4 0,12c0,7.5 12,24 12,24s12,-16.5 12,-24C24,5.4 18.6,0 12,0z"/>
+        
+    <!-- Icon Castel -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M15,9v2h2V9h-2zM7,9v2h2V9H7zM19,6h-1v1h-2V6h-1V4l2,-2l2,2V6zM13,6h-2V5h2V6zM9,6H7V5h2V6zM5,6H4V4l2,-2l2,2v2H7v1H5V6zM7,18v-5h2v5H7zM11,22V11h2v11H11zM15,18v-5h2v5H15zM19,22H5v-2h14V22z"/>
+</vector> 

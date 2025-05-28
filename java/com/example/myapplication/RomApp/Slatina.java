@@ -584,20 +584,6 @@ public class Slatina extends EnhancedCityActivity {
 
         addSection(
                 findViewById(R.id.cityContentContainer),
-                "Atracții Turistice",
-                "Principalele atracții includ Centrul Vechi (cu clădiri istorice), Muzeul Județean Olt, Catedrala Episcopală, Podul peste Olt (un reper ingineresc important) și Dealul Grădiște, care oferă o panoramă asupra orașului și loc de agrement (Parcul Tineretului).",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Cultură și Economie",
-                "Slatina este cunoscută în special pentru uzina ALRO, cel mai mare producător de aluminiu din Europa Centrală și de Est (excluzând Rusia). Orașul are și o viață culturală activă, cu Centrul Cultural \"Eugen Ionescu\", Biblioteca Județeană \"Ion Minulescu\" și diverse festivaluri, precum cel de umor \"Oltenii & Restu' Lumii\".",
-                false
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
                 "Gastronomie",
                 "Gastronomia locală include preparate tradiționale muntenești. O specialitate renumită este halvița și braga produse de cofetăria \"Atletul Albanez\", una dintre cele mai vechi din România, fondată în 1912. De asemenea, se pot degusta plăcinte și produse de patiserie locale.",
                 false

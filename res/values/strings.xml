@@ -113,6 +113,7 @@
     <string name="game_title">Țară, Țară, Vrem Ostași!</string>
     <string name="game_subtitle">Joc tradițional românesc</string>
     <string name="round_counter">Runda: %1$d</string>
+    <string name="round_counter_format">Runda: %1$d</string>
     <string name="player_team_1">Echipa ta</string>
     <string name="enemy_team">Echipa adversă</string>
     <string name="soldiers_count">Soldați: %1$d</string>
@@ -122,6 +123,16 @@
     <string name="answer_button">Răspunde</string>
     <string name="swipe_arrow_description">Indicator direcție de glisare</string>
     <string name="play_again">Joacă din nou</string>
+    
+    <!-- Mini-game strings -->
+    <string name="chase_prompt">Încearcă să spargi zidul!</string>
+    <string name="chase_player_instruction">Trage în jos pentru a străpunge zidul!</string>
+    <string name="chase_ai_instruction">Adversarul încearcă să spargă zidul...</string>
+    <string name="chase_success">Zidul a fost spart!</string>
+    <string name="chase_failure">Nu ai reușit să spargi zidul!</string>
+    <string name="morale_up">Moralul echipei a crescut!</string>
+    <string name="morale_down">Moralul echipei a scăzut!</string>
+    <string name="swipe_instructions">Glisează în direcția indicată de săgeată!</string>
 
     <!-- Resource Labels with Format Parameters -->
     <string name="rom_fuel_label">%1$d L</string>
@@ -129,47 +140,48 @@
     <string name="rom_food_label">%1$d kg</string>
 
     <!-- Quest Strings -->
-    <string name="quest_title">Misiuni și Provocări</string>
-    <string name="quest_submit_answer">Răspunde la provocare</string>
-    <string name="quest_cancel">Anulează</string>
-    <string name="quest_challenge_title">Provocare</string>
-    <string name="quest_answer_hint">Ești sigur că vrei să marchezi această misiune ca finalizată?</string>
-    <string name="quest_points_earned">Ai câștigat 25 de Puncte Înțelepte!</string>
+    <string name="quest_title">Căutarea Tainelor României</string>
+    <string name="quest_completed_message">Felicitări! Ai completat această misiune.\n\nAi fost recompensat cu 25 de Puncte de Înțelepciune pentru cunoașterea ta despre România.</string>
     <string name="quest_objectives_title">Obiective:</string>
+    <string name="quest_start_challenge">Începe Provocarea</string>
+    <string name="quest_cancel">Renunță</string>
+    <string name="quest_points_earned">Ai câștigat 25 Puncte de Înțelepciune!</string>
+    <string name="quest_challenge_title">Provocare</string>
+    <string name="quest_answer_hint">Introdu răspunsul</string>
 
     <!-- Quest 1 -->
-    <string name="quest1_title">Misterele Sibiului Medieval</string>
-    <string name="quest1_description">Descoperă secretele Podului Minciunilor și ale Pieței Mari</string>
-    <string name="quest1_objective1">Găsește și fotografiază cele mai vechi 3 case din Piața Mare</string>
-    <string name="quest1_objective2">Descoperă legenda Podului Minciunilor</string>
-    <string name="quest1_objective3">Identifică simbolurile breslelor medievale</string>
+    <string name="quest1_title">Tainele Transilvaniei</string>
+    <string name="quest1_description">Descoperă tradițiile și cultura transilvăneană într-o aventură captivantă.</string>
+    <string name="quest1_objective1">Identifică specificul cultural al Transilvaniei</string>
+    <string name="quest1_objective2">Află despre principalele așezări medievale</string>
+    <string name="quest1_objective3">Descoperă tradițiile populare</string>
 
     <!-- Quest 2 -->
-    <string name="quest2_title">Comoara Bisericii Negre</string>
-    <string name="quest2_description">Explorează cel mai mare edificiu gotic din Europa de Est</string>
-    <string name="quest2_objective1">Descoperă simbolistica vitraliilor</string>
-    <string name="quest2_objective2">Găsește covorul oriental cel mai vechi</string>
+    <string name="quest2_title">Marea Unire</string>
+    <string name="quest2_description">Pornește într-o călătorie fascinantă prin istoria formării României Mari.</string>
+    <string name="quest2_objective1">Descoperă momentele cheie ale Marii Uniri</string>
+    <string name="quest2_objective2">Identifică personalitățile care au contribuit la acest eveniment crucial</string>
 
     <!-- Quest 3 -->
-    <string name="quest3_title">Legendele Clujului</string>
-    <string name="quest3_description">Descoperă poveștile ascunse ale orașului</string>
-    <string name="quest3_objective1">Vizitează casa lui Matei Corvin</string>
-    <string name="quest3_objective2">Găsește statuia Sf. Gheorghe</string>
-    <string name="quest3_objective3">Explorează criptele Bisericii Sf. Mihail</string>
-    <string name="quest3_objective4">Află despre Turnul Croitorilor</string>
+    <string name="quest3_title">Bucate Românești</string>
+    <string name="quest3_description">O incursiune în tainele bucătăriei tradiționale din toate regiunile țării.</string>
+    <string name="quest3_objective1">Descoperă rețete tradiționale românești</string>
+    <string name="quest3_objective2">Identifică preparatele specifice fiecărei regiuni</string>
+    <string name="quest3_objective3">Află despre ingredientele autentice folosite</string>
+    <string name="quest3_objective4">Descoperă obiceiurile culinare de sărbători</string>
 
     <!-- Quest 4 -->
-    <string name="quest4_title">Orașele Olteniei</string>
-    <string name="quest4_description">Explorează frumusețea urbană a Olteniei</string>
-    <string name="quest4_objective1">Vizitează Centrul Vechi din Craiova</string>
-    <string name="quest4_objective2">Descoperă istoria Râmnicu Vâlcea</string>
+    <string name="quest4_title">Călătorie pe Dunăre</string>
+    <string name="quest4_description">Explorează frumusețile naturale ale Dunării și Delta Dunării.</string>
+    <string name="quest4_objective1">Descoperă fauna și flora unică a Deltei Dunării</string>
+    <string name="quest4_objective2">Identifică principalele obiective turistice din regiunea dunăreană</string>
 
     <!-- Quest 5 -->
-    <string name="quest5_title">Bucureștiul Interbelic</string>
-    <string name="quest5_description">Călătorește în timp prin arhitectura capitalei</string>
-    <string name="quest5_objective1">Identifică stilurile arhitecturale de pe Calea Victoriei</string>
-    <string name="quest5_objective2">Descoperă poveștile Ateneului Român</string>
-    <string name="quest5_objective3">Explorează Micul Paris al României</string>
+    <string name="quest5_title">Pe urmele lui Brâncoveanu</string>
+    <string name="quest5_description">Descoperă stilul arhitectural brâncovenesc și moștenirea lăsată de domnitorul martir.</string>
+    <string name="quest5_objective1">Află despre viața și sfârșitul tragic al lui Constantin Brâncoveanu</string>
+    <string name="quest5_objective2">Descoperă edificiile emblematice construite în stil brâncovenesc</string>
+    <string name="quest5_objective3">Identifică elementele definitorii ale stilului brâncovenesc</string>
 
     <!-- Main Menu Strings -->
     <string name="minigame_label">MINI-JOC ROMÂNIA</string>
@@ -281,6 +293,16 @@
     <string name="minigame_npc_quest_decline">Poate mai târziu</string>
     <string name="minigame_correct">Corect! Bravo!</string>
     <string name="minigame_wrong">Incorect. Încearcă din nou!</string>
+    <!-- New quiz strings -->
+    <string name="minigame_question_count">Întrebarea %1$d/%2$d</string>
+    <string name="minigame_consecutive_bonus">Răspunsuri consecutive! +5 bonus!</string>
+    <string name="minigame_exit_title">Ieșire</string>
+    <string name="minigame_exit_message">Ești sigur că vrei să părăsești quiz-ul? Progresul va fi pierdut.</string>
+    <string name="minigame_complete">Felicitări! Ai finalizat quiz-ul.\n\nPunctaj final: %d</string>
+    <string name="minigame_complete_title">Quiz finalizat</string>
+    <string name="minigame_next">Următoarea întrebare</string>
+    <string name="minigame_feedback_desc">Indicator răspuns</string>
+    <string name="continue_text">Continuă</string>
     
     <!-- Moldova story -->
     <string name="toggle_sound">Activare/Dezactivare sunet</string>
@@ -331,8 +353,6 @@
     <string name="team_response">Echipa ta răspunde</string>
     <string name="victory">Victorie!</string>
     <string name="defeat">Înfrângere!</string>
-    <string name="chase_success">Prindere reușită!</string>
-    <string name="chase_failure">Prindere eșuată!</string>
     <string name="round_success">Rundă câștigată!</string>
     <string name="round_failure">Rundă pierdută!</string>
     <string name="player_success">Ai reușit să prinzi un soldat!</string>
@@ -342,12 +362,6 @@
     <string name="player_team_2">Echipa ta</string>
     <string name="tutorial_step1">Pasul 1: Alege un căpitan și formează echipa</string>
     <string name="tutorial_step2">Pasul 2: Strigă "Țară, Țară, vrem ostași!" pentru a începe jocul</string>
-    
-    <!-- WhatCanICookBottomSheet Strings -->
-    <string name="ingredients_added_count">%d ingrediente adăugate la lista de cumpărături</string>
-    <string name="undo">Anulează</string>
-    <string name="ingredient_chip_description">Ingredient: %s</string>
-    <string name="character_image">Imagine personaj</string>
 
     <!-- Transilvania Game Accessibility -->
     <string name="timer_desc">Timp rămas: %1$d secunde</string>
@@ -425,4 +439,11 @@
     <string name="category_snack">Gustare</string>
 
     <string name="learn_more">Află mai multe</string>
+
+    <string name="enemy_failed_response">Adversarul nu a răspuns!</string>
+    <string name="enemy_selected_soldier">%1$s a selectat un soldat</string>
+    <string name="player_caught_enemy">Ai prins un soldat inamic!</string>
+    <string name="player_failed_catch">Nu ai reușit să prinzi soldatul!</string>
+    <string name="enemy_caught_player">Adversarul a prins un soldat!</string>
+    <string name="enemy_failed_catch">Adversarul nu a reușit să prindă soldatul!</string>
 </resources>

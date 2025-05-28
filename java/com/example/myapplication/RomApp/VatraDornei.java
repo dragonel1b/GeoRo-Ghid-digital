@@ -506,7 +506,7 @@ public class VatraDornei extends EnhancedCityActivity {
 
         setTitle("Vatra Dornei");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class VatraDornei extends EnhancedCityActivity {
                 "Bucătăria tradițională din Vatra Dornei se remarcă prin preparate locale precum tochitura dorneneană, ciorba rădăuțeană, balmoșul și bulzul. Renumita brânză de burduf și cașcavalul afumat de Dorna sunt produse reprezentative pentru această zonă, alături de plăcinta cu afine și afinata, o băutură tradițională din fructe de pădure.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

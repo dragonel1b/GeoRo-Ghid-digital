@@ -572,7 +572,7 @@ public class Brasov extends EnhancedCityActivity {
 
         setTitle("Brașov");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -607,7 +607,7 @@ public class Brasov extends EnhancedCityActivity {
                 "Bucătăria brașoveană reflectă influențele germane, maghiare și românești din zonă. Specialități locale precum 'jumările brașovene', 'papara', 'caș afumat' și 'kurtos kalacs' pot fi savurate în restaurantele locale din Piața Sfatului și împrejurimi. Cofetăriile tradiționale oferă prăjituri specific săsești cum ar fi 'Hanklich' sau 'Sțrudel'.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

@@ -4,22 +4,132 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path
-        android:fillColor="#8D6E63"
-        android:pathData="M2,8h20v13H2z"/>
-    <path
-        android:fillColor="#4E342E"
-        android:pathData="M1,8h22v2H1z"/>
+    
+    <!-- Background -->
     <path
         android:fillColor="#3E2723"
-        android:pathData="M5,12h3v4H5z M16,12h3v4h-3z"/>
+        android:pathData="M0,0h24v24H0z"/>
+    
+    <!-- Wooden walls -->
     <path
-        android:fillColor="#FF9800"
-        android:pathData="M12,3L4,8h16L12,3z"/>
+        android:fillColor="#5D4037"
+        android:pathData="M2,5h20v17H2z"/>
+    
+    <!-- Ceiling beams -->
     <path
-        android:fillColor="#FFCC80"
-        android:pathData="M9,14h6v7H9z"/>
+        android:fillColor="#4E342E"
+        android:pathData="M1,5h22v1.5H1z"/>
     <path
-        android:fillColor="#E65100"
-        android:pathData="M10,16h4v1h-4z"/>
+        android:fillColor="#3E2723"
+        android:pathData="M1,5h1v17H1z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M22,5h1v17h-1z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M3,8h18v0.5H3z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M3,14h18v0.5H3z"/>
+    
+    <!-- Floor -->
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M2,20h20v2H2z"/>
+    
+    <!-- Bar counter -->
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M14,14h8v6h-8z"/>
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M14,14h8v1h-8z"/>
+    
+    <!-- Bar shelves with bottles -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M16,7h5v6h-5z"/>
+    <path
+        android:fillColor="#00BCD4"
+        android:fillAlpha="0.5"
+        android:pathData="M16.5,8h1v2h-1z"/>
+    <path
+        android:fillColor="#F44336"
+        android:fillAlpha="0.5"
+        android:pathData="M18,8h1v2h-1z"/>
+    <path
+        android:fillColor="#FFEB3B"
+        android:fillAlpha="0.5"
+        android:pathData="M19.5,8h1v2h-1z"/>
+    
+    <!-- Tables -->
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M4,14h6v1.5H4z"/>
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M5,15.5h0.5v4.5H5z"/>
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M8.5,15.5h0.5v4.5H8.5z"/>
+    
+    <!-- Chairs -->
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M3,16h1v4H3z"/>
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M10,16h1v4h-1z"/>
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M2.5,16h2v0.5h-2z"/>
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M9.5,16h2v0.5h-2z"/>
+    
+    <!-- Fireplace -->
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M5,7h4v6H5z"/>
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M6,8h2v3H6z"/>
+    <path
+        android:fillColor="#FFEB3B"
+        android:fillAlpha="0.7"
+        android:pathData="M6.5,8.5l1,1l-1,1z"/>
+    
+    <!-- Windows with moonlight -->
+    <path
+        android:fillColor="#263238"
+        android:pathData="M12,8h2v3h-2z"/>
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.3"
+        android:pathData="M12.2,8.2h1.6v2.6h-1.6z"/>
+    
+    <!-- Mugs on counter -->
+    <path
+        android:fillColor="#D7CCC8"
+        android:pathData="M15,13.5h1v0.5h-1z"/>
+    <path
+        android:fillColor="#D7CCC8"
+        android:pathData="M17,13.5h1v0.5h-1z"/>
+    <path
+        android:fillColor="#D7CCC8"
+        android:pathData="M19,13.5h1v0.5h-1z"/>
+    
+    <!-- Person silhouettes -->
+    <path
+        android:fillColor="#212121"
+        android:pathData="M3.5,12.5a1,0.8 0,1 0,2 0a1,0.8 0,1 0,-2 0z"/>
+    <path
+        android:fillColor="#212121"
+        android:pathData="M4,13.5v2.5"/>
+    <path
+        android:fillColor="#212121"
+        android:pathData="M9.5,12.5a1,0.8 0,1 0,2 0a1,0.8 0,1 0,-2 0z"/>
+    <path
+        android:fillColor="#212121"
+        android:pathData="M10,13.5v2.5"/>
 </vector> 

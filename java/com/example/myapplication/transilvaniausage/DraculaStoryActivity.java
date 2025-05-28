@@ -28,6 +28,7 @@ import android.view.animation.AlphaAnimation;
 import android.util.Log;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import android.view.HapticFeedbackConstants;
 
 public class DraculaStoryActivity extends AppCompatActivity {
     private TextView storyText;
@@ -156,23 +157,25 @@ public class DraculaStoryActivity extends AppCompatActivity {
     
     private void initializeAudio() {
         try {
-        // Initialize background music
-        backgroundMusic = MediaPlayer.create(this, R.raw.dark_ambient);
-        if (backgroundMusic != null) {
-            backgroundMusic.setLooping(true);
-            backgroundMusic.setVolume(0.2f, 0.2f);
-            backgroundMusic.start();
+            // Initialize background music
+            backgroundMusic = MediaPlayer.create(this, R.raw.dark_ambient);
+            if (backgroundMusic != null) {
+                backgroundMusic.setLooping(true);
+                backgroundMusic.setVolume(0.2f, 0.2f);
+                backgroundMusic.start();
             } else {
                 Log.e("DraculaStoryActivity", "Failed to create background music player");
-        }
-        
-        // Initialize sound effect player
-        soundEffect = MediaPlayer.create(this, R.raw.thunder);
+            }
+            
+            // Initialize sound effect player
+            soundEffect = MediaPlayer.create(this, R.raw.thunder);
             if (soundEffect == null) {
                 Log.e("DraculaStoryActivity", "Failed to create sound effect player");
             }
         } catch (Exception e) {
             Log.e("DraculaStoryActivity", "Error initializing audio: " + e.getMessage());
+            // Show a subtle notification to user that sound might not be available
+            Toast.makeText(this, "Unele efecte sonore ar putea să nu fie disponibile", Toast.LENGTH_SHORT).show();
         }
     }
     
@@ -258,18 +261,26 @@ public class DraculaStoryActivity extends AppCompatActivity {
     }
     
     private void toggleSound() {
-        isSoundEnabled = !isSoundEnabled;
-        
-        if (isSoundEnabled) {
-            soundToggleButton.setImageResource(R.drawable.ic_sound_on);
-            if (backgroundMusic != null && !backgroundMusic.isPlaying()) {
-                backgroundMusic.start();
+        try {
+            isSoundEnabled = !isSoundEnabled;
+            
+            if (isSoundEnabled) {
+                soundToggleButton.setImageResource(R.drawable.ic_sound_on);
+                if (backgroundMusic != null && !backgroundMusic.isPlaying()) {
+                    backgroundMusic.start();
+                }
+            } else {
+                soundToggleButton.setImageResource(R.drawable.ic_sound_off);
+                if (backgroundMusic != null && backgroundMusic.isPlaying()) {
+                    backgroundMusic.pause();
+                }
             }
-        } else {
-            soundToggleButton.setImageResource(R.drawable.ic_sound_off);
-            if (backgroundMusic != null && backgroundMusic.isPlaying()) {
-                backgroundMusic.pause();
-            }
+            
+            // Add haptic feedback
+            soundToggleButton.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+            
+        } catch (Exception e) {
+            Log.e("DraculaStoryActivity", "Error toggling sound: " + e.getMessage());
         }
     }
 
@@ -300,67 +311,83 @@ public class DraculaStoryActivity extends AppCompatActivity {
     }
     
     private void animateSceneTransition() {
-        // Stop any ongoing TTS
-        if (isSpeaking) {
-            textToSpeech.stop();
-            isSpeaking = false;
-            if (storyButton != null) {
-                storyButton.setText("Citește povestea");
-            }
-        }
-        
-        // Play bat animation
-        if (batAnimation != null) {
-            batAnimation.setVisibility(View.VISIBLE);
-            batAnimation.startAnimation(batFlyAnimation);
-        }
-        
-        // Play sound effect if enabled
-        playSoundEffect();
-        
-        // Fade out current content
-        AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        fadeOut.setDuration(500);
-        if (storyText != null) storyText.startAnimation(fadeOut);
-        if (storyTitle != null) storyTitle.startAnimation(fadeOut);
-        if (storyContext != null) storyContext.startAnimation(fadeOut);
-        
-        // After animation, update the view using ViewModel
-        handler.postDelayed(() -> {
-            // În loc să apelăm showScene(), actualizăm scena prin ViewModel
+        try {
+            // Hide content temporarily for smooth transition
+            if (storyText != null) storyText.setVisibility(View.INVISIBLE);
+            if (storyTitle != null) storyTitle.setVisibility(View.INVISIBLE);
+            if (storyContext != null) storyContext.setVisibility(View.INVISIBLE);
+            
+            // Hide all interactive elements
+            hideAllInteractiveElements();
+            
+            // Apply the fade-in animation with a delay
+            handler.postDelayed(() -> {
+                // Update scene content from ViewModel
+                viewModel.moveToNextScene();
+                
+                // Show content with animation
+                if (storyText != null) {
+                    storyText.setVisibility(View.VISIBLE);
+                    storyText.startAnimation(fadeInAnimation);
+                }
+                if (storyTitle != null) {
+                    storyTitle.setVisibility(View.VISIBLE);
+                    storyTitle.startAnimation(fadeInAnimation);
+                }
+                if (storyContext != null) {
+                    storyContext.setVisibility(View.VISIBLE);
+                    storyContext.startAnimation(fadeInAnimation);
+                }
+                
+                // Update the scene image
+                updateSceneImage();
+                
+                // Update progress
+                updateProgressIndicator();
+                
+                // Play transition sound
+                playSoundEffect();
+            }, 300);
+        } catch (Exception e) {
+            Log.e("DraculaStoryActivity", "Error in scene transition: " + e.getMessage());
+            // Fallback to ensure story progression even if animation fails
             viewModel.moveToNextScene();
-            
-            if (batAnimation != null) {
-                batAnimation.setVisibility(View.GONE);
-            }
-            
-            // Fade in new content
-            if (storyText != null) storyText.startAnimation(fadeInAnimation);
-            if (storyTitle != null) storyTitle.startAnimation(fadeInAnimation);
-            if (storyContext != null) storyContext.startAnimation(fadeInAnimation);
-        }, 800);
+            updateProgressIndicator();
+        }
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        if (textToSpeech != null) {
-            textToSpeech.stop();
-            textToSpeech.shutdown();
-        }
-        
-        if (backgroundMusic != null) {
-            backgroundMusic.release();
-            backgroundMusic = null;
-        }
-        
-        if (soundEffect != null) {
-            soundEffect.release();
-            soundEffect = null;
-        }
-        
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
+        try {
+            // Release media players
+            if (backgroundMusic != null) {
+                if (backgroundMusic.isPlaying()) {
+                    backgroundMusic.stop();
+                }
+                backgroundMusic.release();
+                backgroundMusic = null;
+            }
+            
+            if (soundEffect != null) {
+                soundEffect.release();
+                soundEffect = null;
+            }
+            
+            // Release text-to-speech
+            if (textToSpeech != null) {
+                textToSpeech.stop();
+                textToSpeech.shutdown();
+                textToSpeech = null;
+            }
+            
+            // Remove callbacks to prevent memory leaks
+            if (handler != null) {
+                handler.removeCallbacksAndMessages(null);
+            }
+        } catch (Exception e) {
+            Log.e("DraculaStoryActivity", "Error in onDestroy: " + e.getMessage());
+        } finally {
+            super.onDestroy();
         }
     }
 
@@ -660,10 +687,20 @@ public class DraculaStoryActivity extends AppCompatActivity {
     }
     
     private void updateProgressIndicator() {
-        // Only update if progressIndicator exists and totalStoryNodes is greater than 0
-        if (progressIndicator != null && totalStoryNodes > 0) {
-            int progress = (int) (((float) currentSceneIndex / totalStoryNodes) * 100);
-            progressIndicator.setProgress(progress);
+        try {
+            if (progressIndicator != null) {
+                // Calculate progress percentage
+                int totalNodes = viewModel.getTotalStoryNodes();
+                int currentIndex = viewModel.getCurrentSceneIndex().getValue() != null ? 
+                                    viewModel.getCurrentSceneIndex().getValue() : 0;
+                
+                if (totalNodes > 0) {
+                    int progress = (currentIndex * 100) / totalNodes;
+                    progressIndicator.setProgress(progress, true); // Animate the progress change
+                }
+            }
+        } catch (Exception e) {
+            Log.e("DraculaStoryActivity", "Error updating progress indicator: " + e.getMessage());
         }
     }
     
@@ -708,14 +745,14 @@ public class DraculaStoryActivity extends AppCompatActivity {
      * Safely plays a sound effect, handling potential errors
      */
     private void playSoundEffect() {
-        if (isSoundEnabled && soundEffect != null) {
-            try {
-                // Reset sound to start to allow replaying
+        try {
+            if (isSoundEnabled && soundEffect != null) {
+                // Reset the sound effect player to ensure it plays from the beginning
                 soundEffect.seekTo(0);
                 soundEffect.start();
-            } catch (Exception e) {
-                Log.e("DraculaStoryActivity", "Error playing sound effect: " + e.getMessage());
             }
+        } catch (Exception e) {
+            Log.e("DraculaStoryActivity", "Error playing sound effect: " + e.getMessage());
         }
     }
 } 

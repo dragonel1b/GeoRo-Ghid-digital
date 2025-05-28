@@ -67,6 +67,8 @@
     <color name="rom_correct_answer">#66BB6A</color>
     <color name="rom_wrong_answer">#EF5350</color>
     <color name="rom_quiz_option_background">#F5F5F5</color>
+    <color name="wrong_answer_background">#FFCDD2</color>
+    <color name="correct_answer_background">#C8E6C9</color>
 
     <!-- Map Region Colors -->
     <color name="rom_region_banat">#995902</color>
@@ -90,6 +92,7 @@
     <color name="rom_button_background">@color/rom_primary</color>
     <color name="rom_divider">#E0E0E0</color>
     <color name="colorVisited">#4CAF50</color>
+    <color name="chip_background">#E0E0E0</color>
 
     <!-- Base Colors -->
     <color name="textSecondary">#757575</color>
@@ -361,7 +364,6 @@
     <!-- Game Specific Colors -->
     <color name="correct_answer_green">#4CAF50</color> <!-- Green for correct -->
     <color name="incorrect_answer_red">#E53935</color> <!-- Red for incorrect -->
-    <color name="correct_answer_background">#4CAF50</color> <!-- Or a slightly different green if needed -->
     <color name="wrong_answer_red">#E53935</color> <!-- Consistent naming -->
     <color name="button_disabled_background">#A0A0A0</color> <!-- Lighter gray for disabled background -->
     <color name="button_disabled_text">#606060</color> <!-- Darker gray for disabled text -->

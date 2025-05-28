@@ -618,7 +618,7 @@ public class Buzau extends EnhancedCityActivity {
 
         setTitle("Buzău");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -653,7 +653,7 @@ public class Buzau extends EnhancedCityActivity {
                 "Bucătăria tradițională din Buzău include preparate specifice zonei Munteniei, cu influențe din bucătăria românească și orientală. Vizitatorii pot savura specialități locale precum plăcinta cu brânză de burduf, sarmalele în foi de viță, bulzul ciobanului și cozonacul buzoian. Regiunea este de asemenea renumită pentru producția sa de miere și produse apicole, precum și pentru vinurile din podgoriile din apropiere.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

@@ -79,10 +79,10 @@ public class RomMainActivity extends AppCompatActivity {
             // Inițializăm Firebase Auth
             mAuth = FirebaseAuth.getInstance();
             
-            // Verificăm dacă utilizatorul este autentificat
+            // Verificăm dacă utilizatorul are cont creat
             if (mAuth.getCurrentUser() == null) {
-                // Utilizatorul nu este autentificat, afișăm un mesaj și redirecționăm către LoginActivity
-                Toast.makeText(this, "Trebuie să fii conectat pentru a accesa această secțiune", Toast.LENGTH_LONG).show();
+                // Utilizatorul nu are cont creat, afișăm un mesaj și redirecționăm către LoginActivity
+                Toast.makeText(this, "Trebuie să ai un cont creat pentru a accesa această secțiune", Toast.LENGTH_LONG).show();
                 
                 // Creăm intent pentru activitatea de login
                 Intent intent = new Intent(this, LoginActivity.class);
@@ -319,10 +319,7 @@ public class RomMainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Method called from layout via onClick attribute
-     * Opens the CulinaryWelcomeActivity
-     */
+
     public void startCulinaryWelcome(View view) {
         animateButtonClick(view);
         try {
@@ -577,11 +574,6 @@ public class RomMainActivity extends AppCompatActivity {
             }
         }
     }
-
-    /**
-     * Method called from layout via onClick attribute
-     * Redirects to the culinary journey activity
-     */
     public void openRecipesActivity(View view) {
         // Redirectăm către funcționalitatea culinară existentă
         startCulinaryMode(view);

@@ -506,7 +506,7 @@ public class Sighetu extends EnhancedCityActivity {
 
         setTitle("Sighetu Marmației");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Semnificație",
@@ -541,7 +541,7 @@ public class Sighetu extends EnhancedCityActivity {
                 "Bucătăria sighetului reflectă influențele multiculturale ale regiunii, cu specialități precum gulas-ul, papricaș-ul și diverse preparate din carne de porc. Vinurile din podgoriile Miniș-Măderat, aflate în apropiere, sunt apreciate pentru calitatea lor deosebită.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

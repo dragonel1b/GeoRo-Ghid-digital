@@ -618,7 +618,7 @@ public class Ploiesti extends EnhancedCityActivity {
 
         setTitle("Ploiești");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -653,7 +653,7 @@ public class Ploiesti extends EnhancedCityActivity {
                 "Bucătăria tradițională din zona Ploieștiului este influențată de specificul prahovean și muntean. Preparate locale populare includ pastrama de oaie cu mămăligă, tochitura prahoveneană, brânzeturile de la Breaza, și vinurile din podgoriile Dealu Mare, una dintre cele mai renumite regiuni viticole din România. Restaurantele din oraș oferă atât bucătărie românească tradițională, cât și o varietate de opțiuni internaționale. Piața Centrală din Ploiești este locul ideal pentru a descoperi produse proaspete locale și specialități regionale.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

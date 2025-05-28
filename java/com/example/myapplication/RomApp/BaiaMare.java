@@ -497,7 +497,7 @@ public class BaiaMare extends EnhancedCityActivity {
 
         setTitle("Baia Mare");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -532,7 +532,7 @@ public class BaiaMare extends EnhancedCityActivity {
                 "Bucătăria locală reflectă specificul maramureșean, cu influențe transilvănene. Specialitățile includ balmoșul, tochitura, sarmalele, plăcintele cu brânză și diverse preparate din carne de porc. Horinca (țuica locală) și pălinca sunt băuturi tradiționale apreciate.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

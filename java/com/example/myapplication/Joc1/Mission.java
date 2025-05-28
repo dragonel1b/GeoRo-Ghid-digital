@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Represents a mission or quest in the Romanian cultural exploration app
+ * Clasa pentru gestionarea misiunilor în joc
  */
 public class Mission {
-    // Mission types
+    // Tipuri de misiuni disponibile
     public static final int TYPE_EXPLORATION = 1;
     public static final int TYPE_CULTURAL = 2;
     public static final int TYPE_CULINARY = 3;
@@ -24,6 +24,7 @@ public class Mission {
     private String title;
     private String description;
     private String regionId;
+    private String cityName;
     private int rewardPoints;
     private int type;
     private int state = STATE_AVAILABLE;
@@ -33,13 +34,13 @@ public class Mission {
     private int chapter = 1;
     private int step = 1;
     
+    // Enumerare pentru tipurile de misiuni
     public enum MissionType {
-        REACH_LOCATION,
-        COLLECT_ITEMS,
-        INTERACT_NPC,
+        VISIT_ATTRACTIONS,
         ANSWER_QUIZ,
         TAKE_PHOTO,
-        VISIT_ATTRACTIONS
+        INTERACT_NPC,
+        COLLECT_ITEMS
     }
     
     public interface MissionListener {
@@ -47,89 +48,49 @@ public class Mission {
         void onMissionProgress(Mission mission, float progress);
     }
     
-    public static class MissionObjective {
-        private String description;
-        private boolean completed;
-        
-        public MissionObjective(String description) {
-            this.description = description;
-            this.completed = false;
-        }
-        
-        public String getDescription() {
-            return description;
-        }
-        
-        public boolean isCompleted() {
-            return completed;
-        }
-        
-        public void setCompleted(boolean completed) {
-            this.completed = completed;
-        }
+    // Constructor simplu
+    public Mission(int type, int rewardPoints, MissionType missionType, String regionId) {
+        this.type = type;
+        this.rewardPoints = rewardPoints;
+        this.regionId = regionId;
+        this.cityName = regionId; // Implicit, orașul este același cu regiunea
+        this.state = STATE_AVAILABLE;
+        this.objectives = new ArrayList<>();
+        this.chapter = 1;
+        this.step = 1;
     }
 
-    /**
-     * Create a new mission
-     */
-    public Mission(String id, String title, String description, String regionId, int rewardPoints, int type) {
+    // Constructor complet
+    public Mission(String id, String title, String description, String regionId, 
+                   int rewardPoints, int type) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.regionId = regionId;
+        this.cityName = regionId; // Implicit, orașul este același cu regiunea
         this.rewardPoints = rewardPoints;
         this.type = type;
+        this.state = STATE_AVAILABLE;
+        this.objectives = new ArrayList<>();
+        this.chapter = 1;
+        this.step = 1;
     }
-    
-    /**
-     * Alternative constructor for story missions
-     */
-    public Mission(String description, int chapter, int rewardPoints, MissionType missionType, String regionId) {
-        this.id = "mission_" + chapter + "_" + System.currentTimeMillis();
-        this.title = description;
-        this.description = description;
-        this.chapter = chapter;
-        this.rewardPoints = rewardPoints;
-        
-        // Convert enum type to int
-        switch (missionType) {
-            case VISIT_ATTRACTIONS:
-                this.type = TYPE_EXPLORATION;
-                break;
-            case ANSWER_QUIZ:
-                this.type = TYPE_CULTURAL;
-                break;
-            case TAKE_PHOTO:
-                this.type = TYPE_EXPLORATION;
-                break;
-            case INTERACT_NPC:
-                this.type = TYPE_CULTURAL;
-                break;
-            default:
-                this.type = TYPE_EXPLORATION;
-        }
-        
-        this.regionId = regionId;
-    }
-    
-    /**
-     * Add an objective to this mission
-     */
+
+    // Adăugare obiectiv nou la misiune
     public void addObjective(String description) {
-        objectives.add(new MissionObjective(description));
+        MissionObjective objective = new MissionObjective(description);
+        objectives.add(objective);
     }
-    
-    /**
-     * Complete an objective at the given index
-     */
+
+    // Marcare obiectiv ca fiind completat
     public void completeObjective(int index) {
         if (index >= 0 && index < objectives.size()) {
             objectives.get(index).setCompleted(true);
             
-            // Check if all objectives are completed
+            // Verificare dacă toate obiectivele sunt completate
             boolean allCompleted = true;
-            for (MissionObjective objective : objectives) {
-                if (!objective.isCompleted()) {
+            for (MissionObjective obj : objectives) {
+                if (!obj.isCompleted()) {
                     allCompleted = false;
                     break;
                 }
@@ -140,8 +101,8 @@ public class Mission {
                 notifyMissionCompleted();
             } else {
                 int completedCount = 0;
-                for (MissionObjective objective : objectives) {
-                    if (objective.isCompleted()) {
+                for (MissionObjective obj : objectives) {
+                    if (obj.isCompleted()) {
                         completedCount++;
                     }
                 }
@@ -149,78 +110,101 @@ public class Mission {
             }
         }
     }
-    
-    // Getters and setters
+
+    // Getters și setters
     public String getId() {
         return id;
     }
-    
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public String getRegionId() {
         return regionId;
     }
-    
+
     public String getCityName() {
-        return regionId; // In this implementation, region ID is the city name
+        return cityName;
     }
-    
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
     public int getRewardPoints() {
         return rewardPoints;
     }
-    
+
     public int getType() {
         return type;
     }
-    
+
     public boolean isActive() {
         return state == STATE_ACTIVE;
     }
-    
+
     public boolean isCompleted() {
         return state == STATE_COMPLETED;
     }
-    
+
     public void setActive(boolean active) {
         state = active ? STATE_ACTIVE : STATE_AVAILABLE;
     }
-    
+
     public void setCompleted(boolean completed) {
         state = completed ? STATE_COMPLETED : STATE_ACTIVE;
     }
-    
+
     public List<MissionObjective> getObjectives() {
         return objectives;
     }
-    
-    public List<String> getObjectiveTexts() {
-        List<String> texts = new ArrayList<>();
-        for (MissionObjective objective : objectives) {
-            texts.add(objective.getDescription());
-        }
-        return texts;
-    }
-    
+
     public int getChapter() {
         return chapter;
     }
-    
+
     public void setChapter(int chapter) {
         this.chapter = chapter;
     }
-    
+
     public int getStep() {
         return step;
     }
-    
+
     public void setStep(int step) {
         this.step = step;
+    }
+
+    // Clasă internă pentru obiectivele unei misiuni
+    public static class MissionObjective {
+        private String description;
+        private boolean completed;
+
+        public MissionObjective(String description) {
+            this.description = description;
+            this.completed = false;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
     }
 
     // Legacy fields for backwards compatibility
@@ -230,7 +214,6 @@ public class Mission {
     private int collectedItems;
     private MissionType missionType;
     private int experienceReward;
-    private String cityName;
     private boolean isActive;
     private MissionListener listener;
     private String storyIntro;
@@ -284,7 +267,7 @@ public class Mission {
         if (!isActive) return false;
 
         switch (missionType) {
-            case REACH_LOCATION:
+            case VISIT_ATTRACTIONS:
                 RectF playerBounds = player.getBounds();
                 float centerX = playerBounds.centerX();
                 float centerY = playerBounds.centerY();
@@ -323,7 +306,6 @@ public class Mission {
                 
             case ANSWER_QUIZ:
             case TAKE_PHOTO:
-            case VISIT_ATTRACTIONS:
                 // These mission types are completed through other mechanisms
                 // Check if all objectives are completed
                 boolean allCompleted = true;
@@ -397,9 +379,5 @@ public class Mission {
 
     public void setLng(double lng) {
         this.lng = lng;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
     }
 }

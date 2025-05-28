@@ -288,6 +288,32 @@
         android:layout_margin="4dp"
         android:background="@drawable/game_container_background"/>
 
+    <!-- Minigame Container - Added for wall break minigame -->
+    <FrameLayout
+        android:id="@+id/minigameContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        
+        <com.example.myapplication.TaraTara.WallBreakMinigame
+            android:id="@+id/wallBreakMinigame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+            
+        <!-- Game instruction text -->
+        <TextView
+            android:id="@+id/gameInstructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#88000000"
+            android:padding="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </FrameLayout>
+
     <!-- Control Buttons -->
     <LinearLayout
         android:id="@+id/controlButtonsContainer"

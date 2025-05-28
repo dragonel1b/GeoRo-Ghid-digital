@@ -1,10 +1,10 @@
 package com.example.myapplication.Joc1;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,135 +15,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adapter for displaying mission objectives in a RecyclerView
+ * Adapter pentru afișarea obiectivelor unei misiuni într-un RecyclerView
  */
 public class ObjectivesAdapter extends RecyclerView.Adapter<ObjectivesAdapter.ViewHolder> {
-    private List<String> objectiveTexts = new ArrayList<>();
-    private final boolean[] completionStatus;
-    private OnObjectiveClickListener listener;
-
-    public interface OnObjectiveClickListener {
-        void onObjectiveClick(int position, boolean isCompleted);
-    }
+    private List<ObjectiveItem> objectives;
 
     /**
-     * Constructor for string objectives
+     * Constructor pentru adapter
+     * 
+     * @param objectives Lista de obiective ce trebuie afișate
      */
-    public ObjectivesAdapter(List<String> objectives) {
-        this.objectiveTexts = objectives;
-        this.completionStatus = new boolean[objectives.size()];
+    public ObjectivesAdapter(List<ObjectiveItem> objectives) {
+        this.objectives = objectives;
     }
 
     /**
-     * Static factory method for creating an adapter from Mission.MissionObjective objects
+     * Creează un adapter din lista de obiective a unei misiuni
      */
     public static ObjectivesAdapter fromMissionObjectives(List<Mission.MissionObjective> missionObjectives) {
-        List<String> texts = new ArrayList<>();
-        boolean[] statuses = new boolean[missionObjectives.size()];
-        
-        for (int i = 0; i < missionObjectives.size(); i++) {
-            Mission.MissionObjective objective = missionObjectives.get(i);
-            texts.add(objective.getDescription());
-            statuses[i] = objective.isCompleted();
+        List<ObjectiveItem> items = new ArrayList<>();
+        for (Mission.MissionObjective missionObjective : missionObjectives) {
+            items.add(new ObjectiveItem(
+                    missionObjective.getDescription(),
+                    missionObjective.isCompleted()
+            ));
         }
-        
-        return new ObjectivesAdapter(texts, statuses);
-    }
-
-    /**
-     * Constructor with predefined completion status
-     */
-    public ObjectivesAdapter(List<String> objectives, boolean[] completionStatus) {
-        this.objectiveTexts = objectives;
-        this.completionStatus = completionStatus;
-    }
-
-    public void setOnObjectiveClickListener(OnObjectiveClickListener listener) {
-        this.listener = listener;
+        return new ObjectivesAdapter(items);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_objective, parent, false);
+                .inflate(R.layout.item_mission_objective, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String objective = objectiveTexts.get(position);
-        boolean isCompleted = completionStatus[position];
+        ObjectiveItem objective = objectives.get(position);
+        holder.objectiveText.setText(objective.getText());
 
-        holder.objectiveText.setText(objective);
-        holder.completedCheckbox.setChecked(isCompleted);
-
-        // Make the checkbox clickable only if we have a listener
-        if (listener != null) {
-            holder.itemView.setOnClickListener(v -> {
-                boolean newStatus = !completionStatus[position];
-                completionStatus[position] = newStatus;
-                holder.completedCheckbox.setChecked(newStatus);
-                listener.onObjectiveClick(position, newStatus);
-            });
-            
-            holder.completedCheckbox.setOnClickListener(v -> {
-                boolean newStatus = holder.completedCheckbox.isChecked();
-                completionStatus[position] = newStatus;
-                listener.onObjectiveClick(position, newStatus);
-            });
+        // Aplică stilul în funcție de starea de completare
+        if (objective.isCompleted()) {
+            holder.objectiveText.setPaintFlags(holder.objectiveText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.objectiveText.setAlpha(0.7f);
         } else {
-            // If no listener, make the checkbox not clickable
-            holder.completedCheckbox.setClickable(false);
-            holder.itemView.setClickable(false);
+            holder.objectiveText.setPaintFlags(holder.objectiveText.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.objectiveText.setAlpha(1.0f);
         }
     }
 
     @Override
     public int getItemCount() {
-        return objectiveTexts.size();
+        return objectives.size();
     }
 
     /**
-     * Updates the completion status of an objective
-     * 
-     * @param position Position of the objective
-     * @param isCompleted Whether the objective is completed
+     * ViewHolder pentru elementele din listă
      */
-    public void updateObjectiveStatus(int position, boolean isCompleted) {
-        if (position >= 0 && position < completionStatus.length) {
-            completionStatus[position] = isCompleted;
-            notifyItemChanged(position);
-        }
-    }
-
-    /**
-     * Gets the current completion status array
-     */
-    public boolean[] getCompletionStatus() {
-        return completionStatus;
-    }
-
-    /**
-     * Check if all objectives are completed
-     */
-    public boolean areAllObjectivesCompleted() {
-        for (boolean status : completionStatus) {
-            if (!status) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView objectiveText;
-        CheckBox completedCheckbox;
 
-        ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             objectiveText = itemView.findViewById(R.id.objectiveText);
-            completedCheckbox = itemView.findViewById(R.id.objectiveCheckbox);
+        }
+    }
+
+    /**
+     * Clasa pentru un element obiectiv
+     */
+    public static class ObjectiveItem {
+        private String text;
+        private boolean completed;
+
+        public ObjectiveItem(String text, boolean completed) {
+            this.text = text;
+            this.completed = completed;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
         }
     }
 } 

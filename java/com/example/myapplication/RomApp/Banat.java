@@ -272,11 +272,8 @@ public class Banat extends RegionTemplate {
         // Ne bazăm pe implementarea clasei părinte pentru afișarea conținutului
         super.initializeSpecificContent();
         
-        // Adăugăm secțiunile specifice care nu sunt gestionate de clasa părinte
-        // Aceste secțiuni vor fi adăugate în cityContentContainer
-        addSection(findViewById(R.id.cityContentContainer), "Gastronomie", getGastronomyText(), false);
-        addSection(findViewById(R.id.cityContentContainer), "Personalități și Evenimente", getPersonalitiesEventsText(), false);
-        addSection(findViewById(R.id.cityContentContainer), "Curiozități", getCuriositiesText(), false);
+        // Toate secțiunile sunt deja adăugate de clasa părinte RegionTemplate
+        // Nu mai avem nevoie să adăugăm secțiuni duplicate aici
         
         // Adăugăm listeneri pentru deschiderea activității de recenzie
         addSectionReviewListeners();

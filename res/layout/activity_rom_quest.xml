@@ -1,95 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rom_background_light">
+    android:background="@color/rom_background_light"
+    tools:context=".Joc1.RomQuestActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="Quest pentru Patrimoniul Cultural"
-            app:navigationIcon="@drawable/ic_back"
-            app:titleTextColor="@android:color/white"/>
-
+            android:background="@color/rom_primary"
+            app:title="Căutarea Tainelor României"
+            app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/ic_back" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp">
 
-        <LinearLayout
+        <!-- Header section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/headerCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:elevation="2dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/rom_primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- Mission Progress Card -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/RomCardView">
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jurnal de călătorie"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Descoperă tainele României prin misiuni și provocări"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="@color/white"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Progres Misiuni"
-                        style="@style/RomTextSubtitle"/>
-
-                    <ProgressBar
-                        android:id="@+id/questProgress"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"/>
+                        android:text="Progres:"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
                     <TextView
                         android:id="@+id/questProgressText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="0/8 misiuni completate"
-                        style="@style/RomTextBody"/>
+                        android:layout_weight="1"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        tools:text="2/5 taine descoperite"/>
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+                <ProgressBar
+                    android:id="@+id/questProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="8dp"
+                    android:progressTint="@color/white"
+                    android:progressBackgroundTint="@color/white"
+                    android:alpha="0.7"
+                    tools:progress="40" />
 
-            <!-- Missions RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/missionsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"/>
+            </LinearLayout>
 
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    </androidx.core.widget.NestedScrollView>
+        <!-- Missions list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/missionsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/headerCard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_rom_quest"/>
 
-    <!-- Collaboration FAB -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/collaborationFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:text="Colaborează"
-        app:icon="@drawable/ic_check"
-        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"/>
+        android:text="Sfatul Înțelepților"
+        app:icon="@drawable/ic_people"
+        app:backgroundTint="@color/rom_accent"
+        app:iconTint="@color/white"
+        app:iconGravity="start"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

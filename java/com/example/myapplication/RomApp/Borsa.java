@@ -497,42 +497,6 @@ public class Borsa extends EnhancedCityActivity {
 
         setTitle("Borșa");
 
-        // Add sections
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Istorie și Tradiție",
-                "Borșa este o localitate cu o istorie veche, cunoscută pentru tradițiile maramureșene bine păstrate. Așezarea a fost menționată documentar pentru prima dată în 1365, dezvoltându-se inițial ca un centru minier și pastoral. Locuitorii săi au continuat să păstreze obiceiurile și tradițiile specifice Maramureșului de-a lungul timpului.",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Geografie",
-                "Situată în partea de nord-est a județului Maramureș, la poalele Munților Rodnei, Borșa se află la o altitudine de aproximativ 850 m. Este străbătută de râul Vișeu și se întinde pe o lungime de aproximativ 20 km în partea de sud a Depresiunii Maramureșului. În apropiere se află cel mai înalt vârf din Carpații Orientali - Pietrosul Rodnei (2303 m).",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Atracții Turistice",
-                "Printre atracțiile principale se numără Stațiunea Borșa, cu pârtiile sale de schi, Cascada Cailor (cea mai înaltă cascadă din România, cu o cădere de aproximativ 90 m), Rezervația Naturală Pietrosul Rodnei și Parcul Național Munții Rodnei. Arhitectura tradițională maramureșeană și bisericile de lemn completează peisajul turistic al zonei.",
-                true
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Cultură",
-                "Viața culturală din Borșa este bogată în tradiții și obiceiuri locale, manifestate prin portul popular, dansuri tradiționale, muzică și meșteșuguri. Festivalurile locale, precum Hora la Prislop sau sărbătorile religioase, sunt momente importante în viața comunității, atrăgând vizitatori și menținând vii tradițiile străvechi.",
-                false
-        );
-
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Turism montan",
-                "Borșa este un important centru turistic montan, cu facilități pentru sporturi de iarnă (pârtii de schi, teleschi) și un punct de plecare pentru drumeții montane în Munții Rodnei. Vara, zona devine un paradis pentru iubitorii de drumeții și natură sălbatică, oferind trasee de diferite grade de dificultate către peisaje spectaculoase.",
-                false
-        );
-
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

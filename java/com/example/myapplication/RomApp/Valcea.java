@@ -575,12 +575,6 @@ public class Valcea extends EnhancedCityActivity {
                 true
         );
 
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Geografie",
-                "Județul Vâlcea se întinde pe o suprafață de 5.765 km² în sud-vestul României. Este străbătut de râul Olt și se învecinează cu județele Argeș, Sibiu, Vâlcea, Gorj și Mehedinți. Relieful este divers, cu Munții Făgăraș în nord, Dealurile Vâlcii în centru și Câmpia Olteniei în sud. Clima este temperat-continentală, cu veri plăcute și ierni moderate.",
-                true
-        );
 
         addSection(
                 findViewById(R.id.cityContentContainer),

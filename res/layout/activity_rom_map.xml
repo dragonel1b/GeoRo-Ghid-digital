@@ -5,180 +5,245 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rom_background_light">
+    tools:context=".Joc1.RomMapActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Container pentru hartă (layer de bază) -->
+    <FrameLayout
+        android:id="@+id/mapContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Map Title -->
-        <TextView
-            android:id="@+id/mapTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Harta României"
-            style="@style/RomTextTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Harta României" />
 
-        <!-- Resource Status Bar -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/resourceStatus"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            style="@style/RomCardView"
-            app:layout_constraintTop_toBottomOf="@id/mapTitle">
+            android:background="@color/white"
+            android:elevation="8dp"
+            android:layout_margin="12dp"
+            app:contentInsetStart="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/fuelStatus"
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Înapoi"
+                    android:src="@drawable/ic_back" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchBar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:gravity="center"
-                    android:text="50L"
-                    style="@style/RomResourceDisplay"
-                    android:drawableStart="@drawable/ic_fuel"
-                    android:textColor="@color/rom_fuel_color" />
-
-                <TextView
-                    android:id="@+id/moneyStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:gravity="center"
-                    android:text="1000 RON"
-                    style="@style/RomResourceDisplay"
-                    android:drawableStart="@drawable/ic_money"
-                    android:textColor="@color/rom_money_color" />
-
-                <TextView
-                    android:id="@+id/foodStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:gravity="center"
-                    android:text="5 kg"
-                    style="@style/RomResourceDisplay"
-                    android:drawableStart="@drawable/ic_food"
-                    android:textColor="@color/rom_food_color" />
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/white"
+                    app:iconifiedByDefault="false"
+                    app:queryBackground="@android:color/transparent"
+                    app:queryHint="Caută regiuni, orașe..." />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.appcompat.widget.Toolbar>
 
-        <!-- Map Container -->
-        <FrameLayout
-            android:id="@+id/mapContainer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginHorizontal="16dp"
-            style="@style/RomMapContainer"
-            app:layout_constraintBottom_toTopOf="@id/legendCard"
-            app:layout_constraintTop_toBottomOf="@id/resourceStatus">
-
-            <!-- Map Image -->
-            <ImageView
-                android:id="@+id/mapImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/romania_harta"
-                android:contentDescription="Harta României"
-                android:padding="8dp"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <!-- Map is now directly clickable -->
-        </FrameLayout>
-
-        <!-- Legend Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/legendCard"
+        <!-- Adăugare filtrare regiuni -->
+        <LinearLayout
+            android:id="@+id/filterRegionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            style="@style/RomCardView"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_gravity="top"
+            android:layout_marginTop="80dp"
+            android:layout_marginHorizontal="12dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#DDDDDD">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Legendă:"
-                    style="@style/RomTextSubtitle"
-                    android:textColor="@color/rom_primary" />
+                    android:orientation="vertical"
+                    android:padding="8dp">
+                    
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Filtrează regiunile"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_marginBottom="8dp"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:text="• Apasă pe o regiune pentru informații"
-                    style="@style/RomTextBody"
-                    android:layout_marginTop="8dp" />
+                    <HorizontalScrollView
+                        android:id="@+id/regionFiltersScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:text="• Apasă pe un oraș pentru a călători"
-                    style="@style/RomTextBody"
-                    android:layout_marginTop="4dp" />
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/regionFilterChipGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            app:singleSelection="true"
+                            app:singleLine="true"
+                            app:chipSpacingHorizontal="8dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="8dp"
-                    android:text="• Consumul de combustibil: 7L/100km"
-                    style="@style/RomTextBody"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/allRegionsChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Toate regiunile"
+                                android:checkable="true"
+                                android:checked="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_map"
+                                app:chipBackgroundColor="@color/purple_200" />
 
-        <!-- Back Button -->
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/transylvaniaChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Transilvania"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#4CAF50" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/moldovaChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Moldova"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#2196F3" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/munteniaChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Muntenia"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#FF9800" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/olteniaChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Oltenia"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#9C27B0" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/dobrogeaChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dobrogea"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#FFEB3B" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/banatChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Banat"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#E91E63" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/crisanaChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Crișana"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#00BCD4" />
+                                
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/maramuresChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Maramureș"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#8BC34A" />
+                                
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/bucovinaChip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bucovina"
+                                android:checkable="true"
+                                app:chipIconVisible="true"
+                                app:chipIcon="@drawable/ic_location"
+                                app:chipBackgroundColor="#795548" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/backButton"
+            android:id="@+id/styleToggleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:contentDescription="Înapoi"
-            android:src="@drawable/ic_back"
-            style="@style/RomMapMarkerFab"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_night_mode" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/discoverFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="80dp"
+            android:text="Descoperă"
+            app:icon="@drawable/ic_explore" />
 
-    <!-- Region Info Bottom Sheet -->
+    </FrameLayout>
+
+    <!-- Card pentru informații regiune (Bottom Sheet) -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/regionInfoCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:clickable="true"
+        android:elevation="8dp"
+        android:focusable="true"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="0dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        style="@style/RomRegionInfoCard">
+        app:behavior_peekHeight="120dp"
+        app:cardCornerRadius="16dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,24 +255,46 @@
                 android:id="@+id/regionNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/RomTextTitle"
-                android:textColor="@color/rom_primary"
-                android:layout_marginBottom="8dp" />
+                android:text="Nume Regiune"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/regionDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/RomTextBody"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginTop="8dp"
+                android:text="Descriere regiune..."
+                android:textSize="14sp" />
 
-            <com.google.android.material.button.MaterialButton
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Misiuni disponibile:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/missionsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <Button
                 android:id="@+id/exploreRegionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Explorează Regiunea"
-                style="@style/RomButton" />
+                android:layout_marginTop="16dp"
+                android:text="Explorează Regiunea" />
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout> 

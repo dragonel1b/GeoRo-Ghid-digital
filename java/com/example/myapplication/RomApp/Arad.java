@@ -506,7 +506,7 @@ public class Arad extends EnhancedCityActivity {
 
         setTitle("Arad");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class Arad extends EnhancedCityActivity {
                 "Bucătăria arădeană reflectă influențele multiculturale ale regiunii, cu specialități precum gulas-ul, papricaș-ul și diverse preparate din carne de porc. Vinurile din podgoriile Miniș-Măderat, aflate în apropiere, sunt apreciate pentru calitatea lor deosebită.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

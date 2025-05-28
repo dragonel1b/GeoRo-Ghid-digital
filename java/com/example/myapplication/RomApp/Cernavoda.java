@@ -595,7 +595,7 @@ public class Cernavoda extends EnhancedCityActivity {
         super.initializeSpecificContent();
 
         setTitle("Cernavoda");
-
+/*
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Patrimoniu",
@@ -651,7 +651,7 @@ public class Cernavoda extends EnhancedCityActivity {
                 "Cea mai bună perioadă pentru vizitarea orașului este între mai și septembrie.\n\nAlocați cel puțin o jumătate de zi pentru Muzeul Daco-Roman.\n\nFaceți o plimbare pe faleza Dunării, în special la apus.\n\nLa Cernavoda puteți găsi cazare mai accesibilă față de localitățile de pe litoral, fiind la doar 40 km de Constanța.",
                 false
         );
-        
+        */
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
         

@@ -567,7 +567,7 @@ public class Craiova extends EnhancedCityActivity {
 
         setTitle("Craiova");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -601,7 +601,7 @@ public class Craiova extends EnhancedCityActivity {
                 "Gastronomie",
                 "Bucătăria oltenească din Craiova se remarcă prin preparate tradiționale precum sarmale oltenești cu afumătură, ciorbă de potroace, cârnați de Pleșcoi și celebra dovleac copt cu brânză. Restaurantele din Centrul Vechi oferă o experiență culinară autentică, iar crama Domeniile Coroanei oferă degustări de vinuri locale.",
                 false
-        );
+        );*/
 
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);

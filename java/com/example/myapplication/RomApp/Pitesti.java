@@ -618,7 +618,7 @@ public class Pitesti extends EnhancedCityActivity {
 
         setTitle("Pitești");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -653,7 +653,7 @@ public class Pitesti extends EnhancedCityActivity {
                 "Bucătăria tradițională din zona Piteștiului oferă specialități culinare specifice Munteniei, îmbogățite cu influențe locale argeșene. Printre preparatele reprezentative se numără plachia de pește, sarmalele în foi de viță, tochitură argeșeană și ciorba de bureți. Zona este renumită pentru livezile sale de pomi fructiferi și podgoriile din împrejurimi, în special cele de la Ștefănești, care produc vinuri de calitate superioară precum Feteasca Regală și Tămâioasa Românească.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

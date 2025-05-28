@@ -618,7 +618,7 @@ public class Bucuresti extends EnhancedCityActivity {
 
         setTitle("București");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -653,7 +653,7 @@ public class Bucuresti extends EnhancedCityActivity {
                 "Bucătăria bucureșteană reflectă influențele culinare diverse ale României, oferind atât preparate tradiționale românești, cât și o mare varietate de restaurante internaționale. În București puteți savura mici cu muștar la 'Caru' cu Bere', sarmale la unul dintre restaurantele tradiționale sau vă puteți bucura de o cafea și prăjituri delicioase la una dintre numeroasele cafenele hipster din oraș.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

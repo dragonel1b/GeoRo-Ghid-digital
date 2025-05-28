@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="6dp"
+    app:cardElevation="4dp"
     app:strokeWidth="0dp"
-    app:cardBackgroundColor="@android:color/white">
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@android:color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:stateListAnimator="@animator/card_lift_anim">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,9 +22,10 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/recipeImageView"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:contentDescription="@string/recipe_image_description"
             android:scaleType="centerCrop"
+            android:transitionName="recipeImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +35,7 @@
         <View
             android:id="@+id/titleGradient"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="120dp"
             android:background="@drawable/gradient_overlay"
             app:layout_constraintBottom_toBottomOf="@+id/recipeImageView"
             app:layout_constraintEnd_toEndOf="@+id/recipeImageView"
@@ -44,6 +50,10 @@
             android:layout_marginBottom="16dp"
             android:textColor="@android:color/white"
             android:textSize="22sp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.01"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textStyle="bold"
             android:shadowColor="#80000000"
             android:shadowDx="1"
@@ -52,63 +62,91 @@
             app:layout_constraintBottom_toBottomOf="@+id/recipeImageView"
             app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
             app:layout_constraintStart_toStartOf="@+id/recipeImageView"
-            tools:text="Denumire rețetă" />
+            tools:text="Denumire rețetă care poate fi foarte lungă pe două rânduri" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/favoriteButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/favorite_button_description"
+            android:src="@drawable/ic_star_empty"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/recipeImageView"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/recipeDescriptionTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="2"
             android:textColor="#555555"
-            android:textSize="16sp"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="sans-serif"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipeImageView"
             tools:text="Scurtă descriere a rețetei care poate ocupa mai multe rânduri. Acesta este un text pentru exemplificare." />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/tagsContainer"
-            android:layout_width="0dp"
+        <HorizontalScrollView
+            android:id="@+id/tagsScrollContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeDescriptionTextView"
-            app:singleLine="true"
-            app:chipSpacingHorizontal="8dp">
+            android:layout_marginTop="10dp"
+            android:scrollbars="none"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toBottomOf="@+id/recipeDescriptionTextView">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/regionTextView"
-                style="@style/Widget.MaterialComponents.Chip.Action"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/tagsContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                app:chipBackgroundColor="@android:color/holo_green_light"
-                app:chipIconTint="@android:color/white"
-                app:chipIcon="@android:drawable/ic_dialog_map"
-                app:chipIconSize="16dp"
-                tools:text="Moldova" />
+                app:chipSpacingHorizontal="8dp"
+                app:singleLine="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/categoryTextView"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                app:chipBackgroundColor="@android:color/holo_blue_light"
-                app:chipIconTint="@android:color/white"
-                app:chipIcon="@android:drawable/ic_menu_sort_by_size"
-                app:chipIconSize="16dp"
-                tools:text="Desert" />
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/regionTextView"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="#4CAF50"
+                    app:chipIconTint="@android:color/white"
+                    app:chipIcon="@android:drawable/ic_dialog_map"
+                    app:chipIconSize="16dp"
+                    app:chipStrokeWidth="0dp"
+                    app:chipMinHeight="28dp"
+                    app:ensureMinTouchTargetSize="true"
+                    tools:text="Moldova" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/categoryTextView"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="#2196F3"
+                    app:chipIconTint="@android:color/white"
+                    app:chipIcon="@android:drawable/ic_menu_sort_by_size"
+                    app:chipIconSize="16dp"
+                    app:chipStrokeWidth="0dp"
+                    app:chipMinHeight="28dp"
+                    app:ensureMinTouchTargetSize="true"
+                    tools:text="Desert" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <View
             android:id="@+id/divider"
@@ -118,7 +156,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="#EEEEEE"
-            app:layout_constraintTop_toBottomOf="@+id/tagsContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/tagsScrollContainer" />
 
         <LinearLayout
             android:id="@+id/infoContainer"
@@ -126,7 +164,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center_vertical"
@@ -138,69 +176,83 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_info_background"
+                android:paddingStart="8dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@android:drawable/ic_menu_recent_history"
-                    android:tint="#757575"
+                    android:tint="#FFFFFF"
                     android:contentDescription="@string/cooking_time" />
 
                 <TextView
                     android:id="@+id/prepTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textSize="14sp"
-                    android:textColor="#757575"
+                    android:layout_marginStart="6dp"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
                     tools:text="30 min" />
             </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#EEEEEE" />
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="0dp" />
 
             <LinearLayout
                 android:id="@+id/difficultyLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@drawable/rounded_difficulty_background"
+                android:paddingStart="8dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:src="@android:drawable/btn_star"
-                    android:tint="#757575"
+                    android:tint="#FFFFFF"
                     android:contentDescription="@string/difficulty_level" />
 
                 <TextView
                     android:id="@+id/difficultyTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textSize="14sp"
-                    android:textColor="#757575"
-                    tools:text="Medium" />
+                    android:layout_marginStart="6dp"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    tools:text="Mediu" />
             </LinearLayout>
-
+            
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
-
-            <ImageButton
-                android:id="@+id/favoriteButton"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/favorite_button_description"
-                android:src="@android:drawable/btn_star_big_off"
-                android:tint="#FF6D00" />
+            
+            <TextView
+                android:id="@+id/ratingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@android:drawable/btn_star"
+                android:drawableTint="#FFC107"
+                android:drawablePadding="4dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#555555"
+                android:text="4.5"
+                android:gravity="center_vertical"/>
+            
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

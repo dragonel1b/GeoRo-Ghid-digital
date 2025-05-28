@@ -19,6 +19,8 @@ public class Soldier {
     private Drawable drawable;
     private float health;
     private float strength;
+    private boolean active = true; // Default is active
+    private String id; // Unique identifier for the soldier
 
     public Soldier(float x, float y, int color, Drawable drawable) {
         this.x = x;
@@ -31,6 +33,7 @@ public class Soldier {
         this.drawable = drawable;
         this.health = 100.0f; // Default health
         this.strength = 10.0f; // Default strength
+        this.id = "soldier_" + System.currentTimeMillis() + "_" + (int)(Math.random() * 1000); // Generate unique ID
         
         if (drawable == null) {
             Log.w(TAG, "Created soldier with null drawable at position " + x + "," + y);
@@ -178,6 +181,18 @@ public class Soldier {
 
     public float getHealth() {
         return health;
+    }
+
+    public boolean isActive() {
+        return active && health > 0;
+    }
+    
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    public String getId() {
+        return id;
     }
 
     public void draw(Canvas canvas) {

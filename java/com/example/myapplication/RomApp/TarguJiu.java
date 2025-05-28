@@ -601,12 +601,6 @@ public class TarguJiu extends EnhancedCityActivity {
                 true
         );
 
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Geografie",
-                "Târgu Jiu este situat în nord-vestul Olteniei, pe malurile râului Jiu, la poalele Carpaților Meridionali. Zona se bucură de un climat temperat-continental, cu influențe submediteraneene. Altitudinea medie a orașului este de aproximativ 210 metri.",
-                true
-        );
 
         addSection(
                 findViewById(R.id.cityContentContainer),
@@ -622,12 +616,6 @@ public class TarguJiu extends EnhancedCityActivity {
                 false
         );
 
-        addSection(
-                findViewById(R.id.cityContentContainer),
-                "Gastronomie",
-                "Bucătăria tradițională din Târgu Jiu include specialități precum plăcintele gorjenești, pastramă de capră, ciorbă de fasole cu afumătură, bulz ciobanesc și fasole bătută. Restaurantele din zona centrală oferă o experiență culinară autentică cu preparate locale și vinuri din podgoriile apropiate.",
-                false
-        );
 
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);

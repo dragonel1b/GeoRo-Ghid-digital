@@ -506,7 +506,7 @@ public class Viseu extends EnhancedCityActivity {
 
         setTitle("Vișeu de Sus");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class Viseu extends EnhancedCityActivity {
                 "Bucătăria tradițională din Vișeu de Sus cuprinde preparate specifice Maramureșului, precum balmoșul, tocănițele, slănina afumată și pălinca de casă. Restaurantele locale oferă vizitatorilor experiența culinară autentică maramureșeană, cu produse proaspete din zonă.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

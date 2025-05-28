@@ -520,7 +520,7 @@ public class Lugoj extends EnhancedCityActivity {
 
         setTitle("Lugoj");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -555,7 +555,7 @@ public class Lugoj extends EnhancedCityActivity {
                 "Bucătăria din Lugoj îmbină tradițiile bănățene cu influențe germane, sârbești și maghiare. Printre specialitățile locale se numără preparatele din carne de porc, cozonacul bănățean și prăjiturile tradiționale.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

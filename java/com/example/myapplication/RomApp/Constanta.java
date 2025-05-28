@@ -506,7 +506,7 @@ public class Constanta extends EnhancedCityActivity {
 
         setTitle("Constanța");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class Constanta extends EnhancedCityActivity {
                 "Bucătăria constănțeană reflectă diversitatea etnică a regiunii. Preparatele din pește sunt o specialitate locală, iar restaurantele din zona peninsulară și portul turistic Tomis oferă o experiență culinară autentică. Influențele turcești și grecești sunt evidente în deserturi precum baclavaua.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
         

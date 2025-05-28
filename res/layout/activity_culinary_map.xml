@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rom_background_light"
+    tools:context=".recipe.ui.CulinaryMapActivity">
+
+    <!-- Map container - always at the bottom layer -->
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Hartă culinară a României" />
+
+        <!-- Map legend for markers -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mapLegend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#DDDDDD">
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipuri de preparate:"
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
+                    
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp">
+                    
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#E57373"
+                        android:layout_gravity="center_vertical"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fel principal"
+                        android:textSize="10sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#64B5F6"
+                        android:layout_gravity="center_vertical"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Supă/Ciorbă"
+                        android:textSize="10sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#F48FB1"
+                        android:layout_gravity="center_vertical"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Desert"
+                        android:textSize="10sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#81C784"
+                        android:layout_gravity="center_vertical"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aperitiv"
+                        android:textSize="10sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#80DEEA"
+                        android:layout_gravity="center_vertical"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Băutură"
+                        android:textSize="10sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#FFD54F"
+                        android:layout_gravity="center_vertical"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Garnitură"
+                        android:textSize="10sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#FF9800"
+                        android:layout_gravity="center_vertical"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Altele"
+                        android:textSize="10sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        
+        <!-- Night Mode Toggle Button -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/nightModeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Schimbă modul zi/noapte"
+            android:src="@drawable/ic_night_mode"
+            app:fabSize="mini"
+            app:tint="@android:color/white"
+            app:backgroundTint="#5D4037"/>
+    </FrameLayout>
+
+    <!-- Top controls bar with search and navigation -->
+    <LinearLayout
+        android:id="@+id/topControlsBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
+
+        <!-- Search and back button row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical">
+
+            <!-- Back button -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                android:layout_marginEnd="8dp">
+
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Înapoi"
+                    android:src="@drawable/ic_back"
+                    android:padding="12dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Search Bar with background -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Caută rețete tradiționale" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Filter section with fixed title and scrollable chips -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="12dp">
+            
+            <!-- Title card - fixed, doesn't scroll -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.TopRounded"
+                app:cardElevation="4dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#DDDDDD">
+                
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Filtrează preparatele"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"/>
+            </com.google.android.material.card.MaterialCardView>
+            
+            <!-- Scrollable chips in a separate card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="12dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.BottomRounded"
+                app:cardElevation="4dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#DDDDDD">
+                
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:padding="8dp">
+                    
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/filterChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        app:singleSelection="true"
+                        app:singleLine="true"
+                        app:chipSpacingHorizontal="8dp"/>
+                </HorizontalScrollView>
+            </com.google.android.material.card.MaterialCardView>
+            
+            <!-- Map Type Toggle Button - moved here from FrameLayout -->
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/mapTypeToggleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="8dp"
+                android:text="Comută la harta regiunilor"
+                app:icon="@drawable/ic_map"
+                app:iconGravity="start" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Recipe Info Card Bottom Sheet with improved style -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/recipeInfoCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+            
+            <!-- Handle bar for bottom sheet -->
+            <View
+                android:layout_width="36dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/darker_gray"/>
+                
+            <!-- Recipe title -->
+            <TextView
+                android:id="@+id/recipeNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/rom_text_primary"/>
+                
+            <!-- Recipe region with icon -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+                
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_location"
+                    app:tint="#777777"/>
+                    
+                <TextView
+                    android:id="@+id/recipeRegionText"
+                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+                
+            <!-- Recipe description -->
+            <TextView
+                android:id="@+id/recipeDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:lineSpacingMultiplier="1.2"/>
+                
+            <!-- View recipe button with improved style -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewRecipeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Vezi rețeta completă"
+                android:padding="12dp"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_restaurant"
+                app:iconGravity="textStart"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout> 

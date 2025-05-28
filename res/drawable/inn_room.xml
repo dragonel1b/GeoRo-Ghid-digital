@@ -4,22 +4,136 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path
-        android:fillColor="#D7CCC8"
-        android:pathData="M2,2h20v20H2z"/>
+    
+    <!-- Room background with wooden walls -->
     <path
         android:fillColor="#5D4037"
-        android:pathData="M2,2h20v1H2z M2,22h20v-1H2z M2,2h1v20H2z M21,2h1v20h-1z"/>
-    <path
-        android:fillColor="#8D6E63"
-        android:pathData="M4,12h6v10H4z"/>
-    <path
-        android:fillColor="#A1887F"
-        android:pathData="M5,13h4v1H5z"/>
+        android:pathData="M2,2h20v20H2z"/>
+    
+    <!-- Wall panels -->
     <path
         android:fillColor="#6D4C41"
-        android:pathData="M14,4h6v4h-6z"/>
+        android:pathData="M2,2h20v1H2z"/>
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M2,10h20v0.5H2z"/>
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M2,18h20v0.5H2z"/>
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M2,2h0.5v20H2z"/>
+    <path
+        android:fillColor="#6D4C41"
+        android:pathData="M21.5,2h0.5v20h-0.5z"/>
+    
+    <!-- Wooden floor -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M2,18.5h20v3.5H2z"/>
+    <path
+        android:fillColor="#795548"
+        android:pathData="M2,19.5h20v0.1H2z"/>
+    <path
+        android:fillColor="#795548"
+        android:pathData="M2,21h20v0.1H2z"/>
+    
+    <!-- Bed -->
+    <path
+        android:fillColor="#A1887F"
+        android:pathData="M3,12h7v7H3z"/>
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M3,12h7v1H3z"/>
     <path
         android:fillColor="#EFEBE9"
-        android:pathData="M14.5,5h5v2h-5z"/>
+        android:pathData="M3,13h7v1.5H3z"/>
+    <path
+        android:fillColor="#D7CCC8"
+        android:pathData="M3,14.5h7v4.5H3z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M3,19h7v0.5H3z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M3,12h0.5v7H3z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M9.5,12h0.5v7h-0.5z"/>
+    
+    <!-- Pillow -->
+    <path
+        android:fillColor="#EFEBE9"
+        android:pathData="M3.5,14.8h2v1.5h-2z"/>
+    
+    <!-- Window with crucifix -->
+    <path
+        android:fillColor="#90A4AE"
+        android:pathData="M13.5,4h6v4h-6z"/>
+    <path
+        android:fillColor="#B0BEC5"
+        android:pathData="M14,4.5h5v3h-5z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M13.5,4h6v0.5h-6z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M13.5,8h6v0.5h-6z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M13.5,4h0.5v4h-0.5z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M16.25,4h0.5v4h-0.5z"/>
+    <path
+        android:fillColor="#3E2723"
+        android:pathData="M19,4h0.5v4h-0.5z"/>
+    
+    <!-- Moon through window -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:fillAlpha="0.4"
+        android:pathData="M14.5,5a1,1 0,1 0,2 0a1,1 0,1 0,-2 0"/>
+    
+    <!-- Crucifix above bed -->
+    <path
+        android:fillColor="#795548"
+        android:pathData="M6,8h1v3H6z"/>
+    <path
+        android:fillColor="#795548"
+        android:pathData="M5,9h3v0.5H5z"/>
+    
+    <!-- Small table -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M14,13h6v1.5h-6z"/>
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M14.5,14.5h0.5v3.5h-0.5z"/>
+    <path
+        android:fillColor="#4E342E"
+        android:pathData="M19,14.5h0.5v3.5H19z"/>
+    
+    <!-- Candle on table -->
+    <path
+        android:fillColor="#FFF9C4"
+        android:pathData="M16,12h2v1h-2z"/>
+    <path
+        android:fillColor="#FFEB3B"
+        android:pathData="M16.5,11h1v1h-1z"/>
+    <path
+        android:fillColor="#FFF176"
+        android:fillAlpha="0.5"
+        android:pathData="M16.25,10.5a0.75,0.5 0,1 0,1.5 0a0.75,0.5 0,1 0,-1.5 0"/>
+    
+    <!-- Garlic on window -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M18,7a0.4,0.4 0,1 0,0.8 0a0.4,0.4 0,1 0,-0.8 0"/>
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M18.4,7.2a0.4,0.4 0,1 0,0.8 0a0.4,0.4 0,1 0,-0.8 0"/>
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M18.2,6.8a0.4,0.4 0,1 0,0.8 0a0.4,0.4 0,1 0,-0.8 0"/>
 </vector> 

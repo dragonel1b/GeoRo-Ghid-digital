@@ -7,52 +7,110 @@
     android:background="@color/rom_background"
     tools:context=".Joc1.RomQuizActivity">
 
-    <TextView
-        android:id="@+id/quizTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/minigame_title"
-        android:textColor="@color/rom_text_primary"
-        android:textSize="24sp"
-        android:textStyle="bold"
+    <!-- Top App Bar with back button -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/minigame_title"
+        app:titleCentered="true"
+        app:titleTextColor="@color/rom_text_primary" />
 
-    <TextView
-        android:id="@+id/scoreTextView"
-        android:layout_width="wrap_content"
+    <!-- Score and progress section -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/scoreCard"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/minigame_score"
-        android:textColor="@color/rom_text_secondary"
-        android:textSize="18sp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/rom_card_background"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/quizTitleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/scoreTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/minigame_score"
+                android:textColor="@color/rom_text_primary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Scor: 20" />
+
+            <TextView
+                android:id="@+id/questionCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/rom_text_secondary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Întrebarea 1/10" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/quizProgressIndicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:progress="10"
+                app:indicatorColor="@color/rom_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scoreTextView"
+                app:trackColor="@color/rom_text_hint" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Question card with image support -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/questionCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:cardBackgroundColor="@color/rom_card_background"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scoreTextView">
+        app:layout_constraintTop_toBottomOf="@id/scoreCard">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/questionImageView"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:contentDescription="@string/minigame_image_desc"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                tools:src="@drawable/ic_attraction"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/questionTextView"
@@ -60,93 +118,123 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="16dp"
+                android:padding="24dp"
                 android:textColor="@color/rom_text_primary"
                 android:textSize="18sp"
                 tools:text="Care este capitala României?" />
 
-            <ImageView
-                android:id="@+id/questionImageView"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginBottom="16dp"
-                android:contentDescription="@string/minigame_image_desc"
-                android:scaleType="centerCrop"
-                android:visibility="gone"
-                tools:src="@drawable/ic_attraction"
-                tools:visibility="visible" />
-
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/answerButton1"
+    <!-- Answer options -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/answersCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/rom_button_background"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:textColor="@color/rom_text_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/questionCard"
-        tools:text="București" />
-
-    <Button
-        android:id="@+id/answerButton2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/rom_button_background"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:textColor="@color/rom_text_button"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/rom_card_background"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/answerButton1"
-        tools:text="Cluj-Napoca" />
+        app:layout_constraintTop_toBottomOf="@id/questionCard">
 
-    <Button
-        android:id="@+id/answerButton3"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                app:cornerRadius="8dp"
+                tools:text="București" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                app:cornerRadius="8dp"
+                tools:text="Cluj-Napoca" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                app:cornerRadius="8dp"
+                tools:text="Iași" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                app:cornerRadius="8dp"
+                tools:text="Timișoara" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Next Question Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/nextQuestionButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/rom_button_background"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:fontFamily="@font/poppins_medium"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
-        android:textColor="@color/rom_text_button"
+        android:text="@string/minigame_next"
+        android:textAllCaps="false"
+        android:visibility="invisible"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/ic_arrow_right"
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/answerButton2"
-        tools:text="Iași" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/answerButton4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/rom_button_background"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:textColor="@color/rom_text_button"
+    <!-- Feedback icons displayed when answering -->
+    <ImageView
+        android:id="@+id/feedbackIcon"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:alpha="0"
+        android:contentDescription="@string/minigame_feedback_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/answerButton3"
-        tools:text="Timișoara" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:alpha="0.7"
+        tools:src="@drawable/ic_check_circle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

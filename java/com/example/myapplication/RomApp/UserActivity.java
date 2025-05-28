@@ -241,9 +241,9 @@ public class UserActivity extends AppCompatActivity {
             intent.setClass(this, Maramures.class);
             region = "Maramureș";
         } else if (id == R.id.buttonRom) {
-            // Pentru joc, verificăm autentificarea
+            // Pentru joc, verificăm doar dacă utilizatorul are cont creat
             if (!isUserLoggedIn) {
-                // Utilizatorul nu este autentificat, afișăm un dialog de avertizare
+                // Utilizatorul nu are cont creat, afișăm un dialog de avertizare
                 showLoginRequiredDialog("Mini Game");
                 return; // Nu continuăm cu navigarea
             }

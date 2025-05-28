@@ -106,7 +106,7 @@ public class RecipeRepository {
                 45,
                 180,
                 8,
-                R.drawable.placeholder_recipe);
+                R.drawable.sarmale);
 
         sarmale.addIngredient(new Ingredient("carne tocată de porc", "1", "kg"));
         sarmale.addIngredient(new Ingredient("ceapă", "2", "buc"));
@@ -141,7 +141,7 @@ public class RecipeRepository {
                 10,
                 20,
                 6,
-                R.drawable.placeholder_recipe);
+                R.drawable.mamaliga);
 
         mamaliga.addIngredient(new Ingredient("mălai", "500", "g"));
         mamaliga.addIngredient(new Ingredient("apă", "1.5", "l"));
@@ -170,7 +170,7 @@ public class RecipeRepository {
                 30,
                 120,
                 10,
-                R.drawable.placeholder_recipe);
+                R.drawable.ciorba_burta);
 
         ciorbaBurta.addIngredient(new Ingredient("burtă de vită fiartă", "1", "kg"));
         ciorbaBurta.addIngredient(new Ingredient("morcovi", "2", "buc"));
@@ -208,7 +208,7 @@ public class RecipeRepository {
                 60,
                 50,
                 12,
-                R.drawable.placeholder_recipe);
+                R.drawable.cozonac);
 
         cozonac.addIngredient(new Ingredient("făină", "1", "kg"));
         cozonac.addIngredient(new Ingredient("zahăr", "300", "g"));
@@ -249,7 +249,7 @@ public class RecipeRepository {
                 30,
                 15,
                 6,
-                R.drawable.placeholder_recipe);
+                R.drawable.mici);
 
         mici.addIngredient(new Ingredient("carne tocată de vită", "500", "g"));
         mici.addIngredient(new Ingredient("carne tocată de miel", "250", "g"));
@@ -284,7 +284,7 @@ public class RecipeRepository {
                 30,
                 20,
                 4,
-                R.drawable.placeholder_recipe);
+                R.drawable.papanasi);
 
         papanasi.addIngredient(new Ingredient("brânză de vaci", "500", "g"));
         papanasi.addIngredient(new Ingredient("făină", "250", "g"));
@@ -319,7 +319,7 @@ public class RecipeRepository {
                 20,
                 40,
                 6,
-                R.drawable.placeholder_recipe);
+                R.drawable.ciorba_legume);
 
         ciorbaLegume.addIngredient(new Ingredient("morcovi", "3", "buc"));
         ciorbaLegume.addIngredient(new Ingredient("ceapă", "2", "buc"));
@@ -361,7 +361,7 @@ public class RecipeRepository {
                 20,
                 60,
                 6,
-                R.drawable.placeholder_recipe);
+                R.drawable.tochitura);
 
         tochitura.addIngredient(new Ingredient("carne de porc (pulpă sau spată)", "800", "g"));
         tochitura.addIngredient(new Ingredient("cârnați afumați", "400", "g"));

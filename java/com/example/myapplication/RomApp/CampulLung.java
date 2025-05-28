@@ -506,7 +506,7 @@ public class CampulLung extends EnhancedCityActivity {
 
         setTitle("Câmpulung Moldovenesc");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class CampulLung extends EnhancedCityActivity {
                 "Bucătăria tradițională din Câmpulung Moldovenesc este reprezentativă pentru zona montană a Bucovinei. Specialitățile locale includ tocănița bucovineană, sarmalele în foi de hrean, afinata, brânza de burduf și dulcețurile de afine și zmeură. Restaurantele locale oferă preparate autentice gătite după rețete transmise din generație în generație.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

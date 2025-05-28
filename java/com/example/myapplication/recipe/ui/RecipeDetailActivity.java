@@ -21,6 +21,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.IngredientAdapter;
@@ -35,6 +37,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +55,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private TextView timeTextView;
     private TextView servingsTextView;
     private TextView difficultyTextView;
-    private FloatingActionButton fabFavorite;
+    private FloatingActionButton fabCooking;
     private TextView regionChip;
     private TextView categoryChip;
     private RecyclerView ingredientsRecyclerView;
@@ -66,6 +69,17 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private Chip glutenFreeChip;
     private Chip lactoseFreeChip;
     private IngredientAdapter ingredientAdapter;
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
+    private View scrollContainer;
+    
+    // Cards
+    private View descriptionCard;
+    private View ingredientsCard;
+    private View stepsCard;
+    private View nutritionalCard;
+    private View commentsCard;
+    private TextView noCommentsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +113,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Set up toolbar
         setupToolbar();
         
+        // Set up tabs
+        setupTabs();
+        
         // Populate UI with recipe data
         populateRecipeDetails();
         
-        // Set up favorite button
-        setupFavoriteButton();
+        // Set up cooking button
+        setupCookingButton();
         
         // Set up ingredients list
         setupIngredientsList();
@@ -133,13 +150,26 @@ public class RecipeDetailActivity extends AppCompatActivity {
         difficultyTextView = findViewById(R.id.recipe_difficulty);
         regionChip = findViewById(R.id.recipe_region);
         categoryChip = findViewById(R.id.recipe_category);
-        fabFavorite = findViewById(R.id.fab_favorite);
+        fabCooking = findViewById(R.id.fab_cooking);
         ingredientsRecyclerView = findViewById(R.id.ingredients_recycler_view);
         stepsRecyclerView = findViewById(R.id.steps_recycler_view);
         nutritionalInfoTextView = findViewById(R.id.nutritional_info_text);
         
-        // New views
+        // Tabs
+        tabLayout = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.view_pager);
+        scrollContainer = findViewById(R.id.scroll_container);
+        
+        // Cards
+        descriptionCard = findViewById(R.id.description_card);
+        ingredientsCard = findViewById(R.id.ingredients_card);
+        stepsCard = findViewById(R.id.steps_card);
+        nutritionalCard = findViewById(R.id.nutritional_card);
+        commentsCard = findViewById(R.id.comments_card);
+        
+        // Comments views
         commentsRecyclerView = findViewById(R.id.comments_recycler_view);
+        noCommentsText = findViewById(R.id.no_comments_text);
         authorInfoTextView = findViewById(R.id.author_info);
         dietaryRestrictionsContainer = findViewById(R.id.dietary_restrictions_container);
         vegetarianChip = findViewById(R.id.vegetarian_chip);
@@ -153,8 +183,51 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("");
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setTitle(recipe.getTitle());
         }
+    }
+    
+    private void setupTabs() {
+        // Configurez tab-urile pentru a afișa doar una dintre secțiuni odată
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Ascundem toate cardurile
+                descriptionCard.setVisibility(View.GONE);
+                ingredientsCard.setVisibility(View.GONE);
+                stepsCard.setVisibility(View.GONE);
+                nutritionalCard.setVisibility(View.GONE);
+                
+                // Arătăm doar cardul selectat
+                switch (tab.getPosition()) {
+                    case 0:
+                        descriptionCard.setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        ingredientsCard.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        stepsCard.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        nutritionalCard.setVisibility(View.VISIBLE);
+                        break;
+                }
+                
+                // Comentariile sunt întotdeauna vizibile
+                commentsCard.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+        
+        // Selectează prima filă inițial
+        tabLayout.selectTab(tabLayout.getTabAt(0));
     }
 
     private void populateRecipeDetails() {
@@ -182,7 +255,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (recipe.getNutritionalInfo() != null) {
             NutritionalInfo info = recipe.getNutritionalInfo();
             String nutritionalText = String.format(
-                "Calorii: %.0f kcal\nProteine: %.1fg\nCarbohidrați: %.1fg\nGrăsimi: %.1fg\nFibre: %.1fg\nZahăr: %.1fg\nSodiu: %.0fmg",
+                "Calorii: %d kcal\nProteine: %.1fg\nCarbohidrați: %.1fg\nGrăsimi: %.1fg\nFibre: %.1fg\nZahăr: %.1fg\nSodiu: %.1fmg",
                 info.getCalories(),
                 info.getProtein(),
                 info.getCarbs(),
@@ -197,28 +270,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void setupFavoriteButton() {
-        updateFavoriteButtonUI();
-        
-        fabFavorite.setOnClickListener(v -> {
-            recipe.setFavorite(!recipe.isFavorite());
-            recipeRepository.updateRecipe(recipe);
-            updateFavoriteButtonUI();
-            
-            // Show toast message
-            String message = recipe.isFavorite() ? 
-                    getString(R.string.added_to_favorites) : 
-                    getString(R.string.removed_from_favorites);
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void setupCookingButton() {
+        fabCooking.setOnClickListener(v -> {
+            Toast.makeText(this, "Începi să gătești: " + recipe.getTitle(), Toast.LENGTH_SHORT).show();
+            // Aici se poate implementa modul de gătire pas cu pas
         });
-    }
-
-    private void updateFavoriteButtonUI() {
-        if (recipe.isFavorite()) {
-            fabFavorite.setImageResource(R.drawable.ic_favorite);
-        } else {
-            fabFavorite.setImageResource(android.R.drawable.btn_star_big_off);
-        }
     }
     
     private void setupIngredientsList() {
@@ -288,8 +344,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
             commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             CommentsAdapter commentsAdapter = new CommentsAdapter(this, recipe.getComments());
             commentsRecyclerView.setAdapter(commentsAdapter);
+            noCommentsText.setVisibility(View.GONE);
         } else {
             commentsRecyclerView.setVisibility(View.GONE);
+            noCommentsText.setVisibility(View.VISIBLE);
         }
     }
     
@@ -333,6 +391,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_recipe_detail, menu);
+        // Adaugă butonul de favorite în toolbar
+        MenuItem favoriteItem = menu.findItem(R.id.action_favorite);
+        if (favoriteItem != null) {
+            favoriteItem.setIcon(recipe.isFavorite() ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
+        }
         return true;
     }
 
@@ -348,8 +411,25 @@ public class RecipeDetailActivity extends AppCompatActivity {
         } else if (id == R.id.action_add_comment) {
             showAddCommentDialog();
             return true;
+        } else if (id == R.id.action_favorite) {
+            toggleFavorite(item);
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    private void toggleFavorite(MenuItem item) {
+        recipe.setFavorite(!recipe.isFavorite());
+        recipeRepository.updateRecipe(recipe);
+        
+        // Actualizare icon
+        item.setIcon(recipe.isFavorite() ? R.drawable.ic_star_filled : R.drawable.ic_star_empty);
+        
+        // Show toast message
+        String message = recipe.isFavorite() ? 
+                getString(R.string.added_to_favorites) : 
+                getString(R.string.removed_from_favorites);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
     
     private void shareRecipe() {
@@ -363,8 +443,21 @@ public class RecipeDetailActivity extends AppCompatActivity {
         for (Ingredient ingredient : recipe.getIngredients()) {
             String unit = ingredient.getUnit() != null && !ingredient.getUnit().isEmpty() ? 
                     ingredient.getUnit() : "";
-            shareText += String.format("- %.1f %s %s\n", 
-                    ingredient.getQuantity(), unit, ingredient.getName());
+            
+            // Verificăm tipul cantității și o formatăm corect
+            Object quantity = ingredient.getQuantity();
+            String formattedQuantity;
+            
+            if (quantity instanceof Number) {
+                // Dacă este un număr, îl formatăm ca atare
+                formattedQuantity = String.format("%.1f", ((Number)quantity).doubleValue());
+            } else {
+                // Altfel, îl tratăm ca pe un String
+                formattedQuantity = quantity.toString();
+            }
+            
+            shareText += String.format("- %s %s %s\n", 
+                    formattedQuantity, unit, ingredient.getName());
         }
         
         // Increment share count

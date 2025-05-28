@@ -520,7 +520,7 @@ public class Caransebes extends EnhancedCityActivity {
 
         setTitle("Caransebeș");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -555,7 +555,7 @@ public class Caransebes extends EnhancedCityActivity {
                 "Gastronomia din Caransebeș reflectă tradițiile bănățene, cu influențe austriece, germane și sârbești. Preparatele tradiționale includ sărmăluțe bănățene, tocană de carne și diverse preparate din pește de apă dulce.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

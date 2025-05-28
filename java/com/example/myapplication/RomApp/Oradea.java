@@ -506,7 +506,7 @@ public class Oradea extends EnhancedCityActivity {
 
         setTitle("Oradea");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class Oradea extends EnhancedCityActivity {
                 "Oradea și împrejurimile sale sunt cunoscute pentru apele termale cu proprietăți curative. Băile Felix, situate la doar câțiva kilometri de oraș, reprezintă una dintre cele mai importante stațiuni balneare din România.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 

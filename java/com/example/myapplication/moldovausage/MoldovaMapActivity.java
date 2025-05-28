@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 // Import removed
-// import com.example.myapplication.RomApp.Chisinau;
-// import com.example.myapplication.RomApp.Soroca;
 import com.example.myapplication.RomApp.Iasi;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

@@ -506,7 +506,7 @@ public class Radauti extends EnhancedCityActivity {
 
         setTitle("Rădăuți");
 
-        // Add sections
+        /* Add sections
         addSection(
                 findViewById(R.id.cityContentContainer),
                 "Istorie și Tradiție",
@@ -541,7 +541,7 @@ public class Radauti extends EnhancedCityActivity {
                 "Orașul este cunoscut în toată țara pentru celebra \"ciorbă rădăuțeană\", o specialitate locală preparată din carne de pui, smântână și usturoi. Alte preparate tradiționale includ plăcintele poale-n brâu, tocănița bucovineană și brânzeturile locale. Restaurantele din Rădăuți servesc mâncăruri autentice după rețete transmise din generație în generație.",
                 false
         );
-
+*/
         // Add attractions using the AttractionHelper
         LinearLayout container = findViewById(R.id.cityContentContainer);
 
