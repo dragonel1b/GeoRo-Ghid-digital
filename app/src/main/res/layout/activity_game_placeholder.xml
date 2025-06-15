@@ -26,9 +26,10 @@
             android:padding="24dp">
 
             <TextView
+                android:id="@+id/placeholderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Joc Terminat"
+                android:text="Joc Regional"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -39,37 +40,22 @@
                 android:src="@android:drawable/ic_dialog_info" />
 
             <TextView
-                android:id="@+id/scoreText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Scor: 0"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/messageText"
+                android:id="@+id/placeholderMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="Felicitări pentru participare!"
+                android:text="Acest joc va fi implementat în curând!"
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/restartButton"
+                android:id="@+id/backButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Joacă din nou"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/mapButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="Înapoi la hartă"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:onClick="onBackPressed" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout> 

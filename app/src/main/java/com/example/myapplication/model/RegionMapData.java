@@ -58,6 +58,22 @@ public class RegionMapData {
                                     float markerColor, int id) {
         return addLocation(title, description, position, markerColor, id, null);
     }
+    
+    /**
+     * Setează clasa activității pentru o locație specifică
+     * @param locationId ID-ul locației
+     * @param targetActivityClass Clasa activității care se va deschide la click pe marker
+     * @return Obiectul RegionMapData pentru a permite înlănțuirea apelurilor
+     */
+    public RegionMapData setLocationActivityClass(int locationId, Class<?> targetActivityClass) {
+        for (MapLocation location : locations) {
+            if (location.getId() == locationId) {
+                location.setTargetActivityClass(targetActivityClass);
+                break;
+            }
+        }
+        return this;
+    }
 
     /**
      * Setează clasa activității de poveste
@@ -203,6 +219,14 @@ public class RegionMapData {
          */
         public Class<?> getTargetActivityClass() {
             return targetActivityClass;
+        }
+        
+        /**
+         * Setează clasa activității care se va deschide la click pe marker
+         * @param targetActivityClass Clasa activității
+         */
+        public void setTargetActivityClass(Class<?> targetActivityClass) {
+            this.targetActivityClass = targetActivityClass;
         }
     }
 } 

@@ -2,35 +2,48 @@ package com.example.myapplication.transilvaniausage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.base.BaseGameOverActivity;
 
-public class TransilvaniaGameOverActivity extends BaseGameOverActivity {
-
+public class TransilvaniaGameOverActivity extends AppCompatActivity {
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transilvania_game_over);
+        setContentView(R.layout.activity_game_over);
         
-        // Inițializăm elementele UI
-        initializeCommonViews();
+        // Obținem scorul din intent
+        int score = getIntent().getIntExtra("score", 0);
         
-        // Actualizăm UI-ul cu rezultatele
-        updateUI();
-    }
-
-    @Override
-    protected void restartGame() {
-        Intent intent = new Intent(this, TransilvaniaGameActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    protected void returnToMap() {
-        Intent intent = new Intent(this, TransilvaniaMapActivity.class);
-        startActivity(intent);
-        finish();
+        // Afișăm scorul
+        TextView scoreText = findViewById(R.id.scoreText);
+        if (scoreText != null) {
+            scoreText.setText("Scor: " + score);
+        }
+        
+        // Configurăm butonul de restart
+        Button restartButton = findViewById(R.id.restartButton);
+        if (restartButton != null) {
+            restartButton.setOnClickListener(v -> {
+                Intent intent = new Intent(this, TransilvaniaGameActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        }
+        
+        // Configurăm butonul de întoarcere la hartă
+        Button mapButton = findViewById(R.id.mapButton);
+        if (mapButton != null) {
+            mapButton.setOnClickListener(v -> {
+                Intent intent = new Intent(this, TransilvaniaMapActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        }
     }
 } 

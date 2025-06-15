@@ -83,7 +83,13 @@ public abstract class BaseStoryActivity extends AppCompatActivity {
     protected void initializeCommonViews() {
         titleText = findViewById(R.id.storyTitle);
         storyText = findViewById(R.id.storyText);
-        contextText = findViewById(R.id.contextText);
+        
+        // Verificăm dacă există contextText în layout
+        int contextTextId = getResources().getIdentifier("contextText", "id", getPackageName());
+        if (contextTextId != 0) {
+            contextText = findViewById(contextTextId);
+        }
+        
         storyImage = findViewById(R.id.storyImage);
         progressBar = findViewById(R.id.progressBar);
         
@@ -92,7 +98,16 @@ public abstract class BaseStoryActivity extends AppCompatActivity {
         factTextView = findViewById(R.id.factTextView);
         nextButton = findViewById(R.id.nextButton);
         backButton = findViewById(R.id.backButton);
-        soundButton = findViewById(R.id.soundButton);
+        
+        // Verificăm dacă există soundButton în layout
+        int soundButtonId = getResources().getIdentifier("soundButton", "id", getPackageName());
+        if (soundButtonId != 0) {
+            soundButton = findViewById(soundButtonId);
+            
+            if (soundButton != null) {
+                soundButton.setOnClickListener(v -> toggleSound());
+            }
+        }
         
         // Configurăm butoanele
         if (nextButton != null) {
@@ -101,10 +116,6 @@ public abstract class BaseStoryActivity extends AppCompatActivity {
         
         if (backButton != null) {
             backButton.setOnClickListener(v -> onBackPressed());
-        }
-        
-        if (soundButton != null) {
-            soundButton.setOnClickListener(v -> toggleSound());
         }
         
         // Inițializarea butoanelor pentru alegeri trebuie făcută în subclase
@@ -149,10 +160,10 @@ public abstract class BaseStoryActivity extends AppCompatActivity {
         storyText.setText(currentNode.getStoryText());
         
         // Afișăm contextul dacă există
-        if (currentNode.getContext() != null && !currentNode.getContext().isEmpty()) {
+        if (contextText != null && currentNode.getContext() != null && !currentNode.getContext().isEmpty()) {
             contextText.setText(currentNode.getContext());
             contextText.setVisibility(View.VISIBLE);
-        } else {
+        } else if (contextText != null) {
             contextText.setVisibility(View.GONE);
         }
         

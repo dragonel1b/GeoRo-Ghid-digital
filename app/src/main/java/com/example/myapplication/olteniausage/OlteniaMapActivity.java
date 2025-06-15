@@ -13,13 +13,9 @@ public class OlteniaMapActivity extends BaseMapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_oltenia_map);
         
         // Setăm datele regiunii Oltenia
         setRegionData(RegionMapDataProvider.getInstance().getRegionData("oltenia"));
-        
-        // Inițializăm elementele UI
-        initializeCommonViews();
         
         // Inițializăm harta
         initializeMap();
@@ -45,5 +41,25 @@ public class OlteniaMapActivity extends BaseMapActivity {
         Intent intent = new Intent(this, Oltenia.class);
         startActivity(intent);
         finish();
+    }
+    
+    @Override
+    protected void addMapMarkers() {
+        // Adăugăm markeri pentru locațiile importante din Oltenia
+        // Implementarea specifică pentru Oltenia
+    }
+    
+    @Override
+    protected void startStoryActivity() {
+        // Redirectăm către activitatea de poveste
+        Intent intent = new Intent(this, OlteniaStoryActivity.class);
+        startActivity(intent);
+    }
+    
+    @Override
+    protected void startGameActivity() {
+        // Redirectăm către activitatea de joc
+        Intent intent = new Intent(this, OlteniaGameActivity.class);
+        startActivity(intent);
     }
 } 

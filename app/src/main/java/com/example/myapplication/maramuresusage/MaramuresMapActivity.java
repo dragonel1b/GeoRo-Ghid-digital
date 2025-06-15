@@ -14,13 +14,9 @@ public class MaramuresMapActivity extends BaseMapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maramures_map);
         
         // Setăm datele regiunii Maramureș
         setRegionData(RegionMapDataProvider.getInstance().getRegionData("maramures"));
-        
-        // Inițializăm elementele UI
-        initializeCommonViews();
         
         // Inițializăm harta
         initializeMap();
@@ -91,5 +87,19 @@ public class MaramuresMapActivity extends BaseMapActivity {
         
         // Apelăm implementarea din clasa părinte
         super.handleMarkerClick(markerId);
+    }
+
+    @Override
+    protected void startStoryActivity() {
+        // Redirectăm către activitatea de poveste
+        Intent intent = new Intent(this, MaramuresStoryActivity.class);
+        startActivity(intent);
+    }
+    
+    @Override
+    protected void startGameActivity() {
+        // Redirectăm către activitatea de joc
+        Intent intent = new Intent(this, MaramuresGameActivity.class);
+        startActivity(intent);
     }
 }

@@ -12,13 +12,9 @@ public class MunteniaMapActivity extends BaseMapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_muntenia_map);
         
         // Setăm datele regiunii Muntenia
         setRegionData(RegionMapDataProvider.getInstance().getRegionData("muntenia"));
-        
-        // Inițializăm elementele UI
-        initializeCommonViews();
         
         // Inițializăm harta
         initializeMap();
@@ -44,5 +40,25 @@ public class MunteniaMapActivity extends BaseMapActivity {
         
         // Apelăm implementarea din clasa părinte, care va gestiona navigarea către activitățile specifice
         super.handleMarkerClick(markerId);
+    }
+
+    @Override
+    protected void addMapMarkers() {
+        // Adăugăm markeri pentru locațiile importante din Muntenia
+        // Implementarea specifică pentru Muntenia
+    }
+
+    @Override
+    protected void startStoryActivity() {
+        // Redirectăm către activitatea de poveste
+        Intent intent = new Intent(this, MunteniaTourActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void startGameActivity() {
+        // Redirectăm către activitatea de joc
+        Intent intent = new Intent(this, MunteniaGameActivity.class);
+        startActivity(intent);
     }
 } 

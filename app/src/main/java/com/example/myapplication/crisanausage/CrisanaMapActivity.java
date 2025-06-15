@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.RomApp.PointsManager;
+import com.example.myapplication.utils.PointsManager;
 import com.example.myapplication.model.RegionMapDataProvider;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,7 +37,6 @@ public class CrisanaMapActivity extends BaseMapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crisana_map);
         
         // Setăm datele regiunii Crișana
         setRegionData(RegionMapDataProvider.getInstance().getRegionData("crisana"));
@@ -45,27 +44,23 @@ public class CrisanaMapActivity extends BaseMapActivity {
         // Initialize points manager
         pointsManager = PointsManager.getInstance(this);
         
-        // Initialize views
-        pointsText = findViewById(R.id.pointsText);
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
-        
         // Initialize locations
         initializeLocations();
-        
-        // Set up UI elements
-        FloatingActionButton backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> finish());
         
         // Update points display
         updatePointsDisplay();
         
-        // Inițializăm elementele UI
-        initializeCommonViews();
-        
         // Inițializăm harta
         initializeMap();
+        
+        // Activăm butoanele pentru poveste și joc
+        if (storyButton != null) {
+            storyButton.setOnClickListener(v -> startStoryActivity());
+        }
+        
+        if (gameButton != null) {
+            gameButton.setOnClickListener(v -> startGameActivity());
+        }
     }
     
     private void initializeLocations() {
@@ -192,7 +187,7 @@ public class CrisanaMapActivity extends BaseMapActivity {
                 discoveredLocations++;
                 
                 // Award points for discovery
-                pointsManager.addPoints(this, "Crișana", 25);
+                pointsManager.addPoints(this, "crisana", 25);
                 updatePointsDisplay();
                 
                 // Show success message
@@ -219,47 +214,21 @@ public class CrisanaMapActivity extends BaseMapActivity {
         builder.setPositiveButton("Continuă explorarea", (dialog, which) -> dialog.dismiss());
         
         // Award bonus points
-        pointsManager.addPoints(this, "Crișana", 100);
+        pointsManager.addPoints(this, "crisana", 100);
         updatePointsDisplay();
         
         builder.create().show();
     }
     
     private void updatePointsDisplay() {
-        int points = pointsManager.getPoints(this, "Crișana");
-        pointsText.setText(String.format("Puncte: %d", points));
+        int points = pointsManager.getRegionPoints(this, "crisana");
+        TextView pointsText = findViewById(R.id.progressText);
+        if (pointsText != null) {
+            pointsText.setText(String.format("Puncte: %d", points));
+        }
     }
     
-    // MapView lifecycle methods
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-    
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-    
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-    
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
-    
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
+    // MapView lifecycle methods are handled by the parent class
     
     // POI Location class to store location data
     private static class POILocation {
@@ -356,10 +325,7 @@ public class CrisanaMapActivity extends BaseMapActivity {
     @Override
     protected void handleMarkerClick(int markerId) {
         // Adăugăm puncte când utilizatorul apasă pe un marker
-        pointsManager.addPoints(this, "Crișana", 25);
-        
-        // Marcăm locația ca vizitată
-        pointsManager.markLocationAsVisited("crisana", markerId);
+        pointsManager.addPoints(this, "crisana", 25);
         
         // Actualizăm textul de progres
         updateProgressText();

@@ -124,18 +124,18 @@ public class DraculaStoryActivity extends AppCompatActivity {
         betAmountInput = findViewById(R.id.betAmountInput);
         progressIndicator = findViewById(R.id.progressIndicator);
         batAnimation = findViewById(R.id.batAnimation);
-        
+
         // Log warning if progressIndicator is not found in the layout
         if (progressIndicator == null) {
             System.out.println("WARNING: LinearProgressIndicator with ID progressIndicator not found in layout");
         }
-        
+
         pointsManager = PointsManager.getInstance(this);
         random = new Random();
-        
+
         // Get current points
         currentPoints = pointsManager.getPoints(this);
-        
+
         // Make sure all elements have proper initial visibility
         if (storyText != null) storyText.setVisibility(View.VISIBLE);
         if (storyTitle != null) storyTitle.setVisibility(View.VISIBLE);
@@ -148,13 +148,13 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (bettingCard != null) bettingCard.setVisibility(View.GONE);
         if (interactiveCardView != null) interactiveCardView.setVisibility(View.GONE);
         if (batAnimation != null) batAnimation.setVisibility(View.GONE);
-        
+
         finishButton = findViewById(R.id.finishButton);
         if (finishButton != null) {
             finishButton.setVisibility(View.GONE);
         }
     }
-    
+
     private void initializeAudio() {
         try {
             // Initialize background music
@@ -166,7 +166,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
             } else {
                 Log.e("DraculaStoryActivity", "Failed to create background music player");
             }
-            
+
             // Initialize sound effect player
             soundEffect = MediaPlayer.create(this, R.raw.thunder);
             if (soundEffect == null) {
@@ -178,45 +178,45 @@ public class DraculaStoryActivity extends AppCompatActivity {
             Toast.makeText(this, "Unele efecte sonore ar putea să nu fie disponibile", Toast.LENGTH_SHORT).show();
         }
     }
-    
+
     private void initializeAnimations() {
         fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         batFlyAnimation = AnimationUtils.loadAnimation(this, R.anim.fly_animation);
-        
+
         fadeInAnimation.setDuration(1000);
         batFlyAnimation.setDuration(1500);
     }
-    
+
     private void initializeTextToSpeech() {
         try {
-        textToSpeech = new TextToSpeech(this, status -> {
-            if (status == TextToSpeech.SUCCESS) {
-                int result = textToSpeech.setLanguage(new Locale("ro", "RO"));
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(this, "Limba română nu este suportată pentru citire", Toast.LENGTH_SHORT).show();
+            textToSpeech = new TextToSpeech(this, status -> {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = textToSpeech.setLanguage(new Locale("ro", "RO"));
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Toast.makeText(this, "Limba română nu este suportată pentru citire", Toast.LENGTH_SHORT).show();
                         Log.w("DraculaStoryActivity", "Romanian language not supported for TTS");
-                }
-            } else {
-                Toast.makeText(this, "Eroare la inițializarea text-to-speech", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Eroare la inițializarea text-to-speech", Toast.LENGTH_SHORT).show();
                     Log.e("DraculaStoryActivity", "Failed to initialize TTS, status: " + status);
-            }
-        });
+                }
+            });
         } catch (Exception e) {
             Log.e("DraculaStoryActivity", "Error initializing TTS: " + e.getMessage());
         }
     }
-    
+
     private void setupButtonListeners() {
         // Add listener for story reading button
         if (storyButton != null) {
             storyButton.setOnClickListener(v -> toggleStoryReading());
         }
-        
+
         // Add listener for exit button
         if (exitButton != null) {
             exitButton.setOnClickListener(v -> finish());
         }
-        
+
         // Add listener for next button
         if (nextButton != null) {
             nextButton.setOnClickListener(v -> {
@@ -224,7 +224,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
                 animateSceneTransition();
             });
         }
-        
+
         // Add listener for continue button
         if (continueButton != null) {
             continueButton.setOnClickListener(v -> {
@@ -232,17 +232,17 @@ public class DraculaStoryActivity extends AppCompatActivity {
                 animateSceneTransition();
             });
         }
-        
+
         // Back button in header
         if (headerBackButton != null) {
             headerBackButton.setOnClickListener(v -> finish());
         }
-        
+
         // Sound toggle
         if (soundToggleButton != null) {
             soundToggleButton.setOnClickListener(v -> toggleSound());
         }
-        
+
         // Interactive element cards
         if (objectCard1 != null) {
             objectCard1.setOnClickListener(v -> selectVampireTest(1));
@@ -253,17 +253,17 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (objectCard3 != null) {
             objectCard3.setOnClickListener(v -> selectVampireTest(3));
         }
-        
+
         // Adaugă listener pentru butonul de încheiere
         if (finishButton != null) {
             finishButton.setOnClickListener(v -> finish());
         }
     }
-    
+
     private void toggleSound() {
         try {
             isSoundEnabled = !isSoundEnabled;
-            
+
             if (isSoundEnabled) {
                 soundToggleButton.setImageResource(R.drawable.ic_sound_on);
                 if (backgroundMusic != null && !backgroundMusic.isPlaying()) {
@@ -275,10 +275,10 @@ public class DraculaStoryActivity extends AppCompatActivity {
                     backgroundMusic.pause();
                 }
             }
-            
+
             // Add haptic feedback
             soundToggleButton.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-            
+
         } catch (Exception e) {
             Log.e("DraculaStoryActivity", "Error toggling sound: " + e.getMessage());
         }
@@ -309,22 +309,22 @@ public class DraculaStoryActivity extends AppCompatActivity {
             isSpeaking = true;
         }
     }
-    
+
     private void animateSceneTransition() {
         try {
             // Hide content temporarily for smooth transition
             if (storyText != null) storyText.setVisibility(View.INVISIBLE);
             if (storyTitle != null) storyTitle.setVisibility(View.INVISIBLE);
             if (storyContext != null) storyContext.setVisibility(View.INVISIBLE);
-            
+
             // Hide all interactive elements
             hideAllInteractiveElements();
-            
+
             // Apply the fade-in animation with a delay
             handler.postDelayed(() -> {
                 // Update scene content from ViewModel
                 viewModel.moveToNextScene();
-                
+
                 // Show content with animation
                 if (storyText != null) {
                     storyText.setVisibility(View.VISIBLE);
@@ -338,13 +338,13 @@ public class DraculaStoryActivity extends AppCompatActivity {
                     storyContext.setVisibility(View.VISIBLE);
                     storyContext.startAnimation(fadeInAnimation);
                 }
-                
+
                 // Update the scene image
                 updateSceneImage();
-                
+
                 // Update progress
                 updateProgressIndicator();
-                
+
                 // Play transition sound
                 playSoundEffect();
             }, 300);
@@ -367,19 +367,19 @@ public class DraculaStoryActivity extends AppCompatActivity {
                 backgroundMusic.release();
                 backgroundMusic = null;
             }
-            
+
             if (soundEffect != null) {
                 soundEffect.release();
                 soundEffect = null;
             }
-            
+
             // Release text-to-speech
             if (textToSpeech != null) {
                 textToSpeech.stop();
                 textToSpeech.shutdown();
                 textToSpeech = null;
             }
-            
+
             // Remove callbacks to prevent memory leaks
             if (handler != null) {
                 handler.removeCallbacksAndMessages(null);
@@ -419,28 +419,28 @@ public class DraculaStoryActivity extends AppCompatActivity {
                 setupChoiceButtons(node);
             }
         });
-        
+
         // Observă mesajele de feedback
         viewModel.getFeedbackMessage().observe(this, message -> {
             if (message != null && !message.isEmpty()) {
                 showFeedback(message);
             }
         });
-        
+
         // Observă dacă trebuie să arătăm testul vampirului
         viewModel.getShowVampireTest().observe(this, show -> {
             if (show != null && show) {
-            showVampireTest();
+                showVampireTest();
             }
         });
-        
+
         // Observă dacă trebuie să arătăm ecranul final
         viewModel.getShowFinalScreen().observe(this, show -> {
             if (show != null && show) {
                 showFinalScreen();
             }
         });
-        
+
         // Observă rezultatul final al poveștii
         viewModel.getFinalStoryOutcome().observe(this, outcome -> {
             if (outcome != null && !outcome.isEmpty()) {
@@ -448,7 +448,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     /**
      * Actualizează conținutul poveștii cu nodul curent
      */
@@ -457,52 +457,52 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (storyText != null) storyText.setText(node.getContent());
         if (storyContext != null) storyContext.setText(node.getContext());
     }
-    
+
     /**
      * Arată ecranul final cu butonul de încheiere
      */
     private void showFinalScreen() {
         // Ascunde toate elementele interactive
         hideAllInteractiveElements();
-        
+
         // Ascunde butoanele normale
         if (nextButton != null) nextButton.setVisibility(View.GONE);
         if (storyButton != null) storyButton.setVisibility(View.GONE);
-        
+
         // Arată butonul de încheiere
         if (finishButton != null) {
             finishButton.setVisibility(View.VISIBLE);
             finishButton.setText("Finalizează aventura");
         }
-        
+
         // Arată feedback pentru punctele câștigate
         if (viewModel.getCurrentPoints().getValue() != null) {
             int totalPoints = viewModel.getCurrentPoints().getValue();
             showFeedback("Felicitări! Ai acumulat un total de " + totalPoints + " puncte în această aventură!");
         }
     }
-    
+
     /**
      * Arată rezultatul final al poveștii
      */
     private void showFinalOutcome(String outcome) {
         if (storyContext != null && outcome != null) {
             storyContext.setText(outcome);
-            
+
             // Afișează pentru un timp scurt, apoi arată ecranul de finalizare
             new Handler().postDelayed(() -> {
                 viewModel.finishStory();
             }, 1500);
         }
     }
-    
+
     /**
      * Gestionează selecția din testul vampirului
      */
     private void selectVampireTest(int choice) {
         viewModel.selectVampireTest(choice);
     }
-    
+
     private void hideAllInteractiveElements() {
         if (bettingCard != null) {
             bettingCard.setVisibility(View.GONE);
@@ -523,7 +523,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (node != null && node.getTitle() != null && !node.getTitle().isEmpty()) {
             return node.getTitle();
         }
-        
+
         // Default titles based on scene index
         switch (sceneIndex) {
             case 0:
@@ -556,7 +556,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (node != null && node.getContext() != null && !node.getContext().isEmpty()) {
             return node.getContext();
         }
-        
+
         // Default context based on scene index
         switch (sceneIndex) {
             case 0:
@@ -571,35 +571,35 @@ public class DraculaStoryActivity extends AppCompatActivity {
     private void setupChoiceButtons(TransilvaniaStoryNode node) {
         // Create a local variable for the container or use an existing one
         androidx.constraintlayout.widget.ConstraintLayout choicesContainer = findViewById(R.id.optionsContainer); // Using optionsContainer instead
-        
+
         if (choicesContainer == null) {
             // If optionsContainer doesn't exist, log an error and return
             System.out.println("ERROR: Could not find options container");
             return;
         }
-        
+
         choicesContainer.removeAllViews();
-        
+
         if (node.getChoices() != null && node.getChoices().length > 0) {
             // Has choices - show choice buttons
             if (nextButton != null) nextButton.setVisibility(View.GONE);
-            
+
             for (int i = 0; i < node.getChoices().length; i++) {
                 String choice = node.getChoices()[i];
-                
+
                 MaterialButton choiceButton = new MaterialButton(this);
                 choiceButton.setText(choice);
                 choiceButton.setBackgroundTintList(getResources().getColorStateList(R.color.design_default_color_secondary));
-                
+
                 // Set margin and other properties
                 androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params = new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(
-                    androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_PARENT,
-                    androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT
+                        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_PARENT,
+                        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT
                 );
-                
+
                 // Configurăm parametrii ConstraintLayout
                 params.setMargins(0, 0, 0, 16);
-                
+
                 // Pentru primul buton, îl legăm la vârful containerului
                 if (i == 0) {
                     params.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
@@ -607,27 +607,27 @@ public class DraculaStoryActivity extends AppCompatActivity {
                     // Pentru restul butoanelor, le legăm de butonul anterior
                     params.topToBottom = choicesContainer.getChildAt(i-1).getId();
                 }
-                
+
                 // Legăm la stânga și dreapta containerului
                 params.leftToLeft = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
                 params.rightToRight = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
-                
+
                 choiceButton.setLayoutParams(params);
                 choiceButton.setId(View.generateViewId());
-                
+
                 // Add click listener
                 final int choiceIndex = i;
                 choiceButton.setOnClickListener(v -> {
                     viewModel.moveToNextScene(choiceIndex);
                     animateSceneTransition();
                 });
-                
+
                 choicesContainer.addView(choiceButton);
             }
         } else {
             // No choices - show next button
             if (nextButton != null) {
-            nextButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
                 nextButton.setOnClickListener(v -> {
                     viewModel.moveToNextScene();
                     animateSceneTransition();
@@ -635,7 +635,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
             }
         }
     }
-    
+
     private void showFeedback(String message) {
         if (feedbackCard != null) {
             feedbackCard.setVisibility(View.VISIBLE);
@@ -643,7 +643,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (feedbackText != null) {
             feedbackText.setText(message);
         }
-        
+
         // Auto-hide feedback after delay
         handler.postDelayed(() -> {
             if (feedbackCard != null) {
@@ -651,7 +651,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
             }
         }, 3000);
     }
-    
+
     private void showVampireTest() {
         // Hide regular story elements
         if (storyTitle != null) {
@@ -665,7 +665,7 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (storyContext != null) {
             storyContext.setText("Fiecare obiect reprezintă o parte din tine. Care te atrage cel mai mult?");
         }
-        
+
         // Show vampire test interface
         if (interactiveCardView != null) {
             interactiveCardView.setVisibility(View.VISIBLE);
@@ -673,27 +673,27 @@ public class DraculaStoryActivity extends AppCompatActivity {
         if (nextButton != null) {
             nextButton.setVisibility(View.GONE);
         }
-        
+
         // Set highlight based on previous choices
         if (hasBeenBitten && objectCard1 != null) {
             objectCard1.setStrokeColor(getResources().getColor(R.color.design_default_color_error));
             objectCard1.setStrokeWidth(5);
         }
-        
+
         if (hasFoundBlood && objectCard3 != null) {
             objectCard3.setStrokeColor(getResources().getColor(R.color.design_default_color_error));
             objectCard3.setStrokeWidth(5);
         }
     }
-    
+
     private void updateProgressIndicator() {
         try {
             if (progressIndicator != null) {
                 // Calculate progress percentage
                 int totalNodes = viewModel.getTotalStoryNodes();
-                int currentIndex = viewModel.getCurrentSceneIndex().getValue() != null ? 
-                                    viewModel.getCurrentSceneIndex().getValue() : 0;
-                
+                int currentIndex = viewModel.getCurrentSceneIndex().getValue() != null ?
+                        viewModel.getCurrentSceneIndex().getValue() : 0;
+
                 if (totalNodes > 0) {
                     int progress = (currentIndex * 100) / totalNodes;
                     progressIndicator.setProgress(progress, true); // Animate the progress change
@@ -703,11 +703,11 @@ public class DraculaStoryActivity extends AppCompatActivity {
             Log.e("DraculaStoryActivity", "Error updating progress indicator: " + e.getMessage());
         }
     }
-    
+
     private void updateSceneImage() {
         // Set different images based on the current scene
         int imageResource = R.drawable.castle_dracula; // Default image
-        
+
         switch (currentSceneIndex) {
             case 0:
                 imageResource = R.drawable.transylvania_village;
@@ -737,10 +737,10 @@ public class DraculaStoryActivity extends AppCompatActivity {
                 // Use default castle image
                 break;
         }
-        
+
         storyImageView.setImageResource(imageResource);
     }
-    
+
     /**
      * Safely plays a sound effect, handling potential errors
      */

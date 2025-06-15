@@ -38,6 +38,9 @@ import java.util.Set;
 
 import android.annotation.SuppressLint;
 
+/**
+ * Activitate pentru jocul regiunii Muntenia
+ */
 public class MunteniaGameActivity extends AppCompatActivity {
 
     private static final int TOTAL_QUESTIONS = 10;
@@ -115,15 +118,19 @@ public class MunteniaGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_muntenia_game);
-
-        initViews();
-        setupSounds();
-        loadHighScore();
-        initQuestions();
-        selectRandomQuestions();
-        displayQuestion(currentQuestionIndex);
-        startTimer();
+        setContentView(R.layout.activity_game_placeholder);
+        
+        // Setăm titlul jocului
+        TextView titleText = findViewById(R.id.placeholderTitle);
+        if (titleText != null) {
+            titleText.setText("Joc Muntenia");
+        }
+        
+        // Setăm mesajul
+        TextView messageText = findViewById(R.id.placeholderMessage);
+        if (messageText != null) {
+            messageText.setText("Jocul pentru regiunea Muntenia va fi implementat în curând!");
+        }
     }
 
     private void initViews() {

@@ -50,9 +50,6 @@ public class BaseMapActivity extends AppCompatActivity implements OnMapReadyCall
         // Setăm layout-ul unitar pentru toate activitățile de hartă
         setContentView(R.layout.activity_base_region_map);
         
-        // Inițializăm managerul de puncte
-        pointsManager = PointsManager.getInstance(this);
-        
         // Inițializăm elementele UI comune
         initializeCommonViews();
     }
@@ -66,18 +63,26 @@ public class BaseMapActivity extends AppCompatActivity implements OnMapReadyCall
         storyButton = findViewById(R.id.storyButton);
         gameButton = findViewById(R.id.gameButton);
         
-        // Configurăm butoanele
+        // Inițializăm butonul de înapoi
         if (backButton != null) {
-            backButton.setOnClickListener(v -> finish());
+            backButton.setOnClickListener(v -> onBackPressed());
         }
         
+        // Inițializăm butonul de poveste
         if (storyButton != null) {
             storyButton.setOnClickListener(v -> startStoryActivity());
         }
         
+        // Inițializăm butonul de joc
         if (gameButton != null) {
             gameButton.setOnClickListener(v -> startGameActivity());
         }
+        
+        // Inițializăm managerul de puncte
+        pointsManager = PointsManager.getInstance(this);
+        
+        // Actualizăm textul de progres
+        updateProgressText();
     }
     
     /**
@@ -343,8 +348,22 @@ public class BaseMapActivity extends AppCompatActivity implements OnMapReadyCall
      * @param markerId ID-ul markerului pe care s-a făcut click
      */
     protected void handleMarkerClick(int markerId) {
-        // Implementare implicită: afișăm un mesaj
-        Toast.makeText(this, "Ai selectat locația cu ID-ul: " + markerId, Toast.LENGTH_SHORT).show();
+        // Găsim locația corespunzătoare ID-ului
+        String locationName = "Locație necunoscută";
+        String locationDescription = "";
+        
+        if (regionData != null && regionData.getLocations() != null) {
+            for (RegionMapData.MapLocation location : regionData.getLocations()) {
+                if (location.getId() == markerId) {
+                    locationName = location.getTitle();
+                    locationDescription = location.getDescription();
+                    break;
+                }
+            }
+        }
+        
+        // Afișăm un mesaj mai descriptiv
+        Toast.makeText(this, "Ai selectat: " + locationName + "\n" + locationDescription, Toast.LENGTH_LONG).show();
         
         // Verificăm dacă avem date pentru regiune și dacă există o activitate specifică pentru acest marker
         if (regionData != null && regionData.getLocations() != null) {

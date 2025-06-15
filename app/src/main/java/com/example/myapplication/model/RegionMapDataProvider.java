@@ -1,6 +1,40 @@
 package com.example.myapplication.model;
 
+import com.example.myapplication.RomApp.Brasov;
+import com.example.myapplication.RomApp.ClujNapoca;
+import com.example.myapplication.RomApp.Sibiu;
+import com.example.myapplication.RomApp.AlbaIulia;
+import com.example.myapplication.RomApp.Sighetu;
+import com.example.myapplication.RomApp.BaiaMare;
 import com.example.myapplication.RomApp.Craiova;
+import com.example.myapplication.RomApp.TarguJiu;
+import com.example.myapplication.RomApp.Drobetaturnuseverin;
+import com.example.myapplication.RomApp.Iasi;
+import com.example.myapplication.RomApp.PiatraNeamt;
+import com.example.myapplication.RomApp.Suceava;
+import com.example.myapplication.RomApp.Radauti;
+import com.example.myapplication.RomApp.GuraHumorului;
+import com.example.myapplication.RomApp.Constanta;
+import com.example.myapplication.RomApp.Tulcea;
+import com.example.myapplication.RomApp.Timisoara;
+import com.example.myapplication.RomApp.Resita;
+import com.example.myapplication.RomApp.BaileHerculane;
+import com.example.myapplication.RomApp.Oradea;
+import com.example.myapplication.RomApp.Arad;
+import com.example.myapplication.RomApp.Bucuresti;
+import com.example.myapplication.RomApp.Targoviste;
+import com.example.myapplication.RomApp.Craiova;
+
+import com.example.myapplication.RomApp.Crisana;
+import com.example.myapplication.RomApp.Maramures;
+import com.example.myapplication.RomApp.Dobrogea;
+import com.example.myapplication.RomApp.Bucovina;
+import com.example.myapplication.RomApp.Moldova;
+import com.example.myapplication.RomApp.Oltenia;
+import com.example.myapplication.RomApp.Banat;
+import com.example.myapplication.RomApp.Transilvania;
+import com.example.myapplication.RomApp.Muntenia;
+
 import com.example.myapplication.banatusage.BanatGameActivity;
 import com.example.myapplication.banatusage.BanatStoryActivity;
 import com.example.myapplication.bucovinausage.BucovinaGameActivity;
@@ -18,7 +52,7 @@ import com.example.myapplication.olteniausage.OlteniaStoryActivity;
 import com.example.myapplication.munteniausage.MunteniaGameActivity;
 import com.example.myapplication.munteniausage.MunteniaTourActivity;
 import com.example.myapplication.transilvaniausage.TransilvaniaGameActivity;
-import com.example.myapplication.transilvaniausage.TransilvaniaStoryActivity;
+import com.example.myapplication.transilvaniausage.DraculaStoryActivity;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -60,21 +94,23 @@ public class RegionMapDataProvider {
             7.5f
         );
         
-        transilvaniaData.setStoryActivityClass(TransilvaniaStoryActivity.class)
+        transilvaniaData.setStoryActivityClass(DraculaStoryActivity.class)
                        .setGameActivityClass(TransilvaniaGameActivity.class)
                        .addLocation(
                            "Brașov", 
                            "Orașul de la poalele Tâmpei", 
                            new LatLng(45.6427, 25.5887), 
                            BitmapDescriptorFactory.HUE_RED,
-                           1
+                           1,
+                           Brasov.class
                        )
                        .addLocation(
                            "Cluj-Napoca", 
                            "Capitala neoficială a Transilvaniei", 
                            new LatLng(46.7712, 23.6236), 
                            BitmapDescriptorFactory.HUE_RED,
-                           2
+                           2,
+                           ClujNapoca.class
                        )
                        .addLocation(
                            "Sighișoara", 
@@ -88,14 +124,16 @@ public class RegionMapDataProvider {
                            "Fost Capitală Culturală Europeană", 
                            new LatLng(45.7983, 24.1469), 
                            BitmapDescriptorFactory.HUE_RED,
-                           4
+                           4,
+                           Sibiu.class
                        )
                        .addLocation(
                            "Alba Iulia", 
                            "Cetatea Unirii", 
                            new LatLng(46.0711, 23.5788), 
                            BitmapDescriptorFactory.HUE_ORANGE,
-                           5
+                           5,
+                           AlbaIulia.class
                        )
                        .addLocation(
                            "Castelul Bran", 
@@ -133,14 +171,16 @@ public class RegionMapDataProvider {
                         "Capitala județului Maramureș", 
                         new LatLng(47.6635, 23.5861), 
                         BitmapDescriptorFactory.HUE_RED,
-                        1
+                        1,
+                        BaiaMare.class
                     )
                     .addLocation(
                         "Sighetu Marmației", 
                         "Oraș istoric important", 
                         new LatLng(47.9275, 23.8890), 
                         BitmapDescriptorFactory.HUE_RED,
-                        2
+                        2,
+                        Sighetu.class
                     )
                     .addLocation(
                         "Săpânța", 
@@ -185,21 +225,24 @@ public class RegionMapDataProvider {
                       "Capitala Olteniei", 
                       new LatLng(44.3167, 23.8000), 
                       BitmapDescriptorFactory.HUE_RED,
-                      1
+                      1,
+                      Craiova.class
                   )
                   .addLocation(
                       "Târgu Jiu", 
                       "Orașul lui Brâncuși", 
                       new LatLng(45.0333, 23.2833), 
                       BitmapDescriptorFactory.HUE_RED,
-                      2
+                      2,
+                      TarguJiu.class
                   )
                   .addLocation(
                       "Drobeta-Turnu Severin", 
                       "Podul lui Traian", 
                       new LatLng(44.6333, 22.6667), 
                       BitmapDescriptorFactory.HUE_ORANGE,
-                      3
+                      3,
+                      Drobetaturnuseverin.class
                   )
                   .addLocation(
                       "Mănăstirea Tismana", 
@@ -230,14 +273,16 @@ public class RegionMapDataProvider {
                       "Capitala culturală a Moldovei", 
                       new LatLng(47.1585, 27.6014), 
                       BitmapDescriptorFactory.HUE_RED,
-                      1
+                      1,
+                      Iasi.class
                   )
                   .addLocation(
                       "Piatra Neamț", 
                       "Perla Moldovei", 
                       new LatLng(46.9275, 26.3708), 
                       BitmapDescriptorFactory.HUE_RED,
-                      2
+                      2,
+                      PiatraNeamt.class
                   )
                   .addLocation(
                       "Cetatea Neamț", 
@@ -275,7 +320,8 @@ public class RegionMapDataProvider {
                        "Capitala Bucovinei", 
                        new LatLng(47.6500, 25.8833), 
                        BitmapDescriptorFactory.HUE_RED,
-                       1
+                       1,
+                       Suceava.class
                    )
                    .addLocation(
                        "Mănăstirea Moldovița", 
@@ -320,14 +366,16 @@ public class RegionMapDataProvider {
                        "Cel mai mare port la Marea Neagră", 
                        new LatLng(44.1667, 28.6333), 
                        BitmapDescriptorFactory.HUE_RED,
-                       1
+                       1,
+                       Constanta.class
                    )
                    .addLocation(
                        "Tulcea", 
                        "Poarta către Delta Dunării", 
                        new LatLng(45.1667, 28.8000), 
                        BitmapDescriptorFactory.HUE_RED,
-                       2
+                       2,
+                       Tulcea.class
                    )
                    .addLocation(
                        "Delta Dunării", 
@@ -365,21 +413,24 @@ public class RegionMapDataProvider {
                     "Primul oraș iluminat electric din Europa", 
                     new LatLng(45.7500, 21.2333), 
                     BitmapDescriptorFactory.HUE_RED,
-                    1
+                    1,
+                    Timisoara.class
                 )
                 .addLocation(
                     "Reșița", 
                     "Centru industrial istoric", 
                     new LatLng(45.3000, 21.8833), 
                     BitmapDescriptorFactory.HUE_RED,
-                    2
+                    2,
+                    Resita.class
                 )
                 .addLocation(
                     "Băile Herculane", 
                     "Stațiune balneară antică", 
                     new LatLng(44.8833, 22.4167), 
                     BitmapDescriptorFactory.HUE_GREEN,
-                    3
+                    3,
+                    BaileHerculane.class
                 )
                 .addLocation(
                     "Parcul Național Cheile Nerei", 
@@ -410,14 +461,16 @@ public class RegionMapDataProvider {
                       "Oraș cu arhitectură Art Nouveau", 
                       new LatLng(47.0500, 21.9333), 
                       BitmapDescriptorFactory.HUE_RED,
-                      1
+                      1,
+                      Oradea.class
                   )
                   .addLocation(
                       "Arad", 
                       "Oraș important la granița de vest", 
                       new LatLng(46.1833, 21.3167), 
                       BitmapDescriptorFactory.HUE_RED,
-                      2
+                      2,
+                      Arad.class
                   )
                   .addLocation(
                       "Stâna de Vale", 
@@ -455,7 +508,8 @@ public class RegionMapDataProvider {
                        "Capitala României", 
                        new LatLng(44.4333, 26.1000), 
                        BitmapDescriptorFactory.HUE_RED,
-                       1
+                       1,
+                       Bucuresti.class
                    )
                    .addLocation(
                        "Sinaia", 
@@ -476,7 +530,8 @@ public class RegionMapDataProvider {
                        "Fostă capitală a Țării Românești", 
                        new LatLng(44.9333, 25.4500), 
                        BitmapDescriptorFactory.HUE_ORANGE,
-                       4
+                       4,
+                       Targoviste.class
                    )
                    .addLocation(
                        "Curtea de Argeș", 
@@ -501,10 +556,14 @@ public class RegionMapDataProvider {
     /**
      * Obține datele pentru o regiune
      * @param regionName Numele regiunii
-     * @return Datele regiunii sau null dacă regiunea nu există
+     * @return Datele regiunii sau null dacă nu există
      */
     public RegionMapData getRegionData(String regionName) {
         if (regionName == null) return null;
-        return regionDataMap.get(regionName.toLowerCase());
+        
+        // Convertim numele regiunii la lowercase pentru a evita probleme de case sensitivity
+        String normalizedName = regionName.toLowerCase();
+        
+        return regionDataMap.get(normalizedName);
     }
 } 

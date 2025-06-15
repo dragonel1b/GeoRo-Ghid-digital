@@ -12,37 +12,52 @@ public class DobrogeaMapActivity extends BaseMapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dobrogea_map);
         
         // Setăm datele regiunii Dobrogea
         setRegionData(RegionMapDataProvider.getInstance().getRegionData("dobrogea"));
         
-        // Inițializăm elementele UI
-        initializeCommonViews();
-        
         // Inițializăm harta
         initializeMap();
+        
+        // Activăm butoanele pentru poveste și joc
+        if (storyButton != null) {
+            storyButton.setOnClickListener(v -> startStoryActivity());
+        }
+        
+        if (gameButton != null) {
+            gameButton.setOnClickListener(v -> startGameActivity());
+        }
     }
 
     @Override
     protected void handleMarkerClick(int markerId) {
         // Adăugăm puncte când utilizatorul apasă pe un marker
-        pointsManager.addPoints(this, "Dobrogea", 25);
-        
-        // Marcăm locația ca vizitată
-        pointsManager.markLocationAsVisited("dobrogea", markerId);
+        pointsManager.addPoints(this, "dobrogea", 25);
         
         // Actualizăm textul de progres
         updateProgressText();
         
-        // Verificăm dacă este Constanța pentru a deschide povestea specială despre Cazino
-        if (markerId == 1) {
-            Intent intent = new Intent(this, CasinoStoryActivity.class);
-            startActivity(intent);
-            return;
-        }
-        
         // Apelăm implementarea din clasa părinte
         super.handleMarkerClick(markerId);
+    }
+
+    @Override
+    protected void addMapMarkers() {
+        // Adăugăm markeri pentru locațiile importante din Dobrogea
+        // Implementarea specifică pentru Dobrogea
+    }
+    
+    @Override
+    protected void startStoryActivity() {
+        // Redirectăm către activitatea de poveste
+        Intent intent = new Intent(this, CasinoStoryActivity.class);
+        startActivity(intent);
+    }
+    
+    @Override
+    protected void startGameActivity() {
+        // Redirectăm către activitatea de joc
+        Intent intent = new Intent(this, DobrogeaGameActivity.class);
+        startActivity(intent);
     }
 }

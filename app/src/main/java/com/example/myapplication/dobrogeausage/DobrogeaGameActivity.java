@@ -23,6 +23,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Activitate pentru jocul regiunii Dobrogea
+ */
 public class DobrogeaGameActivity extends AppCompatActivity {
     private TextView questionTextView;
     private Button[] answerButtons;
@@ -77,7 +80,19 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dobrogea_game);
+        setContentView(R.layout.activity_game_placeholder);
+        
+        // Setăm titlul jocului
+        TextView titleText = findViewById(R.id.placeholderTitle);
+        if (titleText != null) {
+            titleText.setText("Joc Dobrogea");
+        }
+        
+        // Setăm mesajul
+        TextView messageText = findViewById(R.id.placeholderMessage);
+        if (messageText != null) {
+            messageText.setText("Jocul pentru regiunea Dobrogea va fi implementat în curând!");
+        }
 
         initializeViews();
         pointsManager = PointsManager.getInstance(this);

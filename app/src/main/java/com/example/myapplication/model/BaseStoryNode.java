@@ -24,6 +24,7 @@ public class BaseStoryNode {
     protected final int imageResourceId;
     protected final int soundResourceId;
     protected final String region;
+    protected final String fact;
 
     protected BaseStoryNode(Builder builder) {
         this.nodeId = builder.nodeId;
@@ -39,6 +40,7 @@ public class BaseStoryNode {
         this.imageResourceId = builder.imageResourceId;
         this.soundResourceId = builder.soundResourceId;
         this.region = builder.region;
+        this.fact = builder.fact;
     }
 
     public static class Builder {
@@ -55,6 +57,7 @@ public class BaseStoryNode {
         private int imageResourceId = 0;
         private int soundResourceId = 0;
         private String region = "";
+        private String fact = "";
 
         public Builder(int nodeId, String storyText) {
             this.nodeId = nodeId;
@@ -115,6 +118,11 @@ public class BaseStoryNode {
             this.region = region;
             return this;
         }
+        
+        public Builder fact(String fact) {
+            this.fact = fact;
+            return this;
+        }
 
         public BaseStoryNode build() {
             validateNode();
@@ -148,11 +156,14 @@ public class BaseStoryNode {
     public int getImageResourceId() { return imageResourceId; }
     public int getSoundResourceId() { return soundResourceId; }
     public String getRegion() { return region; }
+    public String getFact() { return fact; }
+    public boolean hasFact() { return fact != null && !fact.isEmpty(); }
 
     public boolean isQuizNode() { return nodeType == NodeType.QUIZ; }
     public boolean isChoiceNode() { return nodeType == NodeType.CHOICE; }
     public boolean isInteractiveNode() { return nodeType == NodeType.INTERACTIVE; }
     public boolean hasMultipleChoices() { return choices.length > 1; }
+    public boolean isEndNode() { return choices.length == 0 || (choices.length == 1 && nextNodes[0] == -1); }
 
     public int getNextNodeForChoice(int choiceIndex) {
         if (choiceIndex < 0 || choiceIndex >= nextNodes.length) {
