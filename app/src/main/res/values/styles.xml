@@ -852,4 +852,84 @@
         <item name="android:letterSpacing">0.01</item>
     </style>
 
+    <!-- Stiluri pentru temele regiunilor -->
+    <style name="BaseRegionTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/region_header_background</item>
+        <item name="colorPrimaryDark">@color/region_header_background</item>
+        <item name="colorAccent">@color/region_accent</item>
+        <item name="android:windowBackground">@color/region_card_background</item>
+    </style>
+
+    <!-- Tema pentru Oltenia -->
+    <style name="RegionTheme.Oltenia" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/oltenia_primary</item>
+        <item name="colorPrimaryDark">@color/oltenia_primary</item>
+        <item name="colorAccent">@color/oltenia_accent</item>
+        <item name="android:windowBackground">@drawable/oltenia_bg_simple</item>
+    </style>
+
+    <!-- Tema pentru Moldova -->
+    <style name="RegionTheme.Moldova" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/moldova_primary</item>
+        <item name="colorPrimaryDark">@color/moldova_primary</item>
+        <item name="colorAccent">@color/moldova_accent</item>
+        <item name="android:windowBackground">@color/moldova_background</item>
+    </style>
+
+    <!-- Tema pentru Bucovina -->
+    <style name="RegionTheme.Bucovina" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/bucovina_primary</item>
+        <item name="colorPrimaryDark">@color/bucovina_primary</item>
+        <item name="colorAccent">@color/bucovina_accent</item>
+        <item name="android:windowBackground">@color/bucovina_background</item>
+    </style>
+
+    <!-- Tema pentru Transilvania -->
+    <style name="RegionTheme.Transilvania" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/transilvania_primary</item>
+        <item name="colorPrimaryDark">@color/transilvania_primary</item>
+        <item name="colorAccent">@color/transilvania_accent</item>
+        <item name="android:windowBackground">@drawable/transilvania_bg_simple</item>
+    </style>
+
+    <!-- Tema pentru Dobrogea -->
+    <style name="RegionTheme.Dobrogea" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/dobrogea_primary</item>
+        <item name="colorPrimaryDark">@color/dobrogea_primary</item>
+        <item name="colorAccent">@color/dobrogea_accent</item>
+        <item name="android:windowBackground">@color/dobrogea_background</item>
+    </style>
+
+    <!-- Tema pentru Banat -->
+    <style name="RegionTheme.Banat" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/banat_primary</item>
+        <item name="colorPrimaryDark">@color/banat_primary</item>
+        <item name="colorAccent">@color/banat_accent</item>
+        <item name="android:windowBackground">@color/banat_background</item>
+    </style>
+
+    <!-- Tema pentru Crisana -->
+    <style name="RegionTheme.Crisana" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/crisana_primary</item>
+        <item name="colorPrimaryDark">@color/crisana_primary</item>
+        <item name="colorAccent">@color/crisana_accent</item>
+        <item name="android:windowBackground">@color/crisana_background</item>
+    </style>
+
+    <!-- Tema pentru Muntenia -->
+    <style name="RegionTheme.Muntenia" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/muntenia_primary</item>
+        <item name="colorPrimaryDark">@color/muntenia_primary</item>
+        <item name="colorAccent">@color/muntenia_accent</item>
+        <item name="android:windowBackground">@color/muntenia_background</item>
+    </style>
+
+    <!-- Tema pentru Maramures -->
+    <style name="RegionTheme.Maramures" parent="BaseRegionTheme">
+        <item name="colorPrimary">@color/maramures_primary</item>
+        <item name="colorPrimaryDark">@color/maramures_primary</item>
+        <item name="colorAccent">@color/maramures_accent</item>
+        <item name="android:windowBackground">@color/maramures_background</item>
+    </style>
+
 </resources>

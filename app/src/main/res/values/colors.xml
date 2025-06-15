@@ -489,4 +489,18 @@
     
     <!-- StateList pentru box stroke -->
     <color name="text_input_box_stroke">@color/text_input_box_stroke_selector</color>
+
+    <!-- Culori pentru temele regiunilor -->
+    <color name="region_header_background">#3F51B5</color>
+    <color name="region_card_background">#FFFFFF</color>
+    <color name="region_text_primary">#FFFFFF</color>
+    <color name="region_text_secondary">#CCCCCC</color>
+    <color name="region_accent">#FF9800</color>
+    <color name="region_button_primary">#4CAF50</color>
+    <color name="region_button_secondary">#2196F3</color>
+    <color name="banat_background">#F3E5F5</color>
+    
+    <color name="crisana_primary">#204080</color>
+    <color name="crisana_accent">#FFA000</color>
+    <color name="crisana_background">#E3F2FD</color>
 </resources>

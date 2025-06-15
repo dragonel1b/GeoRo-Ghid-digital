@@ -446,4 +446,6 @@
     <string name="player_failed_catch">Nu ai reușit să prinzi soldatul!</string>
     <string name="enemy_caught_player">Adversarul a prins un soldat!</string>
     <string name="enemy_failed_catch">Adversarul nu a reușit să prindă soldatul!</string>
+    <string name="question_counter">Întrebarea %1$d/%2$d</string>
+    <string name="streak">Serie: %1$d</string>
 </resources>

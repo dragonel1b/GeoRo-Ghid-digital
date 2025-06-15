@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.PointsManager;
+import com.example.myapplication.model.RegionMapDataProvider;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -22,8 +23,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.myapplication.model.base.BaseMapActivity;
 
-public class CrisanaMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class CrisanaMapActivity extends BaseMapActivity {
     
     private MapView mapView;
     private GoogleMap googleMap;
@@ -36,6 +38,9 @@ public class CrisanaMapActivity extends AppCompatActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crisana_map);
+        
+        // Setăm datele regiunii Crișana
+        setRegionData(RegionMapDataProvider.getInstance().getRegionData("crisana"));
         
         // Initialize points manager
         pointsManager = PointsManager.getInstance(this);
@@ -55,6 +60,12 @@ public class CrisanaMapActivity extends AppCompatActivity implements OnMapReadyC
         
         // Update points display
         updatePointsDisplay();
+        
+        // Inițializăm elementele UI
+        initializeCommonViews();
+        
+        // Inițializăm harta
+        initializeMap();
     }
     
     private void initializeLocations() {
@@ -181,7 +192,7 @@ public class CrisanaMapActivity extends AppCompatActivity implements OnMapReadyC
                 discoveredLocations++;
                 
                 // Award points for discovery
-                pointsManager.addPoints(this, "crisana", 25);
+                pointsManager.addPoints(this, "Crișana", 25);
                 updatePointsDisplay();
                 
                 // Show success message
@@ -191,20 +202,12 @@ public class CrisanaMapActivity extends AppCompatActivity implements OnMapReadyC
                 if (discoveredLocations >= locations.size()) {
                     showCompletionDialog();
                 }
-                
-                // Disable button after discovery
-                discoverButton.setEnabled(false);
-                discoverButton.setText("Descoperit");
+            } else {
+                Toast.makeText(this, "Ai descoperit deja această locație!", Toast.LENGTH_SHORT).show();
             }
             
             dialog.dismiss();
         });
-        
-        // Disable button if already discovered
-        if (location.isDiscovered()) {
-            discoverButton.setEnabled(false);
-            discoverButton.setText("Descoperit");
-        }
         
         dialog.show();
     }
@@ -212,19 +215,18 @@ public class CrisanaMapActivity extends AppCompatActivity implements OnMapReadyC
     private void showCompletionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Felicitări!");
-        builder.setMessage("Ai descoperit toate locațiile importante din Crișana! " +
-                "Ai primit un bonus de 100 de puncte!");
+        builder.setMessage("Ai descoperit toate locațiile importante din Crișana! Ai primit un bonus de 100 puncte!");
+        builder.setPositiveButton("Continuă explorarea", (dialog, which) -> dialog.dismiss());
         
-        // Award bonus points for completing all discoveries
-        pointsManager.addPoints(this, "crisana", 100);
+        // Award bonus points
+        pointsManager.addPoints(this, "Crișana", 100);
         updatePointsDisplay();
         
-        builder.setPositiveButton("OK", null);
-        builder.show();
+        builder.create().show();
     }
     
     private void updatePointsDisplay() {
-        int points = pointsManager.getPoints(this);
+        int points = pointsManager.getPoints(this, "Crișana");
         pointsText.setText(String.format("Puncte: %d", points));
     }
     
@@ -297,5 +299,84 @@ public class CrisanaMapActivity extends AppCompatActivity implements OnMapReadyC
         void setDiscovered(boolean discovered) {
             this.discovered = discovered;
         }
+    }
+
+    @Override
+    protected void addMapMarkers() {
+        // Adăugăm markeri pentru locațiile importante din Crișana
+        addMarker(
+            "Oradea", 
+            "Capitala regiunii Crișana", 
+            new LatLng(47.0722, 21.9422), 
+            BitmapDescriptorFactory.HUE_RED,
+            1
+        );
+        
+        addMarker(
+            "Băile Felix", 
+            "Stațiune balneară renumită", 
+            new LatLng(47.0167, 21.9167), 
+            BitmapDescriptorFactory.HUE_CYAN,
+            2
+        );
+        
+        addMarker(
+            "Arad", 
+            "Oraș important din Crișana", 
+            new LatLng(46.1667, 21.3167), 
+            BitmapDescriptorFactory.HUE_RED,
+            3
+        );
+        
+        addMarker(
+            "Salonta", 
+            "Orașul lui Arany János", 
+            new LatLng(46.8000, 21.6500), 
+            BitmapDescriptorFactory.HUE_ORANGE,
+            4
+        );
+        
+        addMarker(
+            "Moneasa", 
+            "Stațiune balneoclimaterică", 
+            new LatLng(46.5833, 22.3000), 
+            BitmapDescriptorFactory.HUE_CYAN,
+            5
+        );
+        
+        addMarker(
+            "Cetatea Șoimoș", 
+            "Fortificație medievală", 
+            new LatLng(46.1167, 21.4667), 
+            BitmapDescriptorFactory.HUE_ORANGE,
+            6
+        );
+    }
+    
+    @Override
+    protected void handleMarkerClick(int markerId) {
+        // Adăugăm puncte când utilizatorul apasă pe un marker
+        pointsManager.addPoints(this, "Crișana", 25);
+        
+        // Marcăm locația ca vizitată
+        pointsManager.markLocationAsVisited("crisana", markerId);
+        
+        // Actualizăm textul de progres
+        updateProgressText();
+        
+        // Apelăm implementarea din clasa părinte
+        super.handleMarkerClick(markerId);
+    }
+
+    @Override
+    protected void startStoryActivity() {
+        Intent intent = new Intent(this, CrisanaStoryActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void startGameActivity() {
+        Intent intent = new Intent(this, CrisanaGameActivity.class);
+        startActivity(intent);
     }
 } 
