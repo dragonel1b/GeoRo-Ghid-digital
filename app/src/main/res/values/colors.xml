@@ -23,6 +23,7 @@
     <color name="colorPrimaryDark">#E65100</color>
     <color name="colorPrimaryLight">#FFD180</color>
     <color name="colorAccent">#FF9E80</color>
+    <color name="colorBackground">#FFFFFF</color>
 
     <!-- Text Colors -->
     <color name="text_primary">#212121</color>
@@ -243,13 +244,15 @@
     <color name="background">#F5F5F5</color>
 
     <!-- Dobrogea Theme Colors -->
-    <color name="dobrogea_primary">#1E88E5</color>      <!-- Blue for water -->
-    <color name="dobrogea_primary_light">#64B5F6</color> <!-- Light blue for ripple -->
-    <color name="dobrogea_secondary">#43A047</color>    <!-- Green for nature -->
-    <color name="dobrogea_accent">#FFC107</color>       <!-- Gold for achievements -->
-    <color name="dobrogea_background">#E3F2FD</color>   <!-- Light blue background -->
-    <color name="dobrogea_text">#263238</color>         <!-- Dark text -->
-    <color name="dobrogea_card_bg">#FFFFFF</color>      <!-- White for cards -->
+    <color name="dobrogea_primary">#1E88E5</color>           <!-- Blue for water -->
+    <color name="dobrogea_primary_light">#64B5F6</color>     <!-- Light blue for ripple -->
+    <color name="dobrogea_secondary">#43A047</color>         <!-- Green for nature -->
+    <color name="dobrogea_tertiary">#0277BD</color>         <!-- Darker blue for tertiary elements -->
+    <color name="dobrogea_quaternary">#90CAF9</color>       <!-- Very light blue for quaternary elements -->
+    <color name="dobrogea_accent">#FFC107</color>            <!-- Gold for achievements -->
+    <color name="dobrogea_background">#E3F2FD</color>        <!-- Light blue background -->
+    <color name="dobrogea_text">#263238</color>              <!-- Dark text -->
+    <color name="dobrogea_card_bg">#FFFFFF</color>           <!-- White for cards -->
     <color name="dobrogea_progress_start">#1E88E5</color>
     
     <!-- Culinary Theme Colors -->
@@ -269,18 +272,20 @@
     <color name="culinary_difficulty_hard">#FF5722</color>   <!-- Hard difficulty -->
 
     <!-- Maramures Colors -->
-    <color name="rom_quiz_color">#9C27B0</color>         <!-- Purple for quiz -->
-    <color name="rom_churches_color">#795548</color>     <!-- Brown for wooden churches -->
-    <color name="maramures_primary">#AD770C</color>      <!-- Same as rom_region_maramures -->
-    <color name="maramures_primary_dark">#875F09</color> <!-- Darker shade of maramures_primary -->
-    <color name="maramures_primary_light">#D4A02C</color> <!-- Lighter shade of maramures_primary -->
-    <color name="maramures_secondary">#795548</color>    <!-- Brown for traditional wood -->
-    <color name="maramures_text">#263238</color>         <!-- Dark text -->
-    <color name="maramures_background">#FFF8E1</color>   <!-- Light cream background -->
-    <color name="maramures_card_bg">#FFFFFF</color>      <!-- White for cards -->
-    <color name="maramures_secondary_light">#A1887F</color> <!-- Light brown for secondary elements -->
+    <color name="rom_quiz_color">#9C27B0</color>             <!-- Purple for quiz -->
+    <color name="rom_churches_color">#795548</color>         <!-- Brown for wooden churches -->
+    <color name="maramures_primary">#AD770C</color>          <!-- Same as rom_region_maramures -->
+    <color name="maramures_primary_dark">#875F09</color>     <!-- Darker shade of maramures_primary -->
+    <color name="maramures_primary_light">#D4A02C</color>    <!-- Lighter shade of maramures_primary -->
+    <color name="maramures_secondary">#795548</color>        <!-- Brown for traditional wood -->
+    <color name="maramures_tertiary">#9E6B2E</color>        <!-- Medium brown for tertiary elements -->
+    <color name="maramures_quaternary">#E6C875</color>      <!-- Light gold for quaternary elements -->
+    <color name="maramures_text">#263238</color>             <!-- Dark text -->
+    <color name="maramures_background">#FFF8E1</color>       <!-- Light cream background -->
+    <color name="maramures_card_bg">#FFFFFF</color>          <!-- White for cards -->
+    <color name="maramures_secondary_light">#A1887F</color>  <!-- Light brown for secondary elements -->
     <color name="maramures_secondary_dark">#003366</color>
-    <color name="maramures_accent">#FFC107</color> <!-- Gold/Yellow Accent -->
+    <color name="maramures_accent">#FFC107</color>           <!-- Gold/Yellow Accent -->
 
     <!-- Oltenia Theme Colors -->
     <color name="oltenia_primary">#2E454D</color>       <!-- Dark teal for mountains -->
@@ -297,6 +302,8 @@
     <color name="transilvania_primary">#7D0633</color>      <!-- Deep red for Dracula/gothic theme -->
     <color name="transilvania_primary_light">#B52B65</color> <!-- Lighter red for accents -->
     <color name="transilvania_secondary">#3B1F2B</color>    <!-- Dark purple for mystery -->
+    <color name="transilvania_tertiary">#5E1A42</color>    <!-- Medium purple-red for tertiary elements -->
+    <color name="transilvania_quaternary">#D45D87</color>  <!-- Light pink-red for quaternary elements -->
     <color name="transilvania_accent">#FFD700</color>       <!-- Gold for medieval wealth -->
     <color name="transilvania_background">#2D142C</color>   <!-- Dark purple background -->
     <color name="transilvania_text">#F1E8B8</color>         <!-- Antique paper color for text -->
@@ -309,6 +316,8 @@
     <color name="bucovina_primary_light">#4A8FBF</color>     <!-- Albastrul de Voroneț - mai deschis -->
     <color name="bucovina_primary_dark">#0C3A61</color>     <!-- Albastrul de Voroneț - și mai închis -->
     <color name="bucovina_secondary">#0A4D6B</color>         <!-- Albastru închis pentru accente -->
+    <color name="bucovina_tertiary">#2E6F8E</color>         <!-- Albastru mediu pentru elemente terțiare -->
+    <color name="bucovina_quaternary">#7BAFD4</color>       <!-- Albastru deschis pentru elemente quaternare -->
     <color name="bucovina_accent">#F4CE6A</color>            <!-- Auriu pentru elementele decorative ale mănăstirilor -->
     <color name="bucovina_background">#E6F2F7</color>        <!-- Fundal albastru foarte deschis -->
     <color name="bucovina_text">#0A3142</color>              <!-- Text închis, aproape negru cu nuanță albastră -->
@@ -323,6 +332,8 @@
     <color name="moldova_primary">#43A047</color>           <!-- Verde închis pentru natura Moldovei -->
     <color name="moldova_primary_light">#81C784</color>     <!-- Verde deschis pentru accente -->
     <color name="moldova_secondary">#2E7D32</color>         <!-- Verde adânc pentru elemente secundare -->
+    <color name="moldova_tertiary">#388E3C</color>         <!-- Verde mediu pentru elemente terțiare -->
+    <color name="moldova_quaternary">#A5D6A7</color>       <!-- Verde foarte deschis pentru elemente quaternare -->
     <color name="moldova_accent">#FFD54F</color>            <!-- Galben pentru câmpiile de cereale -->
     <color name="moldova_background">#E8F5E9</color>        <!-- Fundal verde foarte deschis -->
     <color name="moldova_text">#263238</color>              <!-- Text închis pentru lizibilitate -->
@@ -334,6 +345,8 @@
     <color name="banat_primary">#7D5427</color>              <!-- Nuanță mai plăcută de maro pentru păduri și munți -->
     <color name="banat_primary_light">#A57845</color>        <!-- Maro deschis pentru accente -->
     <color name="banat_secondary">#5C4018</color>            <!-- Maro mai închis pentru elemente secundare -->
+    <color name="banat_tertiary">#8B6B4C</color>             <!-- Maro mediu pentru elemente terțiare -->
+    <color name="banat_quaternary">#C8A887</color>           <!-- Maro deschis pentru elemente quaternare -->
     <color name="banat_accent">#D4AF37</color>               <!-- Auriu pentru patrimoniu cultural tradițional -->
     <color name="banat_text">#331E1E</color>                 <!-- Text aproape negru pentru lizibilitate maximă -->
     <color name="banat_border">#A57845</color>               <!-- Maro mediu pentru borduri -->
@@ -355,11 +368,12 @@
     <color name="muntenia_primary_light">#ED6D45</color>   <!-- Light rusty red -->
     <color name="muntenia_primary_dark">#8C2E14</color>    <!-- Dark rusty red -->
     <color name="muntenia_secondary">#4E342E</color>       <!-- Dark brown -->
+    <color name="muntenia_tertiary">#A5402A</color>       <!-- Medium rusty red for tertiary elements -->
+    <color name="muntenia_quaternary">#F29578</color>     <!-- Light orange-red for quaternary elements -->
     <color name="muntenia_accent">#FFC107</color>          <!-- Gold -->
     <color name="muntenia_background">#FFF3E0</color>      <!-- Light peach background -->
     <color name="muntenia_text">#212121</color>            <!-- Dark text -->
     <color name="muntenia_card_bg">#FFFFFF</color>         <!-- White cards -->
-    <color name="colorBackground">#F5F5F5</color>          <!-- Light gray background -->
 
     <!-- Game Specific Colors -->
     <color name="correct_answer_green">#4CAF50</color> <!-- Green for correct -->
@@ -500,7 +514,13 @@
     <color name="region_button_secondary">#2196F3</color>
     <color name="banat_background">#F3E5F5</color>
     
-    <color name="crisana_primary">#204080</color>
-    <color name="crisana_accent">#FFA000</color>
-    <color name="crisana_background">#E3F2FD</color>
+    <color name="crisana_primary">#CC3939</color>            <!-- Roșu pentru Crișana -->
+    <color name="crisana_primary_light">#E86060</color>      <!-- Roșu deschis pentru accente -->
+    <color name="crisana_primary_dark">#A42E2E</color>       <!-- Roșu închis pentru elemente principale -->
+    <color name="crisana_secondary">#8E2C2C</color>          <!-- Roșu închis pentru elemente secundare -->
+    <color name="crisana_tertiary">#B84040</color>          <!-- Roșu mediu pentru elemente terțiare -->
+    <color name="crisana_quaternary">#F08080</color>        <!-- Roșu deschis pentru elemente quaternare -->
+    <color name="crisana_accent">#FFC107</color>             <!-- Galben pentru accente -->
+    <color name="crisana_background">#FFF3F3</color>         <!-- Fundal roșu foarte deschis -->
+    <color name="crisana_text">#212121</color>               <!-- Text închis pentru lizibilitate -->
 </resources>

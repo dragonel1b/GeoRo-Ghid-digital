@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,15 @@ public class CrisanaMapActivity extends BaseMapActivity {
         // Inițializăm harta
         initializeMap();
         
+        // Configurăm legendele specifice pentru Crișana
+        setupCrisanaLegends();
+        
+        // Actualizăm textul de instrucțiuni
+        TextView instructionsText = findViewById(R.id.instructionsText);
+        if (instructionsText != null) {
+            instructionsText.setText("Explorează Crișana! Descoperă atracțiile și tradițiile locale.");
+        }
+        
         // Activăm butoanele pentru poveste și joc
         if (storyButton != null) {
             storyButton.setOnClickListener(v -> startStoryActivity());
@@ -61,6 +71,66 @@ public class CrisanaMapActivity extends BaseMapActivity {
         if (gameButton != null) {
             gameButton.setOnClickListener(v -> startGameActivity());
         }
+    }
+    
+    /**
+     * Configurăm legendele specifice pentru Crișana
+     */
+    private void setupCrisanaLegends() {
+        // Obținem referințe la chip-urile din legendă
+        Chip cityChip = findViewById(R.id.legendChipCity);
+        Chip natureChip = findViewById(R.id.legendChipNature);
+        Chip cultureChip = findViewById(R.id.legendChipCulture);
+        Chip historyChip = findViewById(R.id.legendChipHistory);
+        Chip visitedChip = findViewById(R.id.legendChipVisited);
+        
+        // Setăm textele specifice pentru Crișana
+        if (cityChip != null) {
+            cityChip.setText("Orașe");
+            cityChip.setChipBackgroundColorResource(R.color.crisana_accent);
+            cityChip.setOnClickListener(v -> filterMarkersByType("city"));
+        }
+        
+        if (natureChip != null) {
+            natureChip.setText("Natură");
+            natureChip.setChipBackgroundColorResource(R.color.crisana_primary);
+            natureChip.setOnClickListener(v -> filterMarkersByType("nature"));
+        }
+        
+        if (cultureChip != null) {
+            cultureChip.setText("Cultură");
+            cultureChip.setChipBackgroundColorResource(R.color.crisana_secondary);
+            cultureChip.setOnClickListener(v -> filterMarkersByType("culture"));
+        }
+        
+        if (historyChip != null) {
+            historyChip.setText("Istorie");
+            historyChip.setChipBackgroundColorResource(R.color.crisana_tertiary);
+            historyChip.setOnClickListener(v -> filterMarkersByType("history"));
+        }
+        
+        if (visitedChip != null) {
+            visitedChip.setText("Vizitate");
+            visitedChip.setChipBackgroundColorResource(R.color.crisana_quaternary);
+            visitedChip.setOnClickListener(v -> filterMarkersByVisited());
+        }
+    }
+    
+    /**
+     * Filtrează markerele după tip
+     * @param type Tipul de markere de afișat
+     */
+    private void filterMarkersByType(String type) {
+        Toast.makeText(this, "Filtrare după: " + type, Toast.LENGTH_SHORT).show();
+        // Implementarea completă ar trebui să filtreze markerele
+    }
+    
+    /**
+     * Filtrează markerele după starea de vizitare
+     */
+    private void filterMarkersByVisited() {
+        Toast.makeText(this, "Afișare locații vizitate", Toast.LENGTH_SHORT).show();
+        // Implementarea completă ar trebui să filtreze markerele
     }
     
     private void initializeLocations() {
@@ -150,11 +220,13 @@ public class CrisanaMapActivity extends BaseMapActivity {
         
         // Set up marker click listener
         googleMap.setOnMarkerClickListener(marker -> {
-            POILocation location = (POILocation) marker.getTag();
-            if (location != null) {
+            Object tag = marker.getTag();
+            if (tag instanceof POILocation) {
+                POILocation location = (POILocation) tag;
                 showLocationDetails(location);
+                return true;
             }
-            return true;
+            return super.onMarkerClick(marker);
         });
     }
     
@@ -272,54 +344,65 @@ public class CrisanaMapActivity extends BaseMapActivity {
 
     @Override
     protected void addMapMarkers() {
-        // Adăugăm markeri pentru locațiile importante din Crișana
+        if (googleMap == null) return;
+        
+        // Adăugăm markere pentru locațiile importante din Crișana
         addMarker(
             "Oradea", 
-            "Capitala regiunii Crișana", 
-            new LatLng(47.0722, 21.9422), 
+            "Capitala Crișanei", 
+            new LatLng(47.0514, 21.9233), 
             BitmapDescriptorFactory.HUE_RED,
             1
         );
         
         addMarker(
-            "Băile Felix", 
-            "Stațiune balneară renumită", 
-            new LatLng(47.0167, 21.9167), 
-            BitmapDescriptorFactory.HUE_CYAN,
+            "Arad", 
+            "Oraș important din Crișana", 
+            new LatLng(46.1865, 21.3122), 
+            BitmapDescriptorFactory.HUE_RED,
             2
         );
         
         addMarker(
-            "Arad", 
-            "Oraș important din Crișana", 
-            new LatLng(46.1667, 21.3167), 
-            BitmapDescriptorFactory.HUE_RED,
+            "Băile Felix", 
+            "Stațiune balneară", 
+            new LatLng(47.0088, 21.9177), 
+            BitmapDescriptorFactory.HUE_GREEN,
             3
         );
         
         addMarker(
-            "Salonta", 
-            "Orașul lui Arany János", 
-            new LatLng(46.8000, 21.6500), 
-            BitmapDescriptorFactory.HUE_ORANGE,
+            "Peștera Urșilor", 
+            "Atracție naturală", 
+            new LatLng(46.5522, 22.5695), 
+            BitmapDescriptorFactory.HUE_GREEN,
             4
         );
         
         addMarker(
-            "Moneasa", 
-            "Stațiune balneoclimaterică", 
-            new LatLng(46.5833, 22.3000), 
-            BitmapDescriptorFactory.HUE_CYAN,
+            "Salonta", 
+            "Oraș istoric", 
+            new LatLng(46.8007, 21.6579), 
+            BitmapDescriptorFactory.HUE_RED,
             5
         );
         
-        addMarker(
-            "Cetatea Șoimoș", 
-            "Fortificație medievală", 
-            new LatLng(46.1167, 21.4667), 
-            BitmapDescriptorFactory.HUE_ORANGE,
-            6
-        );
+        // Adăugăm și markerele pentru POI-urile specifice
+        for (POILocation location : locations) {
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(location.getPosition())
+                    .title(location.getName())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+            
+            Marker marker = googleMap.addMarker(markerOptions);
+            marker.setTag(location);
+        }
+        
+        // Centrăm harta pe Crișana
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+            new LatLng(46.9431, 21.9683), 
+            8.0f
+        ));
     }
     
     @Override
@@ -327,8 +410,14 @@ public class CrisanaMapActivity extends BaseMapActivity {
         // Adăugăm puncte când utilizatorul apasă pe un marker
         pointsManager.addPoints(this, "crisana", 25);
         
+        // Marcăm locația ca vizitată
+        pointsManager.markLocationAsVisited("crisana", markerId);
+        
         // Actualizăm textul de progres
         updateProgressText();
+        
+        // Afișăm un toast cu informații
+        Toast.makeText(this, "Ai descoperit un nou loc în Crișana! +25 puncte", Toast.LENGTH_SHORT).show();
         
         // Apelăm implementarea din clasa părinte
         super.handleMarkerClick(markerId);

@@ -118,19 +118,22 @@ public class MunteniaGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_placeholder);
+        setContentView(R.layout.activity_muntenia_game);
         
-        // Setăm titlul jocului
-        TextView titleText = findViewById(R.id.placeholderTitle);
-        if (titleText != null) {
-            titleText.setText("Joc Muntenia");
-        }
+        // Initialize views and game
+        initViews();
+        setupSounds();
+        initQuestions();
+        selectRandomQuestions();
         
-        // Setăm mesajul
-        TextView messageText = findViewById(R.id.placeholderMessage);
-        if (messageText != null) {
-            messageText.setText("Jocul pentru regiunea Muntenia va fi implementat în curând!");
-        }
+        // Start with first question
+        displayQuestion(currentQuestionIndex);
+        
+        // Update UI
+        updateScoreDisplay();
+        
+        // Start timer
+        startTimer();
     }
 
     private void initViews() {
@@ -375,6 +378,11 @@ public class MunteniaGameActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
+        // Check if timerTextView is initialized
+        if (timerTextView == null) {
+            return; // Skip timer if view is not initialized
+        }
+        
         if (timer != null) {
             timer.cancel();
         }
@@ -825,7 +833,9 @@ public class MunteniaGameActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!answered && timer == null) {
+        
+        // Only start timer if timerTextView is initialized
+        if (timerTextView != null && !answered && timer == null) {
             startTimer();
         }
         

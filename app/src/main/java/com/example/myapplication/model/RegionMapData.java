@@ -9,6 +9,13 @@ import java.util.List;
  * Clasa pentru stocarea datelor specifice fiecărei regiuni
  */
 public class RegionMapData {
+    // Constante pentru tipurile de locații
+    public static final int LOCATION_TYPE_CITY = 1;
+    public static final int LOCATION_TYPE_NATURE = 2;
+    public static final int LOCATION_TYPE_CULTURE = 3;
+    public static final int LOCATION_TYPE_HISTORY = 4;
+    public static final int LOCATION_TYPE_OTHER = 0;
+    
     private String regionName;
     private LatLng centerLocation;
     private float defaultZoom;
@@ -41,7 +48,9 @@ public class RegionMapData {
      */
     public RegionMapData addLocation(String title, String description, LatLng position, 
                                     float markerColor, int id, Class<?> targetActivityClass) {
-        locations.add(new MapLocation(title, description, position, markerColor, id, targetActivityClass));
+        // Determinăm tipul locației pe baza culorii markerului
+        int locationType = getLocationTypeFromMarkerColor(markerColor);
+        locations.add(new MapLocation(title, description, position, markerColor, id, targetActivityClass, locationType));
         return this;
     }
 
@@ -60,6 +69,43 @@ public class RegionMapData {
     }
     
     /**
+     * Adaugă o locație pe hartă cu tip specific
+     * @param title Titlul locației
+     * @param description Descrierea locației
+     * @param position Poziția pe hartă
+     * @param markerColor Culoarea markerului
+     * @param id ID-ul locației
+     * @param targetActivityClass Clasa activității care se va deschide la click pe marker
+     * @param locationType Tipul locației (LOCATION_TYPE_*)
+     * @return Obiectul RegionMapData pentru a permite înlănțuirea apelurilor
+     */
+    public RegionMapData addLocation(String title, String description, LatLng position, 
+                                    float markerColor, int id, Class<?> targetActivityClass, int locationType) {
+        locations.add(new MapLocation(title, description, position, markerColor, id, targetActivityClass, locationType));
+        return this;
+    }
+    
+    /**
+     * Determină tipul locației pe baza culorii markerului
+     * @param markerColor Culoarea markerului
+     * @return Tipul locației
+     */
+    private int getLocationTypeFromMarkerColor(float markerColor) {
+        // Folosim culoarea markerului pentru a determina tipul locației
+        if (markerColor == com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_RED) {
+            return LOCATION_TYPE_CITY;
+        } else if (markerColor == com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN) {
+            return LOCATION_TYPE_NATURE;
+        } else if (markerColor == com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE) {
+            return LOCATION_TYPE_CULTURE;
+        } else if (markerColor == com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_ORANGE) {
+            return LOCATION_TYPE_HISTORY;
+        } else {
+            return LOCATION_TYPE_OTHER;
+        }
+    }
+    
+    /**
      * Setează clasa activității pentru o locație specifică
      * @param locationId ID-ul locației
      * @param targetActivityClass Clasa activității care se va deschide la click pe marker
@@ -69,6 +115,22 @@ public class RegionMapData {
         for (MapLocation location : locations) {
             if (location.getId() == locationId) {
                 location.setTargetActivityClass(targetActivityClass);
+                break;
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Setează tipul unei locații specifice
+     * @param locationId ID-ul locației
+     * @param locationType Tipul locației (LOCATION_TYPE_*)
+     * @return Obiectul RegionMapData pentru a permite înlănțuirea apelurilor
+     */
+    public RegionMapData setLocationType(int locationId, int locationType) {
+        for (MapLocation location : locations) {
+            if (location.getId() == locationId) {
+                location.setLocationType(locationType);
                 break;
             }
         }
@@ -108,6 +170,14 @@ public class RegionMapData {
      * @return Locația centrală
      */
     public LatLng getCenterLocation() {
+        return centerLocation;
+    }
+
+    /**
+     * Obține locația centrală pentru hartă (alias pentru getCenterLocation)
+     * @return Locația centrală
+     */
+    public LatLng getCenter() {
         return centerLocation;
     }
 
@@ -153,6 +223,7 @@ public class RegionMapData {
         private float markerColor;
         private int id;
         private Class<?> targetActivityClass;
+        private int locationType;
 
         /**
          * Constructor pentru MapLocation
@@ -162,15 +233,25 @@ public class RegionMapData {
          * @param markerColor Culoarea markerului
          * @param id ID-ul locației
          * @param targetActivityClass Clasa activității care se va deschide la click pe marker
+         * @param locationType Tipul locației (LOCATION_TYPE_*)
          */
         public MapLocation(String title, String description, LatLng position, 
-                          float markerColor, int id, Class<?> targetActivityClass) {
+                          float markerColor, int id, Class<?> targetActivityClass, int locationType) {
             this.title = title;
             this.description = description;
             this.position = position;
             this.markerColor = markerColor;
             this.id = id;
             this.targetActivityClass = targetActivityClass;
+            this.locationType = locationType;
+        }
+        
+        /**
+         * Constructor pentru MapLocation (pentru compatibilitate cu codul existent)
+         */
+        public MapLocation(String title, String description, LatLng position, 
+                          float markerColor, int id, Class<?> targetActivityClass) {
+            this(title, description, position, markerColor, id, targetActivityClass, LOCATION_TYPE_OTHER);
         }
 
         /**
@@ -227,6 +308,22 @@ public class RegionMapData {
          */
         public void setTargetActivityClass(Class<?> targetActivityClass) {
             this.targetActivityClass = targetActivityClass;
+        }
+        
+        /**
+         * Obține tipul locației
+         * @return Tipul locației (LOCATION_TYPE_*)
+         */
+        public int getLocationType() {
+            return locationType;
+        }
+        
+        /**
+         * Setează tipul locației
+         * @param locationType Tipul locației (LOCATION_TYPE_*)
+         */
+        public void setLocationType(int locationType) {
+            this.locationType = locationType;
         }
     }
 } 

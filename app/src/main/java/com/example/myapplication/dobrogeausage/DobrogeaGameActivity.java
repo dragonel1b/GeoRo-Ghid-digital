@@ -72,27 +72,8 @@ public class DobrogeaGameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Set theme before super.onCreate
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.Theme_MyApplication_Dark);
-        } else {
-            setTheme(R.style.Theme_MyApplication_Light);
-        }
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_placeholder);
-        
-        // Setăm titlul jocului
-        TextView titleText = findViewById(R.id.placeholderTitle);
-        if (titleText != null) {
-            titleText.setText("Joc Dobrogea");
-        }
-        
-        // Setăm mesajul
-        TextView messageText = findViewById(R.id.placeholderMessage);
-        if (messageText != null) {
-            messageText.setText("Jocul pentru regiunea Dobrogea va fi implementat în curând!");
-        }
+        setContentView(R.layout.activity_dobrogea_game);
 
         initializeViews();
         pointsManager = PointsManager.getInstance(this);
@@ -119,9 +100,11 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         fiftyFiftyButton = findViewById(R.id.fiftyFiftyButton);
         skipQuestionButton = findViewById(R.id.skipQuestionButton);
         
-        // Initialize finish button
+        // Initialize finish button with null check
         Button finishButton = findViewById(R.id.finishButton);
-        finishButton.setOnClickListener(v -> finishGame());
+        if (finishButton != null) {
+            finishButton.setOnClickListener(v -> finishGame());
+        }
     }
 
     private void setupLifelines() {

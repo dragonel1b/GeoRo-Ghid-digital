@@ -2,12 +2,17 @@ package com.example.myapplication.maramuresusage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.RegionMapDataProvider;
 import com.example.myapplication.model.base.BaseMapActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.chip.Chip;
 
 public class MaramuresMapActivity extends BaseMapActivity {
 
@@ -20,64 +25,59 @@ public class MaramuresMapActivity extends BaseMapActivity {
         
         // Inițializăm harta
         initializeMap();
+        
+        // Configurăm legendele specifice pentru Maramureș
+        setupMaramuresLegends();
+        
+        // Actualizăm textul de instrucțiuni
+        TextView instructionsText = findViewById(R.id.instructionsText);
+        if (instructionsText != null) {
+            instructionsText.setText("Explorează Maramureșul! Descoperă bisericile de lemn și tradițiile locale.");
+        }
+    }
+    
+    /**
+     * Configurăm legendele specifice pentru Maramureș
+     */
+    private void setupMaramuresLegends() {
+        // Obținem referințe la chip-urile din legendă
+        Chip cityChip = findViewById(R.id.legendChipCity);
+        Chip natureChip = findViewById(R.id.legendChipNature);
+        Chip cultureChip = findViewById(R.id.legendChipCulture);
+        Chip historyChip = findViewById(R.id.legendChipHistory);
+        Chip visitedChip = findViewById(R.id.legendChipVisited);
+        
+        // Setăm textele specifice pentru Maramureș
+        if (cityChip != null) {
+            cityChip.setText("Orașe");
+            cityChip.setChipBackgroundColorResource(R.color.maramures_accent);
+        }
+        
+        if (natureChip != null) {
+            natureChip.setText("Natură");
+            natureChip.setChipBackgroundColorResource(R.color.maramures_primary);
+        }
+        
+        if (cultureChip != null) {
+            cultureChip.setText("Tradiții");
+            cultureChip.setChipBackgroundColorResource(R.color.maramures_secondary);
+        }
+        
+        if (historyChip != null) {
+            historyChip.setText("Biserici");
+            historyChip.setChipBackgroundColorResource(R.color.maramures_tertiary);
+        }
+        
+        if (visitedChip != null) {
+            visitedChip.setText("Vizitate");
+            visitedChip.setChipBackgroundColorResource(R.color.maramures_quaternary);
+        }
     }
 
     @Override
-    protected void addMapMarkers() {
-        // Adăugăm markeri pentru locațiile importante din Maramureș
-        addMarker(
-            "Baia Mare", 
-            "Capitala județului Maramureș", 
-            new LatLng(47.6635, 23.5861), 
-            BitmapDescriptorFactory.HUE_RED,
-            1
-        );
-        
-        addMarker(
-            "Sighetu Marmației", 
-            "Oraș istoric important", 
-            new LatLng(47.9275, 23.8890), 
-            BitmapDescriptorFactory.HUE_RED,
-            2
-        );
-        
-        addMarker(
-            "Săpânța", 
-            "Locul Cimitirului Vesel", 
-            new LatLng(47.9736, 23.6964), 
-            BitmapDescriptorFactory.HUE_ORANGE,
-            3
-        );
-        
-        addMarker(
-            "Biserica de lemn din Șurdești", 
-            "Una dintre cele mai înalte biserici de lemn din lume", 
-            new LatLng(47.6903, 23.7408), 
-            BitmapDescriptorFactory.HUE_AZURE,
-            4
-        );
-        
-        addMarker(
-            "Mănăstirea Bârsana", 
-            "Complex monastic impresionant", 
-            new LatLng(47.8111, 24.0639), 
-            BitmapDescriptorFactory.HUE_AZURE,
-            5
-        );
-        
-        addMarker(
-            "Mocănița de pe Valea Vaserului", 
-            "Trenul cu aburi pe cale ferată forestieră", 
-            new LatLng(47.7131, 24.4450), 
-            BitmapDescriptorFactory.HUE_GREEN,
-            6
-        );
-    }
-    
-    @Override
     protected void handleMarkerClick(int markerId) {
         // Adăugăm puncte când utilizatorul apasă pe un marker
-        pointsManager.addPoints(this, "Maramureș", 25);
+        pointsManager.addPoints(this, "maramures", 25);
         
         // Marcăm locația ca vizitată
         pointsManager.markLocationAsVisited("maramures", markerId);
@@ -85,10 +85,65 @@ public class MaramuresMapActivity extends BaseMapActivity {
         // Actualizăm textul de progres
         updateProgressText();
         
+        // Afișăm un toast cu informații
+        Toast.makeText(this, "Ai descoperit un nou loc în Maramureș! +25 puncte", Toast.LENGTH_SHORT).show();
+        
         // Apelăm implementarea din clasa părinte
         super.handleMarkerClick(markerId);
     }
 
+    @Override
+    protected void addMapMarkers() {
+        if (googleMap == null) return;
+        
+        // Adăugăm markeri pentru locațiile importante din Maramureș
+        addMarker(
+            "Baia Mare", 
+            "Capitala județului Maramureș", 
+            new LatLng(47.6667, 23.5833), 
+            BitmapDescriptorFactory.HUE_RED,
+            1
+        );
+        
+        addMarker(
+            "Sighetu Marmației", 
+            "Memorialul Victimelor Comunismului", 
+            new LatLng(47.9333, 23.8833), 
+            BitmapDescriptorFactory.HUE_RED,
+            2
+        );
+        
+        addMarker(
+            "Săpânța", 
+            "Cimitirul Vesel", 
+            new LatLng(47.9833, 23.7000), 
+            BitmapDescriptorFactory.HUE_AZURE,
+            3
+        );
+        
+        addMarker(
+            "Bârsana", 
+            "Mănăstirea Bârsana", 
+            new LatLng(47.8000, 24.0667), 
+            BitmapDescriptorFactory.HUE_ORANGE,
+            4
+        );
+        
+        addMarker(
+            "Borșa", 
+            "Stațiune montană", 
+            new LatLng(47.6500, 24.6500), 
+            BitmapDescriptorFactory.HUE_GREEN,
+            5
+        );
+        
+        // Centrăm harta pe Maramureș
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+            new LatLng(47.8000, 24.0000), 
+            8.0f
+        ));
+    }
+    
     @Override
     protected void startStoryActivity() {
         // Redirectăm către activitatea de poveste
