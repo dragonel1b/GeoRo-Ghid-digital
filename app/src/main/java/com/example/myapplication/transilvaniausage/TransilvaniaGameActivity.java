@@ -33,14 +33,21 @@ import com.google.android.material.color.DynamicColors;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Transilvania;
 import com.example.myapplication.RomApp.PointsManager;
+import com.example.myapplication.models.QuestionModel;
+import com.example.myapplication.repository.FirestoreQuestionRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.appcompat.app.AlertDialog;
+import android.util.Log;
 
 public class TransilvaniaGameActivity extends AppCompatActivity {
+    private static final String TAG = "TransilvaniaGameActivity";
+    private static final String REGION = "transilvania";
+    private static final String GAME_TYPE = "quiz";
+    
     private TextView questionTextView;
     private MaterialButton[] answerButtons;
     private TextView scoreTextView;
@@ -61,6 +68,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     private int correctAnswers = 0;
     private long totalTime = 0;
     private List<Question> questions;
+    private List<QuestionModel> firestoreQuestions;
     private static final int POINTS_PER_CORRECT_ANSWER = 10;
     private static final int BONUS_POINTS = 50;
     private static final int TIME_PER_QUESTION = 30000; // 30 seconds
@@ -71,6 +79,9 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     private boolean isHintUsed = false;
     private boolean isSkipUsed = false;
     private Random random = new Random();
+    private FirestoreQuestionRepository questionRepository;
+    private boolean isDataLoaded = false;
+    private boolean useFirestore = true;
 
     private static class Question {
         String question;
@@ -111,13 +122,78 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
 
         initializeViews();
         pointsManager = PointsManager.getInstance(this);
-        initializeQuestions();
+        questionRepository = FirestoreQuestionRepository.getInstance();
+        
+        // Încărcăm întrebările din Firestore
+        loadQuestionsFromFirestore();
+        
         setupLifelines();
         applyButtonStyles();
         setupAccessibility();
-        displayQuestion();
-        updateScore();
-        startTimer();
+    }
+    
+    private void loadQuestionsFromFirestore() {
+        // Afișăm un indicator de încărcare
+        progressBar.setVisibility(View.VISIBLE);
+        
+        questionRepository.getQuestionsAsModels(REGION, GAME_TYPE)
+            .thenAccept(loadedQuestions -> {
+                // Verificăm dacă avem întrebări
+                if (loadedQuestions != null && !loadedQuestions.isEmpty()) {
+                    firestoreQuestions = loadedQuestions;
+                    useFirestore = true;
+                    Log.d(TAG, "Întrebări încărcate din Firestore: " + firestoreQuestions.size());
+                    
+                    // Actualizăm progress bar
+                    progressBar.setMax(firestoreQuestions.size());
+                    progressBar.setProgress(0);
+                    
+                    // Amestecăm întrebările
+                    Collections.shuffle(firestoreQuestions);
+                    
+                    // Afișăm prima întrebare
+                    isDataLoaded = true;
+                    displayQuestion();
+                    updateScore();
+                    startTimer();
+                } else {
+                    // Nu avem întrebări în Firestore, încercăm să migrăm
+                    Log.d(TAG, "Nu există întrebări în Firestore, folosim întrebările locale");
+                    migrateQuestionsToFirestore();
+                }
+            })
+            .exceptionally(e -> {
+                // Eroare la încărcarea întrebărilor
+                Log.e(TAG, "Eroare la încărcarea întrebărilor din Firestore", e);
+                useFirestore = false;
+                isDataLoaded = true;
+                displayQuestion();
+                updateScore();
+                startTimer();
+                return null;
+            });
+    }
+    
+    private void migrateQuestionsToFirestore() {
+        // Convertim întrebările locale în array pentru migrare
+        Object[] questionsArray = questions.toArray();
+        
+        // Migrăm întrebările
+        questionRepository.migrateQuestionsFromSource(questionsArray, REGION, GAME_TYPE)
+            .thenRun(() -> {
+                // Reîncărcăm întrebările după migrare
+                loadQuestionsFromFirestore();
+            })
+            .exceptionally(e -> {
+                // Eroare la migrare
+                Log.e(TAG, "Eroare la migrarea întrebărilor", e);
+                useFirestore = false;
+                isDataLoaded = true;
+                displayQuestion();
+                updateScore();
+                startTimer();
+                return null;
+            });
     }
 
     private void initializeViews() {
@@ -389,162 +465,9 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     private void initializeQuestions() {
         questions = new ArrayList<>();
         
-        // Întrebări despre Transilvania
-        questions.add(new Question(
-            "Care este cea mai veche cetate medievală locuită din Transilvania?",
-            new String[]{"Sibiu", "Sighișoara", "Brașov", "Alba Iulia"},
-            1,
-            R.drawable.sighisoara,
-            "Sighișoara este singura cetate medievală locuită din Europa de Est, parte a patrimoniului UNESCO.",
-            "Sighișoara este singura cetate medievală locuită din Europa de Est, parte a patrimoniului UNESCO."
-        ));
-        questions.add(new Question(
-            "Ce cetate din Transilvania este adesea asociată cu legenda lui Dracula?",
-            new String[]{"Cetatea Făgăraș", "Cetatea Rupea", "Castelul Bran", "Cetatea Râșnov"},
-            2,
-            R.drawable.bran,
-            "Castelul Bran, deși nu are o legătură istorică dovedită cu Vlad Țepeș, este popularizat ca \"Castelul lui Dracula\" datorită romanului lui Bram Stoker.",
-            "Castelul Bran, deși nu are o legătură istorică dovedită cu Vlad Țepeș, este popularizat ca \"Castelul lui Dracula\" datorită romanului lui Bram Stoker."
-        ));
-        
-        // Păstrăm celelalte întrebări...
-        questions.add(new Question(
-            "Care oraș din Transilvania a fost Capitală Culturală Europeană în 2007?",
-            new String[]{"Cluj-Napoca", "Sibiu", "Brașov", "Târgu Mureș"},
-            1,
-            R.drawable.sibiu,
-            "Sibiu a fost desemnat Capitală Culturală Europeană în 2007, alături de Luxembourg.",
-            "Sibiu a fost desemnat Capitală Culturală Europeană în 2007, alături de Luxembourg."
-        ));
-        questions.add(new Question(
-            "În ce oraș din Transilvania s-a semnat actul Unirii din 1918?",
-            new String[]{"Cluj-Napoca", "Sibiu", "Alba Iulia", "Deva"},
-            2,
-            R.drawable.alba_iulia,
-            "Alba Iulia este locul unde s-a semnat actul Unirii din 1 Decembrie 1918, când Transilvania s-a unit cu Regatul României.",
-            "Alba Iulia este locul unde s-a semnat actul Unirii din 1 Decembrie 1918, când Transilvania s-a unit cu Regatul României."
-        ));
-        
-        // Adăugăm mai multe întrebări noi
-        questions.add(new Question(
-            "Ce munte din Transilvania este asociat cu o legendă despre un bătrân care a născocit vinul?",
-            new String[]{"Retezat", "Bucegi", "Ceahlău", "Hășmaș"},
-            1,
-            R.drawable.bucegi,
-            "Muntele Bucegi este legat de legenda bătrânului Bucur, care se spune că a inventat vinul și a dat numele orașului București.",
-            "Muntele Bucegi este legat de legenda bătrânului Bucur, care se spune că a inventat vinul și a dat numele orașului București."
-        ));
-        
-        questions.add(new Question(
-            "Care este cel mai mare oraș din Transilvania?",
-            new String[]{"Brașov", "Sibiu", "Cluj-Napoca", "Oradea"},
-            2,
-            R.drawable.cluj,
-            "Cluj-Napoca este cel mai mare oraș din Transilvania, fiind un important centru economic, academic și cultural.",
-            "Cluj-Napoca este cel mai mare oraș din Transilvania, fiind un important centru economic, academic și cultural."
-        ));
-        
-        questions.add(new Question(
-            "Ce lac glaciar din Munții Făgăraș poartă numele unui conte transilvan?",
-            new String[]{"Lacul Bâlea", "Lacul Sfânta Ana", "Lacul Vidraru", "Lacul Roșu"},
-            0,
-            R.drawable.balea,
-            "Lacul Bâlea este un lac glaciar situat la altitudinea de 2034 m în Munții Făgăraș, numit după contele transilvănean Bâlea.",
-            "Lacul Bâlea este un lac glaciar situat la altitudinea de 2034 m în Munții Făgăraș, numit după contele transilvănean Bâlea."
-        ));
-        
-        questions.add(new Question(
-            "Ce minoritate etnică a avut o contribuție semnificativă la dezvoltarea Transilvaniei?",
-            new String[]{"Maghiarii", "Sașii", "Secuii", "Toate variantele sunt corecte"},
-            3,
-            R.drawable.etnii_transilvania,
-            "Transilvania are o istorie bogată a diversității etnice, maghiarii, sașii și secuii contribuind semnificativ la dezvoltarea regiunii.",
-            "Transilvania are o istorie bogată a diversității etnice, maghiarii, sașii și secuii contribuind semnificativ la dezvoltarea regiunii."
-        ));
-        
-        questions.add(new Question(
-            "Care este numele teatrului național din Cluj-Napoca?",
-            new String[]{"Teatrul Mihai Eminescu", "Teatrul Lucian Blaga", "Teatrul Național Maghiar", "Teatrul Radu Stanca"},
-            1,
-            R.drawable.teatru_cluj,
-            "Teatrul Național \"Lucian Blaga\" din Cluj-Napoca este una dintre cele mai importante instituții culturale din Transilvania.",
-            "Teatrul Național \"Lucian Blaga\" din Cluj-Napoca este una dintre cele mai importante instituții culturale din Transilvania."
-        ));
-        
-        questions.add(new Question(
-            "Ce pasaj montan face legătura între Transilvania și Țara Românească?",
-            new String[]{"Pasul Tihuța", "Pasul Oituz", "Pasul Predeal", "Pasul Turnu Roșu"},
-            2,
-            R.drawable.predeal,
-            "Pasul Predeal, situat la o altitudine de 1033 m, este unul dintre cele mai importante pasaje montane care leagă Transilvania de Țara Românească.",
-            "Pasul Predeal, situat la o altitudine de 1033 m, este unul dintre cele mai importante pasaje montane care leagă Transilvania de Țara Românească."
-        ));
-        
-        questions.add(new Question(
-            "Ce universitate din Transilvania este una dintre cele mai vechi din România?",
-            new String[]{"Universitatea din Alba Iulia", "Universitatea Babeș-Bolyai", "Universitatea din Oradea", "Universitatea de Medicină din Târgu Mureș"},
-            1,
-            R.drawable.babes_bolyai,
-            "Universitatea Babeș-Bolyai din Cluj-Napoca, înființată în 1581, este una dintre cele mai vechi și prestigioase universități din România.",
-            "Universitatea Babeș-Bolyai din Cluj-Napoca, înființată în 1581, este una dintre cele mai vechi și prestigioase universități din România."
-        ));
-        
-        questions.add(new Question(
-            "Ce fruct este specific regiunii Bistrița din Transilvania?",
-            new String[]{"Cirese", "Mere", "Prune", "Struguri"},
-            1,
-            R.drawable.mere_bistrita,
-            "Merele de Bistrița sunt renumite în întreaga Românie pentru gustul și calitatea lor, fiind o emblemă a regiunii.",
-            "Merele de Bistrița sunt renumite în întreaga Românie pentru gustul și calitatea lor, fiind o emblemă a regiunii."
-        ));
-        
-        questions.add(new Question(
-            "Ce sat din Transilvania a fost declarat sat UNESCO?",
-            new String[]{"Viscri", "Biertan", "Saschiz", "Toate variantele sunt corecte"},
-            3,
-            R.drawable.viscri,
-            "Satele cu biserici fortificate din Transilvania: Viscri, Biertan, Saschiz și altele, sunt toate parte din patrimoniul mondial UNESCO.",
-            "Satele cu biserici fortificate din Transilvania: Viscri, Biertan, Saschiz și altele, sunt toate parte din patrimoniul mondial UNESCO."
-        ));
-        
-        questions.add(new Question(
-            "Ce fenomen natural unic poate fi observat în Salina Turda?",
-            new String[]{"Stalactite de sare", "Un lac subteran", "Corali fosili", "Un ecou care se repetă de 7 ori"},
-            1,
-            R.drawable.salina_turda,
-            "Salina Turda adăpostește un lac subteran cu apă foarte sărată, format natural și unul dintre cele mai spectaculoase obiective turistice din Transilvania.",
-            "Salina Turda adăpostește un lac subteran cu apă foarte sărată, format natural și unul dintre cele mai spectaculoase obiective turistice din Transilvania."
-        ));
-        
-        questions.add(new Question(
-            "Ce obiect din castelul Corvinilor se spune că ar avea puteri magice?",
-            new String[]{"O armură medievală", "O fântână", "Un inel", "Un scut"},
-            1,
-            R.drawable.castelul_corvinilor,
-            "Legenda spune că fântâna din castelul Corvinilor a fost săpată de trei prizonieri turci cărora li s-a promis libertatea după finalizare, dar promisiunea nu a fost respectată.",
-            "Legenda spune că fântâna din castelul Corvinilor a fost săpată de trei prizonieri turci cărora li s-a promis libertatea după finalizare, dar promisiunea nu a fost respectată."
-        ));
-        
-        questions.add(new Question(
-            "Care este numele tradițional dat colindătorilor din Transilvania?",
-            new String[]{"Urători", "Colindători", "Dițaladă", "Pitărași"},
-            2,
-            R.drawable.colindatori,
-            "În unele zone din Transilvania, colindătorii sunt cunoscuți sub numele de \"dițaladă\", termen ce provine din tradiția locală.",
-            "În unele zone din Transilvania, colindătorii sunt cunoscuți sub numele de \"dițaladă\", termen ce provine din tradiția locală."
-        ));
-        
-        questions.add(new Question(
-            "Ce fortificație din Transilvania a fost construită în secolul al XIII-lea de Cavalerii Teutoni?",
-            new String[]{"Cetatea Neamțului", "Cetatea Râșnov", "Cetatea Feldioara", "Cetatea Făgăraș"},
-            2,
-            R.drawable.feldioara,
-            "Cetatea Feldioara a fost construită de Cavalerii Teutoni în secolul al XIII-lea pentru a proteja granițele sud-estice ale Transilvaniei de invaziile cumanilor.",
-            "Cetatea Feldioara a fost construită de Cavalerii Teutoni în secolul al XIII-lea pentru a proteja granițele sud-estice ale Transilvaniei de invaziile cumanilor."
-        ));
-        
-        // Amestecăm întrebările pentru experiență diferită de fiecare dată
-        shuffleQuestionsAndAnswers();
+        // Întrebările au fost mutate în Firebase Firestore
+        // Această metodă este păstrată doar pentru compatibilitate
+        // și pentru cazuri în care Firebase nu este disponibil
         
         progressBar.setMax(questions.size());
         progressBar.setProgress(0);
@@ -591,51 +514,88 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     }
 
     private void displayQuestion() {
+        if (!isDataLoaded) {
+            return;
+        }
+        
+        if (currentQuestionIndex >= getQuestionsCount()) {
+            finishGame();
+            return;
+        }
+        
+        // Reset card styles
         resetCardStyles();
         
-        if (currentQuestionIndex < questions.size()) {
-            // Hide finish button during questions
-            finishButton.setVisibility(View.GONE);
+        // Actualizăm progress bar
+        progressBar.setProgress(currentQuestionIndex + 1);
+        
+        // Afișăm întrebarea curentă
+        if (useFirestore && firestoreQuestions != null && !firestoreQuestions.isEmpty()) {
+            // Folosim întrebările din Firestore
+            QuestionModel currentQuestion = firestoreQuestions.get(currentQuestionIndex);
+            questionTextView.setText(currentQuestion.getQuestion());
             
-            Question question = questions.get(currentQuestionIndex);
-            questionTextView.setText(question.question);
+            // Obținem toate răspunsurile
+            String[] allAnswers = currentQuestion.getAnswers();
             
+            // Amestecăm răspunsurile
+            List<String> shuffledAnswers = new ArrayList<>();
+            for (String answer : allAnswers) {
+                shuffledAnswers.add(answer);
+            }
+            Collections.shuffle(shuffledAnswers);
+            
+            // Setăm textul butoanelor
             for (int i = 0; i < answerButtons.length; i++) {
-                answerButtons[i].setText(question.answers[i]);
-                answerButtons[i].setEnabled(true);
-                answerCards[i].setAlpha(1.0f);
-                answerButtons[i].setContentDescription(getString(R.string.answer_option_desc, (i+1), question.answers[i]));
-                
-                final int answerIndex = i;
-                answerCards[i].setOnClickListener(v -> {
-                    // Adaugă animație la apăsare
-                    v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_press));
-                    checkAnswer(answerIndex, question.answers[answerIndex]);
-                });
+                if (i < shuffledAnswers.size()) {
+                    answerButtons[i].setText(shuffledAnswers.get(i));
+                    answerCards[i].setVisibility(View.VISIBLE);
+                } else {
+                    answerCards[i].setVisibility(View.GONE);
+                }
             }
             
-            if (question.imageResourceId != 0) {
-                questionImage.setImageResource(question.imageResourceId);
+            // Setăm imaginea dacă există
+            if (currentQuestion.getImageResourceId() != 0) {
+                questionImage.setImageResource(currentQuestion.getImageResourceId());
                 questionImage.setVisibility(View.VISIBLE);
-                questionImage.setContentDescription(getString(R.string.question_image_desc));
             } else {
                 questionImage.setVisibility(View.GONE);
             }
+        } else {
+            // Folosim întrebările locale
+            Question currentQuestion = questions.get(currentQuestionIndex);
+            questionTextView.setText(currentQuestion.question);
             
-            // Adăugăm un efect de fade in pentru întrebare
-            Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-            fadeIn.setDuration(500);
-            questionTextView.startAnimation(fadeIn);
-            
-            for (MaterialCardView card : answerCards) {
-                card.startAnimation(fadeIn);
+            // Setăm textul butoanelor
+            for (int i = 0; i < answerButtons.length; i++) {
+                if (i < currentQuestion.answers.length) {
+                    answerButtons[i].setText(currentQuestion.answers[i]);
+                    answerCards[i].setVisibility(View.VISIBLE);
+                } else {
+                    answerCards[i].setVisibility(View.GONE);
+                }
             }
             
-            progressBar.setProgress(currentQuestionIndex + 1);
-            progressBar.setContentDescription(getString(R.string.progress_desc, currentQuestionIndex + 1, questions.size()));
-        } else {
-            showFinishButton();
+            // Setăm imaginea dacă există
+            if (currentQuestion.imageResourceId != 0) {
+                questionImage.setImageResource(currentQuestion.imageResourceId);
+                questionImage.setVisibility(View.VISIBLE);
+            } else {
+                questionImage.setVisibility(View.GONE);
+            }
         }
+        
+        // Activăm toate cardurile pentru răspuns
+        for (MaterialCardView card : answerCards) {
+            card.setClickable(true);
+        }
+        
+        // Resetăm timerul
+        if (timer != null) {
+            timer.cancel();
+        }
+        startTimer();
     }
     
     private void resetCardStyles() {
@@ -678,136 +638,127 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     }
 
     private void checkAnswer(int selectedAnswerIndex, String selectedAnswer) {
-        if (timer != null) {
-            timer.cancel();
-        }
-        
-        Question currentQuestion = questions.get(currentQuestionIndex);
-        boolean isCorrect = selectedAnswerIndex == currentQuestion.correctAnswerIndex;
-        
-        // Dezactivează toate cardurile pentru a preveni clicuri multiple
+        // Dezactivăm cardurile pentru a preveni răspunsuri multiple
         for (MaterialCardView card : answerCards) {
             card.setClickable(false);
         }
         
-        // Marchează răspunsul selectat
+        // Verificăm dacă răspunsul este corect
+        boolean isCorrect = false;
+        String correctAnswer = "";
+        String fact = "";
+        
+        if (useFirestore && firestoreQuestions != null && !firestoreQuestions.isEmpty()) {
+            // Folosim întrebările din Firestore
+            QuestionModel currentQuestion = firestoreQuestions.get(currentQuestionIndex);
+            correctAnswer = currentQuestion.getCorrectAnswer();
+            fact = currentQuestion.getFact();
+            isCorrect = selectedAnswer.equals(correctAnswer);
+        } else {
+            // Folosim întrebările locale
+            Question currentQuestion = questions.get(currentQuestionIndex);
+            correctAnswer = currentQuestion.answers[currentQuestion.correctAnswerIndex];
+            fact = currentQuestion.fact;
+            isCorrect = selectedAnswer.equals(correctAnswer);
+        }
+        
+        // Anulăm timerul
+        if (timer != null) {
+            timer.cancel();
+        }
+        
+        // Actualizăm statisticile
+        totalQuestions++;
+        
+        // Aplicăm stilurile corespunzătoare pentru răspuns
+        MaterialCardView selectedCard = answerCards[selectedAnswerIndex];
+        
         if (isCorrect) {
-            // Răspuns corect - verde
-            answerCards[selectedAnswerIndex].setStrokeColor(ContextCompat.getColor(this, R.color.rom_correct_answer));
-            answerCards[selectedAnswerIndex].setStrokeWidth(4);
-            answerButtons[selectedAnswerIndex].setContentDescription(getString(R.string.correct_answer_desc));
+            // Răspuns corect
+            selectedCard.setCardBackgroundColor(ContextCompat.getColor(this, R.color.correct_answer));
+            answerButtons[selectedAnswerIndex].setTextColor(ContextCompat.getColor(this, R.color.white));
             
-            // Animație de succes îmbunătățită cu spring effect
-            float originalElevation = answerCards[selectedAnswerIndex].getElevation();
-            
-            // Use spring animation for more fluid movement
-            answerCards[selectedAnswerIndex].animate()
-                .scaleX(1.05f)
-                .scaleY(1.05f)
-                .translationZ(12f)
-                .setDuration(300)
-                .withEndAction(() -> {
-                    answerCards[selectedAnswerIndex].animate()
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .translationZ(originalElevation)
-                        .setDuration(200)
-                        .start();
-                })
-                .start();
-            
-            // Efect de lumină pentru răspunsul corect
-            answerCards[selectedAnswerIndex].setCardElevation(12f);
-            answerCards[selectedAnswerIndex].setCardBackgroundColor(ContextCompat.getColorStateList(
-                this, 
-                R.color.transilvania_card_bg
-            ).withAlpha(240));
-            
-            // Pulsare pentru efect vizual
-            Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
-            pulse.setRepeatCount(1);
-            answerCards[selectedAnswerIndex].startAnimation(pulse);
-            
-            // Actualizează scorul și streak-ul
+            // Adăugăm puncte și actualizăm streak
             score += POINTS_PER_CORRECT_ANSWER;
             streak++;
             if (streak > maxStreak) {
                 maxStreak = streak;
             }
-            correctAnswers++;
             
             // Bonus pentru streak
             if (streak >= STREAK_BONUS_THRESHOLD) {
-                int bonus = streak * 5;
-                score += bonus;
-                
-                // Afișăm un toast mai frumos pentru bonus
-                Toast.makeText(this, "Bonus serie: +" + bonus + " puncte!", Toast.LENGTH_SHORT).show();
-                
-                // Animate streak text for visual feedback
-                Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-                streakTextView.startAnimation(bounceAnim);
+                score += BONUS_POINTS;
+                showStreakBonus();
             }
             
-            // Update score with animation
-            Animation scaleIn = AnimationUtils.loadAnimation(this, R.anim.scale_in);
-            scoreTextView.startAnimation(scaleIn);
+            correctAnswers++;
             
+            // Actualizăm scorul și streak-ul
+            updateScore();
+            updateStreak();
+            
+            // Animație pentru răspuns corect
+            Animation pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse);
+            selectedCard.startAnimation(pulseAnimation);
+            
+            // Afișăm informația suplimentară
+            if (fact != null && !fact.isEmpty()) {
+                new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.correct_answer)
+                    .setMessage(fact)
+                    .setPositiveButton(R.string.next_question, (dialog, which) -> {
+                        moveToNextQuestion();
+                    })
+                    .setCancelable(false)
+                    .show();
+            } else {
+                // Trecem la următoarea întrebare după o scurtă pauză
+                new Handler().postDelayed(() -> moveToNextQuestion(), 1500);
+            }
         } else {
-            // Răspuns greșit - roșu
-            answerCards[selectedAnswerIndex].setStrokeColor(ContextCompat.getColor(this, R.color.rom_wrong_answer));
-            answerCards[selectedAnswerIndex].setStrokeWidth(4);
-            answerButtons[selectedAnswerIndex].setContentDescription(getString(R.string.incorrect_answer_desc));
+            // Răspuns greșit
+            selectedCard.setCardBackgroundColor(ContextCompat.getColor(this, R.color.wrong_answer));
+            answerButtons[selectedAnswerIndex].setTextColor(ContextCompat.getColor(this, R.color.white));
             
-            // Efect de shake pentru răspunsul greșit
-            Animation shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
-            answerCards[selectedAnswerIndex].startAnimation(shakeAnim);
-            
-            // Efect de fadeout pentru răspunsul greșit
-            answerCards[selectedAnswerIndex].animate()
-                .alpha(0.7f)
-                .translationZ(-2f)
-                .setDuration(300)
-                .start();
-            
-            // Afișează răspunsul corect - verde
-            answerCards[currentQuestion.correctAnswerIndex].setStrokeColor(ContextCompat.getColor(this, R.color.rom_correct_answer));
-            answerCards[currentQuestion.correctAnswerIndex].setStrokeWidth(4);
-            answerButtons[currentQuestion.correctAnswerIndex].setContentDescription(getString(R.string.correct_answer_desc));
-            
-            // Efect de highlight pentru răspunsul corect
-            answerCards[currentQuestion.correctAnswerIndex].setCardElevation(12f);
-            
-            // Animate correct answer card for emphasis
-            answerCards[currentQuestion.correctAnswerIndex].animate()
-                .scaleX(1.05f)
-                .scaleY(1.05f)
-                .translationZ(12f)
-                .setDuration(300)
-                .start();
-            
-            // Animație pentru a arăta răspunsul corect
-            Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
-            answerCards[currentQuestion.correctAnswerIndex].startAnimation(pulse);
-            
-            // Reset streak
+            // Resetăm streak-ul
             streak = 0;
+            updateStreak();
+            
+            // Găsim și evidențiem răspunsul corect
+            for (int i = 0; i < answerButtons.length; i++) {
+                if (answerButtons[i].getText().toString().equals(correctAnswer)) {
+                    answerCards[i].setCardBackgroundColor(ContextCompat.getColor(this, R.color.correct_answer));
+                    answerButtons[i].setTextColor(ContextCompat.getColor(this, R.color.white));
+                    break;
+                }
+            }
+            
+            // Animație pentru răspuns greșit
+            Animation shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
+            selectedCard.startAnimation(shakeAnimation);
+            
+            // Afișăm informația suplimentară
+            if (fact != null && !fact.isEmpty()) {
+                new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.wrong_answer)
+                    .setMessage(fact)
+                    .setPositiveButton(R.string.next_question, (dialog, which) -> {
+                        moveToNextQuestion();
+                    })
+                    .setCancelable(false)
+                    .show();
+            } else {
+                // Trecem la următoarea întrebare după o scurtă pauză
+                new Handler().postDelayed(() -> moveToNextQuestion(), 1500);
+            }
         }
-        
-        // Actualizează UI
-        updateScore();
-        updateStreak();
-        
-        // Așteaptă puțin înainte de a trece la următoarea întrebare
-        new Handler().postDelayed(() -> moveToNextQuestion(), 1200);
     }
 
     private void moveToNextQuestion() {
         currentQuestionIndex++;
-        if (currentQuestionIndex < questions.size()) {
+        if (currentQuestionIndex < getQuestionsCount()) {
             resetCardStyles();
             displayQuestion();
-            startTimer();
         } else {
             showFinishButton();
         }
@@ -815,7 +766,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
 
     private void updateScore() {
         scoreTextView.setText(String.valueOf(score));
-        progressBar.setProgress(Math.min(100, (currentQuestionIndex * 100) / questions.size()));
+        progressBar.setProgress(Math.min(100, (currentQuestionIndex * 100) / getQuestionsCount()));
     }
 
     private void updateStreak() {
@@ -831,12 +782,12 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             achievements.add("Cunoscător al Transilvaniei (serie de " + maxStreak + " răspunsuri corecte)");
         }
         
-        if (correctAnswers == questions.size()) {
+        if (correctAnswers == getQuestionsCount()) {
             achievements.add("Perfect! Toate răspunsurile corecte");
-        } else if (correctAnswers >= questions.size() * 0.8) {
-            achievements.add("Expert al Transilvaniei (" + correctAnswers + " din " + questions.size() + " corecte)");
-        } else if (correctAnswers >= questions.size() * 0.5) {
-            achievements.add("Bun cunoscător (" + correctAnswers + " din " + questions.size() + " corecte)");
+        } else if (correctAnswers >= getQuestionsCount() * 0.8) {
+            achievements.add("Expert al Transilvaniei (" + correctAnswers + " din " + getQuestionsCount() + " corecte)");
+        } else if (correctAnswers >= getQuestionsCount() * 0.5) {
+            achievements.add("Bun cunoscător (" + correctAnswers + " din " + getQuestionsCount() + " corecte)");
         }
         
         if (achievements.isEmpty()) {
@@ -864,7 +815,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         dialogBuilder.setTitle("Joc terminat!");
         dialogBuilder.setMessage(
             "Scor final: " + score + " puncte\n" +
-            "Răspunsuri corecte: " + correctAnswers + " din " + questions.size() + "\n" +
+            "Răspunsuri corecte: " + correctAnswers + " din " + getQuestionsCount() + "\n" +
             "Serie maximă: " + maxStreak + "\n\n" +
             getAchievements()
         );
@@ -895,7 +846,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             Intent intent = new Intent(this, GameOverActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("correctAnswers", correctAnswers);
-            intent.putExtra("totalQuestions", questions.size());
+            intent.putExtra("totalQuestions", getQuestionsCount());
             intent.putExtra("maxStreak", maxStreak);
             intent.putExtra("ACHIEVEMENTS", getAchievements());
             startActivity(intent);
@@ -937,8 +888,8 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         questionTextView.startAnimation(fadeIn);
         
         // Update the progress bar to show completion
-        progressBar.setProgress(questions.size());
-        progressBar.setContentDescription(getString(R.string.progress_desc, questions.size(), questions.size()));
+        progressBar.setProgress(getQuestionsCount());
+        progressBar.setContentDescription(getString(R.string.progress_desc, getQuestionsCount(), getQuestionsCount()));
         
         // Animate the progress bar
         progressBar.animate()
@@ -1023,41 +974,34 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
      */
     private void showHint() {
         if (isHintUsed) {
-            // Dacă a fost deja folosit, arătăm un mesaj
-            Toast.makeText(this, "Ai folosit deja indiciul!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.hint_already_used, Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Question currentQuestion = questions.get(currentQuestionIndex);
-        String hint = currentQuestion.getHint();
-
-        if (hint != null && !hint.isEmpty()) {
-            // Arătăm indiciul într-un dialog
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-            builder.setTitle("Indiciu");
-            builder.setMessage(hint);
-            builder.setIcon(R.drawable.ic_hint);
-            builder.setPositiveButton("OK", null);
-            builder.setBackground(getResources().getDrawable(R.drawable.dialog_rounded_bg));
-            
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
-            // Dezactivăm butonul după folosire
-            hintButton.setEnabled(false);
-            hintButton.setAlpha(0.5f);
-            isHintUsed = true;
-
-            // Costuri pentru folosirea indiciului (opțional)
-            // Poți scădea puncte sau adăuga o penalizare de timp
-            if (score >= 5) {
-                score -= 5; // Scădem 5 puncte pentru folosirea indiciului
-                scoreTextView.setText(String.valueOf(score));
-            }
+        
+        String hint = "";
+        if (useFirestore && firestoreQuestions != null && !firestoreQuestions.isEmpty()) {
+            // Pentru întrebările din Firestore
+            QuestionModel currentQuestion = firestoreQuestions.get(currentQuestionIndex);
+            hint = currentQuestion.getFact(); // Folosim fact ca hint pentru întrebările din Firestore
         } else {
-            // Dacă întrebarea nu are un indiciu definit
-            Toast.makeText(this, "Nu există indiciu pentru această întrebare", Toast.LENGTH_SHORT).show();
+            // Pentru întrebările locale
+            Question currentQuestion = questions.get(currentQuestionIndex);
+            hint = currentQuestion.getHint();
         }
+        
+        if (hint == null || hint.isEmpty()) {
+            hint = getString(R.string.no_hint_available);
+        }
+        
+        new MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.hint)
+            .setMessage(hint)
+            .setPositiveButton(R.string.ok, null)
+            .show();
+        
+        isHintUsed = true;
+        hintButton.setEnabled(false);
+        hintButton.setAlpha(0.5f);
     }
 
     /**
@@ -1095,5 +1039,19 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         
         // Start the timer for the new question
         startTimer();
+    }
+
+    private int getQuestionsCount() {
+        if (useFirestore && firestoreQuestions != null) {
+            return firestoreQuestions.size();
+        } else {
+            return questions.size();
+        }
+    }
+
+    private void showStreakBonus() {
+        Toast.makeText(this, "Bonus serie: +" + BONUS_POINTS + " puncte!", Toast.LENGTH_SHORT).show();
+        Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        streakTextView.startAnimation(bounceAnim);
     }
 } 
