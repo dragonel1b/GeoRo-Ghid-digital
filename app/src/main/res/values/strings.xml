@@ -448,4 +448,25 @@
     <string name="enemy_failed_catch">Adversarul nu a reușit să prindă soldatul!</string>
     <string name="question_counter">Întrebarea %1$d/%2$d</string>
     <string name="streak">Serie: %1$d</string>
+    <string name="no_hint_available">Nu există indiciu disponibil pentru această întrebare.</string>
+    <string name="hint_already_used">Ai folosit deja indiciul!</string>
+    <string name="hint">Indiciu</string>
+    <string name="correct_answer">Răspuns corect!</string>
+    <string name="wrong_answer">Răspuns greșit!</string>
+    <string name="next_question">Următoarea întrebare</string>
+
+    <!-- Leaderboard -->
+    <string name="leaderboard_title">Clasament</string>
+    <string name="region_label">Regiune:</string>
+    <string name="game_type_label">Joc:</string>
+    <string name="rank_header">Loc</string>
+    <string name="player_header">Jucător</string>
+    <string name="score_header">Scor</string>
+    <string name="no_leaderboard_entries">Nu există încă intrări în clasament pentru această regiune și acest tip de joc</string>
+    <string name="error_loading_leaderboard">Eroare la încărcarea clasamentului. Verificați conexiunea la internet și încercați din nou.</string>
+    <string name="your_rank">Poziția ta: %1$d</string>
+    <string name="not_ranked">Nu ești încă în clasament</string>
+    <string name="not_logged_in">Autentifică-te pentru a vedea poziția ta</string>
+    <string name="error_loading_rank">Eroare la încărcarea poziției tale</string>
+    <string name="profile_image_description">Imagine de profil</string>
 </resources>
