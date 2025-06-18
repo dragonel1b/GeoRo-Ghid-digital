@@ -469,4 +469,13 @@
     <string name="not_logged_in">Autentifică-te pentru a vedea poziția ta</string>
     <string name="error_loading_rank">Eroare la încărcarea poziției tale</string>
     <string name="profile_image_description">Imagine de profil</string>
+
+    <!-- User Profile -->
+    <string name="error_loading_profile">Eroare la încărcarea profilului. Verificați conexiunea la internet.</string>
+    <string name="error_creating_profile">Eroare la crearea profilului.</string>
+    <string name="error_empty_display_name">Numele de afișare nu poate fi gol</string>
+    <string name="error_uploading_image">Eroare la încărcarea imaginii.</string>
+    <string name="error_updating_profile">Eroare la actualizarea profilului.</string>
+    <string name="profile_updated">Profil actualizat cu succes</string>
+    <string name="please_login">Vă rugăm să vă autentificați pentru a accesa profilul</string>
 </resources>

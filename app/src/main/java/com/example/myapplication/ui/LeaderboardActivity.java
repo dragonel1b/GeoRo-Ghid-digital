@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView emptyStateTextView;
     private TextView userRankTextView;
+    private Button retryButton;
     
     // Data
     private List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
@@ -65,6 +67,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         initializeViews();
         setupSpinners();
         setupRecyclerView();
+        setupRetryButton();
         
         // Încărcăm clasamentul pentru selecția inițială
         loadLeaderboard();
@@ -77,6 +80,45 @@ public class LeaderboardActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         emptyStateTextView = findViewById(R.id.emptyStateTextView);
         userRankTextView = findViewById(R.id.userRankTextView);
+        
+        // Adăugăm butonul de reîncercare
+        retryButton = findViewById(R.id.retryButton);
+        if (retryButton == null) {
+            // Dacă butonul nu există în layout, îl creăm programatic
+            retryButton = new Button(this);
+            retryButton.setId(View.generateViewId());
+            retryButton.setText("Reîncearcă");
+            retryButton.setVisibility(View.GONE);
+            
+            // Adăugăm butonul sub mesajul de eroare
+            androidx.constraintlayout.widget.ConstraintLayout rootLayout = findViewById(R.id.leaderboardRootLayout);
+            if (rootLayout != null) {
+                androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params = 
+                    new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(
+                        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    );
+                
+                params.topToBottom = emptyStateTextView.getId();
+                params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+                params.topMargin = 16;
+                
+                retryButton.setLayoutParams(params);
+                rootLayout.addView(retryButton);
+            }
+        }
+    }
+    
+    private void setupRetryButton() {
+        retryButton.setOnClickListener(v -> {
+            // Ascundem butonul și mesajul de eroare
+            retryButton.setVisibility(View.GONE);
+            emptyStateTextView.setVisibility(View.GONE);
+            
+            // Reîncărcăm clasamentul
+            loadLeaderboard();
+        });
     }
     
     private void setupSpinners() {
@@ -126,47 +168,71 @@ public class LeaderboardActivity extends AppCompatActivity {
         // Arătăm un progress indicator
         progressBar.setVisibility(View.VISIBLE);
         emptyStateTextView.setVisibility(View.GONE);
+        retryButton.setVisibility(View.GONE);
         
         // Golim lista curentă
         leaderboardEntries.clear();
         adapter.notifyDataSetChanged();
         
-        // Încărcăm clasamentul pentru regiunea și jocul selectat
-        quizResultRepository.getLeaderboard(selectedRegion, selectedGameType, 50)
-            .thenAccept(entries -> {
-                runOnUiThread(() -> {
-                    // Ascundem progress indicator
-                    progressBar.setVisibility(View.GONE);
-                    
-                    if (entries.isEmpty()) {
-                        // Afișăm mesajul pentru starea goală
-                        emptyStateTextView.setVisibility(View.VISIBLE);
-                        emptyStateTextView.setText(getString(R.string.no_leaderboard_entries));
-                    } else {
-                        // Adăugăm intrările în lista noastră
-                        leaderboardEntries.addAll(entries);
+        try {
+            // Încărcăm clasamentul pentru regiunea și jocul selectat
+            quizResultRepository.getLeaderboard(selectedRegion, selectedGameType, 50)
+                .thenAccept(entries -> {
+                    runOnUiThread(() -> {
+                        try {
+                            // Ascundem progress indicator
+                            progressBar.setVisibility(View.GONE);
+                            
+                            if (entries.isEmpty()) {
+                                // Afișăm mesajul pentru starea goală
+                                emptyStateTextView.setVisibility(View.VISIBLE);
+                                emptyStateTextView.setText(getString(R.string.no_leaderboard_entries));
+                            } else {
+                                // Folosim metoda updateEntries pentru a actualiza lista și a recalcula rangurile
+                                adapter.updateEntries(entries);
+                            }
+                            
+                            // Obținem și afișăm rangul utilizatorului curent
+                            loadCurrentUserRank();
+                        } catch (Exception e) {
+                            // Tratăm orice excepție care ar putea apărea
+                            Log.e(TAG, "Error updating UI with leaderboard data", e);
+                            emptyStateTextView.setVisibility(View.VISIBLE);
+                            emptyStateTextView.setText("Eroare la afișarea clasamentului: " + e.getMessage());
+                            retryButton.setVisibility(View.VISIBLE);
+                        }
+                    });
+                })
+                .exceptionally(e -> {
+                    runOnUiThread(() -> {
+                        // Ascundem progress indicator
+                        progressBar.setVisibility(View.GONE);
                         
-                        // Actualizăm RecyclerView
-                        adapter.notifyDataSetChanged();
-                    }
-                    
-                    // Obținem și afișăm rangul utilizatorului curent
-                    loadCurrentUserRank();
+                        // Afișăm mesajul pentru eroare
+                        emptyStateTextView.setVisibility(View.VISIBLE);
+                        String errorMessage = "Eroare la încărcarea clasamentului: ";
+                        if (e.getCause() != null) {
+                            errorMessage += e.getCause().getMessage();
+                        } else {
+                            errorMessage += e.getMessage();
+                        }
+                        emptyStateTextView.setText(errorMessage);
+                        
+                        // Afișăm butonul de reîncercare
+                        retryButton.setVisibility(View.VISIBLE);
+                        
+                        Log.e(TAG, "Error loading leaderboard", e);
+                    });
+                    return null;
                 });
-            })
-            .exceptionally(e -> {
-                runOnUiThread(() -> {
-                    // Ascundem progress indicator
-                    progressBar.setVisibility(View.GONE);
-                    
-                    // Afișăm mesajul pentru eroare
-                    emptyStateTextView.setVisibility(View.VISIBLE);
-                    emptyStateTextView.setText(getString(R.string.error_loading_leaderboard));
-                    
-                    Log.e(TAG, "Error loading leaderboard", e);
-                });
-                return null;
-            });
+        } catch (Exception e) {
+            // Tratăm orice excepție care ar putea apărea la inițierea cererii
+            progressBar.setVisibility(View.GONE);
+            emptyStateTextView.setVisibility(View.VISIBLE);
+            emptyStateTextView.setText("Eroare la inițierea cererii: " + e.getMessage());
+            retryButton.setVisibility(View.VISIBLE);
+            Log.e(TAG, "Error initiating leaderboard request", e);
+        }
     }
     
     private void loadCurrentUserRank() {

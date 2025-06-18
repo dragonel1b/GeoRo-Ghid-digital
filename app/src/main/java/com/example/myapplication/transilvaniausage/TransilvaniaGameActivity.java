@@ -34,6 +34,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Transilvania;
 import com.example.myapplication.RomApp.PointsManager;
 import com.example.myapplication.models.QuestionModel;
+import com.example.myapplication.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +43,8 @@ import java.util.Random;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
+import com.google.firebase.auth.FirebaseAuth;
+import java.util.Date;
 
 public class TransilvaniaGameActivity extends AppCompatActivity {
     private static final String TAG = "TransilvaniaGameActivity";
@@ -810,6 +813,9 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         // Adăugăm punctele în contul utilizatorului
         pointsManager.addPoints(this, "transilvania", score);
         
+        // Salvăm rezultatul quiz-ului în Firebase pentru actualizarea clasamentului
+        saveQuizResultToFirebase();
+        
         // Construim un dialog pentru a afișa rezultatele și opțiunile
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
         dialogBuilder.setTitle("Joc terminat!");
@@ -861,6 +867,41 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         dialogBuilder.setCancelable(false);
         AlertDialog dialog = dialogBuilder.create();
         dialog.show();
+    }
+    
+    /**
+     * Salvează rezultatul quiz-ului în Firebase pentru actualizarea clasamentului
+     */
+    private void saveQuizResultToFirebase() {
+        // Verificăm dacă utilizatorul este autentificat
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Log.w(TAG, "Utilizatorul nu este autentificat, nu se poate salva rezultatul în clasament");
+            Toast.makeText(this, "Trebuie să fii autentificat pentru a apărea în clasament", Toast.LENGTH_LONG).show();
+            return;
+        }
+        
+        // Creăm obiectul QuizResult
+        QuizResult quizResult = new QuizResult();
+        quizResult.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        quizResult.setScore(score);
+        quizResult.setCorrectAnswers(correctAnswers);
+        quizResult.setTotalQuestions(getQuestionsCount());
+        quizResult.setMaxStreak(maxStreak);
+        quizResult.setTotalTime(totalTime);
+        quizResult.setRegion(REGION);
+        quizResult.setGameType(GAME_TYPE);
+        quizResult.setCompletedAt(new Date());
+        
+        // Salvăm rezultatul în Firebase
+        FirestoreQuestionRepository.getInstance().saveQuizResult(quizResult)
+            .addOnSuccessListener(documentReference -> {
+                Log.d(TAG, "Rezultatul quiz-ului a fost salvat cu succes în Firebase");
+                Toast.makeText(this, "Rezultatul a fost adăugat în clasament!", Toast.LENGTH_SHORT).show();
+            })
+            .addOnFailureListener(e -> {
+                Log.e(TAG, "Eroare la salvarea rezultatului quiz-ului în Firebase", e);
+                Toast.makeText(this, "Eroare la salvarea rezultatului în clasament", Toast.LENGTH_SHORT).show();
+            });
     }
 
     @Override

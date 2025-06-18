@@ -357,6 +357,62 @@
 
     </GridLayout>
 
+    <!-- Bottom Actions Buttons -->
+    <LinearLayout
+        android:id="@+id/bottomButtonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonWelcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Leaderboard Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/leaderboardButton"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Vezi clasamentul jucătorilor"
+            android:drawableStart="@android:drawable/ic_menu_sort_by_size"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Clasament"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+
+        <!-- Profile Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/profileButton"
+            style="@style/RomanianButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:backgroundTint="@null"
+            android:contentDescription="Vezi profilul tău"
+            android:drawableStart="@android:drawable/ic_menu_myplaces"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/rom_text_primary"
+            android:drawableTintMode="multiply"
+            android:text="Profil"
+            android:textSize="16sp"
+            app:rippleColor="#40FFFFFF" />
+    </LinearLayout>
+
     <!-- Enhanced logout button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonWelcome"

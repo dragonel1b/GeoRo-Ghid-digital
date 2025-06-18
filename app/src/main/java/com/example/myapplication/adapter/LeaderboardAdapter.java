@@ -38,6 +38,39 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
         this.currentUserId = userId;
+        
+        // Asigurăm că rangurile sunt corect atribuite
+        recalculateRanks();
+    }
+    
+    /**
+     * Recalculează rangurile pentru toate intrările
+     */
+    private void recalculateRanks() {
+        if (entries == null || entries.isEmpty()) return;
+        
+        int currentRank = 1;
+        int position = 1;
+        int previousScore = -1;
+        
+        for (int i = 0; i < entries.size(); i++) {
+            LeaderboardEntry entry = entries.get(i);
+            
+            // Primul element primește rangul 1
+            if (i == 0) {
+                entry.setRank(currentRank);
+                previousScore = entry.getScore();
+            } else {
+                // Dacă scorul este diferit de cel precedent, actualizăm rangul
+                if (entry.getScore() < previousScore) {
+                    currentRank = position;
+                    previousScore = entry.getScore();
+                }
+                entry.setRank(currentRank);
+            }
+            
+            position++;
+        }
     }
     
     @NonNull
@@ -57,6 +90,19 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     @Override
     public int getItemCount() {
         return entries.size();
+    }
+    
+    /**
+     * Actualizează lista de intrări și recalculează rangurile
+     * @param newEntries Noua listă de intrări
+     */
+    public void updateEntries(List<LeaderboardEntry> newEntries) {
+        entries.clear();
+        if (newEntries != null) {
+            entries.addAll(newEntries);
+            recalculateRanks();
+        }
+        notifyDataSetChanged();
     }
     
     /**

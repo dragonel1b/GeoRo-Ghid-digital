@@ -55,6 +55,9 @@ public class UserActivity extends AppCompatActivity {
         gridLayoutRegions = findViewById(R.id.gridLayoutRegions);
         logoutButton = findViewById(R.id.buttonWelcome);
 
+        // Inițializăm butoanele pentru clasament și profil
+        setupActionButtons();
+
         // Apply animations
         applyEntranceAnimations();
 
@@ -71,12 +74,93 @@ public class UserActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Inițializează și configurează butoanele pentru clasament și profil
+     */
+    private void setupActionButtons() {
+        MaterialButton leaderboardButton = findViewById(R.id.leaderboardButton);
+        MaterialButton profileButton = findViewById(R.id.profileButton);
+        
+        // Adăugăm animații pentru butoane
+        Animation pressAnim = AnimationUtils.loadAnimation(this, R.anim.button_press);
+        
+        if (leaderboardButton != null) {
+            leaderboardButton.setOnClickListener(v -> {
+                v.startAnimation(pressAnim);
+                handler.postDelayed(() -> openLeaderboard(), 150);
+            });
+        }
+        
+        if (profileButton != null) {
+            profileButton.setOnClickListener(v -> {
+                v.startAnimation(pressAnim);
+                handler.postDelayed(() -> openUserProfile(), 150);
+            });
+        }
+    }
+    
+    /**
+     * Deschide activitatea de clasament (leaderboard)
+     */
+    private void openLeaderboard() {
+        // Verificăm dacă utilizatorul este autentificat pentru funcționalități complete
+        if (!isUserLoggedIn) {
+            // Afișăm dialog de avertizare/login pentru utilizatorii neautentificați
+            showLoginRequiredDialog("Clasament");
+            return;
+        }
+        
+        try {
+            // Creăm intent-ul și lansăm activitatea pe un thread separat
+            // pentru a evita violările StrictMode
+            Intent intent = new Intent(this, com.example.myapplication.ui.LeaderboardActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        } catch (Exception e) {
+            // Folosim Snackbar în loc de Toast pentru a evita operațiuni pe disc
+            // Toast-urile pot cauza DiskReadViolation în StrictMode
+            Snackbar.make(findViewById(android.R.id.content), 
+                    "Eroare la deschiderea clasamentului", 
+                    Snackbar.LENGTH_SHORT).show();
+        }
+    }
+    
+    /**
+     * Deschide activitatea de profil utilizator
+     */
+    private void openUserProfile() {
+        // Verificăm dacă utilizatorul este autentificat pentru a accesa profilul
+        if (!isUserLoggedIn) {
+            // Afișăm dialog de avertizare/login pentru utilizatorii neautentificați
+            showLoginRequiredDialog("Profil");
+            return;
+        }
+        
+        try {
+            // Creăm intent-ul și lansăm activitatea
+            Intent intent = new Intent(this, com.example.myapplication.ui.UserProfileActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        } catch (Exception e) {
+            // Folosim Snackbar în loc de Toast pentru a evita operațiuni pe disc
+            Snackbar.make(findViewById(android.R.id.content), 
+                    "Eroare la deschiderea profilului", 
+                    Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
     private void applyEntranceAnimations() {
         // Initially hide all buttons
         for (int i = 0; i < gridLayoutRegions.getChildCount(); i++) {
             gridLayoutRegions.getChildAt(i).setVisibility(View.INVISIBLE);
         }
         logoutButton.setVisibility(View.INVISIBLE);
+        
+        // Ascundem inițial și butoanele de clasament și profil
+        View bottomButtonsLayout = findViewById(R.id.bottomButtonsLayout);
+        if (bottomButtonsLayout != null) {
+            bottomButtonsLayout.setVisibility(View.INVISIBLE);
+        }
 
         // Welcome card animation
         Animation cardAnim = AnimationUtils.loadAnimation(this, R.anim.welcome_card_enter);
@@ -93,12 +177,21 @@ public class UserActivity extends AppCompatActivity {
             }
         }, 500); // Start after welcome card animation
 
-        // Logout button animation
+        // Animăm butoanele de clasament și profil după butoanele regiunilor
+        handler.postDelayed(() -> {
+            if (bottomButtonsLayout != null) {
+                bottomButtonsLayout.setVisibility(View.VISIBLE);
+                Animation slideUpAnim = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
+                bottomButtonsLayout.startAnimation(slideUpAnim);
+            }
+        }, 1200); // După ce majoritatea butoanelor de regiuni au apărut
+
+        // Logout button animation (ultimul element animat)
         handler.postDelayed(() -> {
             logoutButton.setVisibility(View.VISIBLE);
             Animation buttonAnim = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
             logoutButton.startAnimation(buttonAnim);
-        }, 1500); // After all grid buttons
+        }, 1500); // After all other buttons
     }
 
     private void startColorCycling() {
@@ -328,6 +421,9 @@ public class UserActivity extends AppCompatActivity {
         // Dacă starea s-a schimbat (utilizatorul s-a conectat), actualizăm interfața
         if (!previousState && isUserLoggedIn) {
             updateUIForLoggedInUser();
+            
+            // Sincronizăm punctele cu Firebase
+            syncPointsWithFirebase();
         }
     }
 
@@ -423,5 +519,18 @@ public class UserActivity extends AppCompatActivity {
         
         // Afișăm un mesaj de bun venit
         Toast.makeText(this, "Bine ai revenit! Acum ai acces la toate funcționalitățile.", Toast.LENGTH_SHORT).show();
+    }
+    
+    /**
+     * Sincronizează punctele utilizatorului cu Firebase
+     */
+    private void syncPointsWithFirebase() {
+        // Mai întâi încărcăm punctele din Firebase
+        PointsManager.getInstance(this).loadPointsFromFirebase(this);
+        
+        // Apoi sincronizăm punctele locale cu Firebase
+        handler.postDelayed(() -> {
+            PointsManager.getInstance(this).syncAllPointsWithFirebase(this);
+        }, 2000); // Întârziere pentru a permite încărcarea punctelor din Firebase
     }
 }

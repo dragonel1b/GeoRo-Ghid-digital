@@ -89,6 +89,18 @@ android {
 }
 
 dependencies {
+    // Firebase dependencies - using BoM (Bill of Materials) to manage versions
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database") // Use BoM version instead of explicit version
+    implementation("com.google.firebase:firebase-analytics") // Use BoM version instead of explicit version
+    
+    // Elimină versiunile explicite ale Firebase pentru a evita conflictele
+    // implementation("com.google.firebase:firebase-auth:22.3.0") - șters
+    // implementation(libs.firebase.database) // Removed as we're using BoM version
+    
     // Flogger dependencies for proper logging configuration
     implementation("com.google.flogger:flogger:0.7.4")
     implementation("com.google.flogger:flogger-system-backend:0.7.4")
@@ -106,7 +118,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
-    implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.4.1")
     implementation("androidx.lifecycle:lifecycle-livedata:2.4.1")
     implementation("androidx.core:core-ktx:1.7.0")
@@ -115,7 +126,6 @@ dependencies {
     implementation("com.google.android.gms:play-services-basement:18.3.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.activity)
-    implementation(libs.firebase.database)
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     implementation("nl.dionsegijn:konfetti-xml:2.0.3")
     // MPAndroidChart library for data visualization
@@ -134,7 +144,6 @@ dependencies {
     // Onboarding dependencies
     implementation("com.tbuonomo:dotsindicator:5.0") // Dots indicator for ViewPager2
     implementation("de.hdodenhof:circleimageview:3.1.0") // Circle ImageView for profile pictures
-    implementation("com.google.firebase:firebase-analytics:21.5.0") // Firebase Analytics
     
     // ExoPlayer dependencies for video tutorials
     implementation("com.google.android.exoplayer:exoplayer-core:2.18.7")

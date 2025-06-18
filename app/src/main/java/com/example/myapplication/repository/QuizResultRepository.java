@@ -91,55 +91,87 @@ public class QuizResultRepository {
                     UserProfile userProfile = documentSnapshot.toObject(UserProfile.class);
                     if (userProfile == null) {
                         Log.w(TAG, "User profile not found for updating leaderboard");
-                        return;
-                    }
-                    
-                    // Creăm intrarea pentru clasament
-                    LeaderboardEntry entry = new LeaderboardEntry(
-                            currentUser.getUid(),
-                            userProfile.getUsername(),
-                            userProfile.getDisplayName(),
-                            userProfile.getProfileImageUrl(),
-                            quizResult.getScore(),
-                            quizResult.getRegion(),
-                            quizResult.getGameType()
-                    );
-                    
-                    // Verificăm dacă utilizatorul are deja o intrare în clasament pentru această regiune și joc
-                    String leaderboardId = quizResult.getRegion() + "_" + quizResult.getGameType();
-                    db.collection(COLLECTION_LEADERBOARDS)
-                            .document(leaderboardId)
-                            .collection("entries")
-                            .whereEqualTo("userId", currentUser.getUid())
-                            .get()
-                            .addOnSuccessListener(queryDocumentSnapshots -> {
-                                WriteBatch batch = db.batch();
-                                
-                                if (queryDocumentSnapshots.isEmpty()) {
-                                    // Utilizatorul nu are o intrare în clasament, adăugăm una nouă
-                                    DocumentReference newEntryRef = db.collection(COLLECTION_LEADERBOARDS)
-                                            .document(leaderboardId)
-                                            .collection("entries")
-                                            .document();
-                                    batch.set(newEntryRef, entry);
-                                } else {
-                                    // Utilizatorul are deja o intrare în clasament, o actualizăm doar dacă scorul nou este mai mare
-                                    DocumentReference existingEntryRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
-                                    LeaderboardEntry existingEntry = queryDocumentSnapshots.getDocuments().get(0).toObject(LeaderboardEntry.class);
-                                    
-                                    if (existingEntry != null && quizResult.getScore() > existingEntry.getScore()) {
-                                        batch.set(existingEntryRef, entry);
-                                    }
-                                }
-                                
-                                // Executăm batch-ul
-                                batch.commit()
-                                        .addOnSuccessListener(aVoid -> Log.d(TAG, "Leaderboard updated successfully"))
-                                        .addOnFailureListener(e -> Log.e(TAG, "Error updating leaderboard", e));
+                        // Creăm un profil nou dacă nu există
+                        UserProfile newProfile = new UserProfile();
+                        newProfile.setUserId(currentUser.getUid());
+                        newProfile.setEmail(currentUser.getEmail());
+                        newProfile.setDisplayName(currentUser.getDisplayName() != null ? 
+                                currentUser.getDisplayName() : "User " + currentUser.getUid().substring(0, 5));
+                        newProfile.setUsername(currentUser.getEmail());
+                        if (currentUser.getPhotoUrl() != null) {
+                            newProfile.setProfileImageUrl(currentUser.getPhotoUrl().toString());
+                        }
+                        
+                        // Salvăm profilul nou
+                        db.collection(COLLECTION_USERS).document(currentUser.getUid())
+                            .set(newProfile)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d(TAG, "User profile created successfully");
+                                // Continuăm cu actualizarea clasamentului
+                                createOrUpdateLeaderboardEntry(
+                                        newProfile, quizResult);
                             })
-                            .addOnFailureListener(e -> Log.e(TAG, "Error checking existing leaderboard entry", e));
+                            .addOnFailureListener(e -> Log.e(TAG, "Error creating user profile", e));
+                    } else {
+                        // Continuăm cu actualizarea clasamentului
+                        createOrUpdateLeaderboardEntry(userProfile, quizResult);
+                    }
                 })
                 .addOnFailureListener(e -> Log.e(TAG, "Error getting user profile for leaderboard update", e));
+    }
+    
+    private void createOrUpdateLeaderboardEntry(UserProfile userProfile, QuizResult quizResult) {
+        // Creăm intrarea pentru clasament
+        LeaderboardEntry entry = new LeaderboardEntry(
+                userProfile.getUserId(),
+                userProfile.getUsername() != null ? userProfile.getUsername() : userProfile.getEmail(),
+                userProfile.getDisplayName(),
+                userProfile.getProfileImageUrl(),
+                quizResult.getScore(),
+                quizResult.getRegion(),
+                quizResult.getGameType()
+        );
+        
+        // Verificăm dacă utilizatorul are deja o intrare în clasament pentru această regiune și joc
+        String leaderboardId = quizResult.getRegion() + "_" + quizResult.getGameType();
+        db.collection(COLLECTION_LEADERBOARDS)
+                .document(leaderboardId)
+                .collection("entries")
+                .whereEqualTo("userId", userProfile.getUserId())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    WriteBatch batch = db.batch();
+                    
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        // Utilizatorul nu are o intrare în clasament, adăugăm una nouă
+                        DocumentReference newEntryRef = db.collection(COLLECTION_LEADERBOARDS)
+                                .document(leaderboardId)
+                                .collection("entries")
+                                .document(userProfile.getUserId());  // Folosim userId ca ID pentru document
+                        batch.set(newEntryRef, entry);
+                        Log.d(TAG, "Creating new leaderboard entry for user: " + userProfile.getUserId());
+                    } else {
+                        // Utilizatorul are deja o intrare în clasament, o actualizăm doar dacă scorul nou este mai mare
+                        DocumentReference existingEntryRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
+                        LeaderboardEntry existingEntry = queryDocumentSnapshots.getDocuments().get(0).toObject(LeaderboardEntry.class);
+                        
+                        if (existingEntry != null && quizResult.getScore() > existingEntry.getScore()) {
+                            batch.set(existingEntryRef, entry);
+                            Log.d(TAG, "Updating leaderboard entry for user: " + userProfile.getUserId() + 
+                                    " with new score: " + quizResult.getScore());
+                        } else if (existingEntry != null) {
+                            Log.d(TAG, "Not updating leaderboard entry as existing score (" + 
+                                    existingEntry.getScore() + ") is higher than new score (" + 
+                                    quizResult.getScore() + ")");
+                        }
+                    }
+                    
+                    // Executăm batch-ul
+                    batch.commit()
+                            .addOnSuccessListener(aVoid -> Log.d(TAG, "Leaderboard updated successfully"))
+                            .addOnFailureListener(e -> Log.e(TAG, "Error updating leaderboard", e));
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error checking existing leaderboard entry", e));
     }
     
     /**
@@ -158,16 +190,44 @@ public class QuizResultRepository {
                     UserProfile userProfile = documentSnapshot.toObject(UserProfile.class);
                     if (userProfile == null) {
                         Log.w(TAG, "User profile not found for updating");
-                        return;
+                        // Creăm un profil nou
+                        UserProfile newProfile = new UserProfile();
+                        newProfile.setUserId(currentUser.getUid());
+                        newProfile.setEmail(currentUser.getEmail());
+                        newProfile.setDisplayName(currentUser.getDisplayName() != null ? 
+                                currentUser.getDisplayName() : "User " + currentUser.getUid().substring(0, 5));
+                        newProfile.setUsername(currentUser.getEmail());
+                        if (currentUser.getPhotoUrl() != null) {
+                            newProfile.setProfileImageUrl(currentUser.getPhotoUrl().toString());
+                        }
+                        
+                        // Inițializăm statisticile
+                        newProfile.setQuizPoints(quizResult.getScore());
+                        newProfile.setTotalQuizzesTaken(1);
+                        newProfile.setTotalAnswers(quizResult.getTotalQuestions());
+                        newProfile.setCorrectAnswers(quizResult.getCorrectAnswers());
+                        
+                        // Salvăm profilul nou
+                        userRef.set(newProfile)
+                                .addOnSuccessListener(aVoid -> Log.d(TAG, "User profile created successfully"))
+                                .addOnFailureListener(e -> Log.e(TAG, "Error creating user profile", e));
+                    } else {
+                        // Actualizăm statisticile
+                        int newPoints = userProfile.getQuizPoints() + quizResult.getScore();
+                        int newTotalQuizzes = userProfile.getTotalQuizzesTaken() + 1;
+                        int newTotalAnswers = userProfile.getTotalAnswers() + quizResult.getTotalQuestions();
+                        int newCorrectAnswers = userProfile.getCorrectAnswers() + quizResult.getCorrectAnswers();
+                        
+                        // Actualizăm profilul
+                        userRef.update(
+                                "quizPoints", newPoints,
+                                "totalQuizzesTaken", newTotalQuizzes,
+                                "totalAnswers", newTotalAnswers,
+                                "correctAnswers", newCorrectAnswers
+                        )
+                        .addOnSuccessListener(aVoid -> Log.d(TAG, "User profile updated successfully with new points: " + newPoints))
+                        .addOnFailureListener(e -> Log.e(TAG, "Error updating user profile", e));
                     }
-                    
-                    // Actualizăm punctele și alte statistici
-                    // Aici putem adăuga logica pentru a actualiza statisticile utilizatorului
-                    // De exemplu, numărul total de quiz-uri completate, scorul total, etc.
-                    
-                    userRef.update("quizPoints", userProfile.getQuizPoints() + quizResult.getScore())
-                            .addOnSuccessListener(aVoid -> Log.d(TAG, "User profile updated successfully"))
-                            .addOnFailureListener(e -> Log.e(TAG, "Error updating user profile", e));
                 })
                 .addOnFailureListener(e -> Log.e(TAG, "Error getting user profile for update", e));
     }
@@ -206,6 +266,8 @@ public class QuizResultRepository {
         CompletableFuture<List<LeaderboardEntry>> future = new CompletableFuture<>();
         
         String leaderboardId = region + "_" + gameType;
+        
+        // Simplificăm interogarea pentru a evita probleme cu indexurile compuse
         Query query = db.collection(COLLECTION_LEADERBOARDS)
                 .document(leaderboardId)
                 .collection("entries")
@@ -218,20 +280,45 @@ public class QuizResultRepository {
         query.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<LeaderboardEntry> entries = new ArrayList<>();
-                    int rank = 1;
                     
+                    // Extragem toate intrările
                     for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
                         LeaderboardEntry entry = queryDocumentSnapshots.getDocuments().get(i).toObject(LeaderboardEntry.class);
                         if (entry != null) {
-                            // Setăm rangul
-                            if (i > 0) {
-                                LeaderboardEntry previousEntry = entries.get(i - 1);
-                                if (entry.getScore() < previousEntry.getScore()) {
-                                    rank = i + 1;
-                                }
-                            }
-                            entry.setRank(rank);
                             entries.add(entry);
+                        }
+                    }
+                    
+                    // Sortăm intrările după scor (descrescător) și apoi după dată (crescător) dacă scorurile sunt egale
+                    entries.sort((a, b) -> {
+                        if (a.getScore() != b.getScore()) {
+                            return Integer.compare(b.getScore(), a.getScore()); // Descrescător după scor
+                        }
+                        // Dacă scorurile sunt egale, sortăm după dată
+                        if (a.getAchievedAt() != null && b.getAchievedAt() != null) {
+                            return a.getAchievedAt().compareTo(b.getAchievedAt()); // Crescător după dată
+                        }
+                        return 0;
+                    });
+                    
+                    // Calculăm rangurile
+                    int currentRank = 1;
+                    int previousScore = -1;
+                    
+                    for (int i = 0; i < entries.size(); i++) {
+                        LeaderboardEntry entry = entries.get(i);
+                        
+                        // Primul element primește rangul 1
+                        if (i == 0) {
+                            entry.setRank(currentRank);
+                            previousScore = entry.getScore();
+                        } else {
+                            // Dacă scorul este diferit de cel precedent, actualizăm rangul
+                            if (entry.getScore() < previousScore) {
+                                currentRank = i + 1;
+                                previousScore = entry.getScore();
+                            }
+                            entry.setRank(currentRank);
                         }
                     }
                     
@@ -260,25 +347,109 @@ public class QuizResultRepository {
             return future;
         }
         
-        String leaderboardId = region + "_" + gameType;
-        db.collection(COLLECTION_LEADERBOARDS)
-                .document(leaderboardId)
-                .collection("entries")
-                .orderBy("score", Query.Direction.DESCENDING)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    int rank = -1;
-                    for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
-                        LeaderboardEntry entry = queryDocumentSnapshots.getDocuments().get(i).toObject(LeaderboardEntry.class);
-                        if (entry != null && entry.getUserId().equals(currentUser.getUid())) {
-                            rank = i + 1;
-                            break;
-                        }
+        // Folosim metoda getLeaderboard pentru a obține toate intrările și a asigura consistența rangurilor
+        getLeaderboard(region, gameType, 0)
+            .thenAccept(entries -> {
+                int userRank = -1;
+                
+                // Căutăm intrarea utilizatorului curent
+                for (LeaderboardEntry entry : entries) {
+                    if (entry.getUserId().equals(currentUser.getUid())) {
+                        userRank = entry.getRank();
+                        break;
                     }
-                    future.complete(rank);
+                }
+                
+                future.complete(userRank);
+            })
+            .exceptionally(e -> {
+                Log.e(TAG, "Error getting user rank", e);
+                future.completeExceptionally(e);
+                return null;
+            });
+        
+        return future;
+    }
+    
+    /**
+     * Obține profilul unui utilizator
+     * @param userId ID-ul utilizatorului
+     * @return CompletableFuture care va conține profilul utilizatorului sau null dacă nu există
+     */
+    public CompletableFuture<UserProfile> getUserProfile(String userId) {
+        CompletableFuture<UserProfile> future = new CompletableFuture<>();
+        
+        db.collection(COLLECTION_USERS).document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    UserProfile userProfile = documentSnapshot.toObject(UserProfile.class);
+                    future.complete(userProfile);
                 })
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error getting user rank", e);
+                    Log.e(TAG, "Error getting user profile", e);
+                    future.completeExceptionally(e);
+                });
+        
+        return future;
+    }
+    
+    /**
+     * Salvează profilul unui utilizator
+     * @param userProfile Profilul utilizatorului de salvat
+     * @return CompletableFuture care va conține true dacă salvarea a reușit, false altfel
+     */
+    public CompletableFuture<Boolean> saveUserProfile(UserProfile userProfile) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        
+        if (userProfile == null || userProfile.getUserId() == null) {
+            future.complete(false);
+            return future;
+        }
+        
+        db.collection(COLLECTION_USERS).document(userProfile.getUserId())
+                .set(userProfile)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "User profile saved successfully");
+                    future.complete(true);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error saving user profile", e);
+                    future.complete(false);
+                });
+        
+        return future;
+    }
+    
+    /**
+     * Obține rezultatele quiz-urilor pentru un utilizator
+     * @param userId ID-ul utilizatorului
+     * @param limit Numărul maxim de rezultate de returnat (opțional)
+     * @return CompletableFuture care va conține lista de rezultate
+     */
+    public CompletableFuture<List<QuizResult>> getUserQuizResults(String userId, int limit) {
+        CompletableFuture<List<QuizResult>> future = new CompletableFuture<>();
+        
+        Query query = db.collection(COLLECTION_QUIZ_RESULTS)
+                .whereEqualTo("userId", userId)
+                .orderBy("completedAt", Query.Direction.DESCENDING);
+        
+        if (limit > 0) {
+            query = query.limit(limit);
+        }
+        
+        query.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<QuizResult> results = new ArrayList<>();
+                    for (com.google.firebase.firestore.DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                        QuizResult quizResult = document.toObject(QuizResult.class);
+                        if (quizResult != null) {
+                            results.add(quizResult);
+                        }
+                    }
+                    future.complete(results);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting user quiz results", e);
                     future.completeExceptionally(e);
                 });
         

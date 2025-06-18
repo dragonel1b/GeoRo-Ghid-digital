@@ -578,4 +578,44 @@ public class RomMainActivity extends AppCompatActivity {
         // Redirectăm către funcționalitatea culinară existentă
         startCulinaryMode(view);
     }
+
+    /**
+     * Deschide activitatea de profil utilizator
+     * @param view View-ul care a declanșat acțiunea
+     */
+    public void openUserProfile(View view) {
+        animateButtonClick(view);
+        try {
+            Intent intent = new Intent(this, com.example.myapplication.ui.UserProfileActivity.class);
+            // Validate intent before use
+            if (securityManager.validateIntent(intent)) {
+                TransitionHelper.startActivityWithSlide(this, intent);
+            } else {
+                showErrorMessage("Cannot open user profile. Invalid intent detected.");
+            }
+        } catch (Exception e) {
+            securityManager.handleException(this, e, 
+                    "Failed to open user profile.", false);
+        }
+    }
+
+    /**
+     * Deschide activitatea de clasament (leaderboard)
+     * @param view View-ul care a declanșat acțiunea
+     */
+    public void openLeaderboard(View view) {
+        animateButtonClick(view);
+        try {
+            Intent intent = new Intent(this, com.example.myapplication.ui.LeaderboardActivity.class);
+            // Validate intent before use
+            if (securityManager.validateIntent(intent)) {
+                TransitionHelper.startActivityWithSlide(this, intent);
+            } else {
+                showErrorMessage("Cannot open leaderboard. Invalid intent detected.");
+            }
+        } catch (Exception e) {
+            securityManager.handleException(this, e, 
+                    "Failed to open leaderboard.", false);
+        }
+    }
 }

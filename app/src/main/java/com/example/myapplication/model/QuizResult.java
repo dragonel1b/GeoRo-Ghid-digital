@@ -20,6 +20,8 @@ public class QuizResult {
     private int correctAnswers;
     private int totalQuestions;
     private int timeSpentSeconds;
+    private int maxStreak;
+    private long totalTime; // Timpul total în milisecunde
     @ServerTimestamp
     private Date completedAt;
     private List<QuestionAnswer> answers;
@@ -129,6 +131,22 @@ public class QuizResult {
 
     public void setTimeSpentSeconds(int timeSpentSeconds) {
         this.timeSpentSeconds = timeSpentSeconds;
+    }
+    
+    public int getMaxStreak() {
+        return maxStreak;
+    }
+
+    public void setMaxStreak(int maxStreak) {
+        this.maxStreak = maxStreak;
+    }
+
+    public long getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(long totalTime) {
+        this.totalTime = totalTime;
     }
 
     public Date getCompletedAt() {
