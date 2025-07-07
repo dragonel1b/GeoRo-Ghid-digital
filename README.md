@@ -1,6 +1,5 @@
 https://www.canva.com/design/DAGinMGo1YE/inHsvYBFoDMXpGU5WxSjig/edit?utm_content=DAGinMGo1YE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
-https://prezi.com/view/SMCK5hCTYpEhuvsm6ltp/
-https://prezi.com/view/SMCK5hCTYpEhuvsm6ltp/
+https://prezi.com/view/43Is4LLdV2QKn2xlcHkG/
 SCURTĂ DOCUMENTAȚIE TEHNICĂ - GeoRo
 Informații generale
 •	Categorie: Ghid Digital Interactiv 
