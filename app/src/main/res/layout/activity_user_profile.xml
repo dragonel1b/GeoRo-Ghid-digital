@@ -5,25 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rom_background"
+    android:background="@drawable/leaderboard_exact_background"
     tools:context=".ui.UserProfileActivity">
 
+    <!-- Header with Toolbar - Similar to Leaderboard -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="Profil Utilizator"
-            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel" />
+            android:background="@android:color/transparent"
+            app:title="Profil"
+            app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- Main Content -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,65 +39,369 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingBottom="24dp">
 
-            <!-- Profil Header - Card îmbunătățit -->
-            <androidx.cardview.widget.CardView
+            <!-- Sparkles Background similar to Leaderboard -->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                android:layout_marginBottom="16dp"
-                app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="@android:color/white">
+                android:layout_marginTop="20dp">
 
+                <!-- Sparkles positioned exactly like in leaderboard -->
+                <ImageView
+                    android:id="@+id/sparkle1"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="start|top"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="40dp"
+                    app:tint="@color/white"
+                    android:alpha="0.6" />
+
+                <ImageView
+                    android:id="@+id/sparkle2"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="end|top"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginTop="60dp"
+                    app:tint="@color/white"
+                    android:alpha="0.4" />
+
+                <ImageView
+                    android:id="@+id/sparkle3"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="100dp"
+                    app:tint="@color/white"
+                    android:alpha="0.5" />
+
+                <ImageView
+                    android:id="@+id/sparkle4"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="40dp"
+                    app:tint="@color/white"
+                    android:alpha="0.3" />
+
+                <ImageView
+                    android:id="@+id/sparkle5"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="50dp"
+                    app:tint="@color/white"
+                    android:alpha="0.7" />
+
+                <!-- Profile Section Center -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:paddingHorizontal="24dp">
 
-                    <!-- Imagine profil îmbunătățită -->
+                    <!-- Profile Title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PROFIL UTILIZATOR"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="32dp"
+                        android:letterSpacing="0.05" />
+
+                    <!-- Profile Avatar similar to leaderboard podium style -->
                     <FrameLayout
                         android:layout_width="140dp"
                         android:layout_height="140dp"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_marginBottom="20dp">
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:cardCornerRadius="70dp"
-                            app:cardElevation="4dp">
-                            
-                            <ImageView
-                                android:id="@+id/profileImageView"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:contentDescription="@string/profile_image_description"
-                                android:scaleType="centerCrop"
-                                app:srcCompat="@drawable/default_profile_image" />
-                        </androidx.cardview.widget.CardView>
+                        <!-- Glow effect -->
+                        <View
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/avatar_first_place_background" />
 
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/profileImageView"
+                            android:layout_width="140dp"
+                            android:layout_height="140dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/profile_image_description"
+                            android:scaleType="centerCrop"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                            app:strokeColor="@color/leaderboard_gold"
+                            app:strokeWidth="4dp"
+                            tools:src="@drawable/default_profile_image" />
+
+                        <!-- Edit Photo FAB -->
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/changeImageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|end"
-                            android:contentDescription="Schimbă imaginea de profil"
-                            android:src="@android:drawable/ic_menu_camera"
-                            app:backgroundTint="@color/rom_accent"
-                            app:tint="@android:color/white"
-                            app:fabSize="mini" />
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:contentDescription="@string/change_profile_image"
+                            android:src="@drawable/ic_camera_alt"
+                            app:backgroundTint="@color/leaderboard_gold"
+                            app:tint="@color/white"
+                            app:fabSize="mini"
+                            app:elevation="8dp" />
+
                     </FrameLayout>
 
-                    <!-- Nume utilizator îmbunătățit -->
+                    <!-- User Display Name -->
+                    <TextView
+                        android:id="@+id/userDisplayNameText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:shadowColor="#80000000"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="4"
+                        tools:text="Alexandra Popescu" />
+
+                    <!-- User Level Badge -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/gold_medal_badge"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginBottom="32dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_star"
+                            android:contentDescription="@string/level_icon_description"
+                            app:tint="@color/leaderboard_gold" />
+
+                        <TextView
+                            android:id="@+id/userLevelText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            tools:text="Maestru Român" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- Stats Section similar to leaderboard style -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="STATISTICI PERSONALE"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textStyle="bold"
+                    android:textColor="@color/leaderboard_gold"
+                    android:textSize="18sp"
+                    android:letterSpacing="0.1" />
+
+            </LinearLayout>
+
+            <!-- Quick Stats Row with leaderboard style -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- Current Rank Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="12dp"
+                    app:strokeWidth="0dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/currentRankText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                            android:textStyle="bold"
+                            android:textColor="@color/leaderboard_gold"
+                            android:layout_marginBottom="4dp"
+                            tools:text="#5" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="RANG ACTUAL"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/romania_text_secondary"
+                            android:textAllCaps="true"
+                            android:letterSpacing="0.1" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/ic_trophy"
+                            android:contentDescription="@string/rank_icon_description"
+                            app:tint="@color/leaderboard_gold"
+                            android:alpha="0.8" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Best Score Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="12dp"
+                    app:strokeWidth="0dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/bestScoreText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                            android:textStyle="bold"
+                            android:textColor="@color/leaderboard_gold"
+                            android:layout_marginBottom="4dp"
+                            tools:text="2,580" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SCOR MAXIM"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="@color/romania_text_secondary"
+                            android:textAllCaps="true"
+                            android:letterSpacing="0.1" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/ic_star"
+                            android:contentDescription="@string/best_score_icon_description"
+                            app:tint="@color/leaderboard_gold"
+                            android:alpha="0.8" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- Edit Profile Card with leaderboard consistent style -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="12dp"
+                app:strokeWidth="0dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <!-- Card Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="24dp">
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_edit"
+                            android:contentDescription="@string/edit_profile_icon_description"
+                            app:tint="@color/leaderboard_gold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="MODIFICARE PROFIL"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:textStyle="bold"
+                            android:textColor="@color/leaderboard_gold"
+                            android:letterSpacing="0.05" />
+
+                    </LinearLayout>
+
+                    <!-- Display Name Input -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="20dp"
                         android:hint="Nume afișat"
-                        app:boxStrokeColor="@color/rom_accent"
-                        app:hintTextColor="@color/rom_accent"
+                        app:startIconDrawable="@drawable/ic_person"
+                        app:startIconTint="@color/leaderboard_gold"
+                        app:hintTextColor="@color/leaderboard_gold"
+                        app:boxStrokeColor="@color/leaderboard_gold"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -100,53 +409,121 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            android:textSize="16sp" />
+                            android:textColor="@color/text_primary" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Email cu design îmbunătățit -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Email:"
-                        android:textColor="@color/rom_text_secondary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/emailTextView"
+                    <!-- Email Display -->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/rom_text_primary"
-                        android:textSize="16sp"
-                        tools:text="user@example.com" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="24dp"
+                        android:background="@drawable/tab_selector_exact_background"
+                        android:padding="18dp">
 
-                    <!-- Buton actualizare îmbunătățit -->
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_email"
+                            android:contentDescription="@string/email_icon_description"
+                            app:tint="@color/white" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Email"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                                android:textColor="@color/white"
+                                android:alpha="0.7" />
+
+                            <TextView
+                                android:id="@+id/emailTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                tools:text="user@example.com" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Update Profile Button -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/updateProfileButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:paddingVertical="12dp"
-                        android:text="Actualizează profil"
+                        android:paddingVertical="16dp"
+                        android:text="ACTUALIZEAZĂ PROFIL"
                         android:textAllCaps="false"
-                        app:cornerRadius="8dp"
-                        app:elevation="4dp"
-                        app:icon="@android:drawable/ic_menu_edit"
-                        app:iconGravity="textStart" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        app:cornerRadius="16dp"
+                        app:elevation="6dp"
+                        app:backgroundTint="@color/leaderboard_gold"
+                        app:icon="@drawable/ic_check"
+                        app:iconGravity="textStart"
+                        app:iconPadding="12dp"
+                        app:iconTint="@color/white" />
 
-            <!-- Statistici Quiz - Card îmbunătățit -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/statsCardView"
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Region Collection Section -->
+            <LinearLayout
+                android:id="@+id/regionsHeaderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="COLECȚIE REGIUNI"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textStyle="bold"
+                    android:textColor="@color/leaderboard_gold"
+                    android:textSize="18sp"
+                    android:letterSpacing="0.1" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/romania_flag_small"
+                    android:contentDescription="Romania Flag"
+                    android:scaleType="fitXY" />
+
+            </LinearLayout>
+
+            <!-- Regions Collection Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardCornerRadius="24dp"
+                app:cardElevation="12dp"
+                app:strokeWidth="0dp"
+                app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,197 +531,130 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <!-- Titlu statistici îmbunătățit -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Statistici Quiz"
-                        android:textColor="@color/rom_text_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <!-- Statistici cu design îmbunătățit -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:orientation="horizontal">
-
-                        <!-- Puncte -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_margin="4dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/rom_primary_light">
-                            
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="12dp">
-                                
-                                <TextView
-                                    android:id="@+id/quizPointsTextView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/rom_accent"
-                                    tools:text="1250" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Puncte"
-                                    android:textColor="@color/rom_text_primary"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Quiz-uri -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_margin="4dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/rom_primary_light">
-                            
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="12dp">
-                                
-                                <TextView
-                                    android:id="@+id/totalQuizzesTextView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/rom_accent"
-                                    tools:text="15" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Quiz-uri"
-                                    android:textColor="@color/rom_text_primary"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Acuratețe -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_margin="4dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/rom_primary_light">
-                            
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="12dp">
-                                
-                                <TextView
-                                    android:id="@+id/accuracyTextView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/rom_accent"
-                                    tools:text="85%" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Acuratețe"
-                                    android:textColor="@color/rom_text_primary"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-                    </LinearLayout>
-
-                    <!-- Buton clasament îmbunătățit -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/viewLeaderboardButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:paddingVertical="12dp"
-                        android:text="Vezi clasament"
-                        android:textAllCaps="false"
-                        app:cornerRadius="8dp"
-                        app:elevation="4dp"
-                        app:icon="@android:drawable/ic_menu_sort_by_size"
-                        app:iconGravity="textStart" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Rezultate recente - Card îmbunătățit -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="@android:color/white">
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                    
-                    <!-- Titlu rezultate recente îmbunătățit -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Rezultate recente"
-                        android:textColor="@color/rom_text_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                    
-                    <!-- RecyclerView cu design îmbunătățit -->
+                    <!-- Regions RecyclerView -->
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recentQuizzesRecyclerView"
+                        android:id="@+id/regionsRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:nestedScrollingEnabled="false"
                         android:clipToPadding="false"
                         tools:itemCount="3"
-                        tools:listitem="@android:layout/simple_list_item_2" />
+                        tools:listitem="@layout/item_region_progress" />
+
+                    <!-- Empty state for regions -->
+                    <LinearLayout
+                        android:id="@+id/regionsEmptyState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="32dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:src="@drawable/ic_explore"
+                            android:alpha="0.5"
+                            app:tint="#666666"
+                            android:layout_marginBottom="16dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Începe să explorezi regiunile României!"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                            android:textColor="#333333"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Completează quiz-uri pentru a-ți construi colecția"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="#666666"
+                            android:gravity="center" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- View Leaderboard Button Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/viewLeaderboardButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="16dp"
+                    android:text="VEZI CLASAMENTUL"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    app:cornerRadius="16dp"
+                    app:elevation="6dp"
+                    app:strokeColor="@color/leaderboard_gold"
+                    app:strokeWidth="2dp"
+                    app:icon="@drawable/ic_leaderboard"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    app:iconTint="@color/leaderboard_gold"
+                    android:textColor="@color/leaderboard_gold"
+                    android:backgroundTint="@android:color/transparent"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+            </LinearLayout>
+
+
+
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
-    <!-- ProgressBar îmbunătățit -->
+    <!-- Loading Overlay similar to leaderboard -->
     <FrameLayout
         android:id="@+id/progressBarContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
-        android:visibility="gone">
-        
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+        android:background="@drawable/loading_overlay_background"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminateTint="@color/rom_accent" />
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:indeterminateTint="@color/leaderboard_gold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Se încarcă profilul..."
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout> 

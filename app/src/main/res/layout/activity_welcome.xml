@@ -381,15 +381,17 @@
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            app:backgroundTint="@null"
+            app:cornerRadius="16dp"
+            app:elevation="2dp"
+            app:backgroundTint="@color/colorPrimaryLight"
             android:contentDescription="Vezi clasamentul jucătorilor"
             android:drawableStart="@android:drawable/ic_menu_sort_by_size"
             android:drawablePadding="12dp"
-            android:drawableTint="@color/rom_text_primary"
-            android:drawableTintMode="multiply"
+            android:drawableTint="@color/colorPrimary"
             android:text="Clasament"
             android:textSize="16sp"
-            app:rippleColor="#40FFFFFF" />
+            android:textColor="@color/text_primary"
+            app:rippleColor="@color/colorPrimaryLight" />
 
         <!-- Profile Button -->
         <com.google.android.material.button.MaterialButton

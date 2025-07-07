@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/dobrogea_card_bg"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    app:rippleColor="@color/dobrogea_primary_light"
+    app:strokeColor="@color/dobrogea_primary_light"
+    app:strokeWidth="2dp"
+    tools:text="Modul de joc">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Game Mode Icon -->
+        <TextView
+            android:id="@+id/game_mode_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/timer_background_dobrogea"
+            android:gravity="center"
+            android:text="⚓"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Game Mode Title -->
+        <TextView
+            android:id="@+id/game_mode_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Modul Clasic"
+            android:textColor="@color/dobrogea_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/game_mode_arrow"
+            app:layout_constraintStart_toEndOf="@id/game_mode_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Game Mode Description -->
+        <TextView
+            android:id="@+id/game_mode_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="Descrierea modului de joc"
+            android:textColor="@color/dobrogea_text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/game_mode_arrow"
+            app:layout_constraintStart_toEndOf="@id/game_mode_icon"
+            app:layout_constraintTop_toBottomOf="@id/game_mode_title" />
+
+        <!-- Game Mode Stats -->
+        <LinearLayout
+            android:id="@+id/game_mode_stats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/game_mode_arrow"
+            app:layout_constraintStart_toEndOf="@id/game_mode_icon"
+            app:layout_constraintTop_toBottomOf="@id/game_mode_description">
+
+            <!-- Questions Count -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:drawableStart="@drawable/ic_lighthouse"
+                android:drawablePadding="4dp"
+                android:text="10 întrebări"
+                android:textColor="@color/dobrogea_primary"
+                android:textSize="12sp" />
+
+            <!-- Time Per Question -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_compass"
+                android:drawablePadding="4dp"
+                android:text="30s"
+                android:textColor="@color/dobrogea_primary"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- Arrow Icon -->
+        <ImageView
+            android:id="@+id/game_mode_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_anchor"
+            android:tint="@color/dobrogea_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Difficulty Badge -->
+        <TextView
+            android:id="@+id/difficulty_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/timer_background_dobrogea"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="MEDIUM"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/game_mode_icon"
+            app:layout_constraintTop_toBottomOf="@id/game_mode_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView> 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="@color/romania_winner_bg"
+        android:endColor="@color/romania_winner_bg_dark"
+        android:angle="45"
+        android:type="linear" />
+    <corners android:radius="16dp" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/romania_yellow" />
+</shape> 

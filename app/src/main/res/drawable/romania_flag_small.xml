@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Blue stripe -->
+    <item android:left="0dp" android:right="16dp">
+        <shape>
+            <solid android:color="#002B7F" />
+        </shape>
+    </item>
+    <!-- Yellow stripe -->
+    <item android:left="8dp" android:right="8dp">
+        <shape>
+            <solid android:color="#FCD116" />
+        </shape>
+    </item>
+    <!-- Red stripe -->
+    <item android:left="16dp" android:right="0dp">
+        <shape>
+            <solid android:color="#CE1126" />
+        </shape>
+    </item>
+</layer-list> 

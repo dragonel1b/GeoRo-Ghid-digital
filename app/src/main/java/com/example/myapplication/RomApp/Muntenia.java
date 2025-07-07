@@ -537,21 +537,19 @@ public class Muntenia extends RegionTemplate {
 
     @Override
     public void onBackPressed() {
-        // Doar afișăm dialogul de confirmare, fără super.onBackPressed()
-        super.onBackPressed();
+        // Afișăm dialogul de confirmare
         showExitConfirmation();
     }
 
     private void showExitConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ieșire");
-        builder.setMessage("Ești sigur că vrei să părăsești jocul? Progresul va fi pierdut.");
+        builder.setMessage("Ești sigur că vrei să părăsești această regiune?");
         builder.setPositiveButton("Da", (dialog, which) -> {
             if (timer != null) {
                 timer.cancel();
             }
-            // Apelăm super.onBackPressed() sau finish() doar dacă utilizatorul confirmă
-            super.onBackPressed(); // sau finish();
+            finish();
         });
         builder.setNegativeButton("Nu", null);
         builder.show();

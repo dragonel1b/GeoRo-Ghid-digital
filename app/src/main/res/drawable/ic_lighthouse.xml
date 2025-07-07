@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Base of lighthouse -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M8,20 L16,20 L16,18 L8,18 Z" />
+    
+    <!-- Main tower -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M9,18 L15,18 L15,8 L9,8 Z" />
+    
+    <!-- Light room -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M10,8 L14,8 L14,6 L10,6 Z" />
+    
+    <!-- Light beam -->
+    <path
+        android:fillColor="#FFF3E0"
+        android:pathData="M12,6 L13,4 L11,4 Z" />
+    
+    <!-- Windows -->
+    <path
+        android:fillColor="#4FB3D9"
+        android:pathData="M10,14 L12,14 L12,12 L10,12 Z" />
+    <path
+        android:fillColor="#4FB3D9"
+        android:pathData="M12,14 L14,14 L14,12 L12,12 Z" />
+    
+    <!-- Door -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M11,16 L13,16 L13,18 L11,18 Z" />
+    
+</vector> 

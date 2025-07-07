@@ -104,10 +104,9 @@
     <string name="rom_achievements_unlocked_label">Realizări deblocate</string>
     <string name="rom_achievements_list_description">Realizările Tale</string>
     <string name="rom_culture_points_label">Puncte culturale: %1$d</string>
-    <string name="achievement_icon_description">Pictograma realizării</string>
     <string name="achievement_unlocked_description">Realizare deblocată</string>
     <string name="rom_back">Înapoi</string>
-    <string name="rom_points_required">Puncte necesare: %1$d</string>
+    <string name="rom_points_required">Puncte necesare:</string>
 
     <!-- Game Strings for Tara Tara Vrem Ostasi -->
     <string name="game_title">Țară, Țară, Vrem Ostași!</string>
@@ -457,17 +456,18 @@
 
     <!-- Leaderboard -->
     <string name="leaderboard_title">Clasament</string>
+    <string name="regional_leaderboard">Regional</string>
+    <string name="global_leaderboard">Global</string>
     <string name="region_label">Regiune:</string>
-    <string name="game_type_label">Joc:</string>
-    <string name="rank_header">Loc</string>
+    <string name="game_type_label">Tip joc:</string>
+    <string name="rank_header">Rang</string>
     <string name="player_header">Jucător</string>
     <string name="score_header">Scor</string>
-    <string name="no_leaderboard_entries">Nu există încă intrări în clasament pentru această regiune și acest tip de joc</string>
-    <string name="error_loading_leaderboard">Eroare la încărcarea clasamentului. Verificați conexiunea la internet și încercați din nou.</string>
+    <string name="no_leaderboard_entries">Nu există încă intrări în clasament</string>
+    <string name="not_logged_in">Conectează-te pentru a vedea rangul tău</string>
+    <string name="no_rank_yet">Nu ai încă un rang în acest clasament</string>
     <string name="your_rank">Poziția ta: %1$d</string>
-    <string name="not_ranked">Nu ești încă în clasament</string>
-    <string name="not_logged_in">Autentifică-te pentru a vedea poziția ta</string>
-    <string name="error_loading_rank">Eroare la încărcarea poziției tale</string>
+    <string name="error_loading_rank">Eroare la încărcarea rangului</string>
     <string name="profile_image_description">Imagine de profil</string>
 
     <!-- User Profile -->
@@ -478,4 +478,60 @@
     <string name="error_updating_profile">Eroare la actualizarea profilului.</string>
     <string name="profile_updated">Profil actualizat cu succes</string>
     <string name="please_login">Vă rugăm să vă autentificați pentru a accesa profilul</string>
+    
+    <!-- Podium and Achievement Strings -->
+    <string name="top_players">Cei Mai Buni Jucători</string>
+    <string name="crown_icon_description">Iconiță coroană</string>
+    <string name="winner_crown_description">Coroana câștigătorului</string>
+    <string name="medal_icon_description">Iconiță medalie</string>
+    <string name="time_icon_description">Iconiță timp</string>
+    <string name="progress_icon_description">Iconiță progres</string>
+    <string name="achievement_icon_description">Iconiță realizare</string>
+    
+    <!-- User Profile Strings -->
+    <string name="premium_badge_description">Badge premium</string>
+    <string name="change_profile_image">Schimbă imaginea de profil</string>
+    <string name="level_icon_description">Iconiță nivel</string>
+    <string name="current_rank">Rang curent</string>
+    <string name="best_score">Cel mai bun scor</string>
+    <string name="rank_icon_description">Iconiță rang</string>
+    <string name="best_score_icon_description">Iconiță cel mai bun scor</string>
+    <string name="edit_profile_title">Editează Profilul</string>
+    <string name="edit_profile_icon_description">Iconiță editare profil</string>
+    <string name="display_name_hint">Nume afișat</string>
+    <string name="email_label">Email</string>
+    <string name="email_icon_description">Iconiță email</string>
+    <string name="update_profile_button">Actualizează Profilul</string>
+    <string name="quiz_statistics_title">Statistici Quiz</string>
+    <string name="statistics_icon_description">Iconiță statistici</string>
+    <string name="total_points">Puncte totale</string>
+    <string name="total_quizzes">Quiz-uri totale</string>
+    <string name="accuracy_rate">Rata de acuratețe</string>
+    <string name="win_streak">Streak de victorii</string>
+    <string name="view_leaderboard_button">Vezi Clasamentul</string>
+    <string name="recent_activity_title">Activitate Recentă</string>
+    <string name="recent_activity_icon_description">Iconiță activitate recentă</string>
+    <string name="loading_profile">Se încarcă profilul...</string>
+    
+    <!-- Recent Quiz Item Strings -->
+    <string name="quiz_type_icon_description">Iconiță tip quiz</string>
+    <string name="points_label">puncte</string>
+    
+    <!-- Romania Leaderboard Strings -->
+    <string name="silver_medal_description">Medalie de argint</string>
+    <string name="gold_medal_description">Medalie de aur</string>
+    <string name="bronze_medal_description">Medalie de bronz</string>
+    <string name="score_icon_description">Iconiță scor</string>
+    <string name="diamond_icon_description">Iconiță diamant</string>
+    <string name="ranking_icon_description">Iconiță clasament</string>
+
+    <!-- Profile strings -->
+    <string name="crown_description">Coroană pentru jucători de top</string>
+    <string name="romania_flag_description">Steagul României decorativ</string>
+    
+    <!-- Level titles românești -->
+    <string name="level_novice">Novice</string>
+    <string name="level_expert">Expert</string>
+    <string name="level_maestru">Maestru Român</string>
+    <string name="level_legend">Legendă Națională</string>
 </resources>

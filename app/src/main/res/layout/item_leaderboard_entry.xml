@@ -1,88 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
     android:layout_marginBottom="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="0dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:background="@drawable/bg_leaderboard_normal">
+        android:padding="16dp"
+        android:background="@drawable/bg_leaderboard_normal"
+        android:minHeight="80dp">
 
-        <TextView
-            android:id="@+id/rankTextView"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
+        <!-- Rank Container with enhanced design -->
+        <FrameLayout
+            android:id="@+id/rankContainer"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/circle_rank_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+            <TextView
+                android:id="@+id/rankTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                tools:text="1" />
+
+            <!-- Medal icon for top 3 -->
+            <ImageView
+                android:id="@+id/medalIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:visibility="gone"
+                android:src="@drawable/ic_crown"
+                android:contentDescription="@string/medal_icon_description" />
+
+        </FrameLayout>
+
+        <!-- Profile Image with better design -->
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profileImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
             android:contentDescription="@string/profile_image_description"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:strokeColor="@color/leaderboard_premium_accent"
+            app:strokeWidth="2dp"
+            android:padding="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/rankTextView"
+            app:layout_constraintStart_toEndOf="@id/rankContainer"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/default_profile_image" />
 
-        <TextView
-            android:id="@+id/usernameTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/dateTextView"
-            app:layout_constraintEnd_toStartOf="@id/scoreTextView"
-            app:layout_constraintStart_toEndOf="@id/profileImageView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Username" />
-
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/scoreTextView"
-            app:layout_constraintStart_toEndOf="@id/profileImageView"
-            app:layout_constraintTop_toBottomOf="@id/usernameTextView"
-            tools:text="12 May 2023, 15:30" />
-
-        <TextView
-            android:id="@+id/scoreTextView"
+        <!-- Score Layout - moved before player info to establish end constraint -->
+        <LinearLayout
+            android:id="@+id/scoreLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/rom_accent"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:minWidth="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1250" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/scoreTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/score_background"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:gravity="center"
+                tools:text="1,250" />
+
+            <!-- Progress indicator or streak -->
+            <LinearLayout
+                android:id="@+id/progressLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_trending_up"
+                    android:contentDescription="@string/progress_icon_description"
+                    app:tint="@color/progress_excellent" />
+
+                <TextView
+                    android:id="@+id/progressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                    android:textColor="@color/progress_excellent"
+                    android:textStyle="bold"
+                    tools:text="+150" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Player Information - now properly constrained -->
+        <LinearLayout
+            android:id="@+id/playerInfoLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/scoreLayout"
+            app:layout_constraintStart_toEndOf="@id/profileImageView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Top row with username and achievement icon -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/usernameTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    tools:text="Alexandra Popescu" />
+
+                <!-- Achievement icon positioned inline -->
+                <ImageView
+                    android:id="@+id/achievementIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_achievement_star"
+                    android:contentDescription="@string/achievement_icon_description"
+                    android:visibility="gone"
+                    app:tint="@color/tier_legendary"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+            <!-- Bottom row with time and level badge -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_clock"
+                    android:contentDescription="@string/time_icon_description"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/text_secondary"
+                    tools:text="12 Mai 2023, 15:30" />
+
+                <!-- Level or Achievement Badge -->
+                <TextView
+                    android:id="@+id/levelBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/level_badge_background"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    tools:text="LVL 5"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView> 
+</com.google.android.material.card.MaterialCardView> 

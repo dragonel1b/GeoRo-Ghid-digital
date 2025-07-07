@@ -557,7 +557,12 @@
                     android:drawableStart="@android:drawable/ic_menu_sort_by_size"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    app:cornerRadius="8dp"
+                    app:cornerRadius="24dp"
+                    app:iconPadding="8dp"
+                    app:backgroundTint="@color/colorPrimaryLight"
+                    android:drawableTint="@color/colorPrimary"
+                    android:textColor="@color/text_primary"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:onClick="openLeaderboard" />
 
             </LinearLayout>

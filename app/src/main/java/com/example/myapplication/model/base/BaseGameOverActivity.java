@@ -1,212 +1,544 @@
 package com.example.myapplication.model.base;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.utils.PointsManager;
+import com.google.android.material.button.MaterialButton;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Clasă de bază pentru activitățile de game over din aplicație.
- * Oferă funcționalități comune pentru toate ecranele de final de joc din diferite regiuni.
+ * Activitate de bază modulară pentru afișarea rezultatelor quiz-urilor din toate regiunile
+ * Poate fi extinsă pentru fiecare regiune cu configurări specifice
  */
 public abstract class BaseGameOverActivity extends AppCompatActivity {
-    // UI Components
-    protected TextView gameOverTitle;
-    protected TextView scoreLabel;
-    protected TextView scoreTextView;
-    protected TextView statsTextView;
-    protected TextView achievementsTextView;
-    protected Button playAgainButton;
-    protected Button shareButton;
-    protected Button backToMapButton;
-    protected ImageView medalImage;
     
-    // Game state
-    protected int correctAnswers = 0;
-    protected int totalQuestions = 0;
-    protected int score = 0;
-    protected int maxStreak = 0;
-    protected String region = "";
-    protected PointsManager pointsManager;
+    private static final String TAG = "BaseGameOverActivity";
+    
+    // UI Components
+    protected TextView gameOverTitle, scoreTextView, statsTextView, achievementsTextView, percentageTextView;
+    protected MaterialButton playAgainButton, shareButton, backToMapButton;
+    protected ProgressBar circularProgressBar;
+    protected ImageView performanceBadge;
+    protected View confettiView;
+    
+    // Data from Intent
+    protected int score;
+    protected int totalQuestions;
+    protected int correctAnswers;
+    protected int maxStreak;
+    protected long totalTime;
+    protected String achievements;
+    protected String regionName;
+    protected String gameType;
+    protected String quizTitle;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutResourceId());
         
-        // Inițializăm managerul de puncte
-        pointsManager = PointsManager.getInstance(this);
+        // Extract data from intent
+        extractIntentData();
         
-        // Obținem datele din intent
-        Intent intent = getIntent();
-        correctAnswers = intent.getIntExtra("correctAnswers", 0);
-        totalQuestions = intent.getIntExtra("totalQuestions", 10);
-        score = intent.getIntExtra("score", 0);
-        maxStreak = intent.getIntExtra("maxStreak", 0);
-        region = intent.getStringExtra("region");
+        // Initialize views
+        initializeViews();
         
-        // Calculăm procentajul
-        float percentage = totalQuestions > 0 ? (correctAnswers * 100) / totalQuestions : 0;
+        // Set up content
+        setupContent();
         
-        // Inițializarea este făcută în subclase
+        // Set up button listeners
+        setupButtonListeners();
     }
     
     /**
-     * Inițializează elementele UI comune pentru toate activitățile de game over
+     * Extrage datele din Intent - poate fi override pentru date suplimentare
      */
-    protected void initializeCommonViews() {
+    protected void extractIntentData() {
+        Intent intent = getIntent();
+        score = intent.getIntExtra("score", 0);
+        totalQuestions = intent.getIntExtra("totalQuestions", 10);
+        correctAnswers = intent.getIntExtra("correctAnswers", 0);
+        maxStreak = intent.getIntExtra("maxStreak", 0);
+        totalTime = intent.getLongExtra("totalTime", 0);
+        achievements = intent.getStringExtra("ACHIEVEMENTS");
+        regionName = intent.getStringExtra("regionName");
+        gameType = intent.getStringExtra("gameType");
+        quizTitle = intent.getStringExtra("quizTitle");
+        
+        // Set defaults if not provided
+        if (regionName == null) regionName = getDefaultRegionName();
+        if (gameType == null) gameType = "quiz";
+        if (quizTitle == null) quizTitle = getDefaultQuizTitle();
+        
+        Log.d(TAG, "Game Over Data - Region: " + regionName + ", Score: " + score + ", Type: " + gameType);
+    }
+    
+    /**
+     * Inițializează view-urile - poate fi override pentru view-uri suplimentare
+     */
+    protected void initializeViews() {
         gameOverTitle = findViewById(R.id.gameOverTitle);
-        scoreLabel = findViewById(R.id.scoreLabel);
         scoreTextView = findViewById(R.id.scoreTextView);
         statsTextView = findViewById(R.id.statsTextView);
         achievementsTextView = findViewById(R.id.achievementsTextView);
         playAgainButton = findViewById(R.id.playAgainButton);
         shareButton = findViewById(R.id.shareButton);
         backToMapButton = findViewById(R.id.backToMapButton);
-        medalImage = findViewById(R.id.medalImage);
+        circularProgressBar = findViewById(R.id.circularProgressBar);
+        percentageTextView = findViewById(R.id.percentageTextView);
+        performanceBadge = findViewById(R.id.performanceBadge);
+        confettiView = findViewById(R.id.confettiView);
         
-        // Configurăm butoanele
-        if (playAgainButton != null) {
-            playAgainButton.setOnClickListener(v -> restartGame());
-        }
-        
-        if (shareButton != null) {
-            shareButton.setOnClickListener(v -> shareResults());
-        }
-        
-        if (backToMapButton != null) {
-            backToMapButton.setOnClickListener(v -> returnToMap());
-        }
+        // Apply custom styling
+        applyCustomStyling();
+        applyButtonStyles();
     }
     
     /**
-     * Actualizează UI-ul cu rezultatele jocului
+     * Configurează conținutul bazat pe datele primite
      */
-    protected void updateUI() {
-        // Animăm scorul
+    protected void setupContent() {
+        // Set title
+        if (gameOverTitle != null) {
+            gameOverTitle.setText(getGameOverTitle());
+        }
+        
+        // Set score with animation
         if (scoreTextView != null) {
-            Animation scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
             scoreTextView.setText(String.valueOf(score));
-            scoreTextView.startAnimation(scaleUp);
+            scoreTextView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.bounce));
         }
         
-        // Calculăm acuratețea
-        float accuracy = (float) correctAnswers / totalQuestions * 100;
-        float percentage = accuracy; // Calculăm procentajul pentru compatibilitate
-        
-        // Afișăm statisticile
-        if (statsTextView != null) {
-            String statsText = correctAnswers + " din " + totalQuestions + " răspunsuri corecte (" + Math.round(accuracy) + "%)";
-            statsTextView.setText(statsText);
+        // Set circular progress and percentage
+        int percentage = totalQuestions > 0 ? (correctAnswers * 100) / totalQuestions : 0;
+        if (circularProgressBar != null) {
+            circularProgressBar.setProgress(percentage);
+        }
+        if (percentageTextView != null) {
+            percentageTextView.setText(percentage + "%");
         }
         
-        // Afișăm realizările
-        if (achievementsTextView != null) {
-            String achievements = generateAchievements(accuracy);
-            achievementsTextView.setText(achievements);
-        }
-        
-        // Determinăm rezultatul și feedback-ul în funcție de procentaj
-        if (medalImage != null) {
+        // Set performance badge based on percentage
+        if (performanceBadge != null) {
             if (percentage >= 90) {
-                medalImage.setImageResource(R.drawable.ic_medal_gold);
+                performanceBadge.setImageResource(R.drawable.achievement_badge_gold);
             } else if (percentage >= 70) {
-                medalImage.setImageResource(R.drawable.ic_medal_silver);
-            } else if (percentage >= 50) {
-                medalImage.setImageResource(R.drawable.ic_medal_bronze);
+                performanceBadge.setImageResource(R.drawable.achievement_badge_silver);
             } else {
-                medalImage.setVisibility(View.INVISIBLE);
+                performanceBadge.setImageResource(R.drawable.achievement_badge_bronze);
+            }
+            performanceBadge.startAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_up));
+        }
+        
+        // Show confetti for excellent performance
+        if (percentage >= 80 && confettiView != null) {
+            confettiView.setVisibility(View.VISIBLE);
+            // Aici ar trebui integrată o librărie de confetti
+        }
+        
+        // Set statistics
+        setupStatistics();
+        
+        // Set achievements
+        setupAchievements();
+    }
+    
+    /**
+     * Configurează statisticile afișate
+     */
+    protected void setupStatistics() {
+        if (statsTextView == null) return;
+        
+        int percentage = totalQuestions > 0 ? (correctAnswers * 100) / totalQuestions : 0;
+        
+        StringBuilder statsBuilder = new StringBuilder();
+        statsBuilder.append(String.format("✅ %d din %d răspunsuri corecte (%d%%)", 
+                correctAnswers, totalQuestions, percentage));
+        
+        if (maxStreak > 0) {
+            statsBuilder.append(String.format("\n🔥 Serie maximă: %d răspunsuri consecutive", maxStreak));
+        }
+        
+        if (totalTime > 0) {
+            String timeFormatted = formatTime(totalTime);
+            statsBuilder.append(String.format("\n⏱️ Timp total: %s", timeFormatted));
+        }
+        
+        // Add accuracy rating
+        String accuracyRating = getAccuracyRating(percentage);
+        statsBuilder.append(String.format("\n⭐ Evaluare: %s", accuracyRating));
+        
+        statsTextView.setText(statsBuilder.toString());
+    }
+    
+    /**
+     * Configurează realizările afișate
+     */
+    protected void setupAchievements() {
+        if (achievementsTextView == null) return;
+        
+        String achievementText;
+        if (achievements != null && !achievements.trim().isEmpty()) {
+            achievementText = achievements;
+        } else {
+            achievementText = generateAchievements();
+        }
+        
+        achievementsTextView.setText(achievementText);
+    }
+    
+    /**
+     * Generează realizările bazate pe performanță
+     */
+    protected String generateAchievements() {
+        int percentage = totalQuestions > 0 ? (correctAnswers * 100) / totalQuestions : 0;
+        StringBuilder achievementsBuilder = new StringBuilder();
+        
+        // Performance achievements
+        if (percentage == 100) {
+            achievementsBuilder.append("🌟 Perfect! Ai răspuns corect la toate întrebările!\n");
+        } else if (percentage >= 90) {
+            achievementsBuilder.append(String.format("🏆 Maestru al %s (%d din %d corecte)\n", 
+                    getRegionGenitive(), correctAnswers, totalQuestions));
+        } else if (percentage >= 80) {
+            achievementsBuilder.append(String.format("🎓 Expert al %s (%d din %d corecte)\n", 
+                    getRegionGenitive(), correctAnswers, totalQuestions));
+        } else if (percentage >= 60) {
+            achievementsBuilder.append(String.format("📚 Cunoscător al %s (%d din %d corecte)\n", 
+                    getRegionGenitive(), correctAnswers, totalQuestions));
+        } else {
+            achievementsBuilder.append(String.format("🗺️ Explorator al %s (%d din %d corecte)\n", 
+                    getRegionGenitive(), correctAnswers, totalQuestions));
+        }
+        
+        // Streak achievements
+        if (maxStreak >= 7) {
+            achievementsBuilder.append(String.format("🔥 Imparabil! (serie de %d răspunsuri consecutive)\n", maxStreak));
+        } else if (maxStreak >= 5) {
+            achievementsBuilder.append(String.format("⚡ Rapid și precis! (serie de %d răspunsuri corecte)\n", maxStreak));
+        } else if (maxStreak >= 3) {
+            achievementsBuilder.append(String.format("📈 Pe drumul cel bun! (serie de %d răspunsuri corecte)\n", maxStreak));
+        }
+        
+        // Score achievements
+        if (score >= 300) {
+            achievementsBuilder.append(String.format("💎 Maestru collector! (%d puncte)\n", score));
+        } else if (score >= 200) {
+            achievementsBuilder.append(String.format("💰 Colecționar de puncte! (%d puncte)\n", score));
+        } else if (score >= 100) {
+            achievementsBuilder.append(String.format("🥉 Acumulator de puncte! (%d puncte)\n", score));
+        }
+        
+        // Time-based achievements (if available)
+        if (totalTime > 0) {
+            long averageTimePerQuestion = totalTime / totalQuestions;
+            if (averageTimePerQuestion < 10000) { // Under 10 seconds average
+                achievementsBuilder.append("⚡ Rapid ca fulgerul! (timp mediu sub 10 secunde)\n");
+            } else if (averageTimePerQuestion < 15000) { // Under 15 seconds average
+                achievementsBuilder.append("🏃 Ritm excelent! (timp mediu sub 15 secunde)\n");
             }
         }
         
-        // Salvăm rezultatul
-        saveResult();
+        String finalAchievements = achievementsBuilder.toString().trim();
+        if (finalAchievements.isEmpty()) {
+            finalAchievements = String.format("🎯 Ai participat la %s!\n📖 Continuă să înveți despre această regiune fascinantă!", quizTitle);
+        }
+        
+        return finalAchievements;
     }
     
     /**
-     * Generează textul pentru realizări în funcție de performanță
-     * @param accuracy Acuratețea răspunsurilor (procentaj)
-     * @return Textul cu realizări
+     * Formatează timpul în format citibil
      */
-    protected String generateAchievements(float accuracy) {
-        StringBuilder achievements = new StringBuilder("Realizări:\n");
+    protected String formatTime(long milliseconds) {
+        long seconds = milliseconds / 1000;
+        long minutes = seconds / 60;
+        seconds = seconds % 60;
         
-        // Realizări bazate pe acuratețe
-        if (accuracy >= 80) {
-            achievements.append("• Expert al regiunii ").append(region).append(" (").append(correctAnswers).append(" din ").append(totalQuestions).append(" corecte)\n");
-        } else if (accuracy >= 60) {
-            achievements.append("• Cunoscător al regiunii ").append(region).append(" (").append(correctAnswers).append(" din ").append(totalQuestions).append(" corecte)\n");
+        if (minutes > 0) {
+            return String.format("%d minute și %d secunde", minutes, seconds);
         } else {
-            achievements.append("• Explorator al regiunii ").append(region).append(" (").append(correctAnswers).append(" din ").append(totalQuestions).append(" corecte)\n");
+            return String.format("%d secunde", seconds);
         }
-        
-        // Realizări bazate pe scor
-        if (score > 100) {
-            achievements.append("• Punctaj impresionant: ").append(score).append(" puncte!\n");
-        }
-        
-        // Realizări bazate pe streak
-        if (maxStreak >= 5) {
-            achievements.append("• Serie de ").append(maxStreak).append(" răspunsuri corecte consecutive!");
-        }
-        
-        return achievements.toString();
     }
     
     /**
-     * Salvează rezultatul jocului
+     * Returnează evaluarea bazată pe procentaj
      */
-    protected void saveResult() {
-        SharedPreferences prefs = getSharedPreferences("GameResults", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        
-        // Salvăm rezultatul curent
-        editor.putInt(region + "_last_score", (int) Math.round(correctAnswers / (float) totalQuestions * 100));
-        
-        // Actualizăm scorul maxim dacă este cazul
-        int highScore = prefs.getInt(region + "_high_score", 0);
-        if ((int) Math.round(correctAnswers / (float) totalQuestions * 100) > highScore) {
-            editor.putInt(region + "_high_score", (int) Math.round(correctAnswers / (float) totalQuestions * 100));
-        }
-        
-        // Incrementăm numărul de jocuri jucate
-        int gamesPlayed = prefs.getInt(region + "_games_played", 0);
-        editor.putInt(region + "_games_played", gamesPlayed + 1);
-        
-        editor.apply();
+    protected String getAccuracyRating(int percentage) {
+        if (percentage == 100) return "Perfect! 🌟";
+        if (percentage >= 90) return "Excelent! 🏆";
+        if (percentage >= 80) return "Foarte bine! 👏";
+        if (percentage >= 70) return "Bine! 👍";
+        if (percentage >= 60) return "Decent! 📈";
+        return "Încearcă din nou! 💪";
     }
     
     /**
-     * Distribuie rezultatele jocului
+     * Aplică stiluri personalizate
      */
-    protected void shareResults() {
-        String shareText = "Am explorat " + region + " și am obținut " + score + " puncte în jocul de cunoștințe! " +
-                "Am răspuns corect la " + correctAnswers + " din " + totalQuestions + " întrebări.";
+    protected void applyCustomStyling() {
+        Typeface customTypeface = Typeface.create("sans-serif-medium", Typeface.BOLD);
+        if (gameOverTitle != null) {
+            gameOverTitle.setTypeface(customTypeface);
+        }
+        if (scoreTextView != null) {
+            scoreTextView.setTypeface(customTypeface);
+        }
+    }
+    
+    /**
+     * Aplică stiluri pentru butoane
+     */
+    protected void applyButtonStyles() {
+        // Set elevation and ripple effect for buttons
+        if (playAgainButton != null) {
+            playAgainButton.setElevation(12f);
+        }
+        if (shareButton != null) {
+            shareButton.setElevation(12f);
+        }
+        if (backToMapButton != null) {
+            backToMapButton.setElevation(12f);
+        }
+        
+        // Add click animation
+        View.OnClickListener animateClickListener = v -> {
+            v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_click));
+        };
+        
+        if (playAgainButton != null) {
+            playAgainButton.setOnTouchListener((v, event) -> {
+                animateClickListener.onClick(v);
+                return false;
+            });
+        }
+        
+        if (shareButton != null) {
+            shareButton.setOnTouchListener((v, event) -> {
+                animateClickListener.onClick(v);
+                return false;
+            });
+        }
+        
+        if (backToMapButton != null) {
+            backToMapButton.setOnTouchListener((v, event) -> {
+                animateClickListener.onClick(v);
+                return false;
+            });
+        }
+    }
+    
+    /**
+     * Configurează listener-ii pentru butoane
+     */
+    protected void setupButtonListeners() {
+        // Play Again button
+        if (playAgainButton != null) {
+            playAgainButton.setOnClickListener(v -> onPlayAgainClicked());
+        }
+        
+        // Share button
+        if (shareButton != null) {
+            shareButton.setOnClickListener(v -> onShareClicked());
+        }
+        
+        // Back to Map button
+        if (backToMapButton != null) {
+            backToMapButton.setOnClickListener(v -> onBackToMapClicked());
+        }
+    }
+    
+    /**
+     * Handler pentru butonul "Joacă din nou"
+     */
+    protected void onPlayAgainClicked() {
+        Intent intent = getPlayAgainIntent();
+        if (intent != null) {
+            startActivity(intent);
+            finish();
+        } else {
+            Log.w(TAG, "Play again intent not implemented for " + regionName);
+            finish();
+        }
+    }
+    
+    /**
+     * Handler pentru butonul "Share"
+     */
+    protected void onShareClicked() {
+        String scoreText = scoreTextView != null ? scoreTextView.getText().toString() : "0";
+        String statsText = statsTextView != null ? statsTextView.getText().toString() : "";
         
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-        startActivity(Intent.createChooser(shareIntent, "Distribuie rezultatul"));
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getShareSubject());
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getShareText(scoreText, statsText));
+        
+        startActivity(Intent.createChooser(shareIntent, "Distribuie rezultatul prin"));
     }
     
     /**
-     * Repornește jocul
-     * Această metodă trebuie implementată de fiecare activitate de game over specifică regiunii
+     * Handler pentru butonul "Înapoi la hartă"
      */
-    protected abstract void restartGame();
+    protected void onBackToMapClicked() {
+        finish();
+    }
     
     /**
-     * Revine la harta regiunii
-     * Această metodă trebuie implementată de fiecare activitate de game over specifică regiunii
+     * Returnează Intent pentru a juca din nou - trebuie implementat în subclase
      */
-    protected abstract void returnToMap();
+    protected abstract Intent getPlayAgainIntent();
+    
+    /**
+     * Returnează ID-ul resursei layout - poate fi override pentru layout-uri personalizate
+     */
+    protected int getLayoutResourceId() {
+        return R.layout.activity_game_over;
+    }
+    
+    /**
+     * Returnează numele regiunii - trebuie implementat în subclase
+     */
+    protected abstract String getDefaultRegionName();
+    
+    /**
+     * Returnează titlul quiz-ului - trebuie implementat în subclase
+     */
+    protected abstract String getDefaultQuizTitle();
+    
+    /**
+     * Returnează titlul pentru Game Over
+     */
+    protected String getGameOverTitle() {
+        return "🏆 Rezultatele Tale";
+    }
+    
+    /**
+     * Returnează forma genitivă a regiunii pentru realizări
+     */
+    protected abstract String getRegionGenitive();
+    
+    /**
+     * Returnează subiectul pentru share
+     */
+    protected String getShareSubject() {
+        return String.format("Scorul meu la %s", quizTitle);
+    }
+    
+    /**
+     * Returnează textul pentru share
+     */
+    protected String getShareText(String scoreText, String statsText) {
+        return String.format(
+            "🏆 Am obținut %s puncte la %s!\n\n" +
+            "📊 %s\n\n" +
+            "🗺️ Testează-ți și tu cunoștințele despre România! #ExplorandRomania #Quiz%s",
+            scoreText, 
+            quizTitle,
+            statsText.replaceAll("\n", " | "),
+            regionName.replaceAll("\\s+", "")
+        );
+    }
+    
+    /**
+     * Returnează maparea regiune -> configurații pentru modularitate
+     */
+    public static Map<String, RegionConfig> getRegionConfigs() {
+        Map<String, RegionConfig> configs = new HashMap<>();
+        
+        configs.put("transilvania", new RegionConfig(
+            "Transilvania", 
+            "Transilvaniei", 
+            "Quiz Transilvania",
+            "com.example.myapplication.transilvaniausage.TransilvaniaGameActivity"
+        ));
+        
+        configs.put("banat", new RegionConfig(
+            "Banat", 
+            "Banatului", 
+            "Quiz Banat",
+            "com.example.myapplication.banatusage.BanatGameActivity"
+        ));
+        
+        configs.put("bucovina", new RegionConfig(
+            "Bucovina", 
+            "Bucovinei", 
+            "Quiz Bucovina",
+            "com.example.myapplication.bucovinausage.BucovinaGameActivity"
+        ));
+        
+        configs.put("crisana", new RegionConfig(
+            "Crișana", 
+            "Crișanei", 
+            "Quiz Crișana",
+            "com.example.myapplication.crisanausage.CrisanaGameActivity"
+        ));
+        
+        configs.put("dobrogea", new RegionConfig(
+            "Dobrogea", 
+            "Dobrogei", 
+            "Quiz Dobrogea",
+            "com.example.myapplication.dobrogeausage.DobrogeaGameActivity"
+        ));
+        
+        configs.put("maramures", new RegionConfig(
+            "Maramureș", 
+            "Maramureșului", 
+            "Quiz Maramureș",
+            "com.example.myapplication.maramuresusage.MaramuresGameActivity"
+        ));
+        
+        configs.put("moldova", new RegionConfig(
+            "Moldova", 
+            "Moldovei", 
+            "Quiz Moldova",
+            "com.example.myapplication.moldovausage.MoldovaGameActivity"
+        ));
+        
+        configs.put("muntenia", new RegionConfig(
+            "Muntenia", 
+            "Munteniei", 
+            "Quiz Muntenia",
+            "com.example.myapplication.munteniausage.MunteniaGameActivity"
+        ));
+        
+        configs.put("oltenia", new RegionConfig(
+            "Oltenia", 
+            "Olteniei", 
+            "Quiz Oltenia",
+            "com.example.myapplication.olteniausage.OlteniaGameActivity"
+        ));
+        
+        return configs;
+    }
+    
+    /**
+     * Clasa de configurare pentru fiecare regiune
+     */
+    public static class RegionConfig {
+        public final String displayName;
+        public final String genitiveName;
+        public final String quizTitle;
+        public final String gameActivityClass;
+        
+        public RegionConfig(String displayName, String genitiveName, String quizTitle, String gameActivityClass) {
+            this.displayName = displayName;
+            this.genitiveName = genitiveName;
+            this.quizTitle = quizTitle;
+            this.gameActivityClass = gameActivityClass;
+        }
+    }
 } 

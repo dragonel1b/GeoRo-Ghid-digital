@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dobrogea_bg_maritime"
+    tools:context=".dobrogeausage.DobrogeaPlayerStatsActivity">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="🌊 Statistici Dobrogea"
+        android:textColor="@color/dobrogea_text"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Stats Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/stats_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/dobrogea_card_bg"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_title">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Total Quizzes -->
+                <TextView
+                    android:id="@+id/total_quizzes_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="🌊 0 quiz-uri jucate"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Total Score -->
+                <TextView
+                    android:id="@+id/total_score_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="📊 0 puncte totale"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Average Score -->
+                <TextView
+                    android:id="@+id/average_score_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="📈 0.0 puncte în medie"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Best Score -->
+                <TextView
+                    android:id="@+id/best_score_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="🏆 0 cel mai bun scor"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Total Correct Answers -->
+                <TextView
+                    android:id="@+id/total_correct_answers_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="✅ 0 răspunsuri corecte"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Total Questions -->
+                <TextView
+                    android:id="@+id/total_questions_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="❓ 0 întrebări răspunse"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Accuracy -->
+                <TextView
+                    android:id="@+id/accuracy_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="🎯 0.0% acuratețe"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Total Time -->
+                <TextView
+                    android:id="@+id/total_time_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="⏱️ 0s timp total"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Max Streak -->
+                <TextView
+                    android:id="@+id/max_streak_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="🔥 0 serie maximă"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Last Played -->
+                <TextView
+                    android:id="@+id/last_played_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="📅 Nu ai jucat încă"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="16sp" />
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/dobrogea_primary_light" />
+
+                <!-- Achievements -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="🏆 Realizări Dobrogea"
+                    android:textColor="@color/dobrogea_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/achievements_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🏅 Navigator Dobrogea\n⚓ Cunoștințe Maritime\n🌊 Explorator Delta"
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout> 

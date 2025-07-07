@@ -14,8 +14,10 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Repository pentru gestionarea rezultatelor quiz-urilor în Firestore
@@ -452,6 +454,135 @@ public class QuizResultRepository {
                     Log.e(TAG, "Error getting user quiz results", e);
                     future.completeExceptionally(e);
                 });
+        
+        return future;
+    }
+    
+    /**
+     * Obține clasamentul global pentru un anumit tip de joc
+     * @param gameType Tipul de joc
+     * @param limit Numărul maxim de intrări
+     * @return CompletableFuture cu lista de intrări din clasament
+     */
+    public CompletableFuture<List<LeaderboardEntry>> getGlobalLeaderboard(String gameType, int limit) {
+        CompletableFuture<List<LeaderboardEntry>> future = new CompletableFuture<>();
+        
+        // Creăm o listă pentru a stoca toate intrările
+        List<LeaderboardEntry> allEntries = new ArrayList<>();
+        
+        // Obținem toate regiunile
+        List<String> regions = Arrays.asList(
+            "transilvania", "muntenia", "oltenia", "moldova", 
+            "dobrogea", "banat", "crisana", "maramures", "bucovina"
+        );
+        
+        // Folosim un AtomicInteger pentru a ține evidența regiunilor procesate
+        AtomicInteger regionsProcessed = new AtomicInteger(0);
+        
+        // Pentru fiecare regiune, obținem clasamentul
+        for (String region : regions) {
+            String leaderboardId = region + "_" + gameType;
+            db.collection(COLLECTION_LEADERBOARDS)
+                .document(leaderboardId)
+                .collection("entries")
+                .orderBy("score", Query.Direction.DESCENDING)
+                .limit(limit)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    // Adăugăm toate intrările în lista globală
+                    for (LeaderboardEntry entry : queryDocumentSnapshots.toObjects(LeaderboardEntry.class)) {
+                        // Verificăm dacă utilizatorul există deja în lista globală
+                        boolean userExists = false;
+                        for (LeaderboardEntry existingEntry : allEntries) {
+                            if (existingEntry.getUserId().equals(entry.getUserId())) {
+                                // Dacă scorul este mai mare, actualizăm intrarea
+                                if (entry.getScore() > existingEntry.getScore()) {
+                                    allEntries.remove(existingEntry);
+                                    allEntries.add(entry);
+                                }
+                                userExists = true;
+                                break;
+                            }
+                        }
+                        
+                        // Dacă utilizatorul nu există, adăugăm intrarea
+                        if (!userExists) {
+                            allEntries.add(entry);
+                        }
+                    }
+                    
+                    // Incrementăm numărul de regiuni procesate
+                    int processed = regionsProcessed.incrementAndGet();
+                    
+                    // Dacă am procesat toate regiunile, sortăm lista și o returnăm
+                    if (processed == regions.size()) {
+                        // Sortăm lista după scor (descrescător)
+                        allEntries.sort((e1, e2) -> Integer.compare(e2.getScore(), e1.getScore()));
+                        
+                        // Limităm lista la numărul cerut
+                        List<LeaderboardEntry> limitedEntries = allEntries.size() > limit ? 
+                            allEntries.subList(0, limit) : allEntries;
+                        
+                        future.complete(limitedEntries);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Incrementăm numărul de regiuni procesate chiar și în caz de eroare
+                    int processed = regionsProcessed.incrementAndGet();
+                    
+                    // Dacă am procesat toate regiunile, sortăm lista și o returnăm
+                    if (processed == regions.size()) {
+                        // Sortăm lista după scor (descrescător)
+                        allEntries.sort((e1, e2) -> Integer.compare(e2.getScore(), e1.getScore()));
+                        
+                        // Limităm lista la numărul cerut
+                        List<LeaderboardEntry> limitedEntries = allEntries.size() > limit ? 
+                            allEntries.subList(0, limit) : allEntries;
+                        
+                        future.complete(limitedEntries);
+                    }
+                    
+                    Log.e(TAG, "Error getting leaderboard for region: " + region, e);
+                });
+        }
+        
+        return future;
+    }
+    
+    /**
+     * Obține rangul global al utilizatorului curent pentru un anumit tip de joc
+     * @param gameType Tipul de joc
+     * @return CompletableFuture cu rangul utilizatorului (-1 dacă nu există)
+     */
+    public CompletableFuture<Integer> getCurrentUserGlobalRank(String gameType) {
+        CompletableFuture<Integer> future = new CompletableFuture<>();
+        
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            future.complete(-1);
+            return future;
+        }
+        
+        // Obținem clasamentul global (fără limită pentru a ne asigura că găsim utilizatorul)
+        getGlobalLeaderboard(gameType, 1000)
+            .thenAccept(entries -> {
+                // Căutăm utilizatorul în clasament
+                for (int i = 0; i < entries.size(); i++) {
+                    if (entries.get(i).getUserId().equals(currentUser.getUid())) {
+                        // Rangul este poziția + 1
+                        future.complete(i + 1);
+                        return;
+                    }
+                }
+                
+                // Dacă nu am găsit utilizatorul, returnăm -1
+                future.complete(-1);
+            })
+            .exceptionally(e -> {
+                Log.e(TAG, "Error getting global rank", e);
+                future.complete(-1);
+                return null;
+            });
         
         return future;
     }

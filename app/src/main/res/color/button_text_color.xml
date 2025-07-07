@@ -4,5 +4,5 @@
     <item android:state_enabled="false" android:color="@color/button_disabled_text"/>
 
     <!-- Default state (Enabled) -->
-    <item android:color="@color/white"/>
+    <item android:color="@color/dobrogea_text"/>
 </selector> 

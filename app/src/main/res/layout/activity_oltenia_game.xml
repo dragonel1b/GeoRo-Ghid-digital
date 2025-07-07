@@ -5,278 +5,667 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/oltenia_bg_simple">
+    android:background="@drawable/oltenia_gradient_background">
 
-    <!-- Header with Timer and Score -->
+    <!-- Top App Bar with Modern Design -->
     <LinearLayout
-        android:id="@+id/headerLayout"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:background="@color/oltenia_primary"
-        android:elevation="6dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="Back"
-            android:tint="@color/oltenia_card_bg"
-            android:onClick="goBack"/>
-
-        <FrameLayout
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/timer_background_oltenia">
-
-            <TextView
-                android:id="@+id/timerTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="30"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/oltenia_card_bg"/>
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/gameTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="12dp"
-            android:text="Aventura Olteniei"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/oltenia_card_bg"/>
-
-        <TextView
-            android:id="@+id/scoreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scor: 0"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/oltenia_accent"/>
-    </LinearLayout>
-
-    <!-- Progress Bar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:progressTint="@color/oltenia_accent"
-        android:progressBackgroundTint="@color/oltenia_secondary"
-        app:layout_constraintTop_toBottomOf="@id/headerLayout"/>
-
-    <!-- Lifelines -->
-    <LinearLayout
-        android:id="@+id/lifelinesLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@color/oltenia_secondary"
-        app:layout_constraintTop_toBottomOf="@id/progressBar">
-
-        <ImageButton
-            android:id="@+id/fiftyFiftyButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:src="@drawable/ic_5050"
-            android:tint="@color/oltenia_card_bg"
-            android:background="@drawable/timer_background_oltenia"
-            android:contentDescription="50:50"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Deblochează comoara Olteniei"
-            android:textColor="@color/oltenia_card_bg"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <ImageButton
-            android:id="@+id/skipQuestionButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:src="@drawable/ic_skip"
-            android:tint="@color/oltenia_card_bg"
-            android:background="@drawable/timer_background_oltenia"
-            android:contentDescription="Skip Question"/>
-    </LinearLayout>
-
-    <!-- Question Card with Image -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/questionCard"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/oltenia_accent"
-        app:cardBackgroundColor="@color/oltenia_card_bg"
-        app:layout_constraintTop_toBottomOf="@id/lifelinesLayout"
-        app:layout_constraintBottom_toTopOf="@id/answersContainer"
-        app:layout_constraintVertical_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/questionImage"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:contentDescription="Question Image"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:id="@+id/questionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="4dp"
-                android:padding="16dp"
-                android:textColor="@color/oltenia_text"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/factTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_gradient_background_oltenia"
-                android:padding="12dp"
-                android:textColor="@color/oltenia_card_bg"
-                android:textSize="16sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/streakTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="center"
-                android:background="@drawable/timer_background_oltenia"
-                android:elevation="4dp"
-                android:padding="8dp"
-                android:text="🔥 Reușite consecutive: 0"
-                android:textColor="@color/oltenia_card_bg"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Answer Buttons -->
-    <LinearLayout
-        android:id="@+id/answersContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@id/finishButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answerButton1"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            android:backgroundTint="@color/oltenia_primary"
-            android:textColor="@color/oltenia_card_bg"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/oltenia_accent"
-            android:stateListAnimator="@null"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/oltenia_toolbar_background"
+            app:title=""
+            app:titleTextColor="@color/oltenia_card_bg"
+            app:contentInsetStartWithNavigation="0dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answerButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            android:backgroundTint="@color/oltenia_primary"
-            android:textColor="@color/oltenia_card_bg"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/oltenia_accent"
-            android:stateListAnimator="@null"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answerButton3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            android:backgroundTint="@color/oltenia_primary"
-            android:textColor="@color/oltenia_card_bg"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/oltenia_accent"
-            android:stateListAnimator="@null"/>
+                <!-- Back Button with Modern Design -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/backButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:onClick="goBack"
+                    app:icon="@drawable/ic_arrow_back"
+                    app:iconTint="@color/oltenia_card_bg"
+                    app:iconSize="24dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="@color/oltenia_primary"
+                    app:rippleColor="@color/oltenia_accent"
+                    style="@style/Widget.AppCompat.Button.Borderless"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answerButton4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            android:backgroundTint="@color/oltenia_primary"
-            android:textColor="@color/oltenia_card_bg"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/oltenia_accent"
-            android:stateListAnimator="@null"/>
+                <!-- Timer with Modern Design -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/oltenia_accent"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/oltenia_primary">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_clock"
+                            android:tint="@color/oltenia_primary"
+                            android:contentDescription="Timer"/>
+
+                        <TextView
+                            android:id="@+id/timerTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="30"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/oltenia_primary"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Game Title -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:text="🏛️ Aventura Olteniei"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/oltenia_card_bg"
+                    android:gravity="center"/>
+
+                <!-- Score with Modern Design -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/oltenia_primary"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/oltenia_accent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_star"
+                            android:tint="@color/oltenia_accent"
+                            android:contentDescription="Score"/>
+
+                        <TextView
+                            android:id="@+id/scoreTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="0"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/oltenia_accent"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
     </LinearLayout>
 
-    <!-- Finish Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/finishButton"
+    <!-- Main Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Finalizare Călătorie"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="12dp"
-        app:cornerRadius="24dp"
-        android:backgroundTint="@color/oltenia_accent"
-        android:textColor="@color/oltenia_primary"
-        app:icon="@drawable/ic_check"
-        app:iconGravity="textStart"
-        app:iconTint="@color/oltenia_primary"
-        app:iconSize="24dp"
-        app:iconPadding="8dp"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Progress Bar with Modern Design -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/oltenia_card_bg"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/oltenia_secondary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="📊 Progres"
+                            android:textSize="14sp"
+                            android:textColor="@color/oltenia_text"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/progressText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1/10"
+                            android:textSize="14sp"
+                            android:textColor="@color/oltenia_accent"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progressTint="@color/oltenia_accent"
+                        android:progressBackgroundTint="@color/oltenia_secondary"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Advanced Lifelines with Modern Design -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/oltenia_card_bg"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/oltenia_primary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🎯 Ajutoare Disponibile"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/oltenia_primary"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/lifelinesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="5">
+
+                        <!-- 50:50 Lifeline -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/fiftyFiftyCard"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/oltenia_primary"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="@color/oltenia_accent"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_5050"
+                                    android:tint="@color/oltenia_card_bg"
+                                    android:contentDescription="50:50"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="50:50"
+                                    android:textColor="@color/oltenia_card_bg"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Hint Lifeline -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/hintCard"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/oltenia_primary"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="@color/oltenia_accent"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_hint"
+                                    android:tint="@color/oltenia_card_bg"
+                                    android:contentDescription="Hint"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="💡"
+                                    android:textColor="@color/oltenia_card_bg"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Skip Question Lifeline -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/skipQuestionCard"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/oltenia_primary"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="@color/oltenia_accent"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_skip"
+                                    android:tint="@color/oltenia_card_bg"
+                                    android:contentDescription="Skip"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="⏭️"
+                                    android:textColor="@color/oltenia_card_bg"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Audience Help Lifeline -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/audienceCard"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/oltenia_primary"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="@color/oltenia_accent"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_audience"
+                                    android:tint="@color/oltenia_card_bg"
+                                    android:contentDescription="Audience"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="👥"
+                                    android:textColor="@color/oltenia_card_bg"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Phone a Friend Lifeline -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/phoneCard"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:layout_margin="4dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/oltenia_primary"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="@color/oltenia_accent"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_phone"
+                                    android:tint="@color/oltenia_card_bg"
+                                    android:contentDescription="Phone"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="📞"
+                                    android:textColor="@color/oltenia_card_bg"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Question Card with Modern Design -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/questionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/oltenia_accent"
+                app:cardBackgroundColor="@color/oltenia_card_bg">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Question Image with Rounded Corners -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/oltenia_secondary">
+
+                        <ImageView
+                            android:id="@+id/questionImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:contentDescription="Question Image"
+                            android:scaleType="centerCrop"
+                            android:background="@drawable/oltenia_image_background"/>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Question Text -->
+                    <TextView
+                        android:id="@+id/questionTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginBottom="16dp"
+                        android:lineSpacingExtra="6dp"
+                        android:padding="16dp"
+                        android:textColor="@color/oltenia_text"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/oltenia_question_background"
+                        android:elevation="2dp"/>
+
+                    <!-- Streak Display -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/oltenia_accent"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/oltenia_primary">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_star"
+                                android:tint="@color/oltenia_primary"
+                                android:contentDescription="Streak"/>
+
+                            <TextView
+                                android:id="@+id/streakTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="🔥 Reușite consecutive: 0"
+                                android:textColor="@color/oltenia_primary"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Fact Text (Hidden by default) -->
+                    <TextView
+                        android:id="@+id/factTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/oltenia_fact_background"
+                        android:padding="16dp"
+                        android:textColor="@color/oltenia_card_bg"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        android:elevation="2dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Answer Buttons with Modern Design -->
+            <LinearLayout
+                android:id="@+id/answersContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/answerButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    android:backgroundTint="@color/oltenia_primary"
+                    android:textColor="@color/oltenia_card_bg"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/oltenia_accent"
+                    app:icon="@drawable/ic_quiz"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/oltenia_card_bg"
+                    app:iconSize="20dp"
+                    app:iconPadding="12dp"
+                    android:elevation="4dp"
+                    android:stateListAnimator="@null"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/answerButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    android:backgroundTint="@color/oltenia_primary"
+                    android:textColor="@color/oltenia_card_bg"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/oltenia_accent"
+                    app:icon="@drawable/ic_quiz"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/oltenia_card_bg"
+                    app:iconSize="20dp"
+                    app:iconPadding="12dp"
+                    android:elevation="4dp"
+                    android:stateListAnimator="@null"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/answerButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    android:backgroundTint="@color/oltenia_primary"
+                    android:textColor="@color/oltenia_card_bg"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/oltenia_accent"
+                    app:icon="@drawable/ic_quiz"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/oltenia_card_bg"
+                    app:iconSize="20dp"
+                    app:iconPadding="12dp"
+                    android:elevation="4dp"
+                    android:stateListAnimator="@null"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/answerButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:padding="16dp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    android:backgroundTint="@color/oltenia_primary"
+                    android:textColor="@color/oltenia_card_bg"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/oltenia_accent"
+                    app:icon="@drawable/ic_quiz"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/oltenia_card_bg"
+                    app:iconSize="20dp"
+                    app:iconPadding="12dp"
+                    android:elevation="4dp"
+                    android:stateListAnimator="@null"/>
+            </LinearLayout>
+
+            <!-- Finish Button with Modern Design -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/finishButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🏁 Finalizare Călătorie"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="16dp"
+                app:cornerRadius="24dp"
+                android:backgroundTint="@color/oltenia_accent"
+                android:textColor="@color/oltenia_primary"
+                app:icon="@drawable/ic_check"
+                app:iconGravity="textStart"
+                app:iconTint="@color/oltenia_primary"
+                app:iconSize="24dp"
+                app:iconPadding="12dp"
+                android:elevation="8dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/oltenia_primary"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout> 

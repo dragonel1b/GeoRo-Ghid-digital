@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer glow -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#40FFD700" />
+            <size
+                android:width="120dp"
+                android:height="120dp" />
+        </shape>
+    </item>
+    
+    <!-- Middle glow -->
+    <item android:inset="8dp">
+        <shape android:shape="oval">
+            <solid android:color="#60FFD700" />
+        </shape>
+    </item>
+    
+    <!-- Inner gold circle -->
+    <item android:inset="16dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="40dp"
+                android:startColor="#FFFFD700"
+                android:centerColor="#FFD700"
+                android:endColor="#B8860B" />
+        </shape>
+    </item>
+</layer-list> 

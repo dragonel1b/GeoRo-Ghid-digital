@@ -1,263 +1,481 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dobrogea_bg_simple">
+    android:background="@drawable/dobrogea_bg_maritime"
+    android:fillViewport="true">
 
-    <!-- Header with Timer and Score -->
-    <LinearLayout
-        android:id="@+id/headerLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:gravity="center_vertical"
-        android:background="@color/dobrogea_card_bg"
-        android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="12dp"
+        tools:context=".dobrogeausage.DobrogeaGameActivity">
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="Back"
-            android:tint="@color/dobrogea_text"
-            android:onClick="goBack"/>
+        <!-- Header with Score and Timer - Maritime Theme -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/headerCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/dobrogea_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/dobrogea_primary_light"
+            app:strokeWidth="2dp">
 
-        <FrameLayout
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/timer_background">
-
-            <TextView
-                android:id="@+id/timerTextView"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="30"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/dobrogea_card_bg"/>
-        </FrameLayout>
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/gameTitle"
+                <!-- Score Section with Maritime Icon -->
+                <LinearLayout
+                    android:id="@+id/scoreLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:text="Quiz Dobrogea"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/dobrogea_text"/>
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚓ Scor"
+                        android:textColor="@color/dobrogea_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
         <TextView
             android:id="@+id/scoreTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scor: 0"
-            android:textSize="16sp"
+                        android:textColor="@color/dobrogea_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="150" />
+
+                </LinearLayout>
+
+                <!-- Timer Section with Compass Theme -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🧭 Timp"
+                        android:textColor="@color/dobrogea_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/timerTextView"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:background="@drawable/timer_background_dobrogea"
+                        android:elevation="4dp"
+                        android:gravity="center"
+                        android:textColor="@color/dobrogea_text"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="30" />
+
+                </LinearLayout>
+
+                <!-- Streak Section with Wave Icon -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌊 Serie"
+                        android:textColor="@color/dobrogea_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/streakTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dobrogea_primary"
+                        android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/dobrogea_accent"/>
+                        tools:text="3" />
+
+                </LinearLayout>
+
     </LinearLayout>
 
-    <!-- Progress Bar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="4dp"
-        android:progressTint="@color/dobrogea_primary"
-        android:progressBackgroundTint="@color/dobrogea_secondary"
-        app:layout_constraintTop_toBottomOf="@id/headerLayout"/>
+        </com.google.android.material.card.MaterialCardView>
 
-    <!-- Lifelines -->
+        <!-- Lifelines Section - Maritime Tools -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/lifelinesCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/dobrogea_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerCard"
+            app:strokeColor="@color/dobrogea_primary_light"
+            app:strokeWidth="1dp">
+
     <LinearLayout
         android:id="@+id/lifelinesLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintTop_toBottomOf="@id/progressBar">
+                android:padding="12dp"
+                android:gravity="center">
 
-        <ImageButton
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🛠️ Unelte maritime: "
+                    android:textColor="@color/dobrogea_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="12dp" />
+
+                <!-- 50/50 Lifeline - Lighthouse -->
+                <com.google.android.material.card.MaterialCardView
             android:id="@+id/fiftyFiftyButton"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:src="@drawable/ic_5050"
-            android:background="@drawable/button_ripple"
-            android:contentDescription="50:50"/>
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Farul - 50/50"
+                    app:cardBackgroundColor="@color/dobrogea_card_bg"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:rippleColor="@color/dobrogea_primary_light"
+                    app:strokeColor="@color/dobrogea_primary_light"
+                    app:strokeWidth="1dp">
 
-        <ImageButton
-            android:id="@+id/skipQuestionButton"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:src="@drawable/ic_skip"
-            android:background="@drawable/button_ripple"
-            android:contentDescription="Skip Question"/>
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_lighthouse"
+                        android:contentDescription="Farul - 50/50"
+                        app:tint="@color/dobrogea_text" />
+                </com.google.android.material.card.MaterialCardView>
 
-    <!-- Question Card with Image -->
+                <!-- Hint Lifeline - Compass -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/hintButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Busola - Indiciu"
+                    app:cardBackgroundColor="@color/dobrogea_card_bg"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/dobrogea_primary_light"
+                    app:strokeWidth="1dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_compass"
+                        android:contentDescription="Busola - Indiciu"
+                        app:tint="@color/dobrogea_text" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Skip Lifeline - Anchor -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/skipQuestionButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Ancora - Sari întrebarea"
+                    app:cardBackgroundColor="@color/dobrogea_card_bg"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/dobrogea_primary_light"
+                    app:strokeWidth="1dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_anchor"
+                        android:contentDescription="Ancora - Sari întrebarea"
+                        app:tint="@color/dobrogea_text" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Quit Button - Port -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/quitButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Port - Ieșire"
+                    app:cardBackgroundColor="@color/dobrogea_card_bg"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/dobrogea_primary_light"
+                    app:strokeWidth="1dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_port"
+                        android:contentDescription="Port - Ieșire"
+                        app:tint="@color/dobrogea_text" />
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Progress Bar with Wave Design -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:progressDrawable="@drawable/progress_bar_dobrogea"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lifelinesCard"
+            tools:progress="45" />
+
+        <!-- Question Image -->
+        <ImageView
+            android:id="@+id/questionImage"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
+            tools:src="@drawable/dobrogea_sample"
+            tools:visibility="visible" />
+
+        <!-- Question Card with Maritime Theme -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/questionCard"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        app:cardCornerRadius="80dp"
-        app:cardElevation="2dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
         app:cardBackgroundColor="@color/dobrogea_card_bg"
-        app:layout_constraintTop_toBottomOf="@id/lifelinesLayout"
-        app:layout_constraintBottom_toTopOf="@id/answersContainer"
-        app:layout_constraintVertical_weight="0.8">
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/questionImage"
+            app:strokeColor="@color/dobrogea_primary_light"
+            app:strokeWidth="2dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/dobrogea_card_bg"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/questionImage"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:contentDescription="Question Image"
-                android:scaleType="centerCrop" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🌊 Întrebare despre Dobrogea"
+                    android:textColor="@color/dobrogea_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
 
             <TextView
                 android:id="@+id/questionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="2dp"
-                android:padding="8dp"
                 android:textColor="@color/dobrogea_text"
-                android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="8dp"
+                    tools:text="Care este cel mai important port al României situat pe litoralul Mării Negre?" />
 
-            <TextView
-                android:id="@+id/factTextView"
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Answer Cards with Maritime Design -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/answerCard1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/dobrogea_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/questionCard"
+            app:strokeColor="@color/dobrogea_primary_light"
+            app:strokeWidth="1dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/answerButton1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_gradient_background"
-                android:padding="8dp"
-                android:textColor="@color/dobrogea_card_bg"
-                android:textSize="14sp"
-                android:visibility="gone" />
- 
-            <TextView
-                android:id="@+id/streakTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_gravity="end"
-                android:background="@drawable/card_gradient_background"
-                android:elevation="4dp"
-                android:padding="6dp"
-                android:text="🔥 Streak: 0"
-                android:textColor="@color/white"
+                android:background="@android:color/transparent"
+                android:padding="16dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/dobrogea_text"
                 android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                tools:text="A) Constanța" />
+
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Answer Buttons -->
-    <LinearLayout
-        android:id="@+id/answersContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="8dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toTopOf="@id/finishButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/answerButton1"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/answerCard2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:minHeight="48dp"
-            android:textStyle="bold"
-            app:cornerRadius="6dp"
-            android:backgroundTint="@color/dobrogea_primary"
-            android:textColor="@color/dobrogea_card_bg"
-            android:stateListAnimator="@null"/>
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/dobrogea_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answerCard1"
+            app:strokeColor="@color/dobrogea_primary_light"
+            app:strokeWidth="1dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/answerButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:minHeight="48dp"
-            android:textStyle="bold"
-            app:cornerRadius="6dp"
-            android:backgroundTint="@color/dobrogea_primary"
-            android:textColor="@color/dobrogea_card_bg"
-            android:stateListAnimator="@null"/>
+                android:background="@android:color/transparent"
+                android:padding="16dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/dobrogea_text"
+                android:textSize="16sp"
+                tools:text="B) Mangalia" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/answerCard3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/dobrogea_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answerCard2"
+            app:strokeColor="@color/dobrogea_primary_light"
+            app:strokeWidth="1dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/answerButton3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:minHeight="48dp"
-            android:textStyle="bold"
-            app:cornerRadius="6dp"
-            android:backgroundTint="@color/dobrogea_primary"
-            android:textColor="@color/dobrogea_card_bg"
-            android:stateListAnimator="@null"/>
+                android:background="@android:color/transparent"
+                android:padding="16dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/dobrogea_text"
+                android:textSize="16sp"
+                tools:text="C) Tulcea" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/answerCard4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/dobrogea_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answerCard3"
+            app:strokeColor="@color/dobrogea_primary_light"
+            app:strokeWidth="1dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/answerButton4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:minHeight="48dp"
-            android:textStyle="bold"
-            app:cornerRadius="6dp"
-            android:backgroundTint="@color/dobrogea_primary"
-            android:textColor="@color/dobrogea_card_bg"
-            android:stateListAnimator="@null"/>
-    </LinearLayout>
+                android:background="@android:color/transparent"
+                android:padding="16dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/dobrogea_text"
+                android:textSize="16sp"
+                tools:text="D) Eforie" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     <!-- Finish Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/finishButton"
-        android:layout_width="match_parent"
+            android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="4dp"
-        android:text="Termină jocul"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/dobrogea_primary"
+            android:padding="16dp"
+            android:text="🏁 Termină Quiz-ul"
+            android:textColor="@color/white"
         android:textSize="16sp"
-        android:minHeight="48dp"
-        android:padding="8dp"
         android:textStyle="bold"
-        app:cornerRadius="6dp"
-        android:backgroundTint="@color/dobrogea_accent"
-        android:textColor="@color/dobrogea_card_bg"
+            android:visibility="gone"
+            app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/answerCard4"
+            tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout> 
+
+</ScrollView> 

@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/podium_gradient_background"
+    android:padding="16dp">
+
+    <!-- Animated Crown for Winner -->
+    <ImageView
+        android:id="@+id/winnerCrown"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_crown"
+        android:contentDescription="@string/crown_icon_description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:alpha="0"
+        android:scaleX="0.5"
+        android:scaleY="0.5" />
+
+    <!-- Animated Title -->
+    <TextView
+        android:id="@+id/tvTopPlayers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/top_players"
+        android:textSize="28sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:fontFamily="@font/medievalsharp"
+        app:layout_constraintTop_toBottomOf="@id/winnerCrown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:alpha="0"
+        android:translationY="50dp" />
+
+    <!-- Animated Sparkles Container -->
+    <FrameLayout
+        android:id="@+id/sparklesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTopPlayers"
+        app:layout_constraintBottom_toTopOf="@id/podiumContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <!-- Animated Sparkles -->
+        <ImageView
+            android:id="@+id/sparkle1"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_star"
+            android:layout_gravity="start|top"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:alpha="0"
+            app:tint="@color/romania_yellow" />
+
+        <ImageView
+            android:id="@+id/sparkle2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_star"
+            android:layout_gravity="end|top"
+            android:layout_marginEnd="60dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0"
+            app:tint="@color/gold_medal" />
+
+        <ImageView
+            android:id="@+id/sparkle3"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_star"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:alpha="0"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/sparkle4"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_star"
+            android:layout_gravity="start|bottom"
+            android:layout_marginStart="80dp"
+            android:layout_marginBottom="10dp"
+            android:alpha="0"
+            app:tint="@color/romania_blue" />
+
+        <ImageView
+            android:id="@+id/sparkle5"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_star"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="15dp"
+            android:alpha="0"
+            app:tint="@color/romania_red" />
+
+    </FrameLayout>
+
+    <!-- Enhanced Podium Container with Animations -->
+    <LinearLayout
+        android:id="@+id/podiumContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        app:layout_constraintTop_toBottomOf="@id/sparklesContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- Second Place (Silver) -->
+        <FrameLayout
+            android:id="@+id/secondPlaceContainer"
+            android:layout_width="0dp"
+            android:layout_height="220dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:alpha="0"
+            android:translationY="100dp">
+
+            <!-- Romania Flag Overlay for Second Place -->
+            <ImageView
+                android:id="@+id/secondPlaceFlag"
+                android:layout_width="24dp"
+                android:layout_height="16dp"
+                android:src="@drawable/romania_flag_overlay"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.8" />
+
+            <!-- Silver Medal Badge -->
+            <ImageView
+                android:id="@+id/silverMedalBadge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/silver_medal_badge"
+                android:layout_gravity="top|start"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Podium Base with Dynamic Gradient -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/silver_podium_background"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <!-- Profile Image with Glow Effect -->
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/secondPlaceImage"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:src="@drawable/default_profile_image"
+                            app:civ_border_width="3dp"
+                            app:civ_border_color="@color/silver_medal" />
+
+                        <!-- Animated Glow Effect -->
+                        <View
+                            android:id="@+id/secondPlaceGlow"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/silver_glow_effect"
+                            android:alpha="0" />
+
+                    </FrameLayout>
+
+                    <!-- Player Name -->
+                    <TextView
+                        android:id="@+id/secondPlaceName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Utilizator"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_marginBottom="4dp" />
+
+                    <!-- Score with Animation -->
+                    <TextView
+                        android:id="@+id/secondPlaceScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Animated Rank Badge -->
+                    <TextView
+                        android:id="@+id/secondPlaceRank"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="2"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/circle_rank_background"
+                        android:backgroundTint="@color/silver_medal" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <!-- First Place (Gold) - Highest -->
+        <FrameLayout
+            android:id="@+id/firstPlaceContainer"
+            android:layout_width="0dp"
+            android:layout_height="280dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:alpha="0"
+            android:translationY="100dp">
+
+            <!-- Romania Flag Overlay for First Place -->
+            <ImageView
+                android:id="@+id/firstPlaceFlag"
+                android:layout_width="28dp"
+                android:layout_height="20dp"
+                android:src="@drawable/romania_flag_overlay"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.9" />
+
+            <!-- Animated Crown for Winner -->
+            <ImageView
+                android:id="@+id/firstPlaceCrown"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_crown"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="-18dp"
+                android:alpha="0"
+                android:scaleX="0.5"
+                android:scaleY="0.5" />
+
+            <!-- Gold Medal Badge -->
+            <ImageView
+                android:id="@+id/goldMedalBadge"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/gold_medal_badge"
+                android:layout_gravity="top|start"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Podium Base with Dynamic Gradient -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gold_podium_background"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <!-- Profile Image with Glow Effect -->
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/firstPlaceImage"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:src="@drawable/default_profile_image"
+                            app:civ_border_width="4dp"
+                            app:civ_border_color="@color/gold_medal" />
+
+                        <!-- Animated Glow Effect -->
+                        <View
+                            android:id="@+id/firstPlaceGlow"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/gold_glow_effect"
+                            android:alpha="0" />
+
+                    </FrameLayout>
+
+                    <!-- Player Name -->
+                    <TextView
+                        android:id="@+id/firstPlaceName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="David"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_marginBottom="4dp" />
+
+                    <!-- Score with Animation -->
+                    <TextView
+                        android:id="@+id/firstPlaceScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60"
+                        android:textColor="@android:color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Animated Rank Badge -->
+                    <TextView
+                        android:id="@+id/firstPlaceRank"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:text="1"
+                        android:textSize="24sp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/circle_rank_background"
+                        android:backgroundTint="@color/gold_medal" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <!-- Third Place (Bronze) -->
+        <FrameLayout
+            android:id="@+id/thirdPlaceContainer"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:alpha="0"
+            android:translationY="100dp">
+
+            <!-- Romania Flag Overlay for Third Place -->
+            <ImageView
+                android:id="@+id/thirdPlaceFlag"
+                android:layout_width="22dp"
+                android:layout_height="15dp"
+                android:src="@drawable/romania_flag_overlay"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.7" />
+
+            <!-- Bronze Medal Badge -->
+            <ImageView
+                android:id="@+id/bronzeMedalBadge"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/bronze_medal_badge"
+                android:layout_gravity="top|start"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Podium Base with Dynamic Gradient -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bronze_podium_background"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <!-- Profile Image with Glow Effect -->
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/thirdPlaceImage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/default_profile_image"
+                            app:civ_border_width="3dp"
+                            app:civ_border_color="@color/bronze_medal" />
+
+                        <!-- Animated Glow Effect -->
+                        <View
+                            android:id="@+id/thirdPlaceGlow"
+                            android:layout_width="68dp"
+                            android:layout_height="68dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bronze_glow_effect"
+                            android:alpha="0" />
+
+                    </FrameLayout>
+
+                    <!-- Player Name -->
+                    <TextView
+                        android:id="@+id/thirdPlaceName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="mradita6"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_marginBottom="4dp" />
+
+                    <!-- Score with Animation -->
+                    <TextView
+                        android:id="@+id/thirdPlaceScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="40"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Animated Rank Badge -->
+                    <TextView
+                        android:id="@+id/thirdPlaceRank"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:text="3"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:background="@drawable/circle_rank_background"
+                        android:backgroundTint="@color/bronze_medal" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout> 

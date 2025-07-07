@@ -13,6 +13,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.ConnectionResult;
 
 /**
  * Main Application class for initializing app-wide components
@@ -46,6 +48,9 @@ public class RomApplication extends Application {
     public void onCreate() {
         super.onCreate();
         
+        // Set up global exception handler for Google Play Services issues
+        setupGlobalExceptionHandler();
+        
         // Ensure Flogger is configured (should already be done in static block)
         if (!FloggerConfig.isConfigured()) {
             FloggerConfig.configure();
@@ -70,8 +75,41 @@ public class RomApplication extends Application {
         
         // Inițializăm Firebase
         initializeFirebase();
+        
+        // Verificăm Google Play Services
+        checkGooglePlayServices();
     }
     
+    
+    /**
+     * Set up global exception handler to catch Google Play Services SecurityExceptions
+     */
+    private void setupGlobalExceptionHandler() {
+        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+            if (throwable instanceof SecurityException) {
+                String message = throwable.getMessage();
+                if (message != null && message.contains("com.google.android.gms")) {
+                    Log.w(TAG, "Caught Google Play Services SecurityException: " + message);
+                    
+                    // Save the error status to preferences
+                    SharedPreferences prefs = getSharedPreferences("app_config", Context.MODE_PRIVATE);
+                    prefs.edit()
+                        .putInt("google_play_services_status", ConnectionResult.SERVICE_INVALID)
+                        .putLong("google_play_services_check_time", System.currentTimeMillis())
+                        .putBoolean("google_play_services_security_error", true)
+                        .apply();
+                    
+                    // Don't crash the app, just log and continue
+                    return;
+                }
+            }
+            
+            // For other exceptions, use the default handler
+            if (Thread.getDefaultUncaughtExceptionHandler() != null) {
+                Thread.getDefaultUncaughtExceptionHandler().uncaughtException(thread, throwable);
+            }
+        });
+    }
     
     /**
      * Save logging configuration to preferences so activities can check it
@@ -165,8 +203,11 @@ public class RomApplication extends Application {
      */
     private void initializeFirebase() {
         try {
-            // Inițializăm Firebase
-            FirebaseApp.initializeApp(this);
+            // Verificăm dacă Firebase este deja inițializat
+            if (FirebaseApp.getApps(this).isEmpty()) {
+                // Inițializăm Firebase doar dacă nu este deja inițializat
+                FirebaseApp.initializeApp(this);
+            }
             
             // Configurăm Firestore pentru performanță optimă
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -180,6 +221,9 @@ public class RomApplication extends Application {
             syncPointsWithFirebase();
             
             Log.d(TAG, "Firebase inițializat cu succes");
+        } catch (SecurityException e) {
+            Log.w(TAG, "SecurityException when initializing Firebase - using fallback mode", e);
+            // În caz de eroare de securitate, continuăm fără Firebase
         } catch (Exception e) {
             Log.e(TAG, "Eroare la inițializarea Firebase", e);
         }
@@ -194,6 +238,100 @@ public class RomApplication extends Application {
             // Încărcăm punctele din Firebase în stocarea locală
             com.example.myapplication.RomApp.PointsManager.getInstance(this)
                 .loadPointsFromFirebase(this);
+        }
+    }
+    
+    /**
+     * Verifică și gestionează Google Play Services
+     */
+    private void checkGooglePlayServices() {
+        try {
+            // Verificăm dacă Google Play Services sunt disponibile doar dacă este necesar
+            // și doar în contextul corect pentru a evita SecurityException
+            if (BuildConfig.DEBUG) {
+                // În modul debug, încercăm să verificăm Google Play Services
+                try {
+                    GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+                    int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+                    
+                    if (resultCode != ConnectionResult.SUCCESS) {
+                        Log.w(TAG, "Google Play Services not available: " + resultCode);
+                        
+                        // Salvăm statusul pentru a-l verifica în activități
+                        SharedPreferences prefs = getSharedPreferences("app_config", Context.MODE_PRIVATE);
+                        prefs.edit()
+                            .putInt("google_play_services_status", resultCode)
+                            .putLong("google_play_services_check_time", System.currentTimeMillis())
+                            .apply();
+                            
+                        // Dacă serviciile nu sunt disponibile, dezactivăm funcționalitățile care le necesită
+                        if (apiAvailability.isUserResolvableError(resultCode)) {
+                            Log.i(TAG, "Google Play Services error is user resolvable");
+                        } else {
+                            Log.w(TAG, "Google Play Services error is not user resolvable");
+                        }
+                    } else {
+                        Log.i(TAG, "Google Play Services available");
+                        
+                        // Salvăm statusul pozitiv
+                        SharedPreferences prefs = getSharedPreferences("app_config", Context.MODE_PRIVATE);
+                        prefs.edit()
+                            .putInt("google_play_services_status", ConnectionResult.SUCCESS)
+                            .putLong("google_play_services_check_time", System.currentTimeMillis())
+                            .apply();
+                    }
+                } catch (SecurityException e) {
+                    Log.w(TAG, "SecurityException when checking Google Play Services - using fallback mode", e);
+                    
+                    // Salvăm statusul ca fiind indisponibil din cauza erorii de securitate
+                    SharedPreferences prefs = getSharedPreferences("app_config", Context.MODE_PRIVATE);
+                    prefs.edit()
+                        .putInt("google_play_services_status", ConnectionResult.SERVICE_INVALID)
+                        .putLong("google_play_services_check_time", System.currentTimeMillis())
+                        .apply();
+                }
+            } else {
+                // În modul release, presupunem că Google Play Services sunt disponibile
+                // pentru a evita problemele de securitate
+                Log.i(TAG, "Release mode - assuming Google Play Services available");
+                
+                SharedPreferences prefs = getSharedPreferences("app_config", Context.MODE_PRIVATE);
+                prefs.edit()
+                    .putInt("google_play_services_status", ConnectionResult.SUCCESS)
+                    .putLong("google_play_services_check_time", System.currentTimeMillis())
+                    .apply();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking Google Play Services", e);
+            
+            // În caz de eroare, presupunem că serviciile nu sunt disponibile
+            SharedPreferences prefs = getSharedPreferences("app_config", Context.MODE_PRIVATE);
+            prefs.edit()
+                .putInt("google_play_services_status", ConnectionResult.SERVICE_INVALID)
+                .putLong("google_play_services_check_time", System.currentTimeMillis())
+                .apply();
+        }
+    }
+    
+    /**
+     * Verifică dacă Google Play Services sunt disponibile
+     */
+    public static boolean isGooglePlayServicesAvailable() {
+        try {
+            SharedPreferences prefs = appContext.getSharedPreferences("app_config", Context.MODE_PRIVATE);
+            int status = prefs.getInt("google_play_services_status", -1);
+            boolean hasSecurityError = prefs.getBoolean("google_play_services_security_error", false);
+            
+            // If there was a security error, consider Google Play Services unavailable
+            if (hasSecurityError) {
+                Log.w(TAG, "Google Play Services unavailable due to security error");
+                return false;
+            }
+            
+            return status == ConnectionResult.SUCCESS;
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking Google Play Services availability", e);
+            return false;
         }
     }
 }

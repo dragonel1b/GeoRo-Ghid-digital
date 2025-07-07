@@ -7,11 +7,11 @@
     <!-- <item android:state_selected="true" android:color="@color/incorrect_answer_red"/> -->
 
     <!-- State: Pressed -->
-    <item android:state_pressed="true" android:color="@color/maramures_accent"/>
+    <item android:state_pressed="true" android:color="@color/dobrogea_primary_light"/>
 
     <!-- State: Disabled -->
     <item android:state_enabled="false" android:color="@color/button_disabled_background"/>
 
     <!-- Default state (Enabled) -->
-    <item android:color="@color/maramures_primary"/>
+    <item android:color="@color/dobrogea_primary"/>
 </selector> 

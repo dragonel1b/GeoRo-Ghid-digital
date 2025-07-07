@@ -81,6 +81,7 @@
     <color name="rom_region_oltenia">#2E454D</color>
     <color name="rom_region_muntenia">#BC401A</color>
     <color name="rom_region_dobrogea">#067367</color>
+    <color name="oltenia_divider">#E0E0E0</color>
 
     <!-- Map Interaction Colors -->
     <color name="rom_region_highlight">#80FFFFFF</color>
@@ -197,6 +198,15 @@
     <color name="rom_accent_light">#FFE57F</color>
     <color name="rom_text_primary">#212121</color>
     <color name="rom_text_secondary">#757575</color>
+
+    <!-- Oltenia Theme Colors - Warm and Rich Palette -->
+    <color name="oltenia_accent_dark">#CD853F</color>
+    <color name="oltenia_accent_light">#DEB887</color>
+    <color name="oltenia_text_secondary">#666666</color>
+    <color name="oltenia_success">#4CAF50</color>
+    <color name="oltenia_error">#F44336</color>
+    <color name="oltenia_warning">#FF9800</color>
+    <color name="oltenia_info">#2196F3</color>
     <color name="rom_overlay_light">#1A000000</color>
     <color name="rom_overlay_gradient_start">#00000000</color>
     <color name="rom_overlay_gradient_end">#66000000</color>
@@ -232,7 +242,6 @@
     <!-- Dobrogea Module Colors -->
     <color name="primary">#1A237E</color>
     <color name="primary_dark">#000051</color>
-    <color name="primary_light">#534bae</color>
     <color name="accent">#FFC107</color>
     <color name="primary_text">#FFFFFF</color>
     <color name="secondary_text">#B3FFFFFF</color>
@@ -290,6 +299,7 @@
     <!-- Oltenia Theme Colors -->
     <color name="oltenia_primary">#2E454D</color>       <!-- Dark teal for mountains -->
     <color name="oltenia_primary_light">#546E7A</color> <!-- Lighter teal for accents -->
+    <color name="oltenia_primary_dark">#1B2A30</color>  <!-- Darker teal for status bar -->
     <color name="oltenia_secondary">#6D4C41</color>     <!-- Brown for tradition -->
     <color name="oltenia_accent">#FFD54F</color>        <!-- Yellow for wheat fields -->
     <color name="oltenia_background">#ECEFF1</color>    <!-- Light gray background -->
@@ -310,6 +320,14 @@
     <color name="transilvania_card_bg">#422040</color>      <!-- Dark purple for cards -->
     <color name="transilvania_progress_start">#7D0633</color>
     <color name="transilvania_progress_end">#B52B65</color>
+
+    <!-- Transilvania Result Theme Colors - Improved contrast for results screen -->
+    <color name="transilvaniaResult_primary">#3949AB</color>        <!-- Royal blue instead of dark red -->
+    <color name="transilvaniaResult_primary_dark">#1A237E</color>   <!-- Navy blue for status bar -->
+    <color name="transilvaniaResult_accent">#FFD700</color>         <!-- Keep gold for medieval theme -->
+    <color name="transilvaniaResult_background">#F5F7FA</color>     <!-- Light background -->
+    <color name="transilvaniaResult_card_bg">#FFFFFF</color>        <!-- Pure white cards -->
+    <color name="transilvaniaResult_text">#212121</color>           <!-- Dark text for maximum contrast -->
 
     <!-- Bucovina Theme Colors - Inspirate din Albastrul de Voroneț și peisajele Bucovinei -->
     <color name="bucovina_primary">#1B5583</color>           <!-- Albastrul de Voroneț - mai închis -->
@@ -360,8 +378,6 @@
     <color name="colorCorrectAnswer">#66BB6A</color> <!-- For MaramuresGameActivity -->
     <color name="colorWrongAnswer">#EF5350</color> <!-- For MaramuresGameActivity -->
     <color name="correct_answer_border">#43A047</color> <!-- Border for correct answers -->
-    <color name="silver_medal">#C0C0C0</color> <!-- Silver medal color -->
-    <color name="bronze_medal">#CD7F32</color> <!-- Bronze medal color -->
 
     <!-- Muntenia Colors -->
     <color name="muntenia_primary">#BC401A</color>         <!-- Rusty red -->
@@ -438,12 +454,8 @@
     <!-- Material Design 3 Color Palette -->
     <color name="md_theme_primary">#006687</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
-    <color name="md_theme_primaryContainer">#C2E8FF</color>
-    <color name="md_theme_onPrimaryContainer">#001F2A</color>
     <color name="md_theme_secondary">#4D616C</color>
     <color name="md_theme_onSecondary">#FFFFFF</color>
-    <color name="md_theme_secondaryContainer">#D0E6F2</color>
-    <color name="md_theme_onSecondaryContainer">#081E28</color>
     <color name="md_theme_tertiary">#5D5B7D</color>
     <color name="md_theme_onTertiary">#FFFFFF</color>
     <color name="md_theme_tertiaryContainer">#E2DFFF</color>
@@ -456,9 +468,6 @@
     <color name="md_theme_onBackground">#191C1E</color>
     <color name="md_theme_surface">#FBFCFE</color>
     <color name="md_theme_onSurface">#191C1E</color>
-    <color name="md_theme_surfaceVariant">#DCE3E9</color>
-    <color name="md_theme_onSurfaceVariant">#40484D</color>
-    <color name="md_theme_outline">#71787D</color>
     <color name="md_theme_inverseOnSurface">#EFF1ED</color>
     <color name="md_theme_inverseSurface">#2E312F</color>
     <color name="md_theme_inversePrimary">#6CDBBC</color>
@@ -507,6 +516,11 @@
     <!-- Culori pentru temele regiunilor -->
     <color name="region_header_background">#3F51B5</color>
     <color name="region_card_background">#FFFFFF</color>
+    
+    <!-- Missing colors for GameModeSelectionActivity -->
+    <color name="background_light">#F5F5F5</color>
+    <color name="primary_light">#E3F2FD</color>
+    <color name="ripple_color">#20000000</color>
     <color name="region_text_primary">#FFFFFF</color>
     <color name="region_text_secondary">#CCCCCC</color>
     <color name="region_accent">#FF9800</color>
@@ -523,4 +537,108 @@
     <color name="crisana_accent">#FFC107</color>             <!-- Galben pentru accente -->
     <color name="crisana_background">#FFF3F3</color>         <!-- Fundal roșu foarte deschis -->
     <color name="crisana_text">#212121</color>               <!-- Text închis pentru lizibilitate -->
+
+    <!-- Material Design 3 Colors for Leaderboard -->
+    <color name="md_theme_primaryContainer">#E8F5E9</color>
+    <color name="md_theme_onPrimaryContainer">#1B5E20</color>
+    <color name="md_theme_secondaryContainer">#FFF8E1</color>
+    <color name="md_theme_onSecondaryContainer">#E65100</color>
+    <color name="md_theme_surfaceVariant">#E0E0E0</color>
+    <color name="md_theme_onSurfaceVariant">#616161</color>
+    <color name="md_theme_outline">#BDBDBD</color>
+    <color name="md_theme_surfaceContainer">#F5F5F5</color>
+    <color name="md_theme_surfaceContainerHigh">#EEEEEE</color>
+
+    <!-- Podium and Medal Colors for Leaderboard -->
+    <color name="gold_medal">#FFD700</color>
+    <color name="gold_crown">#FFA000</color>
+    <color name="gold_text">#FFF8DC</color>
+    <color name="silver_medal">#C0C0C0</color>
+    <color name="bronze_medal">#CD7F32</color>
+    <color name="podium_text_secondary">#E8EAF6</color>
+    
+    <!-- Enhanced Leaderboard Colors -->
+    <color name="leaderboard_premium_bg">#1A237E</color>
+    <color name="leaderboard_premium_accent">#3F51B5</color>
+    <color name="leaderboard_card_shadow">#26000000</color>
+    <color name="leaderboard_gradient_start">#667eea</color>
+    <color name="leaderboard_gradient_end">#764ba2</color>
+    
+    <!-- Achievement Tier Colors -->
+    <color name="tier_legendary">#FF6B35</color>
+    <color name="tier_epic">#9B59B6</color>
+    <color name="tier_rare">#3498DB</color>
+    <color name="tier_common">#95A5A6</color>
+    
+    <!-- Status and Progress Colors -->
+    <color name="progress_excellent">#2ECC71</color>
+    <color name="progress_good">#F39C12</color>
+    <color name="progress_average">#E67E22</color>
+    <color name="progress_poor">#E74C3C</color>
+    
+    <!-- Profile Colors -->
+    <color name="profile_background">#F8F9FA</color>
+    <color name="profile_header_overlay">#80000000</color>
+    <color name="profile_card_shadow">#20000000</color>
+    
+    <!-- Romania Theme Colors -->
+    <color name="romania_blue">#002B7F</color>
+    <color name="romania_blue_dark">#001A4D</color>
+    <color name="romania_yellow">#FCD116</color>
+    <color name="romania_red">#CE1126</color>
+    <color name="romania_red_dark">#A50E1C</color>
+    
+    <!-- Romania UI Colors -->
+    <color name="romania_accent">#FCD116</color>
+    <color name="romania_accent_dark">#E6BC00</color>
+    <color name="romania_tab_background">#20FFFFFF</color>
+    <color name="romania_tab_border">#40FFFFFF</color>
+    <color name="romania_text_secondary">#CCFFFFFF</color>
+    <color name="romania_score_badge">#20000000</color>
+    <color name="romania_winner_bg">#30FFD700</color>
+    <color name="romania_winner_bg_dark">#20FFA000</color>
+    <color name="leaderboard_list_background">#F8F9FD</color>
+    <color name="romania_background_primary">#002B7F</color>
+    
+    <!-- Profile Editing Colors - Improved Visibility -->
+    <color name="profile_text_primary">#1A1A1A</color>           <!-- Almost black for maximum readability -->
+    <color name="profile_text_secondary">#424242</color>         <!-- Dark gray for secondary text -->
+    <color name="profile_text_hint">#757575</color>              <!-- Medium gray for hints -->
+    <color name="profile_input_text">#212121</color>             <!-- Dark text for inputs -->
+    <color name="profile_input_hint">#9E9E9E</color>             <!-- Clear hint color -->
+    <color name="profile_input_border">#E0E0E0</color>           <!-- Light border for inputs -->
+    <color name="profile_input_border_focused">#1976D2</color>   <!-- Blue for focused state -->
+    <color name="profile_input_background">#FAFAFA</color>       <!-- Very light background for inputs -->
+    <color name="profile_label_text">#424242</color>             <!-- Dark gray for labels -->
+    <color name="profile_card_border">#E8E8E8</color>            <!-- Light border for cards -->
+    <color name="profile_button_text">#FFFFFF</color>            <!-- White text on buttons -->
+    <color name="profile_icon_tint">#1976D2</color>              <!-- Blue tint for icons -->
+    <color name="profile_divider">#EEEEEE</color>                <!-- Light divider color -->
+    
+    <!-- Romania Profile Theme - Better Contrast -->
+    <color name="romania_profile_primary">#1976D2</color>        <!-- Lighter blue for better contrast -->
+    <color name="romania_profile_secondary">#424242</color>      <!-- Dark gray for readability -->
+    <color name="romania_profile_accent">#FF9800</color>         <!-- Orange accent for highlights -->
+    <color name="romania_profile_text">#212121</color>           <!-- Dark text for maximum readability -->
+    <color name="romania_profile_text_light">#666666</color>     <!-- Lighter text for secondary info -->
+    <color name="romania_profile_background">#FFFFFF</color>     <!-- Clean white background -->
+    <color name="romania_profile_surface">#F8F9FA</color>        <!-- Very light surface color -->
+
+    <!-- Exact Leaderboard Colors for Image Match -->
+    <color name="leaderboard_gold">#FFA726</color>
+    <color name="leaderboard_blue_podium">#1E88E5</color>
+    <color name="leaderboard_red_podium">#E53935</color>
+    <color name="podium_second_number">#90A4AE</color>
+    <color name="podium_third_number">#8D6E63</color>
+    <color name="avatar_icon_color">#607D8B</color>
+    <color name="avatar_list_icon">#78909C</color>
+    <color name="leaderboard_entry_exact_background">#FFA726</color>
+    <color name="leaderboard_score_color">#D84315</color>
+    
+    <!-- Missing colors for SyncStatusActivity -->
+    <color name="success_green">#4CAF50</color>
+    <color name="error_red">#F44336</color>
+    <color name="warning_orange">#FF9800</color>
+    <color name="info_blue">#2196F3</color>
+    <color name="info_blue_light">#E3F2FD</color>
 </resources>

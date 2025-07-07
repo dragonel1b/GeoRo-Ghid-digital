@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -349,8 +350,19 @@ public class BaseMapActivity extends AppCompatActivity implements OnMapReadyCall
      */
     protected void initializeMap() {
         if (mapView != null) {
-            mapView.onCreate(null);
-            mapView.getMapAsync(this);
+            try {
+                // Folosim savedInstanceState null doar dacă este sigur
+                mapView.onCreate(null);
+                mapView.getMapAsync(this);
+            } catch (SecurityException e) {
+                Log.w("BaseMapActivity", "SecurityException when initializing map - using fallback mode", e);
+                // În caz de eroare de securitate, încercăm să continuăm fără hartă
+                Toast.makeText(this, "Harta nu poate fi încărcată în acest moment. Continuăm fără hartă.", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Log.e("BaseMapActivity", "Error initializing map", e);
+                Toast.makeText(this, "Eroare la încărcarea hărții. Vă rugăm încercați din nou.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         } else {
             Toast.makeText(this, "Eroare la încărcarea hărții. Vă rugăm încercați din nou.", Toast.LENGTH_SHORT).show();
             finish();

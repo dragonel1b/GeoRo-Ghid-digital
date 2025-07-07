@@ -25,6 +25,9 @@ public class QuizResult {
     @ServerTimestamp
     private Date completedAt;
     private List<QuestionAnswer> answers;
+    private int lifelinesUsed;
+    private float accuracy;
+    private java.util.Map<String, Object> metadata;
     
     /**
      * Constructor gol necesar pentru Firestore
@@ -179,5 +182,92 @@ public class QuizResult {
     public float getAverageTimePerQuestion() {
         if (totalQuestions == 0) return 0;
         return (float) timeSpentSeconds / totalQuestions;
+    }
+
+    public int getLifelinesUsed() { return lifelinesUsed; }
+    public void setLifelinesUsed(int lifelinesUsed) { this.lifelinesUsed = lifelinesUsed; }
+
+    public float getAccuracyValue() { return accuracy; }
+    public void setAccuracy(float accuracy) { this.accuracy = accuracy; }
+
+    public java.util.Map<String, Object> getMetadata() { return metadata; }
+    public void setMetadata(java.util.Map<String, Object> metadata) { this.metadata = metadata; }
+    
+    // Additional methods for enhanced functionality
+    
+    /**
+     * Get timestamp (alias for completedAt)
+     */
+    public Date getTimestamp() {
+        return completedAt;
+    }
+    
+    /**
+     * Set timestamp (alias for completedAt)
+     */
+    public void setTimestamp(Date timestamp) {
+        this.completedAt = timestamp;
+    }
+    
+    /**
+     * Get difficulty level
+     */
+    public String getDifficulty() {
+        if (metadata != null && metadata.containsKey("difficulty")) {
+            return (String) metadata.get("difficulty");
+        }
+        return "UNKNOWN";
+    }
+    
+    /**
+     * Set difficulty level
+     */
+    public void setDifficulty(String difficulty) {
+        if (metadata == null) {
+            metadata = new java.util.HashMap<>();
+        }
+        metadata.put("difficulty", difficulty);
+    }
+    
+    /**
+     * Get game mode
+     */
+    public String getGameMode() {
+        if (metadata != null && metadata.containsKey("gameMode")) {
+            return (String) metadata.get("gameMode");
+        }
+        return "UNKNOWN";
+    }
+    
+    /**
+     * Set game mode
+     */
+    public void setGameMode(String gameMode) {
+        if (metadata == null) {
+            metadata = new java.util.HashMap<>();
+        }
+        metadata.put("gameMode", gameMode);
+    }
+    
+    /**
+     * Get detailed statistics
+     */
+    public java.util.Map<String, Object> getDetailedStats() {
+        if (metadata != null && metadata.containsKey("detailedStats")) {
+            @SuppressWarnings("unchecked")
+            java.util.Map<String, Object> stats = (java.util.Map<String, Object>) metadata.get("detailedStats");
+            return stats;
+        }
+        return new java.util.HashMap<>();
+    }
+    
+    /**
+     * Set detailed statistics
+     */
+    public void setDetailedStats(java.util.Map<String, Object> detailedStats) {
+        if (metadata == null) {
+            metadata = new java.util.HashMap<>();
+        }
+        metadata.put("detailedStats", detailedStats);
     }
 } 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Water -->
+    <path
+        android:fillColor="#4FB3D9"
+        android:pathData="M2,20 L22,20 L22,22 L2,22 Z" />
+    
+    <!-- Dock/platform -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M4,16 L20,16 L20,20 L4,20 Z" />
+    
+    <!-- Ship -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M8,12 L16,12 L16,16 L8,16 Z" />
+    
+    <!-- Ship hull -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M9,16 L15,16 L15,18 L9,18 Z" />
+    
+    <!-- Ship mast -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M12,8 L12,12 L13,12 L13,8 Z" />
+    
+    <!-- Sail -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M13,8 L17,8 L17,12 L13,12 Z" />
+    
+    <!-- Crane -->
+    <path
+        android:fillColor="#607D8B"
+        android:pathData="M18,6 L22,6 L22,16 L18,16 Z" />
+    
+    <!-- Crane arm -->
+    <path
+        android:fillColor="#607D8B"
+        android:pathData="M18,8 L24,8 L24,10 L18,10 Z" />
+    
+    <!-- Container -->
+    <path
+        android:fillColor="#FF5722"
+        android:pathData="M20,14 L22,14 L22,16 L20,16 Z" />
+    
+    <!-- Waves -->
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M3,20 L5,19 L7,20 L9,19 L11,20 L13,19 L15,20 L17,19 L19,20 L21,19 L21,20 L3,20 Z" />
+    
+</vector> 

@@ -53,7 +53,7 @@ public class FirestoreQuestionModel {
      */
     @Exclude
     public static FirestoreQuestionModel fromQuestionModel(QuestionModel model, String region, String gameType) {
-        List<String> incorrectAnswers = List.of(model.getIncorrectAnswers());
+        List<String> incorrectAnswers = model.getIncorrectAnswers();
         return new FirestoreQuestionModel(
             model.getQuestion(),
             model.getCorrectAnswer(),
@@ -88,11 +88,10 @@ public class FirestoreQuestionModel {
      */
     @Exclude
     public QuestionModel toQuestionModel() {
-        String[] incorrectAnswersArray = incorrectAnswers.toArray(new String[0]);
         return new QuestionModel(
             question,
             correctAnswer,
-            incorrectAnswersArray,
+            incorrectAnswers,
             0, // imageResourceId - nu avem echivalent în Firestore, folosim URL
             fact
         );

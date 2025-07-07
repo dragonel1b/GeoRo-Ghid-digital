@@ -256,12 +256,32 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+            <!-- Category Tabs -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/categoryTabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabMode="scrollable"
+                    app:tabGravity="start"
+                    app:tabTextColor="@color/rom_text_secondary"
+                    app:tabSelectedTextColor="@color/rom_primary"
+                    app:tabIndicatorColor="@color/rom_primary"
+                    app:tabRippleColor="@color/rom_primary_light"/>
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Achievements Title -->
             <TextView
                 android:id="@+id/achievementsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/rom_achievements_list_description"
+                android:text="🏆 Achievement-uri disponibile"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/rom_text_primary"

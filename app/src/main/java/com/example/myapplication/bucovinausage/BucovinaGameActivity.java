@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Random;
 import com.bumptech.glide.Glide;
 import java.util.Locale;
+import java.util.Arrays;
 
 public class BucovinaGameActivity extends AppCompatActivity {
     private TextView questionTextView;
@@ -389,62 +390,62 @@ public class BucovinaGameActivity extends AppCompatActivity {
         questions.add(new QuestionModel(
             "Care este capitala județului Suceava?",
             "Suceava", 
-            new String[]{"Rădăuți", "Câmpulung Moldovenesc", "Fălticeni"}, 
-            R.drawable.suceava));
+            Arrays.asList("Rădăuți", "Câmpulung Moldovenesc", "Fălticeni"), 
+            R.drawable.suceava, ""));
         
         questions.add(new QuestionModel(
             "În ce an a fost construită Mănăstirea Voroneț?",
             "1488", 
-            new String[]{"1476", "1504", "1527"}, 
-            R.drawable.manastire_voronet));
+            Arrays.asList("1476", "1504", "1527"), 
+            R.drawable.manastire_voronet, ""));
         
         questions.add(new QuestionModel(
             "Ce culoare este specifică frescelor exterioare de la Voroneț?",
             "Albastru", 
-            new String[]{"Verde", "Roșu", "Galben"}, 
-            R.drawable.manastire_voronet));
+            Arrays.asList("Verde", "Roșu", "Galben"), 
+            R.drawable.manastire_voronet, ""));
         
         questions.add(new QuestionModel(
             "Care dintre următoarele mănăstiri NU se află în Bucovina?",
             "Mănăstirea Cozia", 
-            new String[]{"Mănăstirea Putna", "Mănăstirea Sucevița", "Mănăstirea Humor"}, 
-            R.drawable.cozia));
+            Arrays.asList("Mănăstirea Putna", "Mănăstirea Sucevița", "Mănăstirea Humor"), 
+            R.drawable.cozia, ""));
         
         questions.add(new QuestionModel(
             "Cine a fost domnitorul care a ctitorit Mănăstirea Putna?",
             "Ștefan cel Mare", 
-            new String[]{"Alexandru cel Bun", "Petru Rareș", "Mihai Viteazul"}, 
-            R.drawable.manastirea_putna));
+            Arrays.asList("Alexandru cel Bun", "Petru Rareș", "Mihai Viteazul"), 
+            R.drawable.manastirea_putna, ""));
         
         questions.add(new QuestionModel(
             "Care este cea mai înaltă vârful montan din Bucovina?",
             "Vârful Pietrosul Călimanilor", 
-            new String[]{"Vârful Rarău", "Vârful Giumalău", "Vârful Suhard"}, 
-            R.drawable.varful_pietros));
+            Arrays.asList("Vârful Rarău", "Vârful Giumalău", "Vârful Suhard"), 
+            R.drawable.varful_pietros, ""));
         
         questions.add(new QuestionModel(
             "Care este obiceiul tradițional de iarnă specific Bucovinei, în care tineri mascați colindă satele?",
             "Urșii", 
-            new String[]{"Capra", "Căiuții", "Malanca"}, 
-            R.drawable.bucovina));
+            Arrays.asList("Capra", "Căiuții", "Malanca"), 
+            R.drawable.bucovina, ""));
         
         questions.add(new QuestionModel(
             "Care dintre următoarele localități este cunoscută ca 'Mica Vienă' a Bucovinei?",
             "Cernăuți", 
-            new String[]{"Suceava", "Rădăuți", "Gura Humorului"}, 
-            R.drawable.mica_viena));
+            Arrays.asList("Suceava", "Rădăuți", "Gura Humorului"), 
+            R.drawable.mica_viena, ""));
         
         questions.add(new QuestionModel(
             "Ce tehnica artizanala este foarte cunoscută în zona Bucovinei?",
             "Încondeiat ouă", 
-            new String[]{"Țesutul covoarelor", "Sculptat lemn", "Olăritul"}, 
-            R.drawable.inc_oua));
+            Arrays.asList("Țesutul covoarelor", "Sculptat lemn", "Olăritul"), 
+            R.drawable.inc_oua, ""));
         
         questions.add(new QuestionModel(
             "În ce perioadă istorică a fost Bucovina parte din Imperiul Habsburgic?",
             "1775-1918", 
-            new String[]{"1812-1918", "1699-1859", "1821-1918"}, 
-            R.drawable.imp_has));
+            Arrays.asList("1812-1918", "1699-1859", "1821-1918"), 
+            R.drawable.imp_has, ""));
         
         totalQuestions = questions.size();
         Collections.shuffle(questions);
@@ -467,9 +468,9 @@ public class BucovinaGameActivity extends AppCompatActivity {
         questionTextView.setText(currentQuestion.getQuestion());
         
         // Set answer options
-        String[] answers = currentQuestion.getAnswers();
-        for (int i = 0; i < Math.min(answers.length, answerButtons.length); i++) {
-            answerButtons[i].setText(answers[i]);
+        List<String> answers = currentQuestion.getAnswers();
+        for (int i = 0; i < Math.min(answers.size(), answerButtons.length); i++) {
+            answerButtons[i].setText(answers.get(i));
         }
         
         // Set question image if available

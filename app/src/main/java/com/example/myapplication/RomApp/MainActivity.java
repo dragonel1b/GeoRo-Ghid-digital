@@ -230,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                intent.putExtra("FROM_SUCCESSFUL_LOGIN", true); // Indicăm că înregistrarea a fost cu succes
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_exit, R.anim.fade_out);
                 finish();
@@ -470,6 +471,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        super.onBackPressed();
     }
 
     private void addSkipButton() {

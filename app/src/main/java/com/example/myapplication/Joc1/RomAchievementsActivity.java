@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RomAchievementsActivity extends AppCompatActivity {
     private RomGameState gameState;
+    private AchievementManager achievementManager;
     private RecyclerView achievementsRecyclerView;
+    private TabLayout categoryTabs;
     private ProgressBar achievementsProgress;
     private TextView achievementsProgressText;
     private TextView pointsIntelepteText;
@@ -32,25 +36,37 @@ public class RomAchievementsActivity extends AppCompatActivity {
     private TextView totalPointsText;
     private MaterialCardView emptyStateCard;
     
-    private List<Achievement> achievements;
-    private AchievementAdapter adapter;
+    private List<AchievementManager.Achievement> allAchievements;
+    private List<AchievementManager.Achievement> displayedAchievements;
+    private ModernAchievementAdapter adapter;
+    private AchievementManager.AchievementCategory currentCategory = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rom_achievements);
 
-        // Initialize game state
+        // Initialize managers
         gameState = RomGameState.getInstance();
         gameState.initialize(this);
+        achievementManager = AchievementManager.getInstance(this);
 
         // Initialize views
         initializeViews();
         setupToolbar();
+        setupTabs();
         setupAchievements();
         setupRecyclerView();
         updateProgress();
         updateStats();
+        
+        // Set up achievement unlock listener
+        achievementManager.setAchievementUnlockedListener(achievement -> {
+            runOnUiThread(() -> {
+                Toast.makeText(this, "🏆 Achievement Unlocked: " + achievement.getTitle(), Toast.LENGTH_LONG).show();
+                refreshAchievements();
+            });
+        });
     }
 
     private void initializeViews() {
@@ -63,6 +79,9 @@ public class RomAchievementsActivity extends AppCompatActivity {
         quizCompletedText = findViewById(R.id.quizCompletedText);
         totalPointsText = findViewById(R.id.totalPointsText);
         emptyStateCard = findViewById(R.id.emptyStateCard);
+        
+        // Add TabLayout for category filtering (if it exists in layout)
+        categoryTabs = findViewById(R.id.categoryTabs);
     }
 
     private void setupToolbar() {
@@ -71,182 +90,125 @@ public class RomAchievementsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(R.string.rom_achievements_title);
+            getSupportActionBar().setTitle("🏆 Achievement-uri");
         }
     }
 
+    private void setupTabs() {
+        if (categoryTabs != null) {
+            categoryTabs.addTab(categoryTabs.newTab().setText("Toate"));
+            categoryTabs.addTab(categoryTabs.newTab().setText("Transilvania"));
+            categoryTabs.addTab(categoryTabs.newTab().setText("Dificultate"));
+            categoryTabs.addTab(categoryTabs.newTab().setText("Moduri"));
+            categoryTabs.addTab(categoryTabs.newTab().setText("Învățare"));
+            categoryTabs.addTab(categoryTabs.newTab().setText("Speciale"));
+            
+            categoryTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    filterAchievementsByTab(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {}
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {}
+            });
+        }
+    }
+    
+    private void filterAchievementsByTab(int position) {
+        switch (position) {
+            case 0: // Toate
+                displayedAchievements = new ArrayList<>(allAchievements);
+                currentCategory = null;
+                break;
+            case 1: // Transilvania
+                displayedAchievements = achievementManager.getAchievementsByCategory(
+                    AchievementManager.AchievementCategory.TRANSILVANIA);
+                currentCategory = AchievementManager.AchievementCategory.TRANSILVANIA;
+                break;
+            case 2: // Dificultate
+                displayedAchievements = achievementManager.getAchievementsByCategory(
+                    AchievementManager.AchievementCategory.DIFFICULTY);
+                currentCategory = AchievementManager.AchievementCategory.DIFFICULTY;
+                break;
+            case 3: // Mod Joc
+                displayedAchievements = achievementManager.getAchievementsByCategory(
+                    AchievementManager.AchievementCategory.GAME_MODE);
+                currentCategory = AchievementManager.AchievementCategory.GAME_MODE;
+                break;
+            case 4: // Învățare
+                displayedAchievements = achievementManager.getAchievementsByCategory(
+                    AchievementManager.AchievementCategory.LEARNING);
+                currentCategory = AchievementManager.AchievementCategory.LEARNING;
+                break;
+            case 5: // Speciale
+                displayedAchievements = achievementManager.getAchievementsByCategory(
+                    AchievementManager.AchievementCategory.SPECIAL);
+                currentCategory = AchievementManager.AchievementCategory.SPECIAL;
+                break;
+            default:
+                displayedAchievements = new ArrayList<>(allAchievements);
+                currentCategory = null;
+                break;
+        }
+        
+        adapter.updateAchievements(displayedAchievements);
+        updateProgress();
+    }
+
     private void setupAchievements() {
-        achievements = new ArrayList<>();
-        
-        // Add achievements based on the game state constants
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_EXPLORATOR_REGIONAL,
-                "Explorator Regional",
-                "Vizitează cel puțin 3 regiuni diferite ale României",
-                "Regiuni vizitate: %d/3",
-                gameState.getRegionsVisited(),
-                3,
-                R.drawable.ic_explore
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_BUCATAR_REGAL,
-                "Bucătar Regal",
-                "Descoperă cel puțin 5 rețete tradiționale românești",
-                "Rețete descoperite: %d/5",
-                gameState.getRecipesDiscovered(),
-                5,
-                R.drawable.ic_food
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_ETNOGRAF_AMATOR,
-                "Etnograf Amator",
-                "Colectează 10 obiecte tradiționale în mini-jocuri",
-                "Obiecte colectate: %d/10",
-                gameState.getCollectedItems(),
-                10,
-                R.drawable.ic_collection
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_ISTORIC_CUNOSCATOR,
-                "Istoric Cunoscător",
-                "Răspunde corect la 15 întrebări despre istoria României",
-                "Răspunsuri corecte: %d/15",
-                gameState.getCorrectQuizAnswers(),
-                15,
-                R.drawable.ic_history
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_CALATOR_PASIONAT,
-                "Călător Pasionat",
-                "Călătorește cel puțin 500 km pe harta României",
-                "Kilometri parcurși: %d/500",
-                gameState.getTravelDistance(),
-                500,
-                R.drawable.ic_travel
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_FOLCLORIST_EXPERIMENTAT,
-                "Folclorist Experimentat",
-                "Participă la 3 jocuri tradiționale românești",
-                "Jocuri încercate: %d/3",
-                gameState.getPlayedGames(),
-                3,
-                R.drawable.ic_game
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_MASTER_CULTURAL,
-                "Maestru Cultural",
-                "Acumulează 1000 de Puncte Înțelepte",
-                "Puncte acumulate: %d/1000",
-                gameState.getPuncteIntelepte(),
-                1000,
-                R.drawable.ic_culture
-        ));
-        
-        // New cooking streak achievements
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_BUCATAR_DEDICAT,
-                "Bucătar Dedicat",
-                "Gătește 3 zile consecutiv",
-                "Zile consecutive: %d/3",
-                gameState.getCookingStreak(),
-                3,
-                R.drawable.ic_food
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_BUCATAR_PERSEVERENT,
-                "Bucătar Perseverent",
-                "Gătește 7 zile consecutiv",
-                "Zile consecutive: %d/7",
-                gameState.getCookingStreak(),
-                7,
-                R.drawable.ic_food
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_BUCATAR_MAESTRU,
-                "Bucătar Maestru",
-                "Gătește 14 zile consecutiv",
-                "Zile consecutive: %d/14",
-                gameState.getCookingStreak(),
-                14,
-                R.drawable.ic_food
-        ));
-        
-        // New community achievements
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_COLECTIONAR_RETETE,
-                "Colecționar de Rețete",
-                "Descoperă 10 rețete tradiționale",
-                "Rețete descoperite: %d/10",
-                gameState.getRecipesDiscovered(),
-                10,
-                R.drawable.ic_food
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_AMBASADOR_CULINAR,
-                "Ambasador Culinar",
-                "Împărtășește 5 rețete cu comunitatea",
-                "Rețete împărtășite: %d/5",
-                gameState.getRecipesShared(),
-                5,
-                R.drawable.ic_share
-        ));
-        
-        achievements.add(new Achievement(
-                RomGameState.ACHIEVEMENT_CRITIC_GASTRONOMIC,
-                "Critic Gastronomic",
-                "Scrie 10 recenzii pentru rețete",
-                "Recenzii scrise: %d/10",
-                gameState.getReviewsWritten(),
-                10,
-                R.drawable.ic_rate
-        ));
+        // Get all achievements from AchievementManager
+        allAchievements = achievementManager.getAllAchievements();
+        displayedAchievements = new ArrayList<>(allAchievements);
+    }
+    
+    private void refreshAchievements() {
+        allAchievements = achievementManager.getAllAchievements();
+        if (currentCategory == null) {
+            displayedAchievements = new ArrayList<>(allAchievements);
+        } else {
+            displayedAchievements = achievementManager.getAchievementsByCategory(currentCategory);
+        }
+        adapter.updateAchievements(displayedAchievements);
+        updateProgress();
     }
 
     private void setupRecyclerView() {
         achievementsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AchievementAdapter(achievements);
+        adapter = new ModernAchievementAdapter(displayedAchievements);
         achievementsRecyclerView.setAdapter(adapter);
         
-        // Show empty state if no achievements are unlocked
-        boolean hasUnlockedAchievements = false;
-        for (Achievement achievement : achievements) {
-            if (achievement.isUnlocked()) {
-                hasUnlockedAchievements = true;
-                break;
-            }
-        }
-        
-        emptyStateCard.setVisibility(hasUnlockedAchievements ? View.GONE : View.VISIBLE);
-        achievementsRecyclerView.setVisibility(hasUnlockedAchievements ? View.VISIBLE : View.GONE);
+        updateEmptyState();
+    }
+    
+    private void updateEmptyState() {
+        boolean hasAchievements = displayedAchievements != null && !displayedAchievements.isEmpty();
+        emptyStateCard.setVisibility(hasAchievements ? View.GONE : View.VISIBLE);
+        achievementsRecyclerView.setVisibility(hasAchievements ? View.VISIBLE : View.GONE);
     }
 
     private void updateProgress() {
-        int totalAchievements = achievements.size();
+        int totalAchievements = displayedAchievements.size();
         int unlockedAchievements = 0;
+        int totalPoints = 0;
         
-        for (Achievement achievement : achievements) {
+        for (AchievementManager.Achievement achievement : displayedAchievements) {
             if (achievement.isUnlocked()) {
                 unlockedAchievements++;
+                totalPoints += achievement.getPointsReward();
             }
         }
         
         int progress = totalAchievements > 0 ? (unlockedAchievements * 100) / totalAchievements : 0;
         achievementsProgress.setProgress(progress);
         
-        achievementsProgressText.setText(getString(
-                R.string.rom_achievements_progress, 
-                unlockedAchievements, 
-                totalAchievements));
+        String categoryText = currentCategory != null ? getCategoryDisplayName(currentCategory) : "Toate";
+        achievementsProgressText.setText(String.format(
+                "%s: %d/%d deblocate (%d%%)", 
+                categoryText, unlockedAchievements, totalAchievements, progress));
     }
     
     private void updateStats() {
@@ -256,14 +218,13 @@ public class RomAchievementsActivity extends AppCompatActivity {
         recipesDiscoveredText.setText(String.valueOf(gameState.getRecipesDiscovered()));
         quizCompletedText.setText(String.valueOf(gameState.getQuizCompleted()));
         
-        // Calculate total score based on all metrics
-        int totalScore = gameState.getPuncteIntelepte() 
-                + (gameState.getRegionsVisited() * 50)
-                + (gameState.getRecipesDiscovered() * 25)
-                + (gameState.getCorrectQuizAnswers() * 10)
-                + (gameState.getCollectedItems() * 5);
+        // Calculate total achievement points
+        int totalAchievementPoints = 0;
+        for (AchievementManager.Achievement achievement : achievementManager.getUnlockedAchievements()) {
+            totalAchievementPoints += achievement.getPointsReward();
+        }
         
-        totalPointsText.setText(String.valueOf(totalScore));
+        totalPointsText.setText(String.valueOf(totalAchievementPoints));
     }
 
     @Override
@@ -276,73 +237,19 @@ public class RomAchievementsActivity extends AppCompatActivity {
     }
 
     /**
-     * Inner class representing an Achievement
+     * Modern adapter for displaying AchievementManager achievements
      */
-    public static class Achievement {
-        private final String id;
-        private final String title;
-        private final String description;
-        private final String progressFormat;
-        private final int currentProgress;
-        private final int targetProgress;
-        private final int iconResource;
+    private class ModernAchievementAdapter extends RecyclerView.Adapter<ModernAchievementAdapter.AchievementViewHolder> {
+        private List<AchievementManager.Achievement> achievements;
 
-        public Achievement(String id, String title, String description, String progressFormat,
-                          int currentProgress, int targetProgress, int iconResource) {
-            this.id = id;
-            this.title = title;
-            this.description = description;
-            this.progressFormat = progressFormat;
-            this.currentProgress = currentProgress;
-            this.targetProgress = targetProgress;
-            this.iconResource = iconResource;
+        public ModernAchievementAdapter(List<AchievementManager.Achievement> achievements) {
+            this.achievements = new ArrayList<>(achievements);
         }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public String getProgressText() {
-            return String.format(progressFormat, currentProgress);
-        }
-
-        public int getCurrentProgress() {
-            return currentProgress;
-        }
-
-        public int getTargetProgress() {
-            return targetProgress;
-        }
-
-        public int getProgressPercentage() {
-            return (currentProgress * 100) / targetProgress;
-        }
-
-        public boolean isUnlocked() {
-            return currentProgress >= targetProgress;
-        }
-
-        public int getIconResource() {
-            return iconResource;
-        }
-    }
-
-    /**
-     * Adapter for displaying achievements in RecyclerView
-     */
-    private class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.AchievementViewHolder> {
-        private final List<Achievement> achievements;
-
-        public AchievementAdapter(List<Achievement> achievements) {
-            this.achievements = achievements;
+        
+        public void updateAchievements(List<AchievementManager.Achievement> newAchievements) {
+            this.achievements = new ArrayList<>(newAchievements);
+            notifyDataSetChanged();
+            updateEmptyState();
         }
 
         @NonNull
@@ -354,29 +261,63 @@ public class RomAchievementsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull AchievementViewHolder holder, int position) {
-            Achievement achievement = achievements.get(position);
+            AchievementManager.Achievement achievement = achievements.get(position);
             
             holder.titleText.setText(achievement.getTitle());
             holder.descriptionText.setText(achievement.getDescription());
-            holder.progressText.setText(achievement.getProgressText());
-            holder.progressBar.setProgress(achievement.getProgressPercentage());
+            
+            // Show progress for achievements
+            String progressText = String.format("%d/%d (%d%%)", 
+                achievement.getCurrentProgress(), 
+                achievement.getRequiredProgress(),
+                (int) achievement.getProgressPercentage());
+            holder.progressText.setText(progressText);
+            holder.progressBar.setProgress((int) achievement.getProgressPercentage());
             
             // Set achievement icon
-            holder.iconView.setImageResource(achievement.getIconResource());
+            holder.iconView.setImageResource(achievement.getIconResourceId());
             
             // Set card style based on achievement state
             if (achievement.isUnlocked()) {
-                holder.card.setCardBackgroundColor(getResources().getColor(R.color.rom_success_light));
+                holder.card.setCardBackgroundColor(getResources().getColor(R.color.correct_answer, null));
                 holder.unlockedBadge.setVisibility(View.VISIBLE);
+                holder.titleText.setTextColor(getResources().getColor(android.R.color.white, null));
+                holder.descriptionText.setTextColor(getResources().getColor(android.R.color.white, null));
+                holder.progressText.setTextColor(getResources().getColor(android.R.color.white, null));
+                
+                // Add points indicator
+                holder.progressText.setText(progressText + " • +" + achievement.getPointsReward() + " puncte");
             } else {
-                holder.card.setCardBackgroundColor(getResources().getColor(R.color.rom_card_background));
+                holder.card.setCardBackgroundColor(getResources().getColor(R.color.white, null));
                 holder.unlockedBadge.setVisibility(View.GONE);
+                holder.titleText.setTextColor(getResources().getColor(android.R.color.black, null));
+                holder.descriptionText.setTextColor(getResources().getColor(android.R.color.darker_gray, null));
+                holder.progressText.setTextColor(getResources().getColor(android.R.color.darker_gray, null));
             }
+            
+            // Add category badge
+            String categoryEmoji = getCategoryEmoji(achievement.getCategory());
+            holder.titleText.setText(categoryEmoji + " " + achievement.getTitle());
         }
 
         @Override
         public int getItemCount() {
             return achievements.size();
+        }
+        
+        private String getCategoryEmoji(AchievementManager.AchievementCategory category) {
+            switch (category) {
+                case TRANSILVANIA: return "🏰";
+                case DIFFICULTY: return "⚡";
+                case GAME_MODE: return "🎮";
+                case LEARNING: return "📚";
+                case SPECIAL: return "⭐";
+                case QUIZ: return "❓";
+                case EXPLORATION: return "🗺️";
+                case QUEST: return "⚔️";
+                case CITY: return "🏙️";
+                default: return "🏆";
+            }
         }
 
         class AchievementViewHolder extends RecyclerView.ViewHolder {
@@ -398,6 +339,24 @@ public class RomAchievementsActivity extends AppCompatActivity {
                 progressBar = itemView.findViewById(R.id.achievementProgressBar);
                 unlockedBadge = itemView.findViewById(R.id.achievementUnlockedBadge);
             }
+        }
+    }
+    
+    /**
+     * Traduce numele categoriei în română pentru afișare
+     */
+    private String getCategoryDisplayName(AchievementManager.AchievementCategory category) {
+        switch (category) {
+            case TRANSILVANIA: return "Transilvania";
+            case DIFFICULTY: return "Dificultate";
+            case GAME_MODE: return "Moduri de Joc";
+            case LEARNING: return "Învățare";
+            case SPECIAL: return "Speciale";
+            case QUIZ: return "Quiz-uri";
+            case EXPLORATION: return "Explorare";
+            case QUEST: return "Misiuni";
+            case CITY: return "Orașe";
+            default: return "General";
         }
     }
 }

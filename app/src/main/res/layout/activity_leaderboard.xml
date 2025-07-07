@@ -1,173 +1,498 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/leaderboardRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/leaderboard_exact_background"
     tools:context=".ui.LeaderboardActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/leaderboard_title" />
-
-    <LinearLayout
-        android:id="@+id/spinnerLayout"
+    <!-- Header with Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/region_label"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/regionSpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/game_type_label"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/gameTypeSpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/userRankTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/rom_accent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerLayout"
-        tools:text="Poziția ta: 5" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/leaderboardHeaderCard"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userRankTextView">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:title="Clasament"
+            app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIconTint="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            android:background="@color/rom_primary">
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
 
-            <TextView
-                android:layout_width="40dp"
+            <!-- Tab Layout pentru Transilvania/Țară exact ca în imagine -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rank_header"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/tab_selector_exact_background"
+                android:padding="4dp">
 
-            <TextView
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/regionTab"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TRANSILVANIA"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:paddingVertical="12dp"
+                    android:background="@drawable/tab_active_exact_background"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/countryTab"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ȚARĂ"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    android:textColor="@color/white"
+                    android:alpha="0.7"
+                    android:gravity="center"
+                    android:paddingVertical="12dp"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+            <!-- Sparkles Background -->
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="@string/player_header"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="20dp">
+
+                <!-- Sparkles positioned exactly like in image -->
+                <ImageView
+                    android:id="@+id/sparkle1"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="start|top"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="40dp"
+                    app:tint="@color/white"
+                    android:alpha="0.6" />
+
+                <ImageView
+                    android:id="@+id/sparkle2"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="end|top"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginTop="60dp"
+                    app:tint="@color/white"
+                    android:alpha="0.4" />
+
+                <ImageView
+                    android:id="@+id/sparkle3"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="100dp"
+                    app:tint="@color/white"
+                    android:alpha="0.5" />
+
+                <ImageView
+                    android:id="@+id/sparkle4"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="40dp"
+                    app:tint="@color/white"
+                    android:alpha="0.3" />
+
+                <ImageView
+                    android:id="@+id/sparkle5"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_star_sparkle"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="50dp"
+                    app:tint="@color/white"
+                    android:alpha="0.7" />
+
+                <!-- Crown and Title -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginTop="40dp">
+
+                    <!-- Crown exactly like in image -->
+                    <ImageView
+                        android:id="@+id/winnerCrown"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_crown_exact"
+                        android:contentDescription="Crown"
+                        app:tint="@color/leaderboard_gold" />
+
+                    <!-- Title exactly like in image -->
+                    <TextView
+                        android:id="@+id/tvTopPlayers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CEI MAI BUNI JUCĂTORI"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="16dp"
+                        android:letterSpacing="0.05" />
+
+                </LinearLayout>
+
+                <!-- Exact Podium Recreation -->
+                <RelativeLayout
+                    android:id="@+id/podiumContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="140dp"
+                    android:layout_marginHorizontal="20dp">
+
+                    <!-- Second Place (Left - Blue) -->
+                    <FrameLayout
+                        android:id="@+id/secondPlaceContainer"
+                        android:layout_width="110dp"
+                        android:layout_height="220dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/podium_second_exact_background">
+
+                        <!-- Rank number 2 at bottom -->
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="2"
+                            android:textSize="24sp"
+                            android:textColor="@color/podium_second_number"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- User info at top -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_marginTop="20dp">
+
+                            <!-- Star icon placeholder for avatar -->
+                            <FrameLayout
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/avatar_placeholder_background">
+
+                                <ImageView
+                                    android:id="@+id/secondPlaceImage"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_star_avatar"
+                                    android:layout_gravity="center"
+                                    app:tint="@color/avatar_icon_color" />
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_person"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    app:tint="@color/avatar_icon_color" />
+
+                            </FrameLayout>
+
+                            <!-- Name -->
+                            <TextView
+                                android:id="@+id/secondPlaceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_marginTop="12dp" />
+
+                            <!-- Score -->
+                            <TextView
+                                android:id="@+id/secondPlaceScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="24sp"
+                                android:layout_marginTop="8dp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <!-- First Place (Center - Gold) -->
+                    <FrameLayout
+                        android:id="@+id/firstPlaceContainer"
+                        android:layout_width="110dp"
+                        android:layout_height="260dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/podium_first_exact_background">
+
+                        <!-- Rank number 1 at bottom -->
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="1"
+                            android:textSize="24sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- User info at top -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_marginTop="20dp">
+
+                            <!-- Dynamic avatar for first place -->
+                            <FrameLayout
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/avatar_first_place_background">
+
+                                <ImageView
+                                    android:id="@+id/firstPlaceImage"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_person"
+                                    android:scaleType="centerCrop"
+                                    app:tint="@color/white" />
+
+                            </FrameLayout>
+
+                            <!-- Name -->
+                            <TextView
+                                android:id="@+id/firstPlaceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:layout_marginTop="12dp" />
+
+                            <!-- Score -->
+                            <TextView
+                                android:id="@+id/firstPlaceScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="28sp"
+                                android:layout_marginTop="8dp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <!-- Third Place (Right - Red) -->
+                    <FrameLayout
+                        android:id="@+id/thirdPlaceContainer"
+                        android:layout_width="110dp"
+                        android:layout_height="200dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/podium_third_exact_background">
+
+                        <!-- Rank number 3 at bottom -->
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="3"
+                            android:textSize="24sp"
+                            android:textColor="@color/podium_third_number"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- User info at top -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_marginTop="20dp">
+
+                            <!-- Dynamic avatar for third place -->
+                            <FrameLayout
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/avatar_third_place_background">
+
+                                <ImageView
+                                    android:id="@+id/thirdPlaceImage"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_person"
+                                    android:scaleType="centerCrop"
+                                    app:tint="@color/white" />
+
+                            </FrameLayout>
+
+                            <!-- Name -->
+                            <TextView
+                                android:id="@+id/thirdPlaceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:layout_marginTop="12dp" />
+
+                            <!-- Score -->
+                            <TextView
+                                android:id="@+id/thirdPlaceScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="24sp"
+                                android:layout_marginTop="8dp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <!-- Top Ranking Section exactly like in image -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TOP RANKING"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textStyle="bold"
+                    android:textColor="@color/leaderboard_gold"
+                    android:textSize="18sp"
+                    android:letterSpacing="0.1" />
+
+                <!-- Romania Flag exactly positioned -->
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/romania_flag_small"
+                    android:contentDescription="Romania Flag"
+                    android:scaleType="fitXY" />
+
+            </LinearLayout>
+
+
+
+            <!-- RecyclerView for additional entries -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/leaderboardRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                        android:nestedScrollingEnabled="false"
+                        android:clipToPadding="false"
+                        android:paddingVertical="8dp"
+                android:visibility="gone"
+                tools:itemCount="0" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Loading Overlay -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loading_overlay_background"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ProgressBar
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:indeterminateTint="@color/leaderboard_gold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score_header"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:text="Se încarcă clasamentul..."
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/leaderboardRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leaderboardHeaderCard"
-        tools:listitem="@layout/item_leaderboard_entry" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/emptyStateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:text="@string/no_leaderboard_entries"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leaderboardHeaderCard" />
-    
-    <Button
-        android:id="@+id/retryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reîncearcă"
-        android:layout_marginTop="16dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/emptyStateTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout> 
+</androidx.coordinatorlayout.widget.CoordinatorLayout> 

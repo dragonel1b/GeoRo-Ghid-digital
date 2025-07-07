@@ -27,8 +27,10 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 
 import java.util.Objects;
+import android.util.Log;
 
 public class UserActivity extends AppCompatActivity {
+    private static final String TAG = "UserActivity";
     private CardView welcomeCard;
     private GridLayout gridLayoutRegions;
     private MaterialButton logoutButton;
@@ -45,15 +47,15 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        // Verificăm dacă utilizatorul este autentificat
-        isUserLoggedIn = FirebaseAuth.getInstance().getCurrentUser() != null;
-        
-        // Initialize views
+        // Initialize views first
         mainLayout = findViewById(R.id.mainWelcome);
         setupGradientBackground();
         welcomeCard = findViewById(R.id.welcomeCard);
         gridLayoutRegions = findViewById(R.id.gridLayoutRegions);
         logoutButton = findViewById(R.id.buttonWelcome);
+
+        // Check authentication status with a slight delay to allow Firebase to initialize
+        checkAuthenticationStatus();
 
         // Inițializăm butoanele pentru clasament și profil
         setupActionButtons();
@@ -66,12 +68,47 @@ public class UserActivity extends AppCompatActivity {
 
         // Start color cycling
         startColorCycling();
-        
-        // Verificăm dacă utilizatorul a sărit peste autentificare sau nu este autentificat
+    }
+
+    /**
+     * Verifică starea de autentificare cu un mic întârziat pentru a permite Firebase să se inițializeze
+     */
+    private void checkAuthenticationStatus() {
+        // Verificăm dacă utilizatorul a sărit peste autentificare
         boolean skipLogin = getIntent().getBooleanExtra("SKIP_LOGIN", false);
-        if (skipLogin || !isUserLoggedIn) {
+        boolean fromSuccessfulLogin = getIntent().getBooleanExtra("FROM_SUCCESSFUL_LOGIN", false);
+        
+        Log.d(TAG, "Checking authentication status - skipLogin: " + skipLogin + ", fromSuccessfulLogin: " + fromSuccessfulLogin);
+        
+        if (skipLogin) {
+            Log.d(TAG, "User skipped login - setting limited functionality");
+            isUserLoggedIn = false;
             showLimitedFunctionalityWarning();
+            return;
         }
+        
+        if (fromSuccessfulLogin) {
+            // Dacă vine dintr-un login cu succes, marcăm ca fiind autentificat
+            Log.d(TAG, "User came from successful login - setting authenticated");
+            isUserLoggedIn = true;
+            updateUIForLoggedInUser();
+            return;
+        }
+
+        // Pentru alte cazuri, verificăm cu Firebase cu un mic întârziat
+        Log.d(TAG, "Checking Firebase auth status with delay...");
+        handler.postDelayed(() -> {
+            isUserLoggedIn = FirebaseAuth.getInstance().getCurrentUser() != null;
+            Log.d(TAG, "Firebase auth check result: " + isUserLoggedIn);
+            
+            if (!isUserLoggedIn) {
+                Log.d(TAG, "User not authenticated - showing limited functionality");
+                showLimitedFunctionalityWarning();
+            } else {
+                Log.d(TAG, "User authenticated - updating UI for logged in user");
+                updateUIForLoggedInUser();
+            }
+        }, 500); // Așteaptă 500ms pentru ca Firebase să își stabilească sesiunea
     }
 
     /**
@@ -103,20 +140,25 @@ public class UserActivity extends AppCompatActivity {
      * Deschide activitatea de clasament (leaderboard)
      */
     private void openLeaderboard() {
+        Log.d(TAG, "Opening leaderboard - User logged in: " + isUserLoggedIn);
+        
         // Verificăm dacă utilizatorul este autentificat pentru funcționalități complete
         if (!isUserLoggedIn) {
+            Log.d(TAG, "User not logged in - showing login required dialog for Leaderboard");
             // Afișăm dialog de avertizare/login pentru utilizatorii neautentificați
             showLoginRequiredDialog("Clasament");
             return;
         }
         
         try {
+            Log.d(TAG, "Starting LeaderboardActivity");
             // Creăm intent-ul și lansăm activitatea pe un thread separat
             // pentru a evita violările StrictMode
             Intent intent = new Intent(this, com.example.myapplication.ui.LeaderboardActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } catch (Exception e) {
+            Log.e(TAG, "Error opening leaderboard", e);
             // Folosim Snackbar în loc de Toast pentru a evita operațiuni pe disc
             // Toast-urile pot cauza DiskReadViolation în StrictMode
             Snackbar.make(findViewById(android.R.id.content), 
@@ -129,19 +171,24 @@ public class UserActivity extends AppCompatActivity {
      * Deschide activitatea de profil utilizator
      */
     private void openUserProfile() {
+        Log.d(TAG, "Opening user profile - User logged in: " + isUserLoggedIn);
+        
         // Verificăm dacă utilizatorul este autentificat pentru a accesa profilul
         if (!isUserLoggedIn) {
+            Log.d(TAG, "User not logged in - showing login required dialog for Profile");
             // Afișăm dialog de avertizare/login pentru utilizatorii neautentificați
             showLoginRequiredDialog("Profil");
             return;
         }
         
         try {
+            Log.d(TAG, "Starting UserProfileActivity");
             // Creăm intent-ul și lansăm activitatea
             Intent intent = new Intent(this, com.example.myapplication.ui.UserProfileActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } catch (Exception e) {
+            Log.e(TAG, "Error opening user profile", e);
             // Folosim Snackbar în loc de Toast pentru a evita operațiuni pe disc
             Snackbar.make(findViewById(android.R.id.content), 
                     "Eroare la deschiderea profilului", 
@@ -416,14 +463,24 @@ public class UserActivity extends AppCompatActivity {
         
         // Verificăm din nou starea de autentificare (în cazul în care utilizatorul s-a conectat între timp)
         boolean previousState = isUserLoggedIn;
-        isUserLoggedIn = FirebaseAuth.getInstance().getCurrentUser() != null;
+        boolean currentFirebaseState = FirebaseAuth.getInstance().getCurrentUser() != null;
+        
+        Log.d(TAG, "onResume - Previous state: " + previousState + ", Current Firebase state: " + currentFirebaseState + ", Current app state: " + isUserLoggedIn);
+        
+        // Actualizăm starea locală cu starea reală din Firebase
+        isUserLoggedIn = currentFirebaseState;
         
         // Dacă starea s-a schimbat (utilizatorul s-a conectat), actualizăm interfața
         if (!previousState && isUserLoggedIn) {
+            Log.d(TAG, "User state changed from not authenticated to authenticated - updating UI");
             updateUIForLoggedInUser();
             
             // Sincronizăm punctele cu Firebase
             syncPointsWithFirebase();
+        } else if (previousState && !isUserLoggedIn) {
+            Log.d(TAG, "User state changed from authenticated to not authenticated - showing limited functionality");
+            Log.d(TAG, "This likely happened due to logout from another activity (e.g., UserProfileActivity)");
+            showLimitedFunctionalityWarning();
         }
     }
 
@@ -446,6 +503,8 @@ public class UserActivity extends AppCompatActivity {
      * Afișează un banner de avertizare când utilizatorul folosește aplicația fără autentificare
      */
     private void showLimitedFunctionalityWarning() {
+        Log.d(TAG, "Showing limited functionality warning");
+        
         // Afișăm cardView-ul de avertizare
         CardView warningBanner = findViewById(R.id.warningBanner);
         if (warningBanner != null) {
@@ -494,12 +553,16 @@ public class UserActivity extends AppCompatActivity {
                 }, 150);
             });
         }
+        
+        Log.d(TAG, "Limited functionality warning shown successfully");
     }
     
     /**
      * Actualizează interfața pentru utilizatorii autentificați
      */
     private void updateUIForLoggedInUser() {
+        Log.d(TAG, "Updating UI for logged in user");
+        
         // Ascundem banner-ul de avertizare
         CardView warningBanner = findViewById(R.id.warningBanner);
         if (warningBanner != null) {
@@ -519,6 +582,7 @@ public class UserActivity extends AppCompatActivity {
         
         // Afișăm un mesaj de bun venit
         Toast.makeText(this, "Bine ai revenit! Acum ai acces la toate funcționalitățile.", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "UI updated for logged in user successfully");
     }
     
     /**

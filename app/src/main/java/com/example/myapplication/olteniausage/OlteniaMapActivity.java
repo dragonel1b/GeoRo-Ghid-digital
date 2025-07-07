@@ -133,6 +133,7 @@ public class OlteniaMapActivity extends BaseMapActivity {
         Intent intent = new Intent(this, Oltenia.class);
         startActivity(intent);
         finish();
+        super.onBackPressed();
     }
     
     @Override

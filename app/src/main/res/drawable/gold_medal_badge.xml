@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Medal Base -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:startColor="#FFD700"
+                android:centerColor="#FFA000"
+                android:endColor="#FF8F00"
+                android:type="radial"
+                android:gradientRadius="16dp" />
+            <stroke
+                android:width="2dp"
+                android:color="#FF6F00" />
+        </shape>
+    </item>
+    
+    <!-- Number 1 -->
+    <item android:gravity="center">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list> 

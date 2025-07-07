@@ -208,6 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Navigate to UserActivity after successful login with clear task
                 Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("FROM_SUCCESSFUL_LOGIN", true); // Indicăm că login-ul a fost cu succes
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_exit, R.anim.fade_out);
             }
