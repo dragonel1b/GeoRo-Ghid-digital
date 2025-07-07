@@ -263,6 +263,7 @@
     <color name="dobrogea_text">#263238</color>              <!-- Dark text -->
     <color name="dobrogea_card_bg">#FFFFFF</color>           <!-- White for cards -->
     <color name="dobrogea_progress_start">#1E88E5</color>
+    <color name="dobrogea_error">#F44336</color>             <!-- Red for error messages -->
     
     <!-- Culinary Theme Colors -->
     <color name="culinary_primary">#FF4500</color>           <!-- Rich orange-red for culinary theme -->
