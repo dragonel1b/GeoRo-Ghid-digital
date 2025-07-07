@@ -11,7 +11,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -736,20 +735,6 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         setupLifelines();
         applyButtonStyles();
         setupAccessibility();
-        
-        // Adaugă un buton temporar pentru ștergerea cache-ului local
-        Button clearCacheButton = new Button(this);
-        clearCacheButton.setText("Șterge cache întrebări Transilvania");
-        clearCacheButton.setOnClickListener(v -> {
-            String cacheKey = "questions_cache_transilvania_quiz";
-            getSharedPreferences("HybridStorage", MODE_PRIVATE).edit().remove(cacheKey).apply();
-            Toast.makeText(this, "Cache local pentru întrebări Transilvania șters!", Toast.LENGTH_SHORT).show();
-        });
-        // Adaugă butonul la layout-ul principal (doar pentru test)
-        ViewGroup rootView = findViewById(android.R.id.content);
-        if (rootView != null) {
-            rootView.addView(clearCacheButton);
-        }
     }
     
     /**
@@ -881,7 +866,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             Map<String, Object> questionMap = new HashMap<>();
             questionMap.put("question", question.getQuestion());
             questionMap.put("correctAnswer", question.getCorrectAnswer());
-            questionMap.put("incorrectAnswers", question.getIncorrectAnswers().toArray(new String[0])); // Folosim String[]
+            questionMap.put("incorrectAnswers", question.getIncorrectAnswers()); // Folosim String[]
             questionMap.put("fact", question.getFact());
             questionMap.put("imageResourceId", question.getImageResourceId());
             questionMaps.add(questionMap);
@@ -1895,13 +1880,10 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
                 ", Difficulty: " + currentQuestion.getDifficulty().displayName + "]");
         
         // Obținem toate răspunsurile
-        String[] allAnswers = currentQuestion.getAnswers().toArray(new String[0]);
+        List<String> allAnswers = currentQuestion.getAnswers();
         
         // Amestecăm răspunsurile pentru varietate
-        List<String> shuffledAnswers = new ArrayList<>();
-        for (String answer : allAnswers) {
-            shuffledAnswers.add(answer);
-        }
+        List<String> shuffledAnswers = new ArrayList<>(allAnswers);
         Collections.shuffle(shuffledAnswers);
         
         // Setăm textul butoanelor

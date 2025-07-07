@@ -2208,7 +2208,7 @@ public class OlteniaGameActivity extends AppCompatActivity {
             EnhancedQuestionModel enhanced = new EnhancedQuestionModel(
                 question.getQuestion(),
                 question.getCorrectAnswer(),
-                question.getIncorrectAnswers(), // Folosim String[] nu List<String>
+                question.getIncorrectAnswers(), // Pass List<String> directly
                 question.getImageResourceId(),
                 question.getFact(),
                 inferCategory(question.getQuestion()),
@@ -2319,13 +2319,13 @@ public class OlteniaGameActivity extends AppCompatActivity {
         questions = new ArrayList<>();
         
         for (EnhancedQuestionModel enhanced : enhancedQuestions) {
-            // Use the String[] version for easier manipulation
-            String[] incorrectAnswers = enhanced.getIncorrectAnswers();
-            String[] allAnswers = new String[incorrectAnswers.length + 1];
+            // Use the List<String> version for easier manipulation
+            List<String> incorrectAnswers = enhanced.getIncorrectAnswers();
+            String[] allAnswers = new String[incorrectAnswers.size() + 1];
             allAnswers[0] = enhanced.getCorrectAnswer();
             
-            for (int i = 0; i < incorrectAnswers.length; i++) {
-                allAnswers[i + 1] = incorrectAnswers[i];
+            for (int i = 0; i < incorrectAnswers.size(); i++) {
+                allAnswers[i + 1] = incorrectAnswers.get(i);
             }
             
             // Shuffle answers and find correct index

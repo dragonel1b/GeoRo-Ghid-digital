@@ -264,6 +264,8 @@
     <color name="dobrogea_card_bg">#FFFFFF</color>           <!-- White for cards -->
     <color name="dobrogea_progress_start">#1E88E5</color>
     <color name="dobrogea_error">#F44336</color>             <!-- Red for error messages -->
+    <color name="dobrogea_warning">#FF9800</color>           <!-- Orange for warning messages -->
+    <color name="dobrogea_success">#4CAF50</color>           <!-- Green for success messages -->
     
     <!-- Culinary Theme Colors -->
     <color name="culinary_primary">#FF4500</color>           <!-- Rich orange-red for culinary theme -->
@@ -330,7 +332,15 @@
     <color name="transilvaniaResult_card_bg">#FFFFFF</color>        <!-- Pure white cards -->
     <color name="transilvaniaResult_text">#212121</color>           <!-- Dark text for maximum contrast -->
 
-    <!-- Bucovina Theme Colors - Inspirate din Albastrul de Voroneț și peisajele Bucovinei -->
+    <!-- Dobrogea Result Theme Colors - Maritime palette for results screen -->
+    <color name="dobrogeaResult_primary">#1976D2</color>         <!-- Ocean blue -->
+    <color name="dobrogeaResult_primary_dark">#0D47A1</color>    <!-- Dark ocean blue -->
+    <color name="dobrogeaResult_accent">#FFD600</color>          <!-- Sandy gold -->
+    <color name="dobrogeaResult_background">#E0F7FA</color>      <!-- Delta light green/blue -->
+    <color name="dobrogeaResult_card_bg">#FFFFFF</color>         <!-- Pure white for cards -->
+    <color name="dobrogeaResult_text">#212121</color>            <!-- Black for max contrast -->
+
+    <!-- Bucovina Theme Colors -->
     <color name="bucovina_primary">#1B5583</color>           <!-- Albastrul de Voroneț - mai închis -->
     <color name="bucovina_primary_light">#4A8FBF</color>     <!-- Albastrul de Voroneț - mai deschis -->
     <color name="bucovina_primary_dark">#0C3A61</color>     <!-- Albastrul de Voroneț - și mai închis -->
