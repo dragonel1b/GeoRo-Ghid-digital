@@ -16,7 +16,8 @@ public class EnhancedQuestionModel extends QuestionModel {
         GASTRONOMY("Gastronomie", "🍽️", "#FF6347"),
         LEGENDS("Legende", "🐉", "#8B008B"),
         PERSONALITIES("Personalități", "👑", "#DAA520"),
-        NATURE("Natură", "🌲", "#006400");
+        NATURE("Natură", "🌲", "#006400"),
+        GENERAL("General", "📚", "#666666");
         
         public final String displayName;
         public final String emoji;
@@ -56,6 +57,7 @@ public class EnhancedQuestionModel extends QuestionModel {
     private String detailedExplanation;
     private boolean isMultimedia;
     private String sourceReference;
+    private String id;
     
     /**
      * Constructor complet pentru întrebări îmbunătățite
@@ -69,6 +71,7 @@ public class EnhancedQuestionModel extends QuestionModel {
         this.tags = tags != null ? tags : new String[0];
         this.estimatedTimeSeconds = calculateEstimatedTime();
         this.isMultimedia = imageResourceId != 0 || (imageUrl != null && !imageUrl.isEmpty());
+        this.id = generateId();
     }
     
     /**
@@ -287,10 +290,35 @@ public class EnhancedQuestionModel extends QuestionModel {
     /**
      * Returnează o reprezentare string pentru debugging
      */
+    /**
+     * Returnează ID-ul unic al întrebării
+     */
+    public String getId() {
+        if (id == null) {
+            id = generateId();
+        }
+        return id;
+    }
+    
+    /**
+     * Setează ID-ul întrebării
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    /**
+     * Generează un ID unic pentru întrebare
+     */
+    private String generateId() {
+        return String.valueOf(Math.abs(getQuestion().hashCode()));
+    }
+    
     @Override
     public String toString() {
         return "EnhancedQuestionModel{" +
-                "question='" + getQuestion() + '\'' +
+                "id='" + getId() + '\'' +
+                ", question='" + getQuestion() + '\'' +
                 ", category=" + category +
                 ", difficulty=" + difficulty +
                 ", tags=" + Arrays.toString(tags) +

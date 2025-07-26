@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,13 +20,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.PointsManager;
+import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.utils.RegionGameEnhancer;
+import com.example.myapplication.utils.HapticFeedbackType;
+import com.example.myapplication.Joc1.AchievementManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,16 +42,51 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.auth.FirebaseUser;
+
 /**
- * Activitate pentru jocul regiunii Muntenia
+ * Activitate pentru jocul regiunii Muntenia - Enhanced Version
  */
 public class MunteniaGameActivity extends AppCompatActivity {
+    private static final String TAG = "MunteniaGameActivity";
+    private static final String REGION = "muntenia";
+    private static final String GAME_TYPE = "quiz";
+
+    // Modern game systems
+    private GameModeManager gameModeManager;
+    private DifficultyManager difficultyManager;
+    private PlayerProgressTracker progressTracker;
+    private RegionGameEnhancer gameEnhancer;
+    private RegionGameEnhancer.GameConstants gameConstants;
+    
+    // Enhanced question management
+    private List<EnhancedQuestionModel> enhancedQuestions;
+    
+    // Enhanced game state variables
+    private long totalTime = 0;
+    private long questionStartTime = 0;
+    private boolean answerSelected = false;
+    private int correctAnswers = 0;
+    private int maxStreak = 0;
+    
+    // Lifeline states
+    private boolean hintUsed = false;
+    
+    // Enhanced timer and UI
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Random random = new Random();
 
     private static final int TOTAL_QUESTIONS = 10;
-    private static final int TIME_PER_QUESTION = 20000; // 20 seconds in milliseconds
+    private static final int TIME_PER_QUESTION = 20000; // Will be updated by game constants
     private static final int CORRECT_ANSWER_POINTS = 50;
     private static final int TIME_BONUS_POINTS = 10;
 
@@ -62,6 +104,8 @@ public class MunteniaGameActivity extends AppCompatActivity {
     private ImageView questionImage;
     private MaterialButton fiftyFiftyButton;
     private MaterialButton skipQuestionButton;
+    private ImageButton hintButton;
+    private ImageButton quitButton;
     private MaterialCardView answerCard1;
     private MaterialCardView answerCard2;
     private MaterialCardView answerCard3;
@@ -90,7 +134,6 @@ public class MunteniaGameActivity extends AppCompatActivity {
     private boolean skipUsed = false;
     private Set<Integer> answeredQuestions = new HashSet<>();
     
-    private List<Question> questions;
     private int currentQuestionIndex = 0;
     private int score = 0;
     private boolean fiftyFiftyUsed = false;
@@ -115,25 +158,75 @@ public class MunteniaGameActivity extends AppCompatActivity {
     private List<QuizQuestion> quizQuestions;
     private List<QuizQuestion> selectedQuestions;
 
+    // --- HYBRID SYSTEM FIELDS ---
+    private static final String DATA_SOURCE_PREF_KEY = "data_source_preference";
+    private static final String CACHE_KEY = "questions_cache_" + REGION + "_" + GAME_TYPE;
+    private static final String CACHE_TIMESTAMP_KEY = CACHE_KEY + "_timestamp";
+    private static final long CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24h
+    private String dataSourcePreference = "ask_every_time";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set theme before super.onCreate
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.Theme_MyApplication_Dark);
+        } else {
+            setTheme(R.style.Theme_MyApplication_Light);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_muntenia_game);
+        
+        // Initialize enhanced systems first
+        initializeEnhancedSystems();
         
         // Initialize views and game
         initViews();
         setupSounds();
-        initQuestions();
-        selectRandomQuestions();
+        // Dialog setup pentru sursă și număr întrebări
+        showInitialSetupDialog();
+        
+        // Convert to enhanced questions and filter by game mode
+        // convertToEnhancedQuestions(); // This will be called after selectedQuestions is populated
+        // filterQuestionsByGameMode(); // This will be called after selectedQuestions is populated
+        
+        // Setup lifelines
+        setupLifelines();
         
         // Start with first question
-        displayQuestion(currentQuestionIndex);
+        // displayQuestion(currentQuestionIndex); // This will be called after selectedQuestions is populated
         
         // Update UI
         updateScoreDisplay();
         
         // Start timer
-        startTimer();
+        // startTimer(); // This will be called after selectedQuestions is populated
+    }
+    
+    /**
+     * Initialize modern game systems
+     */
+    private void initializeEnhancedSystems() {
+        try {
+            // Initialize the modern managers
+            gameModeManager = new GameModeManager(this);
+            difficultyManager = new DifficultyManager(this);
+            progressTracker = new PlayerProgressTracker(this);
+            
+            // Initialize game enhancer
+            gameEnhancer = new RegionGameEnhancer(this, "Muntenia");
+            gameEnhancer.initializeGameMode(getIntent());
+            
+            // Get updated game constants
+            gameConstants = gameEnhancer.updateGameConstants();
+            
+            Log.d(TAG, "Enhanced systems initialized successfully for Muntenia");
+            Log.d(TAG, "Game constants - Time: " + (gameConstants != null ? gameConstants.timePerQuestion : TIME_PER_QUESTION) + "ms, Points: " + (gameConstants != null ? gameConstants.pointsPerCorrectAnswer : CORRECT_ANSWER_POINTS));
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error initializing enhanced systems for Muntenia", e);
+            // Fallback to basic values
+        }
     }
 
     private void initViews() {
@@ -156,6 +249,15 @@ public class MunteniaGameActivity extends AppCompatActivity {
         answerCard2 = findViewById(R.id.answerCard2);
         answerCard3 = findViewById(R.id.answerCard3);
         answerCard4 = findViewById(R.id.answerCard4);
+        
+        // Initialize enhanced lifeline buttons (if available in layout)
+        try {
+            // Note: These buttons are not in the layout, so we'll use null checks
+            hintButton = null;
+            quitButton = null;
+        } catch (Exception e) {
+            Log.d(TAG, "Some enhanced lifeline buttons not available in layout");
+        }
 
         // Set progress bar max and progress
         progressBar.setMax(QUESTION_COUNT);
@@ -171,9 +273,47 @@ public class MunteniaGameActivity extends AppCompatActivity {
         finishButton.setOnClickListener(v -> showFinalScore());
         finishButton.setVisibility(View.GONE);
 
-        // Set click listeners for lifelines
-        fiftyFiftyButton.setOnClickListener(v -> useFiftyFifty());
-        skipQuestionButton.setOnClickListener(v -> skipQuestion());
+        // Lifeline click listeners will be set in setupLifelines()
+    }
+    
+    /**
+     * Setup lifelines with enhanced functionality
+     */
+    private void setupLifelines() {
+        // Check if lifelines are allowed in current game mode
+        boolean lifelinesAllowed = gameModeManager != null ? gameModeManager.areLifelinesAllowed() : true;
+        
+        // 50:50 lifeline
+        if (fiftyFiftyButton != null) {
+            boolean canUseFiftyFifty = lifelinesAllowed && !fiftyFiftyUsed && 
+                (difficultyManager == null || difficultyManager.canUseLifeline(fiftyFiftyUsed ? 1 : 0));
+            fiftyFiftyButton.setEnabled(canUseFiftyFifty);
+            fiftyFiftyButton.setAlpha(canUseFiftyFifty ? 1.0f : 0.5f);
+            fiftyFiftyButton.setOnClickListener(v -> useFiftyFifty());
+        }
+
+        // Hint lifeline
+        if (hintButton != null) {
+            boolean canUseHint = lifelinesAllowed && !hintUsed && 
+                (difficultyManager == null || difficultyManager.canUseLifeline(hintUsed ? 1 : 0));
+            hintButton.setEnabled(canUseHint);
+            hintButton.setAlpha(canUseHint ? 1.0f : 0.5f);
+            hintButton.setOnClickListener(v -> useHint());
+        }
+        
+        // Skip question lifeline
+        if (skipQuestionButton != null) {
+            boolean canUseSkip = lifelinesAllowed && !skipQuestionUsed && 
+                (difficultyManager == null || difficultyManager.canUseLifeline(skipQuestionUsed ? 1 : 0));
+            skipQuestionButton.setEnabled(canUseSkip);
+            skipQuestionButton.setAlpha(canUseSkip ? 1.0f : 0.5f);
+            skipQuestionButton.setOnClickListener(v -> skipQuestion());
+        }
+        
+        // Quit button
+        if (quitButton != null) {
+            quitButton.setOnClickListener(v -> showQuitConfirmation());
+        }
     }
 
     private void setupSounds() {
@@ -182,6 +322,82 @@ public class MunteniaGameActivity extends AppCompatActivity {
         // Replace missing sound with existing ones
         clockSound = MediaPlayer.create(this, R.raw.clock_thinking);
         winSound = MediaPlayer.create(this, R.raw.win_sound);
+    }
+    
+    /**
+     * Use hint lifeline - provides intelligent hints based on question category
+     */
+    private void useHint() {
+        if (hintUsed) {
+            Toast.makeText(this, "Ai folosit deja indiciul!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        // Mark hint as used
+        hintUsed = true;
+        if (hintButton != null) {
+            hintButton.setEnabled(false);
+            hintButton.setAlpha(0.5f);
+        }
+        
+        // Get current enhanced question for category-based hint
+        if (enhancedQuestions != null && currentQuestionIndex < enhancedQuestions.size()) {
+            EnhancedQuestionModel enhancedQuestion = enhancedQuestions.get(currentQuestionIndex);
+            showCategoryBasedHint(enhancedQuestion.getCategory());
+        } else {
+            // Fallback hint for Muntenia
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("💡 Indiciu")
+                    .setMessage("Indiciu: Gândește-te la istoria, geografia și tradițiile specifice Munteniei - regiunea centrală a României cu București ca centru.")
+                    .setPositiveButton("Am înțeles", null)
+                    .show();
+        }
+        
+        Log.d(TAG, "Hint used for question " + currentQuestionIndex);
+    }
+    
+    /**
+     * Show category-based hint
+     */
+    private void showCategoryBasedHint(EnhancedQuestionModel.Category category) {
+        String hintMessage = "";
+        String hintTitle = "💡 Indiciu - " + category.displayName;
+        
+        switch (category) {
+            case HISTORY:
+                hintMessage = "Concentrează-te pe evenimentele istorice, domnitori și perioade importante din istoria Munteniei.";
+                break;
+            case GEOGRAPHY:
+                hintMessage = "Gândește-te la relief, râuri, orașe și caracteristicile geografice specifice Munteniei.";
+                break;
+            case ARCHITECTURE:
+                hintMessage = "Focusează-te pe monumente, palate, mănăstiri și arhitectura tradițională din Muntenia.";
+                break;
+            case CULTURE:
+                hintMessage = "Consideră tradițiile, obiceiurile, festivalurile și aspectele culturale specifice Munteniei.";
+                break;
+            default:
+                hintMessage = "Gândește-te la aspectele generale ale Munteniei - istoria, geografia și cultura regiunii.";
+                break;
+        }
+        
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(hintTitle)
+                .setMessage(hintMessage)
+                .setPositiveButton("Am înțeles", null)
+                .show();
+    }
+    
+    /**
+     * Show quit confirmation dialog with current statistics
+     */
+    private void showQuitConfirmation() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("🚪 Ieșire din Quiz")
+                .setMessage("Ești sigur că vrei să ieși? Progresul va fi pierdut!")
+                .setPositiveButton("Da, ieși", (dialog, which) -> finish())
+                .setNegativeButton("Continuă", null)
+                .show();
     }
 
     private void initQuestions() {
@@ -300,6 +516,115 @@ public class MunteniaGameActivity extends AppCompatActivity {
         
         // Select the first QUESTION_COUNT questions
         selectedQuestions = new ArrayList<>(quizQuestions.subList(0, Math.min(QUESTION_COUNT, quizQuestions.size())));
+        
+        // Convert to enhanced questions for advanced tracking
+        convertToEnhancedQuestions();
+    }
+    
+    /**
+     * Convert regular questions to enhanced questions for advanced tracking
+     */
+    private void convertToEnhancedQuestions() {
+        if (selectedQuestions != null) {
+            enhancedQuestions = convertToEnhancedQuestions(selectedQuestions);
+            Log.d(TAG, "Converted " + selectedQuestions.size() + " questions to enhanced format for Muntenia");
+        } else {
+            Log.w(TAG, "Selected questions not available, skipping enhanced question conversion");
+        }
+    }
+    
+    /**
+     * Filter questions based on current game mode
+     */
+    private void filterQuestionsByGameMode() {
+        if (enhancedQuestions != null && !enhancedQuestions.isEmpty()) {
+            enhancedQuestions = gameModeManager.filterQuestionsForGameMode(enhancedQuestions);
+            Log.d(TAG, "Filtered questions for game mode: " + gameModeManager.getCurrentGameMode().displayName);
+        }
+    }
+    
+    /**
+     * Convert QuizQuestion objects to EnhancedQuestionModel objects
+     */
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuizQuestion> questions) {
+        List<EnhancedQuestionModel> enhanced = new ArrayList<>();
+        
+        for (QuizQuestion question : questions) {
+            // Map questions to categories based on content
+            EnhancedQuestionModel.Category category = inferCategory(question.getQuestion());
+            EnhancedQuestionModel.Difficulty difficulty = inferDifficulty(question);
+            
+            // Get the correct answer and incorrect answers
+            List<String> answers = question.getAnswers();
+            String correctAnswer = answers.get(question.getCorrectAnswerIndex());
+            List<String> incorrectAnswers = new ArrayList<>(answers);
+            incorrectAnswers.remove(question.getCorrectAnswerIndex());
+            
+            EnhancedQuestionModel enhancedQuestion = new EnhancedQuestionModel(
+                question.getQuestion(),
+                correctAnswer,
+                incorrectAnswers,
+                question.getImageResource(),
+                question.getFact(),
+                category,
+                difficulty,
+                new String[]{}
+            );
+            
+            enhanced.add(enhancedQuestion);
+        }
+        
+        Log.d(TAG, "Converted " + questions.size() + " questions to enhanced format");
+        return enhanced;
+    }
+    
+    /**
+     * Infer category based on question content
+     */
+    private EnhancedQuestionModel.Category inferCategory(String questionText) {
+        String text = questionText.toLowerCase();
+        
+        if (text.contains("capital") || text.contains("oraș") || text.contains("localitate")) {
+            return EnhancedQuestionModel.Category.GEOGRAPHY;
+        } else if (text.contains("monument") || text.contains("mănăstire") || text.contains("palat")) {
+            return EnhancedQuestionModel.Category.ARCHITECTURE;
+        } else if (text.contains("domnitor") || text.contains("istorie") || text.contains("secol")) {
+            return EnhancedQuestionModel.Category.HISTORY;
+        } else if (text.contains("relief") || text.contains("câmpie") || text.contains("râu")) {
+            return EnhancedQuestionModel.Category.GEOGRAPHY;
+        } else if (text.contains("stațiune") || text.contains("turism")) {
+            return EnhancedQuestionModel.Category.CULTURE;
+        } else {
+            return EnhancedQuestionModel.Category.CULTURE; // Default
+        }
+    }
+    
+    /**
+     * Infer difficulty based on question content
+     */
+    private EnhancedQuestionModel.Difficulty inferDifficulty(QuizQuestion question) {
+        String text = question.getQuestion().toLowerCase();
+        int questionLength = text.length();
+        
+        // Short and direct questions are easier
+        if (questionLength < 50 && 
+            (text.contains("care") || text.contains("unde") || text.contains("ce"))) {
+            return EnhancedQuestionModel.Difficulty.EASY;
+        }
+        
+        // Questions with specific details or exact dates are harder
+        if (text.contains("anul") || text.contains("secolul") || text.contains("exacte") ||
+            text.contains("precisez") || questionLength > 120) {
+            return EnhancedQuestionModel.Difficulty.HARD;
+        }
+        
+        // Very specific questions or with multiple elements
+        if (text.contains("dintre următoarele") && text.contains("nu") ||
+            text.contains("toate") || text.contains("exclusiv")) {
+            return EnhancedQuestionModel.Difficulty.EXPERT;
+        }
+        
+        return EnhancedQuestionModel.Difficulty.MEDIUM; // Default
     }
 
     @SuppressLint("SetTextI18n")
@@ -309,7 +634,11 @@ public class MunteniaGameActivity extends AppCompatActivity {
             return;
         }
 
-        timeLeftInMillis = TIME_PER_QUESTION;
+        // Set question start time for tracking
+        questionStartTime = System.currentTimeMillis();
+        answerSelected = false;
+
+        timeLeftInMillis = gameModeManager != null ? gameModeManager.getTimePerQuestion() : TIME_PER_QUESTION;
         QuizQuestion currentQuestion = selectedQuestions.get(index);
         questionTextView.setText(currentQuestion.getQuestion());
 
@@ -387,10 +716,12 @@ public class MunteniaGameActivity extends AppCompatActivity {
             timer.cancel();
         }
         
-        timeLeft = 30;
+        // Get time per question from game mode manager
+        int timePerQuestion = gameModeManager != null ? gameModeManager.getTimePerQuestion() / 1000 : 30;
+        timeLeft = timePerQuestion;
         timerTextView.setText(String.valueOf(timeLeft));
         
-        timer = new CountDownTimer(30000, 1000) {
+        timer = new CountDownTimer(timePerQuestion * 1000L, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeft = (int) (millisUntilFinished / 1000);
@@ -416,10 +747,20 @@ public class MunteniaGameActivity extends AppCompatActivity {
     }
 
     private void checkAnswer(int selectedAnswerIndex) {
-        if (answered) return;
+        if (currentQuestionIndex >= selectedQuestions.size()) {
+            showFinalScore();
+            return;
+        }
+        // Prevent multiple answers
+        if (answered || answerSelected) return;
         
         // Mark question as answered
         answered = true;
+        answerSelected = true;
+        
+        // Calculate time taken for this question
+        long questionTime = System.currentTimeMillis() - questionStartTime;
+        totalTime += questionTime;
         
         // Stop timer
         if (timer != null) {
@@ -428,8 +769,12 @@ public class MunteniaGameActivity extends AppCompatActivity {
         
         QuizQuestion currentQuestion = selectedQuestions.get(currentQuestionIndex);
         int correctAnswerIndex = currentQuestion.getCorrectAnswerIndex();
+        boolean isCorrect = selectedAnswerIndex == correctAnswerIndex;
         MaterialCardView selectedCard = getCardByIndex(selectedAnswerIndex);
         MaterialCardView correctCard = getCardByIndex(correctAnswerIndex);
+        
+        // Haptic feedback based on answer (simplified)
+        // Note: Haptic feedback can be implemented here if needed
         
         // Disable all buttons
         enableAnswerButtons(false);
@@ -459,13 +804,28 @@ public class MunteniaGameActivity extends AppCompatActivity {
             streak = 0;
         } else {
             // Correct answer
-            // Calculate score based on time left
+            correctAnswers++;
+            
+            // Calculate score with game mode bonus
+            int basePoints = CORRECT_ANSWER_POINTS;
             int timeBonus = (int) (timeLeftInMillis / 1000) * TIME_BONUS_POINTS;
-            int questionScore = CORRECT_ANSWER_POINTS + timeBonus;
+            int modeBonus = gameModeManager != null ? gameModeManager.calculateModeBonus(basePoints, isCorrect, questionTime) : 0;
+            int questionScore = basePoints + timeBonus + modeBonus;
+            
+            // Apply difficulty multiplier
+            if (difficultyManager != null) {
+                questionScore = difficultyManager.calculateFinalScore(questionScore);
+            }
+            
             score += questionScore;
             
             // Increase streak
             streak++;
+            
+            // Update max streak
+            if (streak > maxStreak) {
+                maxStreak = streak;
+            }
             
             // Play correct sound
             if (correctSound != null) {
@@ -489,12 +849,19 @@ public class MunteniaGameActivity extends AppCompatActivity {
         // Update score display
         updateScoreDisplay();
         
+        // Track answer with progress tracker
+        if (enhancedQuestions != null && currentQuestionIndex < enhancedQuestions.size()) {
+            EnhancedQuestionModel enhancedQuestion = enhancedQuestions.get(currentQuestionIndex);
+            progressTracker.trackAnswer(enhancedQuestion, isCorrect, questionTime);
+        }
+        
         // Move to next question after delay
         new Handler().postDelayed(() -> {
             currentQuestionIndex++;
             
             // Check if we're at the end
             if (currentQuestionIndex >= selectedQuestions.size()) {
+                hideQuizElements();
                 finishButton.setVisibility(View.VISIBLE);
             } else {
                 displayQuestion(currentQuestionIndex);
@@ -559,6 +926,7 @@ public class MunteniaGameActivity extends AppCompatActivity {
                 startTimer();
             } else {
                 // This was the last question
+                hideQuizElements();
                 finishButton.setVisibility(View.VISIBLE);
             }
         }, 3000);
@@ -594,6 +962,11 @@ public class MunteniaGameActivity extends AppCompatActivity {
         fiftyFiftyUsed = true;
         fiftyFiftyButton.setEnabled(false);
         fiftyFiftyButton.setAlpha(0.5f);
+        
+        // Haptic feedback
+        if (gameEnhancer != null) {
+            gameEnhancer.performHapticFeedback(HapticFeedbackType.LIFELINE);
+        }
         
         // Get current question and correct answer
         QuizQuestion currentQuestion = selectedQuestions.get(currentQuestionIndex);
@@ -631,6 +1004,11 @@ public class MunteniaGameActivity extends AppCompatActivity {
         skipQuestionButton.setEnabled(false);
         skipQuestionButton.setAlpha(0.5f);
         
+        // Haptic feedback
+        if (gameEnhancer != null) {
+            gameEnhancer.performHapticFeedback(HapticFeedbackType.LIFELINE);
+        }
+        
         // Cancel the current timer
         if (timer != null) {
             timer.cancel();
@@ -644,6 +1022,7 @@ public class MunteniaGameActivity extends AppCompatActivity {
         
         // Check if we're at the end
         if (currentQuestionIndex >= selectedQuestions.size()) {
+            hideQuizElements();
             finishButton.setVisibility(View.VISIBLE);
         } else {
             displayQuestion(currentQuestionIndex);
@@ -656,6 +1035,17 @@ public class MunteniaGameActivity extends AppCompatActivity {
             timer.cancel();
         }
         
+        // Update difficulty based on performance
+        if (difficultyManager != null) {
+            difficultyManager.updateDifficultyAfterGame(correctAnswers, selectedQuestions.size(), totalTime);
+        }
+        
+        // Finish game with progress tracker
+        if (progressTracker != null) {
+            String gameModeName = gameModeManager != null ? gameModeManager.getCurrentGameMode().displayName : "Quiz Clasic";
+            progressTracker.finishGame(gameModeName, correctAnswers, selectedQuestions.size(), totalTime);
+        }
+        
         // Save high score if current score is higher
         saveHighScore();
         
@@ -664,39 +1054,169 @@ public class MunteniaGameActivity extends AppCompatActivity {
             winSound.start();
         }
         
-        // Generate achievements string
-        StringBuilder achievements = new StringBuilder();
+        // Save game result to leaderboard
+        saveGameResultToLeaderboard();
         
-        // Add achievements based on score
-        if (score >= 80) {
-            achievements.append("Expert în Muntenia\n");
-        }
-        if (score >= 50) {
-            achievements.append("Bun cunoscător al regiunii\n");
-        }
-        if (streak >= 3) {
-            achievements.append("Streak master: " + streak + " răspunsuri consecutive\n");
-        }
-        
-        // Get statistics
-        int correctAnswers = 0;
-        for (int i = 0; i < Math.min(currentQuestionIndex + 1, selectedQuestions.size()); i++) {
-            if (answeredQuestions.contains(i)) {
-                correctAnswers++;
-            }
-        }
+        // Enhanced statistics
+        float accuracy = correctAnswers > 0 ? (float) correctAnswers / selectedQuestions.size() * 100 : 0;
+        float avgTimePerQuestion = totalTime > 0 ? (float) totalTime / selectedQuestions.size() / 1000.0f : 0;
         
         int totalQuestions = Math.min(currentQuestionIndex + 1, selectedQuestions.size());
         
-        // Start GameOver activity with stats
-        Intent intent = new Intent(this, MunteniaGameOverActivity.class);
-        intent.putExtra("finalScore", score);
-        intent.putExtra("longestStreak", streak);
-        intent.putExtra("correctAnswers", correctAnswers);
-        intent.putExtra("totalQuestions", totalQuestions);
-        intent.putExtra("achievements", achievements.toString());
+        // Start modernized GameOver activity with stats
+        Intent intent = new Intent(this, GameOverActivity.class);
+        intent.putExtra("final_score", score);
+        intent.putExtra("total_questions", totalQuestions);
+        intent.putExtra("total_time_spent", totalTime);
+        intent.putExtra("game_mode", gameModeManager != null ? gameModeManager.getCurrentGameMode().displayName : "Quiz Clasic");
         startActivity(intent);
         finish();
+    }
+    
+    /**
+     * Save game result to Firestore leaderboard
+     */
+    private void saveGameResultToLeaderboard() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            Log.d(TAG, "User not logged in, skipping leaderboard save");
+            return;
+        }
+
+        try {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            
+            // Calculate final statistics
+            float accuracy = correctAnswers > 0 ? (float) correctAnswers / selectedQuestions.size() * 100 : 0;
+            float avgTimePerQuestion = totalTime > 0 ? (float) totalTime / selectedQuestions.size() / 1000.0f : 0;
+            
+            // Create game result data
+            Map<String, Object> gameResult = new HashMap<>();
+            gameResult.put("userId", currentUser.getUid());
+            gameResult.put("userName", currentUser.getDisplayName() != null ? currentUser.getDisplayName() : "Anonim");
+            gameResult.put("region", "Muntenia");
+            gameResult.put("gameType", "quiz");
+            gameResult.put("score", score);
+            gameResult.put("correctAnswers", correctAnswers);
+            gameResult.put("totalQuestions", selectedQuestions.size());
+            gameResult.put("accuracy", accuracy);
+            gameResult.put("maxStreak", maxStreak);
+            gameResult.put("totalTime", totalTime);
+            gameResult.put("averageTimePerQuestion", avgTimePerQuestion);
+            gameResult.put("timestamp", FieldValue.serverTimestamp());
+            gameResult.put("date", new Date());
+            
+            // Add lifeline usage
+            gameResult.put("fiftyFiftyUsed", fiftyFiftyUsed);
+            gameResult.put("skipUsed", skipQuestionUsed);
+            gameResult.put("hintUsed", hintUsed);
+            
+            // Save to main quiz_results collection
+            db.collection("quiz_results")
+                    .add(gameResult)
+                    .addOnSuccessListener(documentReference -> {
+                        Log.d(TAG, "Game result saved to leaderboard: " + documentReference.getId());
+                        
+                        // Update user's best score for Muntenia
+                        updateUserBestScore(currentUser.getUid(), score);
+                        
+                        // Add to user's activity history
+                        addToUserActivityHistory(currentUser.getUid(), gameResult);
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Error saving game result to leaderboard", e);
+                    });
+                    
+        } catch (Exception e) {
+            Log.e(TAG, "Error in saveGameResultToLeaderboard", e);
+        }
+    }
+    
+    /**
+     * Update user's best score for Muntenia region
+     */
+    private void updateUserBestScore(String userId, int newScore) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        
+        db.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Long currentBestScore = documentSnapshot.getLong("bestScoreMuntenia");
+                        if (currentBestScore == null || newScore > currentBestScore) {
+                            // Update best score
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("bestScoreMuntenia", newScore);
+                            updates.put("lastPlayedMuntenia", FieldValue.serverTimestamp());
+                            
+                            db.collection("users").document(userId)
+                                    .update(updates)
+                                    .addOnSuccessListener(aVoid -> Log.d(TAG, "User best score updated for Muntenia"))
+                                    .addOnFailureListener(e -> Log.e(TAG, "Error updating user best score", e));
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error getting user document", e));
+    }
+    
+    /**
+     * Add game result to user's activity history
+     */
+    private void addToUserActivityHistory(String userId, Map<String, Object> gameResult) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        
+        // Create activity entry
+        Map<String, Object> activity = new HashMap<>();
+        activity.put("type", "quiz_completed");
+        activity.put("region", "Muntenia");
+        activity.put("score", gameResult.get("score"));
+        activity.put("accuracy", gameResult.get("accuracy"));
+        activity.put("timestamp", FieldValue.serverTimestamp());
+        
+        db.collection("users").document(userId)
+                .collection("recent_activities")
+                .add(activity)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d(TAG, "Activity added to user history");
+                    
+                    // Keep only the last 20 activities
+                    cleanupUserActivityHistory(userId);
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error adding activity to user history", e));
+    }
+    
+    /**
+     * Keep only the last 20 activities for the user
+     */
+    private void cleanupUserActivityHistory(String userId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        
+        db.collection("users").document(userId)
+                .collection("recent_activities")
+                .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                .limit(20)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.size() == 20) {
+                        // Get the timestamp of the 20th document
+                        Date cutoffDate = queryDocumentSnapshots.getDocuments().get(19).getDate("timestamp");
+                        
+                        if (cutoffDate != null) {
+                            // Delete all activities older than the cutoff
+                            db.collection("users").document(userId)
+                                    .collection("recent_activities")
+                                    .whereLessThan("timestamp", cutoffDate)
+                                    .get()
+                                    .addOnSuccessListener(oldActivities -> {
+                                        for (com.google.firebase.firestore.DocumentSnapshot doc : oldActivities) {
+                                            doc.getReference().delete();
+                                        }
+                                        Log.d(TAG, "Cleaned up old activities, deleted " + oldActivities.size() + " entries");
+                                    });
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error cleaning up user activity history", e));
     }
 
     private void resetGame() {
@@ -743,28 +1263,7 @@ public class MunteniaGameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        showExitConfirmation();
-    }
-
-    private void showExitConfirmation() {
-        if (timer != null) {
-            timer.cancel();
-        }
-        
-        new AlertDialog.Builder(this)
-                .setTitle("Ieșire")
-                .setMessage("Ești sigur că vrei să părăsești jocul? Progresul va fi pierdut.")
-                .setPositiveButton("Da", (dialog, which) -> {
-                    saveHighScore();
-                    finish();
-                })
-                .setNegativeButton("Nu", (dialog, which) -> {
-                    if (timer != null) {
-                        startTimer();
-                    }
-                })
-                .setCancelable(false)
-                .show();
+        showQuitConfirmation();
     }
 
     // Quiz Question class
@@ -802,6 +1301,278 @@ public class MunteniaGameActivity extends AppCompatActivity {
         public int getImageResource() {
             return imageResource;
         }
+    }
+
+    // --- DIALOG INIȚIAL PENTRU SURSA ȘI NUMĂRUL DE ÎNTREBĂRI ---
+    private void showInitialSetupDialog() {
+        boolean hasInternet = isInternetAvailable();
+        boolean hasLocalCache = checkIfLocalCacheExistsHybrid();
+        String[] sources;
+        if (hasInternet && hasLocalCache) {
+            sources = new String[]{"🌐 Baza de Date", "📱 Cache Local", "🎯 Automat"};
+        } else if (hasInternet) {
+            sources = new String[]{"🌐 Baza de Date"};
+        } else if (hasLocalCache) {
+            sources = new String[]{"📱 Cache Local"};
+        } else {
+            sources = new String[]{"❌ Nicio sursă disponibilă"};
+        }
+        int[] numQuestionsOptions = {5, 10, 15, 20, 30, 50};
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_quiz_setup, null);
+        android.widget.Spinner sourceSpinner = dialogView.findViewById(R.id.sourceSpinner);
+        android.widget.Spinner numQuestionsSpinner = dialogView.findViewById(R.id.numQuestionsSpinner);
+        android.widget.ArrayAdapter<String> sourceAdapter = new android.widget.ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sources);
+        sourceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sourceSpinner.setAdapter(sourceAdapter);
+        android.widget.ArrayAdapter<Integer> numAdapter = new android.widget.ArrayAdapter<>(this, android.R.layout.simple_spinner_item, toIntegerList(numQuestionsOptions));
+        numAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        numQuestionsSpinner.setAdapter(numAdapter);
+        new MaterialAlertDialogBuilder(this)
+            .setTitle("Setări quiz")
+            .setView(dialogView)
+            .setCancelable(false)
+            .setPositiveButton("Start", (dialog, which) -> {
+                int sourceIndex = sourceSpinner.getSelectedItemPosition();
+                String selectedSource = sources[sourceIndex];
+                int numQuestions = (Integer) numQuestionsSpinner.getSelectedItem();
+                if (selectedSource.contains("Baza de Date")) {
+                    saveDataSourcePreferenceHybrid("always_database");
+                } else if (selectedSource.contains("Cache Local")) {
+                    saveDataSourcePreferenceHybrid("always_cache");
+                } else if (selectedSource.contains("Automat")) {
+                    saveDataSourcePreferenceHybrid("auto");
+                }
+                getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putInt("quiz_num_questions", numQuestions).apply();
+                continueHybridLoadWithNumQuestions(numQuestions);
+            })
+            .setNegativeButton("Anulează", (dialog, which) -> finish())
+            .show();
+    }
+    private java.util.List<Integer> toIntegerList(int[] arr) {
+        java.util.List<Integer> list = new java.util.ArrayList<>();
+        for (int v : arr) list.add(v);
+        return list;
+    }
+    private void continueHybridLoadWithNumQuestions(int numQuestions) {
+        boolean hasInternet = isInternetAvailable();
+        boolean hasLocalCache = checkIfLocalCacheExistsHybrid();
+        switch (dataSourcePreference) {
+            case "always_database":
+                if (hasInternet) {
+                    loadQuestionsFromDatabaseHybrid(numQuestions);
+                } else {
+                    showNoInternetForPreferredDatabaseDialogHybrid(numQuestions);
+                }
+                break;
+            case "always_cache":
+                if (hasLocalCache) {
+                    loadQuestionsFromLocalCacheHybrid(numQuestions);
+                } else {
+                    showNoCacheForPreferredLocalDialogHybrid(numQuestions);
+                }
+                break;
+            case "auto":
+                if (hasInternet) {
+                    loadQuestionsFromDatabaseHybrid(numQuestions);
+                } else if (hasLocalCache) {
+                    loadQuestionsFromLocalCacheHybrid(numQuestions);
+                } else {
+                    showDataSourceSelectionDialogHybrid(numQuestions);
+                }
+                break;
+            case "ask_every_time":
+            default:
+                showDataSourceSelectionDialogHybrid(numQuestions);
+                break;
+        }
+    }
+    // --- METODE HIBRID ---
+    private boolean isInternetAvailable() {
+        android.net.ConnectivityManager cm = (android.net.ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            android.net.NetworkInfo ni = cm.getActiveNetworkInfo();
+            return ni != null && ni.isConnected();
+        }
+        return false;
+    }
+    private boolean checkIfLocalCacheExistsHybrid() {
+        String cachedJson = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getString(CACHE_KEY, null);
+        long timestamp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getLong(CACHE_TIMESTAMP_KEY, 0);
+        boolean notExpired = (System.currentTimeMillis() - timestamp) < CACHE_EXPIRY_MS;
+        if (cachedJson != null && !cachedJson.isEmpty() && notExpired) {
+            try {
+                com.google.gson.Gson gson = new com.google.gson.Gson();
+                java.lang.reflect.Type mapType = new com.google.gson.reflect.TypeToken<java.util.Map<String, Object>>(){}.getType();
+                java.util.Map<String, Object> cacheData = gson.fromJson(cachedJson, mapType);
+                if (cacheData != null && cacheData.containsKey("questions")) {
+                    String questionsJson = gson.toJson(cacheData.get("questions"));
+                    java.lang.reflect.Type listType = new com.google.gson.reflect.TypeToken<java.util.List<QuizQuestion>>(){}.getType();
+                    java.util.List<QuizQuestion> cachedQuestions = gson.fromJson(questionsJson, listType);
+                    return cachedQuestions != null && !cachedQuestions.isEmpty();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Eroare la parsing cache local", e);
+            }
+        }
+        return false;
+    }
+    private void saveDataSourcePreferenceHybrid(String pref) {
+        dataSourcePreference = pref;
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().putString(DATA_SOURCE_PREF_KEY, pref).apply();
+    }
+    private void showNoInternetForPreferredDatabaseDialogHybrid(int numQuestions) {
+        new MaterialAlertDialogBuilder(this)
+            .setTitle("❌ Nu există conexiune la internet")
+            .setMessage("Preferința este baza de date, dar nu există conexiune. Încercați cache local?")
+            .setPositiveButton("Cache Local", (dialog, which) -> loadQuestionsFromLocalCacheHybrid(numQuestions))
+            .setNegativeButton("Închide", (dialog, which) -> finish())
+            .show();
+    }
+    private void showNoCacheForPreferredLocalDialogHybrid(int numQuestions) {
+        new MaterialAlertDialogBuilder(this)
+            .setTitle("❌ Nu există cache local")
+            .setMessage("Preferința este cache local, dar nu există date salvate. Încercați baza de date?")
+            .setPositiveButton("Baza de date", (dialog, which) -> loadQuestionsFromDatabaseHybrid(numQuestions))
+            .setNegativeButton("Închide", (dialog, which) -> finish())
+            .show();
+    }
+    private void showDataSourceSelectionDialogHybrid(int numQuestions) {
+        boolean hasInternet = isInternetAvailable();
+        boolean hasLocalCache = checkIfLocalCacheExistsHybrid();
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+        dialogBuilder.setTitle("📚 Alegeți sursa întrebărilor");
+        dialogBuilder.setCancelable(false);
+        if (hasInternet && hasLocalCache) {
+            dialogBuilder.setMessage("📊 Ambele surse sunt disponibile!\n\n🌐 Baza de Date: Întrebări actualizate\n📱 Cache Local: Încărcare rapidă\n🎯 Automat: Alege cel mai bun\n\nCe preferați?");
+            dialogBuilder.setPositiveButton("🌐 Baza de Date", (dialog, which) -> {
+                saveDataSourcePreferenceHybrid("always_database");
+                loadQuestionsFromDatabaseHybrid(numQuestions);
+            });
+            dialogBuilder.setNegativeButton("📱 Cache Local", (dialog, which) -> {
+                saveDataSourcePreferenceHybrid("always_cache");
+                loadQuestionsFromLocalCacheHybrid(numQuestions);
+            });
+            dialogBuilder.setNeutralButton("🎯 Automat", (dialog, which) -> {
+                saveDataSourcePreferenceHybrid("auto");
+                continueHybridLoadWithNumQuestions(numQuestions);
+            });
+        } else if (hasInternet) {
+            dialogBuilder.setMessage("🌐 Doar conexiune la internet disponibilă. Încărcăm din baza de date?");
+            dialogBuilder.setPositiveButton("OK", (dialog, which) -> {
+                saveDataSourcePreferenceHybrid("always_database");
+                loadQuestionsFromDatabaseHybrid(numQuestions);
+            });
+        } else if (hasLocalCache) {
+            dialogBuilder.setMessage("📱 Doar cache local disponibil. Încărcăm din cache?");
+            dialogBuilder.setPositiveButton("OK", (dialog, which) -> {
+                saveDataSourcePreferenceHybrid("always_cache");
+                loadQuestionsFromLocalCacheHybrid(numQuestions);
+            });
+        } else {
+            dialogBuilder.setMessage("❌ Nicio sursă disponibilă. Conectați-vă la internet sau jucați după ce ați descărcat întrebările.");
+            dialogBuilder.setPositiveButton("Închide", (dialog, which) -> finish());
+        }
+        dialogBuilder.show();
+    }
+    private void loadQuestionsFromDatabaseHybrid(int numQuestions) {
+        // Pentru demo: folosește întrebările hardcodate, shuffle și limitează la numQuestions
+        if (quizQuestions == null || quizQuestions.isEmpty()) {
+            initQuestions();
+        }
+        List<QuizQuestion> limitedQuestions = new ArrayList<>(quizQuestions);
+        Collections.shuffle(limitedQuestions);
+        limitedQuestions = limitedQuestions.subList(0, Math.min(numQuestions, limitedQuestions.size()));
+        selectedQuestions = limitedQuestions;
+        convertToEnhancedQuestions();
+        filterQuestionsByGameMode();
+        displayQuestion(0);
+        updateScoreDisplay();
+        startTimer();
+        saveQuestionsToLocalCacheHybrid(limitedQuestions);
+        Toast.makeText(this, "🌐 Întrebări încărcate din baza de date! (demo)", Toast.LENGTH_SHORT).show();
+    }
+    private void loadQuestionsFromLocalCacheHybrid(int numQuestions) {
+        String cachedJson = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getString(CACHE_KEY, null);
+        if (cachedJson != null && !cachedJson.isEmpty()) {
+            try {
+                com.google.gson.Gson gson = new com.google.gson.Gson();
+                java.lang.reflect.Type mapType = new com.google.gson.reflect.TypeToken<java.util.Map<String, Object>>(){}.getType();
+                java.util.Map<String, Object> cacheData = gson.fromJson(cachedJson, mapType);
+                if (cacheData != null && cacheData.containsKey("questions")) {
+                    String questionsJson = gson.toJson(cacheData.get("questions"));
+                    java.lang.reflect.Type listType = new com.google.gson.reflect.TypeToken<java.util.List<QuizQuestion>>(){}.getType();
+                    java.util.List<QuizQuestion> cachedQuestions = gson.fromJson(questionsJson, listType);
+                    if (cachedQuestions != null && !cachedQuestions.isEmpty()) {
+                        List<QuizQuestion> limitedQuestions = cachedQuestions;
+                        if (cachedQuestions.size() > numQuestions) {
+                            limitedQuestions = new ArrayList<>(cachedQuestions);
+                            Collections.shuffle(limitedQuestions);
+                            limitedQuestions = limitedQuestions.subList(0, numQuestions);
+                        }
+                        selectedQuestions = limitedQuestions;
+                        convertToEnhancedQuestions();
+                        filterQuestionsByGameMode();
+                        displayQuestion(0);
+                        updateScoreDisplay();
+                        startTimer();
+                        Toast.makeText(this, "📱 Întrebări încărcate din cache local!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Eroare la parsing cache local", e);
+            }
+        }
+        Toast.makeText(this, "❌ Nu există întrebări valide în cache local!", Toast.LENGTH_LONG).show();
+        // Fallback la întrebări hardcodate
+        selectRandomQuestions();
+        convertToEnhancedQuestions();
+        filterQuestionsByGameMode();
+        displayQuestion(0);
+        updateScoreDisplay();
+        startTimer();
+    }
+    private void saveQuestionsToLocalCacheHybrid(List<QuizQuestion> questions) {
+        try {
+            com.google.gson.Gson gson = new com.google.gson.Gson();
+            String questionsJson = gson.toJson(questions);
+            java.util.Map<String, Object> cacheData = new java.util.HashMap<>();
+            cacheData.put("questions", questions);
+            cacheData.put("timestamp", System.currentTimeMillis());
+            getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .edit()
+                .putString(CACHE_KEY, gson.toJson(cacheData))
+                .putLong(CACHE_TIMESTAMP_KEY, System.currentTimeMillis())
+                .apply();
+        } catch (Exception e) {
+            Log.e(TAG, "Eroare la salvarea în cache local (hybrid)", e);
+        }
+    }
+
+    /**
+     * Ascunde toate elementele de quiz la final, pentru un UI curat
+     */
+    private void hideQuizElements() {
+        if (answerButton1 != null) answerButton1.setVisibility(View.GONE);
+        if (answerButton2 != null) answerButton2.setVisibility(View.GONE);
+        if (answerButton3 != null) answerButton3.setVisibility(View.GONE);
+        if (answerButton4 != null) answerButton4.setVisibility(View.GONE);
+        if (answerCard1 != null) answerCard1.setVisibility(View.GONE);
+        if (answerCard2 != null) answerCard2.setVisibility(View.GONE);
+        if (answerCard3 != null) answerCard3.setVisibility(View.GONE);
+        if (answerCard4 != null) answerCard4.setVisibility(View.GONE);
+        if (timerTextView != null) timerTextView.setVisibility(View.GONE);
+        if (scoreTextView != null) scoreTextView.setVisibility(View.GONE);
+        if (questionTextView != null) questionTextView.setVisibility(View.GONE);
+        if (factTextView != null) factTextView.setVisibility(View.GONE);
+        if (streakTextView != null) streakTextView.setVisibility(View.GONE);
+        if (questionImage != null) questionImage.setVisibility(View.GONE);
+        if (questionImageCard != null) questionImageCard.setVisibility(View.GONE);
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
+        if (fiftyFiftyButton != null) fiftyFiftyButton.setVisibility(View.GONE);
+        if (skipQuestionButton != null) skipQuestionButton.setVisibility(View.GONE);
+        if (hintButton != null) hintButton.setVisibility(View.GONE);
+        if (quitButton != null) quitButton.setVisibility(View.GONE);
     }
 
     @Override

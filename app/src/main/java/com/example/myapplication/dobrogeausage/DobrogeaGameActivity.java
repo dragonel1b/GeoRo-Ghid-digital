@@ -1,8 +1,6 @@
 package com.example.myapplication.dobrogeausage;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -15,11 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
+
+import com.example.myapplication.BuildConfig;
 import com.example.myapplication.utils.SyncManager;
 
 import com.example.myapplication.models.EnhancedQuestionModel;
@@ -30,14 +28,13 @@ import com.example.myapplication.RomApp.PointsManager;
 import com.example.myapplication.models.QuestionModel;
 import com.example.myapplication.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
-import com.example.myapplication.utils.GameOverHelper;
 import com.example.myapplication.Joc1.AchievementManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import androidx.appcompat.app.AlertDialog;
+
 import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.Date;
@@ -51,11 +48,6 @@ import android.os.Vibrator;
 import android.os.VibrationEffect;
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.view.Gravity;
-import android.view.animation.OvershootInterpolator;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import java.util.Arrays;
 import android.os.Build;
 
 /**
@@ -89,6 +81,11 @@ public class DobrogeaGameActivity extends AppCompatActivity {
     private int correctAnswers = 0;
     private long totalTime = 0;
     private long questionStartTime = 0;
+    
+    // Add flag to track timer state
+    private boolean isTimerExpired = false;
+    private boolean isAnswerDialogShowing = false;
+    private boolean isAnswerBeingProcessed = false;
     
     // Enhanced question management
     private List<QuestionModel> firestoreQuestions;
@@ -228,10 +225,19 @@ public class DobrogeaGameActivity extends AppCompatActivity {
                     // Filter questions based on game mode
                     enhancedQuestions = gameModeManager.filterQuestionsForGameMode(enhancedQuestions);
                     
+                    // Verifică dacă au rămas întrebări după filtrare
+                    if (enhancedQuestions.isEmpty()) {
+                        Log.w(TAG, "No questions available after filtering for game mode");
+                        handleNoQuestionsAvailable();
+                        return;
+                    }
+                    
                     totalQuestions = enhancedQuestions.size();
                     isDataLoaded = true;
-        displayQuestion();
-        startTimer();
+                    
+                    Log.d(TAG, "🌊 Starting Dobrogea quiz with " + enhancedQuestions.size() + " questions");
+                    displayQuestion();
+                    startTimer();
                 } else {
                     handleNoQuestionsAvailable();
                 }
@@ -415,7 +421,11 @@ public class DobrogeaGameActivity extends AppCompatActivity {
      * Afișează întrebarea curentă
      */
     private void displayQuestion() {
+        Log.d(TAG, "🌊 Displaying question. Index: " + currentQuestionIndex + 
+                   ", Total: " + (enhancedQuestions != null ? enhancedQuestions.size() : "null"));
+        
         if (enhancedQuestions == null || currentQuestionIndex >= enhancedQuestions.size()) {
+            Log.w(TAG, "Cannot display question - invalid state");
             finishGame();
             return;
         }
@@ -436,10 +446,14 @@ public class DobrogeaGameActivity extends AppCompatActivity {
             answerButtons[i].setText(allAnswers.get(i));
             answerButtons[i].setVisibility(View.VISIBLE);
             answerButtons[i].setEnabled(true);
+            answerButtons[i].setClickable(true);
             
             final int index = i;
             final String answer = allAnswers.get(i);
-            answerButtons[i].setOnClickListener(v -> checkAnswer(index, answer));
+            answerButtons[i].setOnClickListener(v -> {
+                Log.d(TAG, "🌊 Button " + (index + 1) + " clicked with answer: " + answer);
+                checkAnswer(index, answer);
+            });
         }
         
         // Hide unused buttons
@@ -449,7 +463,7 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         
         // Update progress
         if (progressBar != null) {
-            int progress = (int) ((float) currentQuestionIndex / totalQuestions * 100);
+            int progress = (int) ((float) currentQuestionIndex / enhancedQuestions.size() * 100);
             progressBar.setProgress(progress);
         }
         
@@ -464,15 +478,49 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         
         questionStartTime = System.currentTimeMillis();
         
-        Log.d(TAG, "🌊 Displaying Dobrogea question " + (currentQuestionIndex + 1) + "/" + totalQuestions);
+        Log.d(TAG, "🌊 Successfully displayed Dobrogea question " + (currentQuestionIndex + 1) + "/" + enhancedQuestions.size());
     }
     
     /**
      * Verifică răspunsul și actualizează scorul
      */
     private void checkAnswer(int selectedAnswerIndex, String selectedAnswer) {
+        // Previne multiple răspunsuri pentru aceeași întrebare
+        if (!isDataLoaded || enhancedQuestions == null || currentQuestionIndex >= enhancedQuestions.size()) {
+            Log.w(TAG, "Cannot check answer - invalid state");
+            return;
+        }
+        
+        // Verifică dacă timer-ul a expirat
+        if (isTimerExpired) {
+            Log.w(TAG, "Cannot check answer - timer has expired");
+            return;
+        }
+        
+        // Verifică dacă dialogul de răspuns este deja afișat
+        if (isAnswerDialogShowing) {
+            Log.w(TAG, "Cannot check answer - answer dialog is already showing");
+            return;
+        }
+        
+        // Verifică dacă un răspuns este deja în curs de procesare
+        if (isAnswerBeingProcessed) {
+            Log.w(TAG, "Cannot check answer - answer is already being processed");
+            return;
+        }
+        
+        // Set flag to prevent multiple processing
+        isAnswerBeingProcessed = true;
+        
+        // Dezactivează toate butoanele pentru a preveni click-uri multiple
+        for (MaterialButton button : answerButtons) {
+            button.setEnabled(false);
+        }
+        
+        // Oprește timer-ul
         if (timer != null) {
-        timer.cancel();
+            timer.cancel();
+            timer = null;
         }
         
         long timeSpent = System.currentTimeMillis() - questionStartTime;
@@ -528,13 +576,7 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         // Show answer dialog with maritime theme
         showAnswerDialog(currentQuestion.getFact(), isCorrect);
         
-        // Check if game should end based on mode
-        if (gameModeManager.shouldEndGame(isCorrect, totalQuestions - correctAnswers)) {
-            new Handler().postDelayed(this::finishGame, 2000);
-        } else {
-            // Move to next question after delay
-            new Handler().postDelayed(this::moveToNextQuestion, 2000);
-        }
+        debugGameState();
     }
 
     private void initializeViews() {
@@ -583,69 +625,39 @@ public class DobrogeaGameActivity extends AppCompatActivity {
      * Finalizează quiz-ul Dobrogea cu salvare scor și animații
      */
     private void finishGame() {
+        Log.d(TAG, "🌊 Finishing Dobrogea quiz - Score: " + score + ", Correct: " + correctAnswers);
+        
+        // Oprește timer-ul
         if (timer != null) {
             timer.cancel();
+            timer = null;
         }
+        
+        // Reset all state flags
+        isTimerExpired = true;
+        isAnswerDialogShowing = false;
+        isAnswerBeingProcessed = false;
+        
+        // Dezactivează toate butoanele
+        for (MaterialButton button : answerButtons) {
+            button.setEnabled(false);
+            button.setClickable(false);
+        }
+        
         // Salvăm rezultatul în Firebase și leaderboard
         saveQuizResultToFirebase();
-        // Afișăm ecranul de final cu animații
-        showFinishButton();
-    }
-
-    /**
-     * Afișează ecranul de final cu animații și scor
-     */
-    private void showFinishButton() {
-        // Ascunde toate cardurile de răspuns
-        for (MaterialCardView card : answerCards) {
-            card.setVisibility(View.GONE);
-        }
-        // Mesaj de finalizare
-        questionTextView.setText("Quiz complet! Felicitări!");
-        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        fadeIn.setDuration(700);
-        questionTextView.startAnimation(fadeIn);
-        // Actualizează progress bar la final
-        progressBar.setProgress(getQuestionsCount());
-        progressBar.setContentDescription("Ai terminat quiz-ul Dobrogea!");
-        progressBar.animate()
-            .scaleY(1.2f)
-            .setDuration(300)
-            .withEndAction(() -> {
-                progressBar.animate()
-                    .scaleY(1.0f)
-                    .setDuration(200)
-                    .start();
-            })
-            .start();
-        // Afișează scorul final cu animație
-        String scoreMessage = "Scor final: " + score + " puncte";
-        TextView scoreView = new TextView(this);
-        scoreView.setText(scoreMessage);
-        scoreView.setTextSize(20);
-        scoreView.setTextColor(ContextCompat.getColor(this, R.color.dobrogea_primary));
-        scoreView.setTypeface(Typeface.DEFAULT_BOLD);
-        scoreView.setGravity(Gravity.CENTER);
-        ConstraintLayout layout = findViewById(R.id.main_constraint_layout);
-        ConstraintSet constraintSet = new ConstraintSet();
-        scoreView.setId(View.generateViewId());
-        layout.addView(scoreView);
-        constraintSet.clone(layout);
-        constraintSet.connect(scoreView.getId(), ConstraintSet.TOP, questionTextView.getId(), ConstraintSet.BOTTOM, 24);
-        constraintSet.connect(scoreView.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-        constraintSet.connect(scoreView.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-        constraintSet.applyTo(layout);
-        scoreView.setAlpha(0f);
-        scoreView.setScaleX(0.7f);
-        scoreView.setScaleY(0.7f);
-        scoreView.animate()
-            .alpha(1f)
-            .scaleX(1.0f)
-            .scaleY(1.0f)
-            .setDuration(800)
-            .setStartDelay(500)
-            .setInterpolator(new OvershootInterpolator())
-            .start();
+        
+        // Lansăm activitatea modulară de rezultat
+        Intent intent = new Intent(this, DobrogeaGameResultActivity.class);
+        intent.putExtra("score", score);
+        intent.putExtra("correctAnswers", correctAnswers);
+        intent.putExtra("totalQuestions", getQuestionsCount());
+        intent.putExtra("maxStreak", maxStreak);
+        intent.putExtra("totalTime", totalTime);
+        intent.putExtra("lifelinesUsed", lifelinesUsed);
+        intent.putExtra("gameType", GAME_TYPE);
+        startActivity(intent);
+        finish();
     }
 
     /**
@@ -993,32 +1005,31 @@ public class DobrogeaGameActivity extends AppCompatActivity {
      * Configurează funcționalitățile de accesibilitate
      */
     private void setupAccessibility() {
-        // Set content descriptions for better screen reader support
-        ViewCompat.setAccessibilityHeading(questionTextView, true);
+        // Configurare pentru accesibilitate
+        questionTextView.setContentDescription("Întrebarea curentă");
+        scoreTextView.setContentDescription("Scorul tău");
+        progressBar.setContentDescription("Progresul în quiz");
+        timerTextView.setContentDescription("Timpul rămas");
+        streakTextView.setContentDescription("Serie de răspunsuri corecte");
         
-        // Parse the timer text to integer
-        int timeValue;
-        try {
-            timeValue = Integer.parseInt(timerTextView.getText().toString());
-        } catch (NumberFormatException e) {
-            timeValue = 30; // Default value
-        }
-        timerTextView.setContentDescription("Timp rămas: " + timeValue + " secunde");
-        
-        fiftyFiftyButton.setContentDescription("Ajutor 50/50 - elimină două răspunsuri greșite");
-        hintButton.setContentDescription("Indiciu - vezi un indiciu pentru întrebare");
-        skipQuestionButton.setContentDescription("Omite întrebarea - treci la următoarea");
-        quitButton.setContentDescription("Încheie quiz-ul");
-        
-        // Set content descriptions for answer buttons based on their text
-        for (int i = 0; i < answerButtons.length; i++) {
-            MaterialButton button = answerButtons[i];
-            button.setContentDescription("Răspuns " + (i+1) + ": " + button.getText());
-        }
-        
-        // Ensure minimum touch target size for better accessibility
-        for (MaterialCardView card : answerCards) {
-            card.setMinimumHeight((int) (48 * getResources().getDisplayMetrics().density));
+        // Adăugăm buton de debug pentru dezvoltare
+        if (BuildConfig.DEBUG) {
+            Button debugButton = new Button(this);
+            debugButton.setText("🔧 Debug Next");
+            debugButton.setOnClickListener(v -> forceNextQuestion());
+            debugButton.setBackgroundColor(ContextCompat.getColor(this, R.color.dobrogea_accent));
+            debugButton.setTextColor(ContextCompat.getColor(this, R.color.white));
+            
+            ConstraintLayout layout = findViewById(R.id.main_constraint_layout);
+            ConstraintSet constraintSet = new ConstraintSet();
+            debugButton.setId(View.generateViewId());
+            layout.addView(debugButton);
+            constraintSet.clone(layout);
+            constraintSet.connect(debugButton.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 16);
+            constraintSet.connect(debugButton.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 16);
+            constraintSet.applyTo(layout);
+            
+            Log.d(TAG, "🌊 Debug button added to UI");
         }
     }
 
@@ -1029,6 +1040,10 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         if (timer != null) {
             timer.cancel();
         }
+        
+        // Reset timer state
+        isTimerExpired = false;
+        
         timer = new CountDownTimer(TIME_PER_QUESTION, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -1048,6 +1063,7 @@ public class DobrogeaGameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                isTimerExpired = true;
                 handleTimeout();
             }
         }.start();
@@ -1057,12 +1073,25 @@ public class DobrogeaGameActivity extends AppCompatActivity {
      * Gestionează timeout-ul cu feedback îmbunătățit
      */
     private void handleTimeout() {
+        // Verifică starea înainte de a procesa timeout-ul
+        if (!isDataLoaded || enhancedQuestions == null || currentQuestionIndex >= enhancedQuestions.size()) {
+            Log.w(TAG, "Cannot handle timeout - invalid state");
+            return;
+        }
+        
+        // Set timer as expired
+        isTimerExpired = true;
+        
         // Feedback haptic pentru timeout
         provideHapticFeedback(HapticFeedbackType.WRONG);
         
-        // Dezactivăm toate cardurile
+        // Dezactivăm toate cardurile și butoanele
         for (MaterialCardView card : answerCards) {
             card.setClickable(false);
+        }
+        for (MaterialButton button : answerButtons) {
+            button.setEnabled(false);
+            button.setClickable(false);
         }
         
         // Animație pentru timeout - fade out toate răspunsurile
@@ -1074,65 +1103,49 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         }
         
         // Actualizăm statisticile pentru întrebarea ratată
-        totalQuestions++;
         streak = 0;
         updateStreak();
         updateScore();
         
         // Afișăm răspunsul corect pentru timeout
-        if (enhancedQuestions != null && !enhancedQuestions.isEmpty() && 
-            currentQuestionIndex < enhancedQuestions.size()) {
-            EnhancedQuestionModel currentQuestion = enhancedQuestions.get(currentQuestionIndex);
-            String correctAnswer = currentQuestion.getCorrectAnswer();
-            String fact = currentQuestion.getFact();
-            
-            // Evidențiem răspunsul corect
-            highlightCorrectAnswer(correctAnswer);
-            
-            // Dialog pentru timeout cu informație educațională
-            String timeoutMessage = "✅ Răspunsul corect era: " + correctAnswer;
-            
-            if (fact != null && !fact.isEmpty()) {
-                timeoutMessage += "\n\n📚 " + fact;
-            }
-            
-            // Verificăm dacă este ultima întrebare pentru timeout
-            boolean isLastQuestion = (currentQuestionIndex + 1) >= getQuestionsCount();
-            String continueButtonText = isLastQuestion ? "🏁 Vezi rezultate" : "➡️ Următoarea întrebare";
-            
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
-                .setTitle("⏰ Timp expirat")
-                .setMessage(timeoutMessage)
-                .setPositiveButton(continueButtonText, (dialog, which) -> {
-                    if (isLastQuestion) {
-                        currentQuestionIndex++;
-                        finishGame();
-                    } else {
-        moveToNextQuestion();
-    }
-                })
-                .setCancelable(false);
-            
-            // Adăugăm buton de încheiere pentru timeout-uri
-            if (!isLastQuestion) {
-                dialogBuilder.setNegativeButton("🚪 Încheie quiz", (dialog, which) -> {
-                    showConfirmQuitDialog();
-                });
-            }
-            
-            dialogBuilder.show();
-        } else {
-            // Fallback dacă nu avem întrebări
-            Toast.makeText(this, "⏰ Timpul a expirat!", Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(() -> {
-                if ((currentQuestionIndex + 1) >= getQuestionsCount()) {
-                    currentQuestionIndex++;
+        EnhancedQuestionModel currentQuestion = enhancedQuestions.get(currentQuestionIndex);
+        String correctAnswer = currentQuestion.getCorrectAnswer();
+        String fact = currentQuestion.getFact();
+        
+        // Evidențiem răspunsul corect
+        highlightCorrectAnswer(correctAnswer);
+        
+        // Dialog pentru timeout cu informație educațională
+        String timeoutMessage = "✅ Răspunsul corect era: " + correctAnswer;
+        
+        if (fact != null && !fact.isEmpty()) {
+            timeoutMessage += "\n\n📚 " + fact;
+        }
+        
+        // Verificăm dacă este ultima întrebare pentru timeout
+        boolean isLastQuestion = (currentQuestionIndex + 1) >= enhancedQuestions.size();
+        String continueButtonText = isLastQuestion ? "🏁 Vezi rezultate" : "➡️ Următoarea întrebare";
+        
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
+            .setTitle("⏰ Timp expirat")
+            .setMessage(timeoutMessage)
+            .setPositiveButton(continueButtonText, (dialog, which) -> {
+                if (isLastQuestion) {
                     finishGame();
                 } else {
                     moveToNextQuestion();
                 }
-            }, 1500);
+            })
+            .setCancelable(false);
+        
+        // Adăugăm buton de încheiere pentru timeout-uri
+        if (!isLastQuestion) {
+            dialogBuilder.setNegativeButton("🚪 Încheie quiz", (dialog, which) -> {
+                showConfirmQuitDialog();
+            });
         }
+        
+        dialogBuilder.show();
         
         Log.d(TAG, "⏰ Timeout for question " + (currentQuestionIndex + 1) + ", streak reset to 0");
     }
@@ -1469,11 +1482,18 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         
         if (fact != null && !fact.isEmpty()) {
             showAnswerDialog(fact, true);
+            // Fallback în cazul în care dialog-ul nu se afișează
+            new Handler().postDelayed(() -> {
+                if (isDataLoaded && enhancedQuestions != null && currentQuestionIndex < enhancedQuestions.size() - 1) {
+                    Log.d(TAG, "🌊 Fallback: Moving to next question after dialog timeout");
+                    moveToNextQuestion();
+                }
+            }, 5000); // 5 secunde timeout
         } else {
             // Dacă nu avem fact, afișăm un mesaj generic
             new Handler().postDelayed(() -> {
                 Toast.makeText(this, "✅ Răspuns corect! +" + POINTS_PER_CORRECT_ANSWER + " puncte", Toast.LENGTH_SHORT).show();
-        moveToNextQuestion();
+                moveToNextQuestion();
             }, 1000);
         }
     }
@@ -1508,6 +1528,13 @@ public class DobrogeaGameActivity extends AppCompatActivity {
         
         if (fact != null && !fact.isEmpty()) {
             showAnswerDialog(fact, false);
+            // Fallback în cazul în care dialog-ul nu se afișează
+            new Handler().postDelayed(() -> {
+                if (isDataLoaded && enhancedQuestions != null && currentQuestionIndex < enhancedQuestions.size() - 1) {
+                    Log.d(TAG, "🌊 Fallback: Moving to next question after dialog timeout");
+                    moveToNextQuestion();
+                }
+            }, 5000); // 5 secunde timeout
         } else {
             // Dacă nu avem fact, afișăm un mesaj generic
             new Handler().postDelayed(() -> {
@@ -1575,23 +1602,64 @@ public class DobrogeaGameActivity extends AppCompatActivity {
      * Afișează dialog cu fapte educaționale
      */
     private void showAnswerDialog(String fact, boolean isCorrect) {
+        Log.d(TAG, "🌊 Showing answer dialog. Current index: " + currentQuestionIndex + 
+                   ", Total questions: " + (enhancedQuestions != null ? enhancedQuestions.size() : "null"));
+        
+        // Previne multiple dialog-uri
+        if (!isDataLoaded || enhancedQuestions == null || isAnswerDialogShowing) {
+            Log.w(TAG, "Cannot show answer dialog - invalid state or dialog already showing");
+            return;
+        }
+        
+        // Set dialog as showing
+        isAnswerDialogShowing = true;
+        
         String title = isCorrect ? "✅ Răspuns corect!" : "❌ Răspuns greșit!";
         String message = fact;
         
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("➡️ Continuă", (dialog, which) -> {
-                moveToNextQuestion();
-            })
             .setCancelable(false);
+
+        // Adăugăm buton de continuare care se dezactivează după primul click
+        dialogBuilder.setPositiveButton("➡️ Continuă", (dialog, which) -> {
+            Log.d(TAG, "🌊 Continue button clicked. Current index: " + currentQuestionIndex + 
+                       ", Total questions: " + enhancedQuestions.size());
+            
+            // Reset dialog state
+            isAnswerDialogShowing = false;
+            
+            dialog.dismiss(); // Închide dialogul
+            
+            // Check if game should end based on mode
+            if (gameModeManager.shouldEndGame(isCorrect, enhancedQuestions.size() - correctAnswers)) {
+                Log.d(TAG, "Game mode requires ending - finishing game");
+                finishGame();
+            } else {
+                // Verifică din nou starea înainte de a trece la următoarea întrebare
+                if (isDataLoaded && enhancedQuestions != null && currentQuestionIndex < enhancedQuestions.size() - 1) {
+                    Log.d(TAG, "🌊 Proceeding to next question");
+                    moveToNextQuestion();
+                } else {
+                    Log.d(TAG, "🌊 Finishing game - no more questions or invalid state");
+                    finishGame();
+                }
+            }
+        });
         
         // Adăugăm buton de încheiere pentru dialog-uri
         dialogBuilder.setNegativeButton("🚪 Încheie quiz", (dialog, which) -> {
+            isAnswerDialogShowing = false;
             showConfirmQuitDialog();
         });
         
+        dialogBuilder.setOnDismissListener(dialog -> {
+            isAnswerDialogShowing = false;
+        });
+        
         dialogBuilder.show();
+        Log.d(TAG, "🌊 Answer dialog shown successfully");
     }
 
     /**
@@ -1602,14 +1670,38 @@ public class DobrogeaGameActivity extends AppCompatActivity {
             .setTitle("🚪 Încheiere Quiz")
             .setMessage("Ești sigur că vrei să închei quiz-ul?\n\n" +
                        "📊 Scorul tău actual: " + score + " puncte\n" +
-                       "🎯 Răspunsuri corecte: " + correctAnswers + "/" + totalQuestions)
+                       "🎯 Răspunsuri corecte: " + correctAnswers + "/" + enhancedQuestions.size())
             .setPositiveButton("✓ Da, încheie", (dialog, which) -> {
                 finishGame();
             })
-            .setNegativeButton("✗ Continuă jocul", null)
+            .setNegativeButton("✗ Continuă jocul", (dialog, which) -> {
+                // Reactivează butoanele dacă utilizatorul decide să continue
+                // Doar dacă timer-ul nu a expirat
+                if (!isTimerExpired) {
+                    for (MaterialButton button : answerButtons) {
+                        if (button.getVisibility() == View.VISIBLE) {
+                            button.setEnabled(true);
+                            button.setClickable(true);
+                        }
+                    }
+                    // Reset dialog state
+                    isAnswerDialogShowing = false;
+                }
+            })
             .setNeutralButton("💾 Salvează și continuă", (dialog, which) -> {
                 // Salvăm progresul și continuăm
                 Toast.makeText(this, "💾 Progresul a fost salvat!", Toast.LENGTH_SHORT).show();
+                // Reactivează butoanele doar dacă timer-ul nu a expirat
+                if (!isTimerExpired) {
+                    for (MaterialButton button : answerButtons) {
+                        if (button.getVisibility() == View.VISIBLE) {
+                            button.setEnabled(true);
+                            button.setClickable(true);
+                        }
+                    }
+                    // Reset dialog state
+                    isAnswerDialogShowing = false;
+                }
             })
             .show();
     }
@@ -1651,9 +1743,120 @@ public class DobrogeaGameActivity extends AppCompatActivity {
      * Trece la următoarea întrebare
      */
     private void moveToNextQuestion() { 
-        currentQuestionIndex++; 
-        displayQuestion(); 
-        startTimer(); 
+        Log.d(TAG, "🌊 Attempting to move to next question. Current index: " + currentQuestionIndex + 
+                   ", Total questions: " + (enhancedQuestions != null ? enhancedQuestions.size() : "null") +
+                   ", Data loaded: " + isDataLoaded);
+        
+        // Verifică dacă jocul este încă activ
+        if (!isDataLoaded || enhancedQuestions == null) {
+            Log.w(TAG, "Cannot move to next question - data not loaded");
+            return;
+        }
+        
+        // Verifică dacă am ajuns la sfârșitul întrebărilor
+        if (currentQuestionIndex >= enhancedQuestions.size() - 1) {
+            Log.d(TAG, "Reached end of questions, finishing game");
+            finishGame();
+            return;
+        }
+        
+        // Incrementează indexul întrebării
+        currentQuestionIndex++;
+        
+        // Actualizează indexul în GameModeManager
+        gameModeManager.nextQuestion();
+        
+        // Verifică dacă jocul trebuie să se termine bazat pe modul de joc
+        if (gameModeManager.isGameComplete(enhancedQuestions.size())) {
+            Log.d(TAG, "Game mode complete, finishing game");
+            finishGame();
+            return;
+        }
+        
+        // Resetează starea pentru noua întrebare
+        resetQuestionState();
+        
+        // Afișează noua întrebare
+        displayQuestion();
+        
+        // Pornește timer-ul pentru noua întrebare
+        startTimer();
+        
+        Log.d(TAG, "🌊 Successfully moved to question " + (currentQuestionIndex + 1) + "/" + enhancedQuestions.size());
+        debugGameState();
+    }
+    
+    /**
+     * Resetează starea pentru o nouă întrebare
+     */
+    private void resetQuestionState() {
+        // Resetează timer-ul
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        
+        // Reset timer and dialog state
+        isTimerExpired = false;
+        isAnswerDialogShowing = false;
+        isAnswerBeingProcessed = false;
+        
+        // Resetează stilurile cardurilor
+        resetCardStyles();
+        
+        // Resetează lifeline-urile pentru noua întrebare
+        resetLifelinesForNewQuestion();
+        
+        // Actualizează disponibilitatea lifeline-urilor
+        updateLifelinesAvailability();
+        
+        // Resetează timpul de început pentru întrebare
+        questionStartTime = System.currentTimeMillis();
+        
+        // Dezactivează temporar butoanele pentru a preveni click-uri multiple
+        for (MaterialButton button : answerButtons) {
+            button.setEnabled(false);
+        }
+        
+        // Activează butoanele după un scurt delay
+        new Handler().postDelayed(() -> {
+            for (MaterialButton button : answerButtons) {
+                if (button.getVisibility() == View.VISIBLE) {
+                    button.setEnabled(true);
+                }
+            }
+            Log.d(TAG, "🌊 Buttons re-enabled after question reset");
+        }, 500);
+    }
+
+    /**
+     * Forțează trecerea la următoarea întrebare (pentru debugging)
+     */
+    private void forceNextQuestion() {
+        Log.d(TAG, "🌊 Force moving to next question");
+        if (isDataLoaded && enhancedQuestions != null && currentQuestionIndex < enhancedQuestions.size() - 1) {
+            moveToNextQuestion();
+        } else {
+            Log.d(TAG, "🌊 Cannot force next question - ending game");
+            finishGame();
+        }
+    }
+    
+    /**
+     * Metodă de debug pentru a verifica starea aplicației
+     */
+    private void debugGameState() {
+        Log.d(TAG, "🌊 === DEBUG GAME STATE ===");
+        Log.d(TAG, "Data loaded: " + isDataLoaded);
+        Log.d(TAG, "Enhanced questions: " + (enhancedQuestions != null ? enhancedQuestions.size() : "null"));
+        Log.d(TAG, "Current question index: " + currentQuestionIndex);
+        Log.d(TAG, "Total questions: " + totalQuestions);
+        Log.d(TAG, "Correct answers: " + correctAnswers);
+        Log.d(TAG, "Score: " + score);
+        Log.d(TAG, "Streak: " + streak);
+        Log.d(TAG, "Timer active: " + (timer != null));
+        Log.d(TAG, "Buttons enabled: " + (answerButtons[0] != null ? answerButtons[0].isEnabled() : "null"));
+        Log.d(TAG, "=== END DEBUG ===");
     }
     
     /**

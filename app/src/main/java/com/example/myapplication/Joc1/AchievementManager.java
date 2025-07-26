@@ -117,7 +117,16 @@ public class AchievementManager {
     
     private AchievementUnlockedListener listener;
     
-    private AchievementManager(Context context) {
+    /**
+     * Constructor public pentru flexibilitate
+     */
+    public AchievementManager(Context context) {
+        this.context = context.getApplicationContext();
+        this.syncManager = SyncManager.getInstance(context);
+        initializeAchievements();
+    }
+    
+    private AchievementManager(Context context, boolean singleton) {
         this.context = context.getApplicationContext();
         this.syncManager = SyncManager.getInstance(context);
         initializeAchievements();
@@ -125,7 +134,7 @@ public class AchievementManager {
     
     public static synchronized AchievementManager getInstance(Context context) {
         if (instance == null) {
-            instance = new AchievementManager(context);
+            instance = new AchievementManager(context, true);
         }
         return instance;
     }
@@ -277,6 +286,199 @@ public class AchievementManager {
                 "Transilvania"
             ));
         }
+        
+        // === BANAT QUIZ SPECIFIC ACHIEVEMENTS ===
+        
+        // Quiz Completion Achievements
+        addAchievement(new Achievement(
+            "banat_first_quiz",
+            "Banat Novice",
+            "Complete your first Banat quiz",
+            android.R.drawable.ic_menu_gallery,
+            50,
+            1,
+            AchievementCategory.TRANSILVANIA,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_quiz_veteran",
+            "Banat Veteran",
+            "Complete 10 Banat quizzes",
+            android.R.drawable.ic_menu_gallery,
+            200,
+            10,
+            AchievementCategory.TRANSILVANIA,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_quiz_master",
+            "Banat Master",
+            "Complete 25 Banat quizzes",
+            android.R.drawable.ic_menu_gallery,
+            500,
+            25,
+            AchievementCategory.TRANSILVANIA,
+            "Banat"
+        ));
+        
+        // Perfect Score Achievements
+        addAchievement(new Achievement(
+            "banat_perfect_score",
+            "Banat Scholar",
+            "Get a perfect score in a Banat quiz",
+            android.R.drawable.ic_dialog_info,
+            100,
+            1,
+            AchievementCategory.TRANSILVANIA,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_perfect_streak",
+            "Banat Perfectionist",
+            "Get 3 perfect scores in a row",
+            android.R.drawable.ic_dialog_info,
+            300,
+            3,
+            AchievementCategory.TRANSILVANIA,
+            "Banat"
+        ));
+        
+        // Difficulty Level Achievements
+        addAchievement(new Achievement(
+            "banat_intermediate_unlock",
+            "Banat Rising Scholar",
+            "Unlock Intermediate difficulty in Banat quiz",
+            android.R.drawable.ic_menu_preferences,
+            75,
+            1,
+            AchievementCategory.DIFFICULTY,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_advanced_unlock",
+            "Banat Advanced Mind",
+            "Unlock Advanced difficulty in Banat quiz",
+            android.R.drawable.ic_menu_preferences,
+            150,
+            1,
+            AchievementCategory.DIFFICULTY,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_expert_unlock",
+            "Banat Expert Knowledge",
+            "Unlock Expert difficulty in Banat quiz",
+            android.R.drawable.ic_menu_preferences,
+            300,
+            1,
+            AchievementCategory.DIFFICULTY,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_master_unlock",
+            "Master of Banat",
+            "Unlock Master difficulty in Banat quiz",
+            android.R.drawable.ic_menu_preferences,
+            500,
+            1,
+            AchievementCategory.DIFFICULTY,
+            "Banat"
+        ));
+        
+        // Game Mode Achievements
+        addAchievement(new Achievement(
+            "banat_lightning_champion",
+            "Banat Lightning Champion",
+            "Complete 5 Lightning mode quizzes",
+            android.R.drawable.ic_menu_gallery,
+            150,
+            5,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_marathon_runner",
+            "Banat Marathon Runner",
+            "Complete 3 Marathon mode quizzes",
+            android.R.drawable.ic_menu_gallery,
+            200,
+            3,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_blitz_master",
+            "Banat Blitz Master",
+            "Complete 10 Blitz mode quizzes",
+            android.R.drawable.ic_menu_gallery,
+            300,
+            10,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_survival_expert",
+            "Banat Survival Expert",
+            "Answer 20 questions in Survival mode",
+            android.R.drawable.ic_menu_gallery,
+            250,
+            20,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_speed_demon",
+            "Banat Speed Demon",
+            "Answer a question in less than 5 seconds",
+            android.R.drawable.ic_menu_gallery,
+            100,
+            1,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_streak_master",
+            "Banat Streak Master",
+            "Get 10 correct answers in a row",
+            android.R.drawable.ic_menu_gallery,
+            200,
+            10,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_accuracy_master",
+            "Banat Accuracy Master",
+            "Maintain 90% accuracy in Banat",
+            android.R.drawable.ic_menu_gallery,
+            300,
+            90,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
+        
+        addAchievement(new Achievement(
+            "banat_daily_player",
+            "Banat Daily Player",
+            "Play Banat quizzes 7 days in a row",
+            android.R.drawable.ic_menu_gallery,
+            150,
+            7,
+            AchievementCategory.GAME_MODE,
+            "Banat"
+        ));
         
         // === OLTENIA QUIZ SPECIFIC ACHIEVEMENTS ===
         
@@ -1135,6 +1337,233 @@ public class AchievementManager {
         updateTransilvaniaAccuracyAchievements();
     }
     
+    // === NEW BANAT SPECIFIC METHODS ===
+    
+    /**
+     * Update Banat quiz completion achievements
+     */
+    public void updateBanatQuizCompletions() {
+        String key = "banat_quiz_completions";
+        int completions = SharedPrefsHelper.getPrefs(context).getInt(key, 0);
+        
+        updateAchievement("banat_first_quiz", completions);
+        updateAchievement("banat_quiz_veteran", completions);
+        updateAchievement("banat_quiz_master", completions);
+    }
+    
+    /**
+     * Increment Banat quiz completion count
+     */
+    public void incrementBanatQuizCompletions() {
+        String key = "banat_quiz_completions";
+        int completions = SharedPrefsHelper.getPrefs(context).getInt(key, 0) + 1;
+        
+        SharedPrefsHelper.getPrefs(context).edit()
+            .putInt(key, completions)
+            .apply();
+            
+        updateBanatQuizCompletions();
+    }
+    
+    /**
+     * Update perfect score achievements for Banat
+     */
+    public void updateBanatPerfectScores() {
+        String key = "banat_perfect_scores";
+        int perfectScores = SharedPrefsHelper.getPrefs(context).getInt(key, 0);
+        
+        updateAchievement("banat_perfect_score", perfectScores);
+        
+        // Check for consecutive perfect scores
+        String streakKey = "banat_perfect_streak_current";
+        int currentStreak = SharedPrefsHelper.getPrefs(context).getInt(streakKey, 0);
+        updateAchievement("banat_perfect_streak", currentStreak);
+    }
+    
+    /**
+     * Record a perfect score for Banat
+     */
+    public void recordBanatPerfectScore() {
+        String key = "banat_perfect_scores";
+        String streakKey = "banat_perfect_streak_current";
+        
+        int perfectScores = SharedPrefsHelper.getPrefs(context).getInt(key, 0) + 1;
+        int currentStreak = SharedPrefsHelper.getPrefs(context).getInt(streakKey, 0) + 1;
+        
+        SharedPrefsHelper.getPrefs(context).edit()
+            .putInt(key, perfectScores)
+            .putInt(streakKey, currentStreak)
+            .apply();
+            
+        updateBanatPerfectScores();
+    }
+    
+    /**
+     * Update Banat difficulty unlock achievements
+     */
+    public void updateBanatDifficultyUnlock(String difficulty) {
+        String key = "banat_difficulty_" + difficulty;
+        int unlocks = SharedPrefsHelper.getPrefs(context).getInt(key, 0) + 1;
+        
+        SharedPrefsHelper.getPrefs(context).edit()
+            .putInt(key, unlocks)
+            .apply();
+            
+        updateAchievement("banat_difficulty_master", unlocks);
+    }
+    
+    /**
+     * Update Banat game mode achievements
+     */
+    public void updateBanatGameModeAchievements(String gameMode) {
+        String key = "banat_" + gameMode.toLowerCase() + "_completions";
+        int completions = SharedPrefsHelper.getPrefs(context).getInt(key, 0);
+        
+        switch (gameMode.toLowerCase()) {
+            case "lightning":
+                updateAchievement("banat_lightning_champion", completions);
+                break;
+            case "marathon":
+                updateAchievement("banat_marathon_runner", completions);
+                break;
+            case "blitz":
+                updateAchievement("banat_blitz_master", completions);
+                break;
+        }
+    }
+    
+    /**
+     * Increment game mode completions for Banat
+     */
+    public void incrementBanatGameModeCompletion(String gameMode) {
+        String key = "banat_" + gameMode.toLowerCase() + "_completions";
+        int completions = SharedPrefsHelper.getPrefs(context).getInt(key, 0) + 1;
+        
+        SharedPrefsHelper.getPrefs(context).edit()
+            .putInt(key, completions)
+            .apply();
+            
+        updateBanatGameModeAchievements(gameMode);
+    }
+    
+    /**
+     * Update Banat survival mode achievements
+     */
+    public void updateBanatSurvivalProgress(int questionsAnswered) {
+        updateAchievement("banat_survival_expert", questionsAnswered);
+    }
+    
+    /**
+     * Update Banat speed achievements
+     */
+    public void updateBanatSpeedAchievements(float answerTime) {
+        String key = "banat_fastest_answer";
+        float fastest = SharedPrefsHelper.getPrefs(context).getFloat(key, Float.MAX_VALUE);
+        
+        if (answerTime < fastest) {
+            SharedPrefsHelper.getPrefs(context).edit()
+                .putFloat(key, answerTime)
+                .apply();
+        }
+        
+        updateAchievement("banat_speed_demon", (int)(10000 / answerTime)); // Points based on speed
+    }
+    
+    /**
+     * Update Banat streak achievements
+     */
+    public void updateBanatStreakAchievements(int currentStreak) {
+        String key = "banat_longest_streak";
+        int longest = SharedPrefsHelper.getPrefs(context).getInt(key, 0);
+        
+        if (currentStreak > longest) {
+            SharedPrefsHelper.getPrefs(context).edit()
+                .putInt(key, currentStreak)
+                .apply();
+        }
+        
+        updateAchievement("banat_streak_master", currentStreak);
+    }
+    
+    /**
+     * Update Banat accuracy achievements
+     */
+    public void updateBanatAccuracyAchievements() {
+        String correctKey = "banat_total_correct";
+        String totalKey = "banat_total_questions";
+        
+        int totalCorrect = SharedPrefsHelper.getPrefs(context).getInt(correctKey, 0);
+        int totalQuestions = SharedPrefsHelper.getPrefs(context).getInt(totalKey, 0);
+        
+        if (totalQuestions > 0) {
+            float accuracy = (float) totalCorrect / totalQuestions;
+            updateAchievement("banat_accuracy_master", (int)(accuracy * 100));
+        }
+    }
+    
+    /**
+     * Update Banat daily play streak
+     */
+    public void updateBanatDailyPlayStreak() {
+        String key = "banat_daily_play_streak";
+        String lastPlayKey = "banat_last_play_date";
+        
+        long currentTime = System.currentTimeMillis();
+        long lastPlay = SharedPrefsHelper.getPrefs(context).getLong(lastPlayKey, 0);
+        int currentStreak = SharedPrefsHelper.getPrefs(context).getInt(key, 0);
+        
+        // Check if it's a new day
+        if (currentTime - lastPlay > 24 * 60 * 60 * 1000) { // 24 hours
+            currentStreak++;
+            SharedPrefsHelper.getPrefs(context).edit()
+                .putInt(key, currentStreak)
+                .putLong(lastPlayKey, currentTime)
+                .apply();
+        }
+        
+        updateAchievement("banat_daily_player", currentStreak);
+    }
+    
+    /**
+     * Record a Banat quiz answer
+     */
+    public void recordBanatQuizAnswer(boolean correct, String category, float answerTime, int currentStreak) {
+        // Update totals
+        String correctKey = "banat_total_correct";
+        String totalKey = "banat_total_questions";
+        
+        int totalCorrect = SharedPrefsHelper.getPrefs(context).getInt(correctKey, 0);
+        int totalQuestions = SharedPrefsHelper.getPrefs(context).getInt(totalKey, 0) + 1;
+        
+        if (correct) {
+            totalCorrect++;
+            incrementBanatCategoryCorrect(category);
+            incrementQuizCorrectAnswers(); // Also update general quiz achievements
+        }
+        
+        SharedPrefsHelper.getPrefs(context).edit()
+            .putInt(correctKey, totalCorrect)
+            .putInt(totalKey, totalQuestions)
+            .apply();
+        
+        // Update various achievements
+        updateBanatSpeedAchievements(answerTime);
+        updateBanatStreakAchievements(currentStreak);
+        updateBanatAccuracyAchievements();
+    }
+    
+    /**
+     * Increment Banat category correct answers
+     */
+    private void incrementBanatCategoryCorrect(String category) {
+        String key = "banat_category_" + category.toLowerCase() + "_correct";
+        int correct = SharedPrefsHelper.getPrefs(context).getInt(key, 0) + 1;
+        
+        SharedPrefsHelper.getPrefs(context).edit()
+            .putInt(key, correct)
+            .apply();
+    }
+    
     /**
      * Update daily play streak
      */
@@ -1500,5 +1929,328 @@ public class AchievementManager {
                 listener.onAchievementUnlocked(achievement);
             }
         }
+    }
+    
+    // ==================== CRIȘANA ACHIEVEMENTS ====================
+    
+    /**
+     * Check Crișana Master achievement (perfect score)
+     */
+    public void checkCrisanaMasterAchievement(int correctAnswers, int totalQuestions) {
+        if (correctAnswers == totalQuestions && totalQuestions > 0) {
+            updateAchievement("crisana_master", 1);
+        }
+    }
+    
+    /**
+     * Check Crișana Expert achievement (high accuracy)
+     */
+    public void checkCrisanaExpertAchievement(float accuracy) {
+        if (accuracy >= 90.0f) {
+            updateAchievement("crisana_expert", 1);
+        }
+    }
+    
+    /**
+     * Check Crișana Explorer achievement (high score)
+     */
+    public void checkCrisanaExplorerAchievement(int score) {
+        if (score >= 1000) {
+            updateAchievement("crisana_explorer", 1);
+        }
+    }
+    
+    /**
+     * Check Crișana Speedster achievement (fast answers)
+     */
+    public void checkCrisanaSpeedsterAchievement(long averageTimePerQuestion) {
+        if (averageTimePerQuestion <= 10000) { // 10 seconds or less
+            updateAchievement("crisana_speedster", 1);
+        }
+    }
+    
+    /**
+     * Check Crișana Streak achievement (consecutive correct answers)
+     */
+    public void checkCrisanaStreakAchievement(int maxStreak) {
+        if (maxStreak >= 5) {
+            updateAchievement("crisana_streak", 1);
+        }
+    }
+    
+    /**
+     * Check Crișana Perfect achievement (100% accuracy)
+     */
+    public void checkCrisanaPerfectAchievement(int correctAnswers, int totalQuestions) {
+        if (correctAnswers == totalQuestions && totalQuestions >= 10) {
+            updateAchievement("crisana_perfect", 1);
+        }
+    }
+    
+    /**
+     * Check Crișana Consistency achievement (consistent high accuracy)
+     */
+    public void checkCrisanaConsistencyAchievement(float accuracy) {
+        if (accuracy >= 80.0f) {
+            updateAchievement("crisana_consistency", 1);
+        }
+    }
+    
+    /**
+     * Check Crișana Dedication achievement (many questions answered)
+     */
+    public void checkCrisanaDedicationAchievement(int totalQuestions) {
+        if (totalQuestions >= 20) {
+            updateAchievement("crisana_dedication", 1);
+        }
+    }
+    
+    /**
+     * Update Crișana quiz completions
+     */
+    public void updateCrisanaQuizCompletions() {
+        incrementAchievement("crisana_quiz_completions");
+    }
+    
+    /**
+     * Increment Crișana quiz completions
+     */
+    public void incrementCrisanaQuizCompletions() {
+        Achievement achievement = getAchievement("crisana_quiz_completions");
+        if (achievement == null) {
+            addAchievement(new Achievement(
+                "crisana_quiz_completions",
+                "Crișana Quiz Enthusiast",
+                "Complete 10 Crișana quizzes",
+                android.R.drawable.ic_menu_help,
+                200,
+                10,
+                AchievementCategory.QUIZ,
+                "crisana"
+            ));
+        }
+        incrementAchievement("crisana_quiz_completions");
+    }
+    
+    /**
+     * Update Crișana perfect scores
+     */
+    public void updateCrisanaPerfectScores() {
+        incrementAchievement("crisana_perfect_scores");
+    }
+    
+    /**
+     * Record Crișana perfect score
+     */
+    public void recordCrisanaPerfectScore() {
+        Achievement achievement = getAchievement("crisana_perfect_scores");
+        if (achievement == null) {
+            addAchievement(new Achievement(
+                "crisana_perfect_scores",
+                "Crișana Perfect Master",
+                "Get 5 perfect scores in Crișana quizzes",
+                android.R.drawable.ic_menu_help,
+                500,
+                5,
+                AchievementCategory.QUIZ,
+                "crisana"
+            ));
+        }
+        incrementAchievement("crisana_perfect_scores");
+    }
+    
+    /**
+     * Break Crișana perfect streak
+     */
+    public void breakCrisanaPerfectStreak() {
+        // Reset streak counter
+        Achievement achievement = getAchievement("crisana_perfect_scores");
+        if (achievement != null) {
+            achievement.setCurrentProgress(0);
+            saveProgress(achievement);
+        }
+    }
+    
+    /**
+     * Update Crișana category mastery
+     */
+    public void updateCrisanaCategoryMastery(String category) {
+        String achievementId = "crisana_category_" + category.toLowerCase();
+        incrementAchievement(achievementId);
+    }
+    
+    /**
+     * Increment Crișana category correct answers
+     */
+    public void incrementCrisanaCategoryCorrect(String category) {
+        String achievementId = "crisana_category_" + category.toLowerCase();
+        Achievement achievement = getAchievement(achievementId);
+        if (achievement == null) {
+            addAchievement(new Achievement(
+                achievementId,
+                "Crișana " + category + " Expert",
+                "Answer 50 questions correctly in " + category + " category",
+                android.R.drawable.ic_menu_help,
+                150,
+                50,
+                AchievementCategory.QUIZ,
+                "crisana"
+            ));
+        }
+        incrementAchievement(achievementId);
+    }
+    
+    /**
+     * Update Crișana difficulty unlock
+     */
+    public void updateCrisanaDifficultyUnlock(String difficulty) {
+        String achievementId = "crisana_difficulty_" + difficulty.toLowerCase();
+        updateAchievement(achievementId, 1);
+    }
+    
+    /**
+     * Update Crișana game mode achievements
+     */
+    public void updateCrisanaGameModeAchievements(String gameMode) {
+        String achievementId = "crisana_gamemode_" + gameMode.toLowerCase();
+        Achievement achievement = getAchievement(achievementId);
+        if (achievement == null) {
+            addAchievement(new Achievement(
+                achievementId,
+                "Crișana " + gameMode + " Master",
+                "Complete 5 quizzes in " + gameMode + " mode",
+                android.R.drawable.ic_menu_help,
+                200,
+                5,
+                AchievementCategory.GAME_MODE,
+                "crisana"
+            ));
+        }
+        incrementAchievement(achievementId);
+    }
+    
+    /**
+     * Increment Crișana game mode completion
+     */
+    public void incrementCrisanaGameModeCompletion(String gameMode) {
+        String achievementId = "crisana_gamemode_" + gameMode.toLowerCase();
+        Achievement achievement = getAchievement(achievementId);
+        if (achievement == null) {
+            addAchievement(new Achievement(
+                achievementId,
+                "Crișana " + gameMode + " Enthusiast",
+                "Complete 10 quizzes in " + gameMode + " mode",
+                android.R.drawable.ic_menu_help,
+                300,
+                10,
+                AchievementCategory.GAME_MODE,
+                "crisana"
+            ));
+        }
+        incrementAchievement(achievementId);
+    }
+    
+    /**
+     * Update Crișana daily play streak
+     */
+    public void updateCrisanaDailyPlayStreak() {
+        Achievement achievement = getAchievement("crisana_daily_streak");
+        if (achievement == null) {
+            addAchievement(new Achievement(
+                "crisana_daily_streak",
+                "Crișana Daily Player",
+                "Play Crișana quiz for 7 consecutive days",
+                android.R.drawable.ic_menu_help,
+                300,
+                7,
+                AchievementCategory.SOCIAL,
+                "crisana"
+            ));
+        }
+        incrementAchievement("crisana_daily_streak");
+    }
+    
+    /**
+     * Update Crișana survival progress
+     */
+    public void updateCrisanaSurvivalProgress(int questionsAnswered) {
+        if (questionsAnswered >= 50) {
+            updateAchievement("crisana_survival", 1);
+        }
+    }
+    
+    /**
+     * Update Crișana speed achievements
+     */
+    public void updateCrisanaSpeedAchievements(float answerTime) {
+        if (answerTime <= 5000) { // 5 seconds or less
+            updateAchievement("crisana_speed_demon", 1);
+        }
+        if (answerTime <= 3000) { // 3 seconds or less
+            updateAchievement("crisana_lightning", 1);
+        }
+    }
+    
+    /**
+     * Update Crișana streak achievements
+     */
+    public void updateCrisanaStreakAchievements(int currentStreak) {
+        if (currentStreak >= 10) {
+            updateAchievement("crisana_streak_master", 1);
+        }
+        if (currentStreak >= 20) {
+            updateAchievement("crisana_streak_legend", 1);
+        }
+    }
+    
+    /**
+     * Update Crișana accuracy achievements
+     */
+    public void updateCrisanaAccuracyAchievements() {
+        Achievement achievement = getAchievement("crisana_accuracy_master");
+        if (achievement == null) {
+            addAchievement(new Achievement(
+                "crisana_accuracy_master",
+                "Crișana Accuracy Master",
+                "Maintain 95% accuracy over 10 quizzes",
+                android.R.drawable.ic_menu_help,
+                400,
+                10,
+                AchievementCategory.QUIZ,
+                "crisana"
+            ));
+        }
+        incrementAchievement("crisana_accuracy_master");
+    }
+    
+    /**
+     * Record Crișana quiz answer for comprehensive tracking
+     */
+    public void recordCrisanaQuizAnswer(boolean correct, String category, float answerTime, int currentStreak) {
+        // Update basic quiz achievements
+        if (correct) {
+            incrementQuizCorrectAnswers();
+            incrementCrisanaCategoryCorrect(category);
+        }
+        
+        // Update speed achievements
+        updateCrisanaSpeedAchievements(answerTime);
+        
+        // Update streak achievements
+        updateCrisanaStreakAchievements(currentStreak);
+        
+        // Update survival progress
+        updateCrisanaSurvivalProgress(1);
+    }
+    
+    /**
+     * Check all Crișana achievements
+     */
+    public void checkCrisanaAchievements(int score, float accuracy, int correctAnswers) {
+        // Crișana-specific achievement checks
+        updateCrisanaQuizCompletions();
+        updateCrisanaPerfectScores();
+        updateCrisanaAccuracyAchievements();
+        updateCrisanaDailyPlayStreak();
     }
 } 

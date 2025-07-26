@@ -24,10 +24,18 @@ public class PointsManager {
     private static PointsManager instance;
 
     /**
+     * Constructor public pentru flexibilitate
+     * @param context Contextul aplicației
+     */
+    public PointsManager(Context context) {
+        sharedPreferences = context.getSharedPreferences(POINTS_PREFS, Context.MODE_PRIVATE);
+    }
+    
+    /**
      * Constructor privat pentru Singleton
      * @param context Contextul aplicației
      */
-    private PointsManager(Context context) {
+    private PointsManager(Context context, boolean singleton) {
         sharedPreferences = context.getSharedPreferences(POINTS_PREFS, Context.MODE_PRIVATE);
     }
     
@@ -38,7 +46,7 @@ public class PointsManager {
      */
     public static synchronized PointsManager getInstance(Context context) {
         if (instance == null) {
-            instance = new PointsManager(context.getApplicationContext());
+            instance = new PointsManager(context.getApplicationContext(), true);
         }
         return instance;
     }

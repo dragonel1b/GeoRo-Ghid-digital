@@ -50,7 +50,7 @@
 
     <!-- Stats Button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/stats_button"
+        android:id="@+id/viewStatsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -65,17 +65,104 @@
 
     <!-- Game Modes RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/game_modes_recycler_view"
+        android:id="@+id/gameModeRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/controls_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_card"
         tools:listitem="@layout/item_dobrogea_game_mode" />
+
+    <!-- Controls Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/controls_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/dobrogea_card_bg"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Category Spinner -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🌊 Categorie:"
+                android:textColor="@color/dobrogea_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/categorySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/spinner_background"
+                android:popupBackground="@color/dobrogea_card_bg" />
+
+            <!-- Difficulty Spinner -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🧭 Dificultate:"
+                android:textColor="@color/dobrogea_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/difficultySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/spinner_background"
+                android:popupBackground="@color/dobrogea_card_bg" />
+
+            <!-- Player Stats -->
+            <TextView
+                android:id="@+id/playerStatsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/dobrogea_text"
+                android:textSize="14sp" />
+
+            <!-- Recommendations -->
+            <TextView
+                android:id="@+id/recommendationsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/dobrogea_text"
+                android:textSize="14sp" />
+
+            <!-- Start Game Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/startGameButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🚀 Începe Quiz"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/dobrogea_primary"
+                app:cornerRadius="8dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <!-- Loading Progress -->
     <ProgressBar

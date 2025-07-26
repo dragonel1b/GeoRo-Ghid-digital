@@ -34,6 +34,7 @@
     <!-- Card Colors -->
     <color name="card_background">#FFFFFF</color>
     <color name="card_stroke">#E0E0E0</color>
+    <color name="cardBackgroundColor">#FFFFFF</color>
 
     <!-- Rich Background Colors -->
     <color name="rom_background_light">#E8EAF6</color>
@@ -198,6 +199,9 @@
     <color name="rom_accent_light">#FFE57F</color>
     <color name="rom_text_primary">#212121</color>
     <color name="rom_text_secondary">#757575</color>
+    
+    <!-- Secondary color for game mode selection -->
+    <color name="secondary_color">#757575</color>
 
     <!-- Oltenia Theme Colors - Warm and Rich Palette -->
     <color name="oltenia_accent_dark">#CD853F</color>
@@ -369,6 +373,8 @@
     <color name="moldova_text_secondary">#546E7A</color>    <!-- Text secundar, mai deschis -->
     <color name="moldova_card_bg">#FFFFFF</color>           <!-- Fundal alb pentru carduri -->
     <color name="moldova_border">#81C784</color>            <!-- Verde deschis pentru borduri -->
+    <color name="moldova_progress_start">#43A047</color>    <!-- Gradient progress bar - început -->
+    <color name="moldova_progress_end">#81C784</color>      <!-- Gradient progress bar - sfârșit -->
 
     <!-- Banat Theme Colors -->
     <color name="banat_primary">#7D5427</color>              <!-- Nuanță mai plăcută de maro pentru păduri și munți -->
@@ -652,4 +658,8 @@
     <color name="warning_orange">#FF9800</color>
     <color name="info_blue">#2196F3</color>
     <color name="info_blue_light">#E3F2FD</color>
+    
+    <!-- Missing text colors for layout files -->
+    <color name="primary_text_color">#212121</color>
+    <color name="secondary_text_color">#757575</color>
 </resources>

@@ -5,19 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_light"
-    tools:context=".transilvaniausage.PlayerStatsActivity">
+    android:background="@color/background_color"
+    tools:context=".munteniausage.PlayerStatsActivity">
 
     <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="wrap_content">
 
-    <!-- Content -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/muntenia_primary"
+            app:titleTextColor="@color/white"
+            app:title="Statistici Jucător - Muntenia" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +33,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Overall Statistics -->
+            <!-- General Stats -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,26 +50,212 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📊 Overall Statistics"
+                        android:text="📊 Statistici Generale"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"
+                        android:textColor="@color/primary_text_color"
+                        android:layout_marginBottom="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Jocuri jucate:"
+                                android:textSize="12sp"
+                                android:textColor="@color/secondary_text_color" />
+
+                            <TextView
+                                android:id="@+id/totalGamesText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary_text_color" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Întrebări răspunse:"
+                                android:textSize="12sp"
+                                android:textColor="@color/secondary_text_color" />
+
+                            <TextView
+                                android:id="@+id/totalQuestionsText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary_text_color" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Acuratețe:"
+                                android:textSize="12sp"
+                                android:textColor="@color/secondary_text_color" />
+
+                            <TextView
+                                android:id="@+id/accuracyText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0%"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary_text_color" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Streak curent:"
+                                android:textSize="12sp"
+                                android:textColor="@color/secondary_text_color" />
+
+                            <TextView
+                                android:id="@+id/currentStreakText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0 zile"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary_text_color" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Cel mai bun streak:"
+                                android:textSize="12sp"
+                                android:textColor="@color/secondary_text_color" />
+
+                            <TextView
+                                android:id="@+id/bestStreakText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0 zile"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary_text_color" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Timp total:"
+                                android:textSize="12sp"
+                                android:textColor="@color/secondary_text_color" />
+
+                            <TextView
+                                android:id="@+id/totalTimeText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0h 0m"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary_text_color" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Overall Stats Text -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📊 Statistici Detaliate"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text_color"
                         android:layout_marginBottom="12dp" />
 
                     <TextView
                         android:id="@+id/overallStatsText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading statistics..."
+                        android:text="Statistici generale vor fi afișate aici..."
                         android:textSize="14sp"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondary_text_color"
                         android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Category Statistics -->
+            <!-- Additional Stats for Maramures -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,26 +272,82 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📚 Category Performance"
+                        android:text="📈 Statistici Suplimentare"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"
+                        android:textColor="@color/primary_text_color"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/textStats"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Statistici detaliate..."
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text_color"
+                        android:lineSpacingExtra="4dp"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/textStreak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Informații despre streak..."
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text_color"
+                        android:lineSpacingExtra="4dp"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/textRecommendations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recomandări de învățare..."
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text_color"
+                        android:lineSpacingExtra="4dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Category Stats -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📚 Performanță pe Categorii"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text_color"
                         android:layout_marginBottom="12dp" />
 
                     <TextView
                         android:id="@+id/categoryStatsText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading category statistics..."
+                        android:text="Nu există încă statistici pe categorii.\nJoacă câteva quiz-uri pentru a vedea progresul!"
                         android:textSize="14sp"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondary_text_color"
                         android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Difficulty Statistics -->
+            <!-- Difficulty Stats -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,26 +364,26 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="⚡ Difficulty Performance"
+                        android:text="⚡ Performanță pe Dificultăți"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"
+                        android:textColor="@color/primary_text_color"
                         android:layout_marginBottom="12dp" />
 
                     <TextView
                         android:id="@+id/difficultyStatsText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading difficulty statistics..."
+                        android:text="Nu există încă statistici pe dificultăți.\nJoacă câteva quiz-uri pentru a vedea progresul!"
                         android:textSize="14sp"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondary_text_color"
                         android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Achievements -->
+            <!-- Game Mode Stats -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,19 +400,55 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="🏆 Achievements"
+                        android:text="🎮 Performanță pe Moduri de Joc"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_text"
+                        android:textColor="@color/primary_text_color"
                         android:layout_marginBottom="12dp" />
 
                     <TextView
-                        android:id="@+id/achievementsText"
+                        android:id="@+id/gameModeStatsText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loading achievements..."
+                        android:text="Nu există încă statistici pe moduri de joc.\nÎncearcă diferite moduri pentru a vedea progresul!"
                         android:textSize="14sp"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondary_text_color"
+                        android:lineSpacingExtra="4dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Recommendations -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="💡 Recomandări de Învățare"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text_color"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/recommendationsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Joacă mai multe quiz-uri pentru a primi recomandări personalizate de învățare!"
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text_color"
                         android:lineSpacingExtra="4dp" />
 
                 </LinearLayout>

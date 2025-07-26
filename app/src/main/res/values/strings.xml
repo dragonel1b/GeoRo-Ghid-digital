@@ -311,6 +311,8 @@
     <string name="test_question_placeholder">Întrebare de test</string>
     <string name="submit_answer">Trimite răspuns</string>
     
+    <!-- Accessibility strings -->
+    
     <!-- Muntenia map -->
     <string name="muntenia_map_title">Harta Munteniei</string>
     <string name="map_of_muntenia">Harta regiunii Muntenia</string>

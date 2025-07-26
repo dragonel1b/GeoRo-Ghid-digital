@@ -18,4 +18,8 @@
     <!-- Missing Culinary Colors (Dark Theme) -->
     <color name="culinary_ingredient">#2C2815</color>    <!-- Dark warm background for ingredients section -->
     <color name="culinary_step">#1E2E1E</color>          <!-- Dark green background for cooking steps section -->
+    
+    <!-- Missing text colors for layout files (Dark Theme) -->
+    <color name="primary_text_color">#FFFFFF</color>
+    <color name="secondary_text_color">#B3FFFFFF</color>
 </resources>

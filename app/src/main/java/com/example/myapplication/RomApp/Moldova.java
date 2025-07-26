@@ -331,7 +331,7 @@ public class Moldova extends RegionTemplate {
         // Moldova Game button
         gameButton.setOnClickListener(v -> {
             if (pointsManager.getPoints(this) >= 50) {
-                Intent intent = new Intent(this, com.example.myapplication.moldovausage.MoldovaGameActivity.class);
+                Intent intent = new Intent(this, com.example.myapplication.moldovausage.GameModeSelectionActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Ai nevoie de cel puțin 50 de puncte pentru a juca Moldova Game!", 

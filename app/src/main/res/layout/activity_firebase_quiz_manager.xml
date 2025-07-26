@@ -68,6 +68,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinnerLayout" />
 
+    <Button
+        android:id="@+id/uploadOlteniaSampleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Întrebare Oltenia (exemplu)"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/migrateButton" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionsRecyclerView"
         android:layout_width="match_parent"

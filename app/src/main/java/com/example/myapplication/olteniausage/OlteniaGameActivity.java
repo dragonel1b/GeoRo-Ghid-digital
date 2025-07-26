@@ -1503,18 +1503,16 @@ public class OlteniaGameActivity extends AppCompatActivity {
             final int particleIndex = i; // Make it effectively final
             View particle = new View(this);
             particle.setBackgroundColor(getResources().getColor(R.color.correct_answer));
-            particle.setLayoutParams(new ConstraintLayout.LayoutParams(8, 8));
-            
+            particle.setLayoutParams(new android.view.ViewGroup.LayoutParams(8, 8));
+
             // Adăugăm particula la layout
-            ConstraintLayout parent = (ConstraintLayout) button.getParent();
+            android.view.ViewGroup parent = (android.view.ViewGroup) button.getParent();
             parent.addView(particle);
-            
-            // Poziționăm particula în jurul butonului
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) particle.getLayoutParams();
-            params.leftMargin = (int) (button.getX() + button.getWidth() / 2);
-            params.topMargin = (int) (button.getY() + button.getHeight() / 2);
-            particle.setLayoutParams(params);
-            
+
+            // Poziționăm particula în jurul butonului (aproximativ, fără ConstraintLayout)
+            particle.setX(button.getX() + button.getWidth() / 2);
+            particle.setY(button.getY() + button.getHeight() / 2);
+
             // Animația particulei
             ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
             animator.setDuration(1000);
@@ -1523,24 +1521,24 @@ public class OlteniaGameActivity extends AppCompatActivity {
                 float progress = (float) animation.getAnimatedValue();
                 float angle = (float) (particleIndex * 72 * Math.PI / 180); // 72 grade între particule
                 float distance = 100 * progress;
-                
+
                 float x = (float) (Math.cos(angle) * distance);
                 float y = (float) (Math.sin(angle) * distance);
-                
+
                 particle.setTranslationX(x);
                 particle.setTranslationY(y);
                 particle.setAlpha(1f - progress);
                 particle.setScaleX(1f - progress * 0.5f);
                 particle.setScaleY(1f - progress * 0.5f);
             });
-            
+
             animator.addListener(new android.animation.AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(android.animation.Animator animation) {
                     parent.removeView(particle);
                 }
             });
-            
+
             animator.start();
         }
     }
@@ -1578,212 +1576,9 @@ public class OlteniaGameActivity extends AppCompatActivity {
 
     private void initializeQuestions() {
         questions = new ArrayList<>();
-        
-        // Întrebări despre Oltenia
-        questions.add(new Question(
-            "Care este cel mai înalt vârf montan din Oltenia?",
-            new String[]{"Vârful Parângul Mare", "Vârful Moldoveanu", "Vârful Omu", "Vârful Nedeia"},
-            0,
-            R.drawable.parang,
-            "Vârful Parângul Mare are o altitudine de 2.519 metri și este situat în Munții Parâng."
-        ));
-        
-        questions.add(new Question(
-            "Care este cel mai mare oraș din Oltenia?",
-            new String[]{"Târgu Jiu", "Slatina", "Râmnicu Vâlcea", "Craiova"},
-            3,
-            R.drawable.craiova,
-            "Craiova este cel mai mare oraș din Oltenia, cu o populație de aproximativ 300.000 de locuitori."
-        ));
-        
-        questions.add(new Question(
-            "Ce râu important traversează Oltenia de la nord la sud?",
-            new String[]{"Jiu", "Olt", "Mureș", "Siret"},
-            0,
-            R.drawable.targujiu,
-            "Râul Jiu străbate Oltenia de la nord la sud, având o lungime de 331 km."
-        ));
-        
-        questions.add(new Question(
-            "În ce județ se află Mănăstirea Tismana?",
-            new String[]{"Dolj", "Gorj", "Mehedinți", "Vâlcea"},
-            1,
-            R.drawable.tismana,
-            "Mănăstirea Tismana se află în județul Gorj și este una dintre cele mai vechi mănăstiri din România."
-        ));
-        
-        questions.add(new Question(
-            "Care dintre următoarele nu este un județ din Oltenia?",
-            new String[]{"Dolj", "Gorj", "Olt", "Argeș"},
-            3,
-            R.drawable.oltenia_map,
-            "Județul Argeș face parte din regiunea Muntenia, nu din Oltenia."
-        ));
-        
-        questions.add(new Question(
-            "Ce sculptor român celebru s-a născut în Hobița, Gorj?",
-            new String[]{"Constantin Brâncuși", "Ion Jalea", "Dimitrie Paciurea", "Gheorghe Anghel"},
-            0,
-            R.drawable.brancusi,
-            "Constantin Brâncuși s-a născut la Hobița, în județul Gorj, în 1876."
-        ));
-        
-        questions.add(new Question(
-            "Ce obiectiv turistic sculptat în stâncă se află în Oltenia?",
-            new String[]{"Sfinxul", "Babele", "Chipul lui Decebal", "Cheile Oltețului"},
-            2,
-            R.drawable.chipul_decebal,
-            "Chipul lui Decebal, sculptat în stâncă, se află pe malul Dunării, în județul Mehedinți."
-        ));
-        
-        questions.add(new Question(
-            "Care este principala zonă viticolă din Oltenia?",
-            new String[]{"Drăgășani", "Recaș", "Cotnari", "Murfatlar"},
-            0,
-            R.drawable.dragasani,
-            "Zona Drăgășani este cunoscută pentru vinurile sale de calitate, în special soiurile Crâmpoșie și Tămâioasă."
-        ));
-        
-        questions.add(new Question(
-            "Ce defileu spectaculos se găsește pe râul Olt?",
-            new String[]{"Defileul Jiului", "Defileul Oltului", "Cheile Bicazului", "Cheile Turzii"},
-            1,
-            R.drawable.defileul_oltului,
-            "Defileul Oltului este unul dintre cele mai spectaculoase din România, cu o lungime de aproximativ 47 km."
-        ));
-        
-        questions.add(new Question(
-            "Ce obiectiv important realizat de Constantin Brâncuși se află în Târgu Jiu?",
-            new String[]{"Coloana Infinitului", "Poarta Sărutului", "Masa Tăcerii", "Toate variantele"},
-            3,
-            R.drawable.brancusi,
-            "Ansamblul Monumental realizat de Constantin Brâncuși la Târgu Jiu cuprinde Coloana Infinitului, Poarta Sărutului și Masa Tăcerii."
-        ));
-        
-        // Adăugăm mai multe întrebări despre Oltenia
-        questions.add(new Question(
-            "Care este cea mai veche mănăstire din Oltenia?",
-            new String[]{"Mănăstirea Cozia", "Mănăstirea Tismana", "Mănăstirea Polovragi", "Mănăstirea Horezu"},
-            1,
-            R.drawable.tismana,
-            "Mănăstirea Tismana a fost fondată în secolul al XIV-lea de către Sfântul Nicodim și este cea mai veche mănăstire din Oltenia."
-        ));
-        
-        questions.add(new Question(
-            "Ce peșteră importantă se află în Oltenia?",
-            new String[]{"Peștera Muierilor", "Peștera Urșilor", "Peștera Scărișoara", "Peștera Polovragi"},
-            0,
-            R.drawable.pestera_muierilor,
-            "Peștera Muierilor din județul Gorj este una dintre cele mai vechi peșteri din România, cu o vechime de aproximativ 1,5 milioane de ani."
-        ));
-        
-        questions.add(new Question(
-            "Care este dansul popular specific Olteniei?",
-            new String[]{"Călușul", "Hora", "Sârba", "Alunelul"},
-            0,
-            R.drawable.calusul,
-            "Călușul este un dans popular specific Olteniei, inclus în patrimoniul UNESCO ca parte a patrimoniului cultural imaterial al umanității."
-        ));
-        
-        questions.add(new Question(
-            "Ce eveniment cultural important se desfășoară anual la Craiova?",
-            new String[]{"Festivalul Shakespeare", "Festivalul George Enescu", "Festivalul Internațional de Teatru", "Festivalul Medieval"},
-            0,
-            R.drawable.craiova,
-            "Festivalul Shakespeare este un eveniment cultural important care se desfășoară anual la Craiova și atrage artiști din întreaga lume."
-        ));
-        
-        questions.add(new Question(
-            "Care dintre următoarele personalități nu s-a născut în Oltenia?",
-            new String[]{"Tudor Vladimirescu", "Constantin Brâncuși", "Mihai Eminescu", "Petrache Poenaru"},
-            2,
-            R.drawable.oltenia_map,
-            "Mihai Eminescu s-a născut la Botoșani, în Moldova, nu în Oltenia."
-        ));
-        
-        questions.add(new Question(
-            "Ce monument natural spectaculos se află în Gorj?",
-            new String[]{"Sfinxul", "Babele", "Cheile Sohodolului", "Cascada Bigăr"},
-            2,
-            R.drawable.cheile_sohodolului,
-            "Cheile Sohodolului din județul Gorj sunt considerate printre cele mai spectaculoase chei din România."
-        ));
-        
-        questions.add(new Question(
-            "Care este cel mai important port dunărean din Oltenia?",
-            new String[]{"Orșova", "Calafat", "Drobeta-Turnu Severin", "Corabia"},
-            2,
-            R.drawable.drobeta,
-            "Drobeta-Turnu Severin este cel mai important port dunărean din Oltenia și unul dintre cele mai vechi orașe din România."
-        ));
-        
-        questions.add(new Question(
-            "Ce parc național important se află în Oltenia?",
-            new String[]{"Parcul Național Domogled-Valea Cernei", "Parcul Național Retezat", "Parcul Național Piatra Craiului", "Parcul Național Ceahlău"},
-            0,
-            R.drawable.domogled,
-            "Parcul Național Domogled-Valea Cernei este situat în sud-vestul României, în Oltenia, și este cel mai mare parc național din țară."
-        ));
-        
-        questions.add(new Question(
-            "Care este cea mai importantă stațiune balneară din Oltenia?",
-            new String[]{"Băile Herculane", "Băile Felix", "Călimănești-Căciulata", "Sovata"},
-            2,
-            R.drawable.calimanesti,
-            "Călimănești-Căciulata este cea mai importantă stațiune balneară din Oltenia, situată pe Valea Oltului."
-        ));
-        
-        questions.add(new Question(
-            "Ce pod celebru traversează Dunărea între România și Bulgaria, în Oltenia?",
-            new String[]{"Podul Prieteniei", "Podul Calafat-Vidin", "Podul Giurgiu-Ruse", "Podul Cernavodă"},
-            1,
-            R.drawable.pod_calafat,
-            "Podul Calafat-Vidin (Podul Nova Europa) a fost inaugurat în 2013 și leagă orașul Calafat din Oltenia de orașul Vidin din Bulgaria."
-        ));
-        
-        questions.add(new Question(
-            "Care este cel mai vechi oraș din Oltenia?",
-            new String[]{"Craiova", "Râmnicu Vâlcea", "Drobeta-Turnu Severin", "Slatina"},
-            2,
-            R.drawable.drobeta,
-            "Drobeta-Turnu Severin este cel mai vechi oraș din Oltenia, fiind fondat de romani în anul 105 d.Hr."
-        ));
-        
-        questions.add(new Question(
-            "Care este mâncarea tradițională specifică Olteniei?",
-            new String[]{"Sarmale", "Piftie", "Ciorbă de burtă", "Praz cu ciolan afumat"},
-            3,
-            R.drawable.praz_ciolan,
-            "Prazul cu ciolan afumat este o mâncare tradițională specifică Olteniei, foarte apreciată în gastronomia locală."
-        ));
-        
-        questions.add(new Question(
-            "Ce rezervație naturală importantă se află în Mehedinți?",
-            new String[]{"Rezervația Naturală Ponoarele", "Rezervația Naturală Retezat", "Rezervația Naturală Bucegi", "Rezervația Naturală Apuseni"},
-            0,
-            R.drawable.ponoarele,
-            "Rezervația Naturală Ponoarele din județul Mehedinți este cunoscută pentru fenomenele carstice spectaculoase, inclusiv Podul Natural de la Ponoarele."
-        ));
-        
-        questions.add(new Question(
-            "Ce lac de acumulare important se află pe râul Olt, în Oltenia?",
-            new String[]{"Lacul Vidraru", "Lacul Vidra", "Lacul Izvorul Muntelui", "Lacul Călimănești"},
-            3,
-            R.drawable.lac_calimanesti,
-            "Lacul Călimănești este un lac de acumulare important pe râul Olt, în Oltenia, utilizat pentru producerea de energie electrică."
-        ));
-        
-        questions.add(new Question(
-            "Ce castel important se află în județul Gorj?",
-            new String[]{"Castelul Peleș", "Castelul Bran", "Castelul Corvinilor", "Castelul de la Măldărești"},
-            3,
-            R.drawable.castel_maldaresti,
-            "Castelul de la Măldărești (Cula Măldărești) este un monument istoric important din județul Gorj, reprezentativ pentru arhitectura tradițională oltenească."
-        ));
-        
-        Collections.shuffle(questions);
-        progressBar.setMax(questions.size());
-        totalQuestions = questions.size();
+        // Local questions removed. Questions should now be loaded from Firestore/database only.
+        // progressBar.setMax(questions.size());
+        // totalQuestions = questions.size();
     }
 
     private void displayQuestion() {
@@ -1798,6 +1593,8 @@ public class OlteniaGameActivity extends AppCompatActivity {
         for (MaterialButton button : answerButtons) {
             button.setEnabled(true);
             button.setAlpha(1.0f);
+            button.setScaleX(1.0f);
+            button.setScaleY(1.0f);
             button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.oltenia_primary)));
             button.setTextColor(getResources().getColor(R.color.oltenia_card_bg));
             button.setStrokeColor(ColorStateList.valueOf(getResources().getColor(R.color.oltenia_accent)));

@@ -78,7 +78,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
                 android:src="@android:drawable/ic_dialog_alert"
-                android:tint="#FF8800" />
+                />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -372,6 +372,7 @@
 
         <!-- Leaderboard Button -->
         <com.google.android.material.button.MaterialButton
+            android:textColor="@android:color/white"
             android:id="@+id/leaderboardButton"
             style="@style/RomanianButton"
             android:layout_width="0dp"
@@ -381,20 +382,16 @@
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            app:cornerRadius="16dp"
-            app:elevation="2dp"
-            app:backgroundTint="@color/colorPrimaryLight"
-            android:contentDescription="Vezi clasamentul jucătorilor"
+            app:backgroundTint="@null"
+            android:background="@drawable/button_clas"
             android:drawableStart="@android:drawable/ic_menu_sort_by_size"
             android:drawablePadding="12dp"
-            android:drawableTint="@color/colorPrimary"
             android:text="Clasament"
-            android:textSize="16sp"
-            android:textColor="@color/text_primary"
-            app:rippleColor="@color/colorPrimaryLight" />
+            android:textSize="16sp" />
 
         <!-- Profile Button -->
         <com.google.android.material.button.MaterialButton
+            android:background="@drawable/button_clas"
             android:id="@+id/profileButton"
             style="@style/RomanianButton"
             android:layout_width="0dp"

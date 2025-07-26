@@ -4,13 +4,11 @@
     android:id="@+id/gameModeCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="4dp"
-    android:clickable="true"
-    android:focusable="true"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp"
-    app:cardUseCompatPadding="true"
-    app:rippleColor="@color/ripple_color">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/muntenia_secondary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,24 +20,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/gameModeEmoji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎮"
+                android:textSize="24sp"
+                android:layout_marginEnd="12dp"/>
 
             <TextView
                 android:id="@+id/gameModeTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Game Mode"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/primary_text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="▶"
-                android:textSize="16sp"
-                android:textColor="@color/secondary_text" />
+                android:text="Mod de joc"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/primary_text_color"/>
 
         </LinearLayout>
 
@@ -47,11 +46,19 @@
             android:id="@+id/gameModeDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Game mode description"
-            android:textSize="14sp"
-            android:textColor="@color/secondary_text"
-            android:lineSpacingExtra="2dp" />
+            android:text="Descriere mod de joc"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="@color/secondary_text_color"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/gameModeStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📊 Statistici mod de joc"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/secondary_text_color"
+            android:lineSpacingExtra="2dp"/>
 
     </LinearLayout>
 

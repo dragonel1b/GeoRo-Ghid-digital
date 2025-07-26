@@ -3,6 +3,8 @@ package com.example.myapplication.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.util.Log;
 
@@ -78,9 +80,53 @@ public class SyncManager {
             (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         
         if (connectivityManager != null) {
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+            try {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    // Pentru Android 6.0 (API 23) și mai nou
+                    Network network = connectivityManager.getActiveNetwork();
+                    if (network != null) {
+                        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+                        boolean hasInternet = capabilities != null && 
+                               (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+                        
+                        Log.d(TAG, "🌐 Internet check (API 23+): " + hasInternet + 
+                              " (WIFI: " + (capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) +
+                              ", CELLULAR: " + (capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) +
+                              ", ETHERNET: " + (capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) + ")");
+                        
+                        return hasInternet;
+                    }
+                } else {
+                    // Pentru versiuni mai vechi de Android
+                    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                    boolean hasInternet = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+                    
+                    Log.d(TAG, "🌐 Internet check (API <23): " + hasInternet + 
+                          " (Connected: " + (activeNetworkInfo != null && activeNetworkInfo.isConnected()) + ")");
+                    
+                    return hasInternet;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "❌ Eroare la verificarea internetului", e);
+                
+                // Fallback: încercăm metoda alternativă
+                try {
+                    NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+                    for (NetworkInfo networkInfo : networkInfos) {
+                        if (networkInfo != null && networkInfo.isConnected()) {
+                            Log.d(TAG, "🌐 Internet check (fallback): true");
+                            return true;
+                        }
+                    }
+                } catch (Exception fallbackException) {
+                    Log.e(TAG, "❌ Eroare și la fallback", fallbackException);
+                }
+            }
         }
+        
+        Log.w(TAG, "🌐 Internet check: ConnectivityManager is null sau eroare");
         return false;
     }
     
@@ -90,6 +136,43 @@ public class SyncManager {
     public boolean isUserAuthenticated() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         return user != null;
+    }
+    
+    /**
+     * Verifică dacă internetul funcționează efectiv (test de conectivitate)
+     */
+    public boolean isInternetWorking() {
+        boolean hasConnection = isInternetAvailable();
+        Log.d(TAG, "🌐 Internet working check: " + hasConnection);
+        
+        // Dacă detectăm o conexiune, returnăm true
+        // Nu facem ping real pentru că poate fi lent și poate cauza blocări
+        return hasConnection;
+    }
+    
+    /**
+     * Testează conexiunea la internet cu un ping real (opțional)
+     */
+    public void testInternetConnectionWithPing(SyncCallback callback) {
+        new Thread(() -> {
+            try {
+                // Testăm cu Google DNS (8.8.8.8)
+                java.net.InetAddress address = java.net.InetAddress.getByName("8.8.8.8");
+                boolean isReachable = address.isReachable(3000); // 3 secunde timeout
+                
+                Log.d(TAG, "🌐 Ping test result: " + isReachable);
+                
+                if (callback != null) {
+                    callback.onSyncComplete(isReachable, 
+                        isReachable ? "Conexiune internet funcțională" : "Nu se poate conecta la internet");
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "❌ Eroare la ping test", e);
+                if (callback != null) {
+                    callback.onSyncComplete(false, "Eroare la testarea conexiunii: " + e.getMessage());
+                }
+            }
+        }).start();
     }
     
     /**

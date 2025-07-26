@@ -39,6 +39,7 @@ public class FirebaseQuizManagerActivity extends AppCompatActivity {
     private RecyclerView questionsRecyclerView;
     private FloatingActionButton addQuestionFab;
     private Button migrateButton;
+    private Button uploadOlteniaSampleButton;
     
     // Data
     private List<FirestoreQuestionModel> questionsList = new ArrayList<>();
@@ -75,6 +76,7 @@ public class FirebaseQuizManagerActivity extends AppCompatActivity {
         // Setup listeners
         addQuestionFab.setOnClickListener(v -> showAddQuestionDialog());
         migrateButton.setOnClickListener(v -> showMigrateDialog());
+        uploadOlteniaSampleButton.setOnClickListener(v -> uploadSampleOlteniaQuestion());
     }
     
     private void initializeViews() {
@@ -83,6 +85,7 @@ public class FirebaseQuizManagerActivity extends AppCompatActivity {
         questionsRecyclerView = findViewById(R.id.questionsRecyclerView);
         addQuestionFab = findViewById(R.id.addQuestionFab);
         migrateButton = findViewById(R.id.migrateButton);
+        uploadOlteniaSampleButton = findViewById(R.id.uploadOlteniaSampleButton);
     }
     
     private void setupSpinners() {
@@ -446,5 +449,73 @@ public class FirebaseQuizManagerActivity extends AppCompatActivity {
             
             Toast.makeText(this, "Nu s-au găsit întrebări de migrat pentru " + selectedRegion, Toast.LENGTH_SHORT).show();
         }
+    }
+    
+    private void uploadSampleOlteniaQuestion() {
+        if ("dobrogea".equals(selectedRegion)) {
+            uploadSampleDobrogeaQuestions();
+            return;
+        }
+        if ("moldova".equals(selectedRegion)) {
+            uploadSampleMoldovaQuestions();
+            return;
+        }
+        if ("muntenia".equals(selectedRegion)) {
+            uploadSampleMunteniaQuestions();
+            return;
+        }
+        if ("banat".equals(selectedRegion)) {
+            uploadSampleBanatQuestions();
+            return;
+        }
+        if ("crisana".equals(selectedRegion)) {
+            uploadSampleCrisanaQuestions();
+            return;
+        }
+        if ("maramures".equals(selectedRegion)) {
+            uploadSampleMaramuresQuestions();
+            return;
+        }
+        if ("bucovina".equals(selectedRegion)) {
+            uploadSampleBucovinaQuestions();
+            return;
+        }
+        // Întrebările hardcodate pentru toate regiunile au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
+    }
+
+    private void uploadSampleDobrogeaQuestions() {
+        // Întrebările hardcodate pentru Dobrogea au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
+    }
+
+    private void uploadSampleMoldovaQuestions() {
+        // Întrebările hardcodate pentru Moldova au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
+    }
+
+    private void uploadSampleMunteniaQuestions() {
+        // Întrebările hardcodate pentru Muntenia au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
+    }
+
+    private void uploadSampleBanatQuestions() {
+        // Întrebările hardcodate pentru Banat au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
+    }
+
+    private void uploadSampleCrisanaQuestions() {
+        // Întrebările hardcodate pentru Crișana au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
+    }
+
+    private void uploadSampleMaramuresQuestions() {
+        // Întrebările hardcodate pentru Maramureș au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
+    }
+
+    private void uploadSampleBucovinaQuestions() {
+        // Întrebările hardcodate pentru Bucovina au fost eliminate pentru a preveni adăugarea accidentală.
+        Toast.makeText(this, "Nu există întrebări predefinite pentru upload rapid!", Toast.LENGTH_LONG).show();
     }
 } 

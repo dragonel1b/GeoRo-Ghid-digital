@@ -1,342 +1,456 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/game_over_background_gradient"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:background="@color/background_color"
+    tools:context=".munteniausage.GameOverActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/muntenia_primary"
+            app:titleTextColor="@color/white"
+            app:title="Rezultat Quiz - Muntenia" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Confetti View for celebrations -->
+    <View
+        android:id="@+id/confettiView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0"
+        android:visibility="gone"
+        android:background="@android:color/transparent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:padding="16dp">
 
-        <!-- Animated Confetti View (for celebrations) -->
-        <View
-            android:id="@+id/confettiView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- Header Card with Gradient -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/headerCard"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
-            <FrameLayout
+            <!-- Score Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/scoreCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/game_over_header_gradient">
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/muntenia_primary">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="32dp">
+                    android:padding="24dp"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/gameOverTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🎉 Felicitări!"
+                        android:text="🎯 Scorul Tău"
                         android:textColor="@color/white"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/poppins_medium"
-                        android:shadowColor="#4D000000"
-                        android:shadowDx="0"
-                        android:shadowDy="2"
-                        android:shadowRadius="4" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Ai completat quiz-ul!"
-                        android:textColor="#E0E0E0"
                         android:textSize="18sp"
-                        android:fontFamily="@font/poppins_medium" />
-
-                    <!-- Medal/Badge based on performance -->
-                    <ImageView
-                        android:id="@+id/performanceBadge"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="16dp"
-                        android:src="@drawable/achievement_badge_gold"
-                        android:contentDescription="Performance Badge" />
-
-                </LinearLayout>
-            </FrameLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Score and Progress Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/scoreCard"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headerCard">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/score_card_gradient"
-                android:orientation="horizontal"
-                android:padding="24dp">
-
-                <!-- Score Section -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Scorul Tău"
-                        android:textColor="#B0FFFFFF"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/poppins_medium" />
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp" />
 
                     <TextView
                         android:id="@+id/scoreTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="0"
+                        android:text="0/10"
                         android:textColor="@color/white"
-                        android:textSize="56sp"
+                        android:textSize="48sp"
                         android:textStyle="bold"
-                        android:fontFamily="@font/poppins_medium"
-                        android:shadowColor="#4D000000"
-                        android:shadowDx="0"
-                        android:shadowDy="3"
-                        android:shadowRadius="6"
-                        tools:text="850" />
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Acuratețe"
+                                android:textColor="#E0FFFFFF"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/accuracyText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Timp"
+                                android:textColor="#E0FFFFFF"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/timeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="00:00"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mod"
+                                android:textColor="#E0FFFFFF"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/gameModeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Quiz Clasic"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Circular Progress and Performance Badge -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="16dp">
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/circularProgressBar"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginEnd="16dp"
+                            app:indicatorSize="80dp"
+                            app:trackThickness="8dp"
+                            app:indicatorColor="@color/white"
+                            app:trackColor="#40FFFFFF"
+                            android:progress="75" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/percentageTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="75%"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/performanceBadge"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/achievement_badge_gold"
+                                android:contentDescription="Performance Badge" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Performance Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📊 Evaluarea Performanței"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text_color"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/performanceText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Performanță excelentă! Cunoști foarte bine istoria și cultura Munteniei!"
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text_color"
+                        android:lineSpacingExtra="4dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Recommendation Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="💡 Recomandare"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text_color"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/recommendationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Continuă să exersezi pentru a ajunge la nivelul următor!"
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text_color"
+                        android:lineSpacingExtra="4dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Statistics Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/statsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="puncte"
-                        android:textColor="#E0FFFFFF"
-                        android:textSize="16sp"
+                        android:text="📊 Statistici Detaliate"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
                         android:textStyle="bold"
-                        android:fontFamily="@font/poppins_medium" />
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:id="@+id/statsTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="5 din 10 răspunsuri corecte (50%)"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:lineSpacingExtra="4dp"
+                        tools:text="8 din 10 răspunsuri corecte (80%)\nSerie maximă: 5 răspunsuri consecutive\nTimpul total: 4 minute și 32 secunde" />
 
                 </LinearLayout>
 
-                <!-- Visual Divider -->
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="#40FFFFFF" />
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- Progress Ring -->
-                <FrameLayout
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center">
+            <!-- Achievements Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/achievementsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
-                    <ProgressBar
-                        android:id="@+id/circularProgressBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:indeterminate="false"
-                        android:max="100"
-                        android:progress="0"
-                        android:progressDrawable="@drawable/circular_progress_drawable"
-                        android:background="@drawable/circular_progress_background" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:text="🎖️ Realizări"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginBottom="16dp" />
 
-                        <TextView
-                            android:id="@+id/percentageTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0%"
-                            android:textColor="@color/white"
-                            android:textSize="28sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppins_medium" />
+                    <TextView
+                        android:id="@+id/achievementsTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="• Expert al Transilvaniei\n• Maestru al cunoștințelor"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:lineSpacingExtra="4dp"
+                        tools:text="• Expert al Transilvaniei (8 din 10 corecte)\n• Maestru al cunoștințelor (serie de 5 răspunsuri corecte)\n• Rapid ca fulgerul (timp mediu sub 15 secunde)" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Corect"
-                            android:textColor="#E0FFFFFF"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/poppins_medium" />
+                </LinearLayout>
 
-                    </LinearLayout>
-                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Statistics Card with Modern Design -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/statsCard"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/white"
-            app:strokeColor="#E0E0E0"
-            app:strokeWidth="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scoreCard">
-
-            <LinearLayout
+            <!-- Achievement Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/achievementCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:visibility="gone">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📊 Statistici Detaliate"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/poppins_medium"
-                    android:layout_marginBottom="16dp" />
-
-                <TextView
-                    android:id="@+id/statsTextView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="5 din 10 răspunsuri corecte (50%)"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:lineSpacingExtra="4dp"
-                    tools:text="8 din 10 răspunsuri corecte (80%)\nSerie maximă: 5 răspunsuri consecutive\nTimpul total: 4 minute și 32 secunde" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🏆 Realizări"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_text_color"
+                        android:layout_marginBottom="12dp" />
 
-        <!-- Achievements Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/achievementsCard"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/statsCard">
+                    <TextView
+                        android:id="@+id/achievementText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Scor Perfect!"
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text_color"
+                        android:lineSpacingExtra="4dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎖️ Realizări"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/poppins_medium"
-                    android:layout_marginBottom="16dp" />
-
-                <TextView
-                    android:id="@+id/achievementsTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="• Expert al Transilvaniei\n• Maestru al cunoștințelor"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:lineSpacingExtra="4dp"
-                    tools:text="• Expert al Transilvaniei (8 din 10 corecte)\n• Maestru al cunoștințelor (serie de 5 răspunsuri corecte)\n• Rapid ca fulgerul (timp mediu sub 15 secunde)" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Action Buttons -->
-        <LinearLayout
-            android:id="@+id/buttonsLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/achievementsCard"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/playAgainButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="🔄 Joacă din nou"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_medium"
-                android:padding="16dp"
-                app:cornerRadius="12dp"
-                style="@style/Widget.Material3.Button.UnelevatedButton" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/shareButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="📤 Distribuie rezultatul"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_medium"
-                android:padding="16dp"
-                app:cornerRadius="12dp"
-                style="@style/Widget.Material3.Button.UnelevatedButton" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/backToMapButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🗺️ Înapoi la Transilvania"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_medium"
-                android:padding="16dp"
-                app:cornerRadius="12dp"
-                style="@style/Widget.Material3.Button.UnelevatedButton" />
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView> 
+    </ScrollView>
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/playAgainButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="🔄 Joacă din nou"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="16dp"
+            app:cornerRadius="12dp"
+            style="@style/Widget.Material3.Button.UnelevatedButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shareButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="📤 Distribuie rezultatul"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="16dp"
+            app:cornerRadius="12dp"
+            style="@style/Widget.Material3.Button.UnelevatedButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backToMapButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🗺️ Înapoi la Muntenia"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="16dp"
+            app:cornerRadius="12dp"
+            style="@style/Widget.Material3.Button.UnelevatedButton" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -47,6 +47,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.DocumentReference;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -95,10 +96,20 @@ public class UserProfileActivity extends AppCompatActivity {
             uri -> {
                 if (uri != null) {
                     selectedImageUri = uri;
-                    Glide.with(this)
-                            .load(selectedImageUri)
-                            .circleCrop()
-                            .into(profileImageView);
+                    // Salvăm imaginea local și obținem calea locală
+                    String localImagePath = saveImageToLocalStorage(uri);
+                    if (localImagePath != null) {
+                        // Actualizăm URI-ul cu calea locală
+                        selectedImageUri = Uri.fromFile(new File(localImagePath));
+                        // Afișăm imaginea
+                        Glide.with(this)
+                                .load(selectedImageUri)
+                                .circleCrop()
+                                .into(profileImageView);
+                        
+                        // Salvăm calea locală în SharedPreferences pentru persistență
+                        saveLocalImagePath(localImagePath);
+                    }
                 }
             });
     
@@ -390,16 +401,26 @@ public class UserProfileActivity extends AppCompatActivity {
     private void updateProfileImage() {
         if (profileImageView == null) return;
         
-        // Afișăm imaginea de profil (dacă există)
-        if (userProfile.getProfileImageUrl() != null && !userProfile.getProfileImageUrl().isEmpty()) {
-            Glide.with(this)
-                    .load(userProfile.getProfileImageUrl())
-                    .placeholder(R.drawable.default_profile_image)
-                    .error(R.drawable.default_profile_image)
-                    .circleCrop()
-                    .into(profileImageView);
+        // Încercăm să încărcăm imaginea locală mai întâi
+        String localImagePath = getLocalImagePath();
+        if (localImagePath != null) {
+            File imageFile = new File(localImagePath);
+            if (imageFile.exists()) {
+                Uri localUri = Uri.fromFile(imageFile);
+                Glide.with(this)
+                        .load(localUri)
+                        .placeholder(R.drawable.default_profile_image)
+                        .error(R.drawable.default_profile_image)
+                        .circleCrop()
+                        .into(profileImageView);
+                Log.d(TAG, "Imagine locală încărcată: " + localImagePath);
+            } else {
+                // Dacă fișierul local nu există, încărcăm imaginea de pe server
+                loadImageFromServer();
+            }
         } else {
-            profileImageView.setImageResource(R.drawable.default_profile_image);
+            // Dacă nu există imagine locală, încărcăm de pe server
+            loadImageFromServer();
         }
         
         // Aplicăm animație pentru imaginea de profil
@@ -413,6 +434,22 @@ public class UserProfileActivity extends AppCompatActivity {
                 .setDuration(600)
                 .setInterpolator(new android.view.animation.OvershootInterpolator())
                 .start();
+    }
+    
+    /**
+     * Încarcă imaginea de profil de pe server (fallback)
+     */
+    private void loadImageFromServer() {
+        if (userProfile.getProfileImageUrl() != null && !userProfile.getProfileImageUrl().isEmpty()) {
+            Glide.with(this)
+                    .load(userProfile.getProfileImageUrl())
+                    .placeholder(R.drawable.default_profile_image)
+                    .error(R.drawable.default_profile_image)
+                    .circleCrop()
+                    .into(profileImageView);
+        } else {
+            profileImageView.setImageResource(R.drawable.default_profile_image);
+        }
     }
     
     private void updateQuickStats() {
@@ -1258,13 +1295,8 @@ public class UserProfileActivity extends AppCompatActivity {
         if (userProfile != null) {
             userProfile.setDisplayName(displayName);
             
-            // Dacă utilizatorul a selectat o imagine nouă, o încărcăm în Firebase Storage
-            if (selectedImageUri != null) {
-                uploadProfileImage(currentUser.getUid());
-            } else {
-                // Salvăm profilul utilizatorului în repository
-                saveUserProfile();
-            }
+            // Salvăm profilul utilizatorului în repository (imaginea este deja salvată local)
+            saveUserProfile();
         } else {
             hideProgressBar();
             showErrorMessage("Profilul utilizatorului nu a fost încărcat");
@@ -1339,8 +1371,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         hideProgressBar();
                         
                         if (success) {
-                            // Afișăm mesaj de succes
-                            showSuccessMessage(getString(R.string.profile_updated));
+                            // Afișăm mesaj de succes pentru salvarea locală
+                            showSuccessMessage("Profil actualizat cu succes! Imaginea a fost salvată local.");
                         } else {
                             // Afișăm mesaj de eroare
                             showErrorMessage(getString(R.string.error_updating_profile));
@@ -1363,6 +1395,94 @@ public class UserProfileActivity extends AppCompatActivity {
     
     private void selectProfileImage() {
         getContent.launch("image/*");
+    }
+    
+    /**
+     * Salvează imaginea selectată în storage-ul local al aplicației
+     */
+    private String saveImageToLocalStorage(Uri imageUri) {
+        try {
+            // Obținem InputStream din URI
+            android.content.ContentResolver contentResolver = getContentResolver();
+            java.io.InputStream inputStream = contentResolver.openInputStream(imageUri);
+            
+            if (inputStream == null) {
+                Log.e(TAG, "Nu s-a putut deschide imaginea");
+                return null;
+            }
+            
+            // Creăm directorul pentru imagini dacă nu există
+            File imagesDir = new File(getFilesDir(), "profile_images");
+            if (!imagesDir.exists()) {
+                imagesDir.mkdirs();
+            }
+            
+            // Generăm numele fișierului cu timestamp pentru a evita conflictele
+            String fileName = "profile_image_" + System.currentTimeMillis() + ".jpg";
+            File imageFile = new File(imagesDir, fileName);
+            
+            // Copiem imaginea în fișierul local
+            java.io.FileOutputStream outputStream = new java.io.FileOutputStream(imageFile);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            
+            inputStream.close();
+            outputStream.close();
+            
+            Log.d(TAG, "Imagine salvată local: " + imageFile.getAbsolutePath());
+            return imageFile.getAbsolutePath();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Eroare la salvarea imaginii local", e);
+            return null;
+        }
+    }
+    
+    /**
+     * Salvează calea imaginii locale în SharedPreferences
+     */
+    private void saveLocalImagePath(String imagePath) {
+        android.content.SharedPreferences prefs = getSharedPreferences("profile_prefs", MODE_PRIVATE);
+        android.content.SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("local_profile_image_path", imagePath);
+        editor.apply();
+        Log.d(TAG, "Calea imaginii salvată în SharedPreferences: " + imagePath);
+    }
+    
+    /**
+     * Încarcă calea imaginii locale din SharedPreferences
+     */
+    private String getLocalImagePath() {
+        android.content.SharedPreferences prefs = getSharedPreferences("profile_prefs", MODE_PRIVATE);
+        return prefs.getString("local_profile_image_path", null);
+    }
+    
+    /**
+     * Încarcă imaginea locală în ImageView
+     */
+    private void loadLocalProfileImage() {
+        String localImagePath = getLocalImagePath();
+        if (localImagePath != null) {
+            File imageFile = new File(localImagePath);
+            if (imageFile.exists()) {
+                Uri localUri = Uri.fromFile(imageFile);
+                Glide.with(this)
+                        .load(localUri)
+                        .placeholder(R.drawable.default_profile_image)
+                        .error(R.drawable.default_profile_image)
+                        .circleCrop()
+                        .into(profileImageView);
+                Log.d(TAG, "Imagine locală încărcată: " + localImagePath);
+            } else {
+                Log.w(TAG, "Fișierul imaginii locale nu există: " + localImagePath);
+                // Ștergem calea din SharedPreferences dacă fișierul nu există
+                android.content.SharedPreferences prefs = getSharedPreferences("profile_prefs", MODE_PRIVATE);
+                prefs.edit().remove("local_profile_image_path").apply();
+            }
+        }
     }
     
     private void openLeaderboard() {
