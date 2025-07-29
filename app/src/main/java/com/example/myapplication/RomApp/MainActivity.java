@@ -35,6 +35,8 @@ import android.app.AlertDialog;
 import android.widget.Toast;
 import android.graphics.Color;
 import android.util.TypedValue;
+import android.view.ViewGroup;
+import com.example.myapplication.utils.FirebaseCrashlyticsManager;
 
 public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
@@ -58,25 +60,42 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
-
-        boolean fromLogin = getIntent().getBooleanExtra("FROM_LOGIN", false);
-        boolean fromTuristi = getIntent().getBooleanExtra("FROM_TURISTI", false);
-
-        mAuth = FirebaseAuth.getInstance();
-
-        initializeViews();
-        initializeAnimations();
-        setupGradientBackground();
-        setupConfetti();
-        setupClickListeners();
-        startEntryAnimations();
         
-        addHelpButton();
-        
-        if (fromTuristi) {
-            hasVisitedTuristiActivity = true;
-            showWelcomeMessage();
+        try {
+            setContentView(R.layout.activity_sign_in);
+            
+            // Initialize Crashlytics for this activity
+            FirebaseCrashlyticsManager.getInstance(this).setCustomKey("current_screen", "MainActivity");
+            FirebaseCrashlyticsManager.getInstance(this).log("MainActivity onCreate started");
+            
+            // Test Firebase connection
+            FirebaseCrashlyticsManager.getInstance(this).log("Testing Firebase connection...");
+            FirebaseCrashlyticsManager.getInstance(this).setCustomKey("test_connection", "true");
+            
+            // Test crash button removed for production
+
+            boolean fromLogin = getIntent().getBooleanExtra("FROM_LOGIN", false);
+            boolean fromTuristi = getIntent().getBooleanExtra("FROM_TURISTI", false);
+
+            mAuth = FirebaseAuth.getInstance();
+
+            initializeViews();
+            initializeAnimations();
+            setupGradientBackground();
+            setupConfetti();
+            setupClickListeners();
+            startEntryAnimations();
+            
+            addHelpButton();
+            
+            if (fromTuristi) {
+                hasVisitedTuristiActivity = true;
+                showWelcomeMessage();
+            }
+        } catch (Exception e) {
+            // Report any initialization errors
+            FirebaseCrashlyticsManager.getInstance(this).reportException(e, "MainActivity.onCreate");
+            Log.e("MainActivity", "Error in onCreate", e);
         }
     }
 
@@ -417,19 +436,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (gradientAnimation != null && !gradientAnimation.isRunning()) {
-            gradientAnimation.start();
+        
+        try {
+            // Log screen view
+            FirebaseCrashlyticsManager.getInstance(this).log("MainActivity onResume");
+
+            if (gradientAnimation != null && !gradientAnimation.isRunning()) {
+                gradientAnimation.start();
+            }
+        } catch (Exception e) {
+            FirebaseCrashlyticsManager.getInstance(this).reportException(e, "MainActivity.onResume");
+            Log.e("MainActivity", "Error in onResume", e);
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (gradientAnimation != null && gradientAnimation.isRunning()) {
-            gradientAnimation.stop();
-        }
-        if (confettiDrawable != null && confettiDrawable.isRunning()) {
-            confettiDrawable.stop();
+        
+        try {
+            FirebaseCrashlyticsManager.getInstance(this).log("MainActivity onPause");
+
+            if (gradientAnimation != null && gradientAnimation.isRunning()) {
+                gradientAnimation.stop();
+            }
+            if (confettiDrawable != null && confettiDrawable.isRunning()) {
+                confettiDrawable.stop();
+            }
+        } catch (Exception e) {
+            FirebaseCrashlyticsManager.getInstance(this).reportException(e, "MainActivity.onPause");
+            Log.e("MainActivity", "Error in onPause", e);
         }
     }
 
@@ -560,4 +596,41 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
     }
+
+    // Example method for handling button clicks with error reporting
+    private void handleButtonClick(View view) {
+        try {
+            // ... existing button handling code ...
+            
+            FirebaseCrashlyticsManager.getInstance(this).log("Button clicked: " + view.getId());
+            
+        } catch (Exception e) {
+            FirebaseCrashlyticsManager.getInstance(this).reportUIError(
+                "MainActivity", 
+                "button_click", 
+                "Error handling button click: " + e.getMessage()
+            );
+            Log.e("MainActivity", "Error handling button click", e);
+        }
+    }
+
+    // Example method for handling network errors
+    private void handleNetworkError(String endpoint, String error) {
+        FirebaseCrashlyticsManager.getInstance(this).reportNetworkError(endpoint, error);
+        Log.e("MainActivity", "Network error: " + error);
+    }
+
+    // Example method for handling Firebase errors
+    private void handleFirebaseError(String operation, String error) {
+        FirebaseCrashlyticsManager.getInstance(this).reportFirebaseError(operation, error);
+        Log.e("MainActivity", "Firebase error: " + error);
+    }
+
+    // Example method for handling game errors
+    private void handleGameError(String region, String gameType, String error) {
+        FirebaseCrashlyticsManager.getInstance(this).reportGameError(region, gameType, error);
+        Log.e("MainActivity", "Game error: " + error);
+    }
+
+
 }

@@ -106,12 +106,22 @@ public class FirestoreQuestionRepository {
      * @return Task pentru monitorizarea operației
      */
     public Task<QuerySnapshot> getQuestions(String region, String gameType) {
-        return db.collection(COLLECTION_REGIONS)
+        Log.d(TAG, "Getting questions for region: " + region + ", gameType: " + gameType);
+        
+        Task<QuerySnapshot> task = db.collection(COLLECTION_REGIONS)
                 .document(region)
                 .collection(COLLECTION_GAMES)
                 .document(gameType)
                 .collection(COLLECTION_QUESTIONS)
                 .get();
+        
+        task.addOnSuccessListener(querySnapshot -> {
+            Log.d(TAG, "Query successful. Found " + querySnapshot.size() + " questions");
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Query failed for region: " + region + ", gameType: " + gameType, e);
+        });
+        
+        return task;
     }
     
     /**

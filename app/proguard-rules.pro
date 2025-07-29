@@ -20,6 +20,19 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# Firebase Crashlytics rules
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+
+# Crashlytics specific rules
+-keep class com.google.firebase.crashlytics.** { *; }
+-dontwarn com.google.firebase.crashlytics.**
+
+# Keep Crashlytics classes
+-keep class com.google.firebase.crashlytics.FirebaseCrashlytics { *; }
+-keep class com.google.firebase.crashlytics.internal.** { *; }
+
 # Remove all Log statements except errors
 -assumenosideeffects class android.util.Log {
     public static *** v(...);

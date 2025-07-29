@@ -128,7 +128,12 @@ public class ExceptionHandler {
         @Override
         public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
             try {
-                // Log the uncaught exception
+                // First, let Crashlytics handle the crash
+                if (defaultHandler != null) {
+                    defaultHandler.uncaughtException(thread, throwable);
+                }
+                
+                // Then log the uncaught exception for our own tracking
                 if (throwable instanceof Exception) {
                     logException(applicationContext, (Exception) throwable);
                 } else {
@@ -142,11 +147,6 @@ public class ExceptionHandler {
                 
             } catch (Exception e) {
                 Log.e(TAG, "Error in uncaught exception handler", e);
-            } finally {
-                // Hand over to the default handler
-                if (defaultHandler != null) {
-                    defaultHandler.uncaughtException(thread, throwable);
-                }
             }
         }
         

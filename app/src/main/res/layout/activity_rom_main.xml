@@ -172,6 +172,104 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Quick Access Buttons - Redesigned to match theme -->
+            <LinearLayout
+                android:id="@+id/quickAccessLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toBottomOf="@id/resourcePanel">
+
+                <!-- Profile Button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profileButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="openUserProfile"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="1dp"
+                    app:rippleColor="#1A3F51B5">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_person"
+                            android:contentDescription="Profil"
+                            app:tint="#3F51B5" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Profil"
+                            android:textColor="#3A3A3A"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Leaderboard Button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/leaderboardButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="openLeaderboard"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="1dp"
+                    app:rippleColor="#1AFF9800">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_trophy"
+                            android:contentDescription="Clasament"
+                            app:tint="#FF9800" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Clasament"
+                            android:textColor="#3A3A3A"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
             <!-- Modules Title -->
             <TextView
                 android:id="@+id/modulesTitle"
@@ -184,7 +282,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/resourcePanel" />
+                app:layout_constraintTop_toBottomOf="@id/quickAccessLayout" />
 
             <!-- Module Description -->
             <TextView
@@ -521,53 +619,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Adăugăm un layout pentru butoanele de acces rapid la clasament și profil -->
-            <LinearLayout
-                android:id="@+id/quickAccessLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/resourcePanel">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/profileButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:text="Profil"
-                    android:textAllCaps="false"
-                    android:drawableStart="@android:drawable/ic_menu_myplaces"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    app:cornerRadius="8dp"
-                    android:onClick="openUserProfile" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/leaderboardButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:text="Clasament"
-                    android:textAllCaps="false"
-                    android:drawableStart="@android:drawable/ic_menu_sort_by_size"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    app:cornerRadius="24dp"
-                    app:iconPadding="8dp"
-                    app:backgroundTint="@color/colorPrimaryLight"
-                    android:drawableTint="@color/colorPrimary"
-                    android:textColor="@color/text_primary"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:onClick="openLeaderboard" />
-
-            </LinearLayout>
-
-            <!-- Ajustăm constraintTop pentru RecyclerView să fie sub quickAccessLayout -->
+            <!-- Ajustăm constraintTop pentru RecyclerView să fie sub recipesCard -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/destinationsRecyclerView"
                 android:layout_width="match_parent"
@@ -576,7 +628,7 @@
                 android:clipToPadding="false"
                 android:paddingBottom="80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/quickAccessLayout"
+                app:layout_constraintTop_toBottomOf="@id/recipesCard"
                 tools:listitem="@layout/item_destination" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

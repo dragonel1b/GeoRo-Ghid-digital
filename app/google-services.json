@@ -40,6 +40,9 @@
               "client_type": 3
             }
           ]
+        },
+        "crashlytics_service": {
+          "crashlytics_enabled": true
         }
       }
     }

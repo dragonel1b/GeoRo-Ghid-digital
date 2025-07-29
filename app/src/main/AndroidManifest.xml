@@ -558,6 +558,7 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".ui.LocalAIActivity" />
     </application>
 
 </manifest>

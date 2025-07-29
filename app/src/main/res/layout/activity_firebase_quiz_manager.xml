@@ -19,77 +19,152 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Manager Întrebări Firebase" />
 
-    <LinearLayout
-        android:id="@+id/spinnerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Regiune:"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/regionSpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Joc:"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/gameTypeSpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/migrateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Migrează întrebări"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerLayout" />
-
-    <Button
-        android:id="@+id/uploadOlteniaSampleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload Întrebare Oltenia (exemplu)"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/migrateButton" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/questionsRecyclerView"
+    <!-- Main ScrollView containing everything -->
+    <ScrollView
+        android:id="@+id/mainScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/migrateButton"
-        tools:listitem="@android:layout/simple_list_item_1" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Spinner Layout -->
+            <LinearLayout
+                android:id="@+id/spinnerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Regiune:"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/regionSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Joc:"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/gameTypeSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+
+            <!-- Buttons Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <Button
+                    android:id="@+id/migrateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Migrează întrebări"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/rom_accent"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/uploadOlteniaSampleButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload Întrebare Oltenia (exemplu)"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/rom_accent"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/aiGenerateQuestionButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Generează întrebare AI"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/rom_accent"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/aiChatbotButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chatbot AI"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/rom_accent"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/localAIButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="AI Local"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/rom_accent"
+                    android:textColor="@android:color/white" />
+
+
+
+                <Button
+                    android:id="@+id/testFirebaseButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Test Firebase"
+                    android:backgroundTint="@android:color/holo_blue_dark"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="16dp" />
+
+            </LinearLayout>
+
+            <!-- Questions Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Întrebări:"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/questionsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:padding="8dp"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@android:layout/simple_list_item_1" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addQuestionFab"

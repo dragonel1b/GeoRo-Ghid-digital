@@ -12,6 +12,7 @@ import com.google.common.flogger.FluentLogger;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.example.myapplication.utils.FirebaseCrashlyticsManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.ConnectionResult;
@@ -142,6 +143,9 @@ public class RomApplication extends Application {
             // Perform initial security audit
             boolean isSecure = securityManager.performSecurityAudit();
             Log.i(TAG, "Initial security audit result: " + (isSecure ? "Secure" : "Insecure"));
+            
+            // Initialize Firebase Crashlytics
+            FirebaseCrashlyticsManager.getInstance(this).initialize();
             
         } catch (Exception e) {
             Log.e(TAG, "Error initializing security framework", e);
