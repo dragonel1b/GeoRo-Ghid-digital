@@ -109,35 +109,6 @@ app/
 - 100MB spațiu liber
 - Conexiune internet pentru funcționalități complete
 
-### Instalare pentru dezvoltatori
-
-1. **Clonează repository-ul**
-```bash
-git clone https://github.com/your-username/concurs-info.git
-cd concurs-info
-```
-
-2. **Configurează Firebase**
-   - Creează un proiect Firebase
-   - Descarcă `google-services.json`
-   - Plasează fișierul în `app/`
-
-3. **Configurează API keys**
-   - Creează un fișier `local.properties`
-   - Adaugă cheile API necesare
-
-4. **Compilează și rulează**
-```bash
-./gradlew assembleDebug
-./gradlew installDebug
-```
-
-### Instalare pentru utilizatori finali
-1. Descarcă APK-ul din releases
-2. Permite instalarea din surse necunoscute
-3. Instalează aplicația
-4. Creează un cont sau folosește modul guest
-
 ## 🔧 Justificarea folosirii tehnologiilor alese
 
 ### **Android (Java/Kotlin)**
