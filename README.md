@@ -185,25 +185,5 @@ Combinarea AI cu educația culturală este inovatoare în contextul românesc. N
 - Integrare AI pentru personalizare
 - Multi-modal learning pentru cultura românească
 
-## 🗺️ Roadmap
-
-### **Versiunea 2.0 (Q2 2024)**
-- [ ] Suport pentru mai multe limbi (maghiară, germană)
-- [ ] Integrare cu muzică tradițională românească
-- [ ] Sistem de multiplayer pentru jocuri
-- [ ] Augmented Reality pentru atracții turistice
-
-### **Versiunea 3.0 (Q4 2024)**
-- [ ] Platformă web companion
-- [ ] API public pentru dezvoltatori
-- [ ] Integrare cu servicii turistice
-- [ ] Sistem de certificare pentru educatori
-
-### **Versiunea 4.0 (2025)**
-- [ ] Suport pentru iOS
-- [ ] Integrare cu sisteme educaționale
-- [ ] AI avansat pentru personalizare
-- [ ] Realitate virtuală pentru experiențe immersive
-
 **Călătorie Prin România** - Păstrând cultura românească pentru generațiile viitoare, o aplicație educațională la un moment dat. 🇷🇴
       
