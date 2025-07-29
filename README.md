@@ -1,4 +1,4 @@
-# 🗺️ Călătorie Prin România - Aplicație Educațională Interactivă
+# 🗺️ Călătorie Prin România
 
 ## 📋 Descrierea problemei
 
