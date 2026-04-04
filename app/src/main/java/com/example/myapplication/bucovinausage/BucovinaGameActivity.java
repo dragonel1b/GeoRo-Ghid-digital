@@ -19,8 +19,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.cardview.widget.CardView;
 
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.button.MaterialButton;
 import com.example.myapplication.R;
@@ -89,8 +89,8 @@ public class BucovinaGameActivity extends AppCompatActivity {
     private boolean answerSelected = false;
     
     // Enhanced question management
-    private List<QuestionModel> questions;
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> questions;
+    private List<GameQuestionModel> firestoreQuestions;
     private List<EnhancedQuestionModel> enhancedQuestions;
     
     // Enhanced game systems - following Transilvania pattern
@@ -520,7 +520,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
         }
         
         // Highlight the correct answer
-        QuestionModel currentQuestion = questions.get(currentQuestionIndex);
+        GameQuestionModel currentQuestion = questions.get(currentQuestionIndex);
         int correctAnswerIndex = currentQuestion.getCorrectAnswerIndex();
         
         // Style correct answer
@@ -566,7 +566,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
         fiftyFiftyButton.setAlpha(0.5f);
         
         // Get current question
-        QuestionModel currentQuestion = questions.get(currentQuestionIndex);
+        GameQuestionModel currentQuestion = questions.get(currentQuestionIndex);
         int correctAnswerIndex = currentQuestion.getCorrectAnswerIndex();
         
         // Find wrong answers to hide
@@ -683,70 +683,70 @@ public class BucovinaGameActivity extends AppCompatActivity {
         questions = new ArrayList<>();
         
         // Bucovina-specific local questions with enhanced data
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este capitala județului Suceava?",
             "Suceava", 
             Arrays.asList("Rădăuți", "Câmpulung Moldovenesc", "Fălticeni"), 
             R.drawable.suceava, 
             "Suceava este capitala județului Suceava și fost o importantă cetate medievală în timpul lui Ștefan cel Mare."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "În ce an a fost construită Mănăstirea Voroneț?",
             "1488", 
             Arrays.asList("1476", "1504", "1527"), 
             R.drawable.manastire_voronet, 
             "Mănăstirea Voroneț, cunoscută ca 'Capela Sixtină a Orientului', a fost construită în 1488 de Ștefan cel Mare."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Ce culoare este specifică frescelor exterioare de la Voroneț?",
             "Albastru de Voroneț", 
             Arrays.asList("Verde", "Roșu", "Galben"), 
             R.drawable.manastire_voronet, 
             "Albastru de Voroneț este o nuanță unică de albastru, devenită celebră în întreaga lume."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care dintre următoarele mănăstiri NU se află în Bucovina?",
             "Mănăstirea Cozia", 
             Arrays.asList("Mănăstirea Putna", "Mănăstirea Sucevița", "Mănăstirea Humor"), 
             R.drawable.cozia, 
             "Mănăstirea Cozia se află în Oltenia, nu în Bucovina. Celelalte sunt celebre mănăstiri bucovinene."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Cine a fost domnitorul care a ctitorit Mănăstirea Putna?",
             "Ștefan cel Mare", 
             Arrays.asList("Alexandru cel Bun", "Petru Rareș", "Mihai Viteazul"), 
             R.drawable.manastirea_putna, 
             "Ștefan cel Mare a ctitorit Mănăstirea Putna în 1466, unde se află și mormântul său."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cea mai înaltă vârful montan din Bucovina?",
             "Vârful Pietrosul Călimanilor", 
             Arrays.asList("Vârful Rarău", "Vârful Giumalău", "Vârful Suhard"), 
             R.drawable.varful_pietros, 
             "Vârful Pietrosul din Munții Călimanului, cu 2022m, este cel mai înalt vârf din Bucovina."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este obiceiul tradițional de iarnă specific Bucovinei?",
             "Urșii", 
             Arrays.asList("Capra", "Căiuții", "Malanca"), 
             R.drawable.bucovina, 
             "Jocul Urșilor este un obicei specific Bucovinei, în care tinerii colindă mascați ca urși."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care dintre următoarele localități era cunoscută ca 'Mica Vienă'?",
             "Cernăuți", 
             Arrays.asList("Suceava", "Rădăuți", "Gura Humorului"), 
             R.drawable.mica_viena, 
             "Cernăuți, în timpul Austro-Ungariei, era cunoscută ca 'Mica Vienă' pentru arhitectura sa."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Ce tehnică artizanală este renumită în Bucovina?",
             "Încondeierea ouălor", 
             Arrays.asList("Țesutul covoarelor", "Sculptatul în lemn", "Olăritul"), 
             R.drawable.inc_oua, 
             "Încondeierea ouălor este o artă tradițională bucovinească cu modele geometrice complexe."));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "În ce perioadă a fost Bucovina parte din Imperiul Austro-Ungar?",
             "1775-1918", 
             Arrays.asList("1812-1918", "1699-1859", "1821-1918"), 
@@ -780,7 +780,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
     private void convertToEnhancedQuestions() {
         enhancedQuestions = new ArrayList<>();
         
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             // Infer category from question content for Bucovina
             EnhancedQuestionModel.Category category = inferCategoryFromQuestion(question.getQuestion());
             
@@ -866,7 +866,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
         answerSelected = false;
 
         // Get the current question
-        QuestionModel currentQuestion = questions.get(currentQuestionIndex);
+        GameQuestionModel currentQuestion = questions.get(currentQuestionIndex);
         
         // Reset UI elements
         resetCardStyles();
@@ -940,7 +940,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
         answerSelected = true;
 
         // Get current question
-        QuestionModel currentQuestion = questions.get(currentQuestionIndex);
+        GameQuestionModel currentQuestion = questions.get(currentQuestionIndex);
         int correctAnswerIndex = currentQuestion.getCorrectAnswerIndex();
 
         // Stop timer and calculate response time
@@ -1031,7 +1031,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
     }
     
     private void highlightCorrectAnswer() {
-        QuestionModel currentQuestion = questions.get(currentQuestionIndex);
+        GameQuestionModel currentQuestion = questions.get(currentQuestionIndex);
         String correctAnswer = currentQuestion.getCorrectAnswer();
         for (MaterialCardView card : answerCards) {
             if (card != null && card.getCardBackgroundColor().getDefaultColor() == ContextCompat.getColor(this, R.color.bucovina_correct_answer)) {
@@ -1388,7 +1388,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
         prefs.edit().putString(DATA_SOURCE_PREF_KEY, pref).apply();
     }
 
-    private void saveQuestionsToLocalCacheHybrid(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCacheHybrid(List<GameQuestionModel> questions) {
         android.content.SharedPreferences prefs = getSharedPreferences("BucovinaGamePrefs", MODE_PRIVATE);
         com.google.gson.Gson gson = new com.google.gson.Gson();
         String json = gson.toJson(questions);
@@ -1420,10 +1420,10 @@ public class BucovinaGameActivity extends AppCompatActivity {
                 .collection("questions")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<QuestionModel> loadedQuestions = new ArrayList<>();
+                    List<GameQuestionModel> loadedQuestions = new ArrayList<>();
                     for (com.google.firebase.firestore.DocumentSnapshot doc : queryDocumentSnapshots) {
                         try {
-                            QuestionModel q = doc.toObject(QuestionModel.class);
+                            GameQuestionModel q = doc.toObject(GameQuestionModel.class);
                             if (q != null) loadedQuestions.add(q);
                         } catch (Exception e) {
                             // skip invalid
@@ -1431,7 +1431,7 @@ public class BucovinaGameActivity extends AppCompatActivity {
                     }
                     if (!loadedQuestions.isEmpty()) {
                         Collections.shuffle(loadedQuestions);
-                        List<QuestionModel> limitedQuestions = loadedQuestions.subList(0, Math.min(numQuestions, loadedQuestions.size()));
+                        List<GameQuestionModel> limitedQuestions = loadedQuestions.subList(0, Math.min(numQuestions, loadedQuestions.size()));
                         questions = new ArrayList<>(limitedQuestions);
                         saveQuestionsToLocalCacheHybrid(questions);
                         finalizeQuestionsLoading();
@@ -1449,8 +1449,8 @@ public class BucovinaGameActivity extends AppCompatActivity {
         String cachedJson = prefs.getString(CACHE_KEY, null);
         if (cachedJson != null && !cachedJson.isEmpty()) {
             com.google.gson.Gson gson = new com.google.gson.Gson();
-            java.lang.reflect.Type type = new com.google.gson.reflect.TypeToken<List<QuestionModel>>(){}.getType();
-            List<QuestionModel> cachedQuestions = gson.fromJson(cachedJson, type);
+            java.lang.reflect.Type type = new com.google.gson.reflect.TypeToken<List<GameQuestionModel>>(){}.getType();
+            List<GameQuestionModel> cachedQuestions = gson.fromJson(cachedJson, type);
             if (cachedQuestions != null && !cachedQuestions.isEmpty()) {
                 Collections.shuffle(cachedQuestions);
                 questions = cachedQuestions.subList(0, Math.min(numQuestions, cachedQuestions.size()));

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.model.MoldovaStoryNode;
+import com.example.myapplication.core.domain.model.MoldovaStoryNode;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;

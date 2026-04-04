@@ -1,7 +1,7 @@
 package com.example.myapplication.dobrogeausage;
 
 import android.os.Bundle;
-import com.example.myapplication.model.base.BaseStoryActivity;
+import com.example.myapplication.core.domain.model.BaseStoryActivity;
 
 /**
  * Activitate pentru povestea regiunii Dobrogea

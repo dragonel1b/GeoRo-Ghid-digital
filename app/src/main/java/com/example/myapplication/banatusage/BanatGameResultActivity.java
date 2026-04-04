@@ -1,7 +1,7 @@
 package com.example.myapplication.banatusage;
 
 import android.content.Intent;
-import com.example.myapplication.model.base.BaseGameResultActivity;
+import com.example.myapplication.core.domain.model.BaseGameResultActivity;
 import com.example.myapplication.R;
 
 /**

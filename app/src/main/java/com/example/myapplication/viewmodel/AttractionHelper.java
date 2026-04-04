@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.example.myapplication.R;
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 
 /**
  * Helper class for adding attraction views to city activities
@@ -43,7 +45,17 @@ public class AttractionHelper {
         // Set opinion hint
         TextInputLayout opinionLayout = attractionView.findViewById(R.id.opinionAttraction);
         opinionLayout.setHint("Părerea ta despre " + attractionName);
-        
+
+        // Initialize BlurView for the badge
+        BlurView blurView = attractionView.findViewById(R.id.attractionBlurView);
+        if (blurView != null) {
+            View decorView = ((android.app.Activity) context).getWindow().getDecorView();
+            ViewGroup rootView = decorView.findViewById(android.R.id.content);
+            blurView.setupWith(rootView, new RenderScriptBlur(context))
+                    .setBlurRadius(10f)
+                    .setBlurAutoUpdate(true);
+        }
+
         // Add to container
         container.addView(attractionView);
         

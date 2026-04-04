@@ -269,8 +269,8 @@ public class PlayerProgressTracker {
     }
     
     public void trackAnswer(String questionId, boolean isCorrect, long timeSpent, 
-                           com.example.myapplication.models.EnhancedQuestionModel.Category category,
-                           com.example.myapplication.models.EnhancedQuestionModel.Difficulty difficulty) {
+                           com.example.myapplication.core.domain.model.EnhancedQuestionModel.Category category,
+                           com.example.myapplication.core.domain.model.EnhancedQuestionModel.Difficulty difficulty) {
         Log.d(TAG, "Tracking answer: " + questionId + ", correct: " + isCorrect + 
               ", time: " + timeSpent + "ms, category: " + category + ", difficulty: " + difficulty);
         

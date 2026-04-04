@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import com.example.myapplication.R;
-import com.example.myapplication.model.base.BaseGameResultActivity;
+import com.example.myapplication.core.domain.model.BaseGameResultActivity;
 import com.example.myapplication.utils.GameResultLauncher;
 import com.google.android.material.button.MaterialButton;
 

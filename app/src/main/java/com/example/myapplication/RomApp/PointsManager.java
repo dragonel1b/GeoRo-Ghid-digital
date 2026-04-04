@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.myapplication.model.UserProfile;
+import com.example.myapplication.core.domain.model.UserProfile;
 import com.example.myapplication.repository.QuizResultRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

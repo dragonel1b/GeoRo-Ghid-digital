@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Bucovina;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.model.BucovinaStoryNode;
+import com.example.myapplication.core.domain.model.BucovinaStoryNode;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import java.util.HashMap;

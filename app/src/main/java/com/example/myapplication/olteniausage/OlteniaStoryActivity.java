@@ -23,7 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Oltenia;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.model.OlteniaStoryNode;
+import com.example.myapplication.core.domain.model.OlteniaStoryNode;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;

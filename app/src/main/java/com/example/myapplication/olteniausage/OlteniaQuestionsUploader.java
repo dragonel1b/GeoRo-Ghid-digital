@@ -2,7 +2,7 @@ package com.example.myapplication.olteniausage;
 
 import android.content.Context;
 import android.util.Log;
-import com.example.myapplication.models.FirestoreQuestionModel;
+import com.example.myapplication.core.domain.model.FirestoreQuestionModel;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import java.util.ArrayList;
 import java.util.Arrays;

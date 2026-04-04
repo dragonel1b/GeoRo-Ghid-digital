@@ -18,34 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.RomApp.AlbaIulia;
-import com.example.myapplication.RomApp.Arad;
-import com.example.myapplication.RomApp.Bacau;
-import com.example.myapplication.RomApp.BaiaMare;
-import com.example.myapplication.RomApp.Banat;
-import com.example.myapplication.RomApp.Brasov;
-import com.example.myapplication.RomApp.Bucuresti;
-import com.example.myapplication.RomApp.Bucovina;
-import com.example.myapplication.RomApp.ClujNapoca;
-import com.example.myapplication.RomApp.Constanta;
-import com.example.myapplication.RomApp.Craiova;
-import com.example.myapplication.RomApp.Crisana;
-import com.example.myapplication.RomApp.Dobrogea;
-import com.example.myapplication.RomApp.Iasi;
-import com.example.myapplication.RomApp.Maramures;
-import com.example.myapplication.RomApp.Moldova;
-import com.example.myapplication.RomApp.Muntenia;
-import com.example.myapplication.RomApp.Oradea;
-import com.example.myapplication.RomApp.PiatraNeamt;
-import com.example.myapplication.RomApp.Ploiesti;
-import com.example.myapplication.RomApp.Resita;
-import com.example.myapplication.RomApp.Sibiu;
-import com.example.myapplication.RomApp.Slatina;
-import com.example.myapplication.RomApp.Suceava;
-import com.example.myapplication.RomApp.TarguMures;
-import com.example.myapplication.RomApp.Timisoara;
-import com.example.myapplication.RomApp.Tulcea;
-import com.example.myapplication.RomApp.Transilvania;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -678,78 +650,18 @@ public class RomMapActivity extends AppCompatActivity implements OnMapReadyCallb
      * Open the appropriate activity for a city
      */
     private void openCityActivity(String cityName) {
-        Intent intent = null;
+        Intent intent = new Intent(this, com.example.myapplication.RomApp.CityDetailActivity.class);
         
-        // Map city name to appropriate activity
-        switch(cityName.toLowerCase()) {
-            case "bucuresti":
-                intent = new Intent(this, Bucuresti.class);
-                break;
-            case "cluj-napoca":
-            case "cluj":
-                intent = new Intent(this, ClujNapoca.class);
-                break;
-            case "brasov":
-                intent = new Intent(this, Brasov.class);
-                break;
-            case "sibiu":
-                intent = new Intent(this, Sibiu.class);
-                break;
-            case "iasi":
-                intent = new Intent(this, Iasi.class);
-                break;
-            case "constanta":
-                intent = new Intent(this, Constanta.class);
-                break;
-            case "timisoara":
-                intent = new Intent(this, Timisoara.class);
-                break;
-            case "oradea":
-                intent = new Intent(this, Oradea.class);
-                break;
-            case "suceava":
-                intent = new Intent(this, Suceava.class);
-                break;
-            case "ploiesti":
-                intent = new Intent(this, Ploiesti.class);
-                break;
-            case "alba iulia":
-                intent = new Intent(this, AlbaIulia.class);
-                break;
-            case "piatra neamt":
-                intent = new Intent(this, PiatraNeamt.class);
-                break;
-            case "targu mures":
-                intent = new Intent(this, TarguMures.class);
-                break;
-            case "tulcea":
-                intent = new Intent(this, Tulcea.class);
-                break;
-            case "arad":
-                intent = new Intent(this, Arad.class);
-                break;
-            case "resita":
-                intent = new Intent(this, Resita.class);
-                break;
-            case "baia mare":
-                intent = new Intent(this, BaiaMare.class);
-                break;
-            case "slatina":
-                intent = new Intent(this, Slatina.class);
-                break;
-            case "craiova":
-                intent = new Intent(this, Craiova.class);
-                break;
-            default:
-                Toast.makeText(this, "Activitate pentru " + cityName + " nu este disponibilă", Toast.LENGTH_SHORT).show();
-                return;
-        }
+        // Deducem id-ul curatant și scriind tot cu litere mici
+        String cityId = cityName.toLowerCase().replace(" ", "").replace("-", "");
         
-        // Launch the activity
-        if (intent != null) {
-            startActivity(intent);
-            Toast.makeText(this, "Vizitare " + cityName, Toast.LENGTH_SHORT).show();
-        }
+        // Adjustari pentru diacritice cunoscute sau prescurtări speciale dacă este cazul
+        cityId = java.text.Normalizer.normalize(cityId, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        
+        intent.putExtra(com.example.myapplication.RomApp.CityDetailActivity.EXTRA_CITY_ID, cityId);
+        startActivity(intent);
+        Toast.makeText(this, "Vizitare " + cityName, Toast.LENGTH_SHORT).show();
     }
     
     /**

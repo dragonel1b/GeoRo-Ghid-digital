@@ -26,7 +26,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.example.myapplication.utils.RegionGameEnhancer;
 import com.example.myapplication.utils.HapticFeedbackType;
 import com.example.myapplication.Joc1.AchievementManager;

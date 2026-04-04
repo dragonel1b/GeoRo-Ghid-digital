@@ -20,7 +20,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Maramures;
 import com.example.myapplication.RomApp.PointsManager;
 import com.example.myapplication.databinding.ActivityMaramuresStoryBinding;
-import com.example.myapplication.model.MaramuresStoryNode;
+import com.example.myapplication.core.domain.model.MaramuresStoryNode;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;

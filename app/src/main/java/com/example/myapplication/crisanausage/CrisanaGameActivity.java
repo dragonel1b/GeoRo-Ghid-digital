@@ -23,11 +23,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.example.myapplication.utils.RegionGameEnhancer;
 import com.example.myapplication.utils.HapticFeedbackType;
 import com.example.myapplication.utils.SyncManager;
-import com.example.myapplication.models.QuestionModel;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import com.example.myapplication.Joc1.AchievementManager;
 
@@ -89,7 +89,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
     // Enhanced question management
     private List<Question> questions;
     private List<EnhancedQuestionModel> enhancedQuestions;
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> firestoreQuestions;
     
     // Enhanced game state variables
     private int currentQuestionIndex = 0;
@@ -242,8 +242,8 @@ public class CrisanaGameActivity extends AppCompatActivity {
                 if (!querySnapshot.isEmpty()) {
                     Log.d(TAG, "✅ Întrebări găsite în baza de date: " + querySnapshot.size());
                     
-                    // Convertim documentele la obiecte QuestionModel
-                    List<com.example.myapplication.model.QuestionModel> loadedQuestions = new ArrayList<>();
+                    // Convertim documentele la obiecte GameQuestionModel
+                    List<com.example.myapplication.core.domain.model.QuestionModel> loadedQuestions = new ArrayList<>();
                     
                     for (int i = 0; i < querySnapshot.size(); i++) {
                         try {
@@ -274,8 +274,8 @@ public class CrisanaGameActivity extends AppCompatActivity {
                                 int correctIndex = options.indexOf(correctAnswer);
                                 
                                 // Creăm obiectul QuestionModel
-                                com.example.myapplication.model.QuestionModel questionModel = 
-                                    new com.example.myapplication.model.QuestionModel(
+                                com.example.myapplication.core.domain.model.QuestionModel questionModel = 
+                                    new com.example.myapplication.core.domain.model.QuestionModel(
                                         question, 
                                         options, 
                                         correctIndex, 
@@ -295,8 +295,8 @@ public class CrisanaGameActivity extends AppCompatActivity {
                     }
                     
                     if (!loadedQuestions.isEmpty()) {
-                        // Convert to models.QuestionModel for compatibility
-                        List<QuestionModel> modelsQuestions = convertToModelsQuestionModels(loadedQuestions);
+                        // Convert to models.GameQuestionModel for compatibility
+                        List<GameQuestionModel> modelsQuestions = convertToModelsGameQuestionModels(loadedQuestions);
                         
                         firestoreQuestions = modelsQuestions;
                         enhancedQuestions = convertToEnhancedQuestions(modelsQuestions);
@@ -380,7 +380,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
     /**
      * 💾 Salvează întrebările în cache local
      */
-    private void saveQuestionsToLocalCache(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCache(List<GameQuestionModel> questions) {
         Log.d(TAG, "💾 Salvăm întrebările în cache local pentru utilizare offline");
         
         try {
@@ -422,10 +422,10 @@ public class CrisanaGameActivity extends AppCompatActivity {
     /**
      * 🔍 Convertește întrebările la formatul EnhancedQuestionModel
      */
-    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuestionModel> questions) {
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<GameQuestionModel> questions) {
         List<EnhancedQuestionModel> enhancedQuestions = new ArrayList<>();
         
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             EnhancedQuestionModel enhancedQuestion = new EnhancedQuestionModel(
                 question.getQuestion(),
                 question.getCorrectAnswer(),
@@ -476,7 +476,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
     /**
      * 🧠 Inferă dificultatea întrebării
      */
-    private EnhancedQuestionModel.Difficulty inferDifficulty(QuestionModel question) {
+    private EnhancedQuestionModel.Difficulty inferDifficulty(GameQuestionModel question) {
         // Lungimea întrebării poate indica complexitatea
         int questionLength = question.getQuestion().length();
         
@@ -498,7 +498,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
     /**
      * 🏷️ Generează tag-uri pentru întrebare
      */
-    private String[] generateTags(QuestionModel question) {
+    private String[] generateTags(GameQuestionModel question) {
         List<String> tags = new ArrayList<>();
         String text = question.getQuestion().toLowerCase();
         
@@ -538,10 +538,10 @@ public class CrisanaGameActivity extends AppCompatActivity {
     /**
      * 🔄 Convertește întrebările din Firestore la formatul intern
      */
-    private void convertFirestoreToLocalQuestions(List<QuestionModel> firestoreQuestions) {
+    private void convertFirestoreToLocalQuestions(List<GameQuestionModel> firestoreQuestions) {
         questions = new ArrayList<>();
         
-        for (QuestionModel firestoreQuestion : firestoreQuestions) {
+        for (GameQuestionModel firestoreQuestion : firestoreQuestions) {
             Question question = new Question(
                 firestoreQuestion.getQuestion(),
                 firestoreQuestion.getAnswers().toArray(new String[0]),
@@ -556,9 +556,9 @@ public class CrisanaGameActivity extends AppCompatActivity {
     }
     
     /**
-     * 🔄 Convertește un obiect model.QuestionModel la models.QuestionModel
+     * 🔄 Convertește un obiect model.GameQuestionModel la models.GameQuestionModel
      */
-    private com.example.myapplication.models.QuestionModel convertToModelsQuestionModel(com.example.myapplication.model.QuestionModel modelQuestion) {
+    private com.example.myapplication.core.domain.model.GameQuestionModel convertToModelsGameQuestionModel(com.example.myapplication.core.domain.model.QuestionModel modelQuestion) {
         List<String> incorrectAnswers = new ArrayList<>();
         List<String> options = modelQuestion.getOptions();
         int correctIndex = modelQuestion.getCorrectAnswerIndex();
@@ -576,7 +576,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
             }
         }
         
-        return new com.example.myapplication.models.QuestionModel(
+        return new com.example.myapplication.core.domain.model.GameQuestionModel(
             modelQuestion.getQuestion(),
             correctAnswer,
             incorrectAnswers,
@@ -586,13 +586,13 @@ public class CrisanaGameActivity extends AppCompatActivity {
     }
     
     /**
-     * 🔄 Convertește o listă de model.QuestionModel la models.QuestionModel
+     * 🔄 Convertește o listă de model.GameQuestionModel la models.GameQuestionModel
      */
-    private List<com.example.myapplication.models.QuestionModel> convertToModelsQuestionModels(List<com.example.myapplication.model.QuestionModel> modelQuestions) {
-        List<com.example.myapplication.models.QuestionModel> result = new ArrayList<>();
+    private List<com.example.myapplication.core.domain.model.GameQuestionModel> convertToModelsGameQuestionModels(List<com.example.myapplication.core.domain.model.QuestionModel> modelQuestions) {
+        List<com.example.myapplication.core.domain.model.GameQuestionModel> result = new ArrayList<>();
         if (modelQuestions != null) {
-            for (com.example.myapplication.model.QuestionModel q : modelQuestions) {
-                result.add(convertToModelsQuestionModel(q));
+            for (com.example.myapplication.core.domain.model.QuestionModel q : modelQuestions) {
+                result.add(convertToModelsGameQuestionModel(q));
             }
         }
         return result;
@@ -1794,7 +1794,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
         questionRepository.getQuestions(REGION, GAME_TYPE)
             .addOnSuccessListener(querySnapshot -> {
                 if (!querySnapshot.isEmpty()) {
-                    List<QuestionModel> loadedQuestions = new ArrayList<>();
+                    List<GameQuestionModel> loadedQuestions = new ArrayList<>();
                     for (int i = 0; i < querySnapshot.size(); i++) {
                         try {
                             Map<String, Object> data = querySnapshot.getDocuments().get(i).getData();
@@ -1810,7 +1810,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
                                 options.addAll(incorrectAnswers);
                                 Collections.shuffle(options);
                                 int correctIndex = options.indexOf(correctAnswer);
-                                QuestionModel q = new QuestionModel(question, correctAnswer, incorrectAnswers, 0, fact);
+                                GameQuestionModel q = new GameQuestionModel(question, correctAnswer, incorrectAnswers, 0, fact);
                                 loadedQuestions.add(q);
                             }
                         } catch (Exception e) {
@@ -1848,8 +1848,8 @@ public class CrisanaGameActivity extends AppCompatActivity {
         if (cachedJson != null && !cachedJson.isEmpty()) {
             try {
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<QuestionModel>>(){}.getType();
-                List<QuestionModel> cachedQuestions = gson.fromJson(cachedJson, type);
+                Type type = new TypeToken<List<GameQuestionModel>>(){}.getType();
+                List<GameQuestionModel> cachedQuestions = gson.fromJson(cachedJson, type);
                 if (cachedQuestions != null && !cachedQuestions.isEmpty()) {
                     // Limitează la numQuestions
                     if (cachedQuestions.size() > numQuestions) {
@@ -1918,8 +1918,8 @@ public class CrisanaGameActivity extends AppCompatActivity {
         if (cachedJson != null && !cachedJson.isEmpty() && notExpired) {
             try {
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<QuestionModel>>(){}.getType();
-                List<QuestionModel> cachedQuestions = gson.fromJson(cachedJson, type);
+                Type type = new TypeToken<List<GameQuestionModel>>(){}.getType();
+                List<GameQuestionModel> cachedQuestions = gson.fromJson(cachedJson, type);
                 return cachedQuestions != null && !cachedQuestions.isEmpty();
             } catch (Exception e) {
                 Log.e(TAG, "Eroare la parsing cache local", e);
@@ -2015,7 +2015,7 @@ public class CrisanaGameActivity extends AppCompatActivity {
     /**
      * Salvează întrebările în cache local
      */
-    private void saveQuestionsToLocalCacheHybrid(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCacheHybrid(List<GameQuestionModel> questions) {
         try {
             Gson gson = new Gson();
             String json = gson.toJson(questions);

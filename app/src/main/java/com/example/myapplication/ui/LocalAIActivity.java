@@ -98,8 +98,8 @@ public class LocalAIActivity extends AppCompatActivity {
 
     private void saveLocalAIResponse(String userQuestion, String aiResponse) {
         // Salvare în Firestore (similar cu OpenAI)
-        com.example.myapplication.models.CuriosityModel curiosity = 
-            new com.example.myapplication.models.CuriosityModel(
+        com.example.myapplication.core.domain.model.CuriosityModel curiosity = 
+            new com.example.myapplication.core.domain.model.CuriosityModel(
                 userQuestion, aiResponse, "local", "curiozitate", 
                 com.google.firebase.Timestamp.now(), "AI Local"
             );

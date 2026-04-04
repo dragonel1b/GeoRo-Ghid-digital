@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.utils.PointsManager;
-import com.example.myapplication.model.RegionMapDataProvider;
+import com.example.myapplication.core.domain.model.RegionMapDataProvider;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -24,7 +24,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.myapplication.model.base.BaseMapActivity;
+import com.example.myapplication.core.domain.model.BaseMapActivity;
 
 public class CrisanaMapActivity extends BaseMapActivity {
     

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.model.Ingredient;
-import com.example.myapplication.model.Recipe;
+import com.example.myapplication.core.domain.model.Ingredient;
+import com.example.myapplication.core.domain.model.Recipe;
 import com.example.myapplication.repository.RecipeRepository;
 
 import java.util.ArrayList;

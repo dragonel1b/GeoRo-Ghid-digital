@@ -3,6 +3,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     kotlin("android") version "2.0.0"
+    kotlin("plugin.compose") version "2.0.0"
 }
 
 android {
@@ -58,11 +59,13 @@ android {
     }
 
     buildFeatures {
+        compose = true
         viewBinding = true
         buildConfig = true
     }
 
     kotlinOptions {
+
         jvmTarget = "17"
     }
 
@@ -124,7 +127,28 @@ dependencies {
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.4.1")
     implementation("androidx.lifecycle:lifecycle-livedata:2.4.1")
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.core:core-ktx:1.13.1")
+
+    // ── Jetpack Compose (Opțiunea A — Hibrid) ──────────────────────────────
+    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.animation:animation")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    // Coil — image loading în Compose (înlocuiește Glide pentru ecranele Compose)
+    implementation("io.coil-kt:coil-compose:2.6.0")
+    // Google Fonts în Compose
+    implementation("androidx.compose.ui:ui-text-google-fonts")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("androidx.compose.material:material-icons-extended")
+    // ───────────────────────────────────────────────────────────────────────
+
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.google.android.gms:play-services-base:18.3.0")
     implementation("com.google.android.gms:play-services-basement:18.3.0")
@@ -134,6 +158,12 @@ dependencies {
     implementation("nl.dionsegijn:konfetti-xml:2.0.3")
     // MPAndroidChart library for data visualization
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // Lottie for micro-animations
+    implementation("com.airbnb.android:lottie:6.4.0")
+    // Real BlurView for glassmorphism
+    implementation("com.github.Dimezis:BlurView:version-2.0.3")
+    // Shimmer for loading skeletons
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
     
     // Additional missing dependencies
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")

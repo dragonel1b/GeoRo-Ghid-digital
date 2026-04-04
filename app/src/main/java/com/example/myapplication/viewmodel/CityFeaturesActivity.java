@@ -25,7 +25,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ImageCarouselAdapter;
-import com.example.myapplication.model.CityImage;
+import com.example.myapplication.core.domain.model.CityImage;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;

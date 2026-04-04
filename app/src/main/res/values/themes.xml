@@ -144,4 +144,28 @@
         <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
         <item name="tabStyle">@style/Widget.MaterialComponents.TabLayout</item>
     </style>
+
+    <!-- FAB rounded-2xl — matches orange rounded-xl button in React Dashboard -->
+    <style name="FABRounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <!-- Theme for CityDetailActivity — full dark, transparent status bar, orange accent -->
+    <style name="Theme.MyApplication.CluJCity" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#F97316</item>
+        <item name="colorPrimaryVariant">#EA6100</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#EAB308</item>
+        <item name="colorOnSecondary">#0A0F0D</item>
+        <item name="colorSurface">#0A0F0D</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+        <item name="android:windowBackground">#0A0F0D</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+    </style>
+
 </resources>

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.myapplication.model.base.BaseGameOverActivity;
+import com.example.myapplication.core.domain.model.BaseGameOverActivity;
 import com.example.myapplication.transilvaniausage.GameOverActivity;
 
 import java.util.Map;

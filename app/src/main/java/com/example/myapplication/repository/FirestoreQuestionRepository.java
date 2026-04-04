@@ -1,9 +1,9 @@
 package com.example.myapplication.repository;
 
 import android.util.Log;
-import com.example.myapplication.models.FirestoreQuestionModel;
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.FirestoreQuestionModel;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.QuizResult;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -59,14 +59,14 @@ public class FirestoreQuestionRepository {
     }
     
     /**
-     * Adaugă o întrebare folosind un model local QuestionModel
+     * Adaugă o întrebare folosind un model local GameQuestionModel
      * @param questionModel Întrebarea locală
      * @param region Regiunea întrebării
      * @param gameType Tipul jocului
      * @return Task pentru monitorizarea operației
      */
-    public Task<DocumentReference> addQuestionFromModel(QuestionModel questionModel, String region, String gameType) {
-        FirestoreQuestionModel firestoreQuestion = FirestoreQuestionModel.fromQuestionModel(questionModel, region, gameType);
+    public Task<DocumentReference> addQuestionFromModel(GameQuestionModel questionModel, String region, String gameType) {
+        FirestoreQuestionModel firestoreQuestion = FirestoreQuestionModel.fromGameQuestionModel(questionModel, region, gameType);
         return addQuestion(firestoreQuestion);
     }
     
@@ -77,11 +77,11 @@ public class FirestoreQuestionRepository {
      * @param gameType Tipul jocului
      * @return CompletableFuture pentru monitorizarea operației
      */
-    public CompletableFuture<Void> addQuestions(List<QuestionModel> questions, String region, String gameType) {
+    public CompletableFuture<Void> addQuestions(List<GameQuestionModel> questions, String region, String gameType) {
         CompletableFuture<Void> future = new CompletableFuture<>();
         
         List<Task<DocumentReference>> tasks = new ArrayList<>();
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             tasks.add(addQuestionFromModel(question, region, gameType));
         }
         
@@ -130,16 +130,16 @@ public class FirestoreQuestionRepository {
      * @param gameType Tipul jocului
      * @return CompletableFuture cu lista de întrebări locale
      */
-    public CompletableFuture<List<QuestionModel>> getQuestionsAsModels(String region, String gameType) {
-        CompletableFuture<List<QuestionModel>> future = new CompletableFuture<>();
+    public CompletableFuture<List<GameQuestionModel>> getQuestionsAsModels(String region, String gameType) {
+        CompletableFuture<List<GameQuestionModel>> future = new CompletableFuture<>();
         
         getQuestions(region, gameType)
             .addOnSuccessListener(querySnapshot -> {
-                List<QuestionModel> questionModels = new ArrayList<>();
+                List<GameQuestionModel> questionModels = new ArrayList<>();
                 for (var doc : querySnapshot.getDocuments()) {
                     FirestoreQuestionModel firestoreQuestion = doc.toObject(FirestoreQuestionModel.class);
                     if (firestoreQuestion != null) {
-                        questionModels.add(firestoreQuestion.toQuestionModel());
+                        questionModels.add(firestoreQuestion.toGameQuestionModel());
                     }
                 }
                 future.complete(questionModels);

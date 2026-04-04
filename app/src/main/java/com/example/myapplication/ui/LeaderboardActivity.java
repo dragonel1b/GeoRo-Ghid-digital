@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.LeaderboardAdapter;
-import com.example.myapplication.model.LeaderboardEntry;
+import com.example.myapplication.core.domain.model.LeaderboardEntry;
 import com.example.myapplication.repository.QuizResultRepository;
 import com.google.android.material.imageview.ShapeableImageView;
 import androidx.core.view.WindowCompat;

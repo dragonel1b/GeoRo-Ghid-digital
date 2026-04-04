@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Outfit and Inter are loaded via Compose ui-text-google-fonts at runtime.
+     The font XML descriptors below ensure they preload on app start,
+     reducing the first-frame font swap flash. -->
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:fontProviderAuthority="com.google.android.gms.fonts"
+    app:fontProviderPackage="com.google.android.gms"
+    app:fontProviderQuery="Outfit"
+    app:fontProviderCerts="@array/com_google_android_gms_fonts_certs">
+</font-family>

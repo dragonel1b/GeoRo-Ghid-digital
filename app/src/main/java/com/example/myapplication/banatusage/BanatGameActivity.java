@@ -23,15 +23,15 @@ import com.google.android.material.button.MaterialButton;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Banat;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.example.myapplication.banatusage.DifficultyManager;
 import com.example.myapplication.banatusage.GameModeManager;
 import com.example.myapplication.banatusage.PlayerProgressTracker;
 import com.example.myapplication.utils.HapticFeedbackType;
 import com.example.myapplication.utils.RegionGameEnhancer;
 import com.example.myapplication.utils.SyncManager;
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import com.example.myapplication.utils.GameOverHelper;
 import com.example.myapplication.Joc1.AchievementManager;
@@ -98,7 +98,7 @@ public class BanatGameActivity extends AppCompatActivity {
     // Enhanced question management
     private List<Question> questions;
     private List<EnhancedQuestionModel> enhancedQuestions;
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> firestoreQuestions;
     
     // Enhanced game systems using RegionGameEnhancer
     private RegionGameEnhancer gameEnhancer;
@@ -755,7 +755,7 @@ public class BanatGameActivity extends AppCompatActivity {
     /**
      * 💾 Salvează întrebările în cache local
      */
-    private void saveQuestionsToLocalCache(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCache(List<GameQuestionModel> questions) {
         Map<String, Object> cacheData = new HashMap<>();
         cacheData.put("questions", questions);
         cacheData.put("timestamp", System.currentTimeMillis());
@@ -791,10 +791,10 @@ public class BanatGameActivity extends AppCompatActivity {
                 Type type = new TypeToken<Map<String, Object>>(){}.getType();
                 Map<String, Object> cacheData = gson.fromJson(cachedJson, type);
                 
-                List<QuestionModel> cachedQuestions = new ArrayList<>();
+                List<GameQuestionModel> cachedQuestions = new ArrayList<>();
                 if (cacheData.containsKey("questions")) {
                     String questionsJson = gson.toJson(cacheData.get("questions"));
-                    Type listType = new TypeToken<List<QuestionModel>>(){}.getType();
+                    Type listType = new TypeToken<List<GameQuestionModel>>(){}.getType();
                     cachedQuestions = gson.fromJson(questionsJson, listType);
                 }
                 
@@ -859,10 +859,10 @@ public class BanatGameActivity extends AppCompatActivity {
     /**
      * 🔄 Convertește întrebările din Firestore la formatul îmbunătățit
      */
-    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuestionModel> questions) {
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<GameQuestionModel> questions) {
         List<EnhancedQuestionModel> enhanced = new ArrayList<>();
         
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             EnhancedQuestionModel enhancedQuestion = new EnhancedQuestionModel(
                 question.getQuestion(),
                 question.getCorrectAnswer(),
@@ -909,7 +909,7 @@ public class BanatGameActivity extends AppCompatActivity {
     /**
      * 🎯 Inferă dificultatea din întrebare
      */
-    private EnhancedQuestionModel.Difficulty inferDifficulty(QuestionModel question) {
+    private EnhancedQuestionModel.Difficulty inferDifficulty(GameQuestionModel question) {
         String text = question.getQuestion().toLowerCase();
         int optionsCount = question.getAnswers().size();
         
@@ -931,7 +931,7 @@ public class BanatGameActivity extends AppCompatActivity {
     /**
      * 🏷️ Generează tag-uri pentru întrebare
      */
-    private String[] generateTags(QuestionModel question) {
+    private String[] generateTags(GameQuestionModel question) {
         List<String> tags = new ArrayList<>();
         String text = question.getQuestion().toLowerCase();
         
@@ -1597,10 +1597,10 @@ public class BanatGameActivity extends AppCompatActivity {
     /**
      * Convertește întrebările din Firestore la formatul local Question
      */
-    private List<Question> convertFirestoreToLocalQuestions(List<QuestionModel> firestoreQuestions) {
+    private List<Question> convertFirestoreToLocalQuestions(List<GameQuestionModel> firestoreQuestions) {
         List<Question> localQuestions = new ArrayList<>();
         
-        for (QuestionModel firestoreQuestion : firestoreQuestions) {
+        for (GameQuestionModel firestoreQuestion : firestoreQuestions) {
             // Convertim răspunsurile la array
             String[] answers = new String[firestoreQuestion.getAnswers().size()];
             for (int i = 0; i < firestoreQuestion.getAnswers().size(); i++) {
@@ -2770,10 +2770,10 @@ public class BanatGameActivity extends AppCompatActivity {
     private void initializeHardcodedQuestions() {
         Log.d(TAG, "📱 Inițializez întrebări hardcodate pentru Banat");
         
-        List<QuestionModel> hardcodedQuestions = new ArrayList<>();
+        List<GameQuestionModel> hardcodedQuestions = new ArrayList<>();
         
         // Întrebări despre Banat
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Care este cel mai mare oraș din regiunea Banat?",
             "Timișoara", 
             Arrays.asList("Arad", "Reșița", "Lugoj"), 
@@ -2781,7 +2781,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Timișoara este cel mai mare oraș din Banat și al treilea ca mărime din România."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Care este cel mai înalt vârf montan din Banat?",
             "Vârful Peleaga", 
             Arrays.asList("Vârful Parâng", "Vârful Retezat", "Vârful Gugu"), 
@@ -2789,7 +2789,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Vârful Peleaga din Munții Retezat are 2.509 metri și este cel mai înalt din Banat."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Care stațiune din Banat este cunoscută pentru apele termale?",
             "Băile Herculane", 
             Arrays.asList("Buziaș", "Lipova", "Sânnicolau Mare"), 
@@ -2797,7 +2797,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Băile Herculane este una dintre cele mai vechi stațiuni din lume, cunoscută încă din perioada romană."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Ce festival de muzică renumit are loc anual în Timișoara?",
             "Festivalul Plai", 
             Arrays.asList("Electric Castle", "Untold", "Neversea"), 
@@ -2805,7 +2805,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Festivalul Plai este un festival multicultural care promovează diversitatea culturală și muzicală."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "În ce an a devenit Timișoara primul oraș european iluminat electric?",
             "1884", 
             Arrays.asList("1872", "1896", "1902"), 
@@ -2813,7 +2813,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "În 1884, Timișoara a devenit primul oraș european cu iluminat electric stradal."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Care este cel mai vechi parc din Timișoara?",
             "Parcul Central", 
             Arrays.asList("Parcul Rozelor", "Parcul Botanic", "Parcul Copiilor"), 
@@ -2821,7 +2821,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Parcul Central (Parcul Anton Scudier) este cel mai vechi parc din Timișoara, amenajat în 1850."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Ce râu trece prin Timișoara?",
             "Bega", 
             Arrays.asList("Timiș", "Mureș", "Caraș"), 
@@ -2829,7 +2829,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Râul Bega traversează Timișoara și este un important canal navigabil."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Care este numele cetății medievale din Timișoara?",
             "Cetatea Timișoarei", 
             Arrays.asList("Cetatea Aradului", "Cetatea Severinului", "Cetatea Făgetului"), 
@@ -2837,7 +2837,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Cetatea Timișoarei a fost construită în secolul al XIII-lea și a jucat un rol important în istoria regiunii."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Care este cel mai important eveniment istoric din Timișoara din 1989?",
             "Revoluția Română", 
             Arrays.asList("Unirea Banatului cu România", "Vizita Împăratului Franz Joseph", "Marea Adunare Națională"), 
@@ -2845,7 +2845,7 @@ public class BanatGameActivity extends AppCompatActivity {
             "Revoluția Română din 1989 a început la Timișoara, fiind scânteia care a dus la căderea regimului comunist."
         ));
         
-        hardcodedQuestions.add(new QuestionModel(
+        hardcodedQuestions.add(new GameQuestionModel(
             "Ce titlu a primit Timișoara în anul 2023?",
             "Capitală Culturală Europeană", 
             Arrays.asList("Oraș Verde European", "Capitală Regională", "Centru Tehnologic European"), 
@@ -2963,8 +2963,8 @@ public class BanatGameActivity extends AppCompatActivity {
                 Map<String, Object> cacheData = gson.fromJson(cachedJson, mapType);
                 if (cacheData != null && cacheData.containsKey("questions")) {
                     String questionsJson = gson.toJson(cacheData.get("questions"));
-                    Type listType = new TypeToken<List<QuestionModel>>(){}.getType();
-                    List<QuestionModel> cachedQuestions = gson.fromJson(questionsJson, listType);
+                    Type listType = new TypeToken<List<GameQuestionModel>>(){}.getType();
+                    List<GameQuestionModel> cachedQuestions = gson.fromJson(questionsJson, listType);
                     return cachedQuestions != null && !cachedQuestions.isEmpty();
                 }
             } catch (Exception e) {
@@ -3043,7 +3043,7 @@ public class BanatGameActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
                     if (loadedQuestions != null && !loadedQuestions.isEmpty()) {
-                        List<QuestionModel> limitedQuestions = loadedQuestions;
+                        List<GameQuestionModel> limitedQuestions = loadedQuestions;
                         if (loadedQuestions.size() > numQuestions) {
                             limitedQuestions = new ArrayList<>(loadedQuestions);
                             Collections.shuffle(limitedQuestions);
@@ -3082,10 +3082,10 @@ public class BanatGameActivity extends AppCompatActivity {
                 Map<String, Object> cacheData = gson.fromJson(cachedJson, mapType);
                 if (cacheData != null && cacheData.containsKey("questions")) {
                     String questionsJson = gson.toJson(cacheData.get("questions"));
-                    Type listType = new TypeToken<List<QuestionModel>>(){}.getType();
-                    List<QuestionModel> cachedQuestions = gson.fromJson(questionsJson, listType);
+                    Type listType = new TypeToken<List<GameQuestionModel>>(){}.getType();
+                    List<GameQuestionModel> cachedQuestions = gson.fromJson(questionsJson, listType);
                     if (cachedQuestions != null && !cachedQuestions.isEmpty()) {
-                        List<QuestionModel> limitedQuestions = cachedQuestions;
+                        List<GameQuestionModel> limitedQuestions = cachedQuestions;
                         if (cachedQuestions.size() > numQuestions) {
                             limitedQuestions = new ArrayList<>(cachedQuestions);
                             Collections.shuffle(limitedQuestions);
@@ -3114,7 +3114,7 @@ public class BanatGameActivity extends AppCompatActivity {
         updateScore();
         startTimer();
     }
-    private void saveQuestionsToLocalCacheHybrid(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCacheHybrid(List<GameQuestionModel> questions) {
         try {
             Gson gson = new Gson();
             String json = gson.toJson(questions);

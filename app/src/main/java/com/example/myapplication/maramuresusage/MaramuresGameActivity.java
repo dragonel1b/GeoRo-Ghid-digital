@@ -16,13 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import com.example.myapplication.utils.SyncManager;
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.DynamicColors;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import com.example.myapplication.Joc1.AchievementManager;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
     private long questionStartTime = 0;
     
     // Enhanced question management
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> firestoreQuestions;
     private List<EnhancedQuestionModel> enhancedQuestions;
     
     // Enhanced game systems
@@ -628,8 +628,8 @@ public class MaramuresGameActivity extends AppCompatActivity {
         if (json != null && !json.isEmpty()) {
             try {
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<QuestionModel>>(){}.getType();
-                List<QuestionModel> cachedQuestions = gson.fromJson(json, listType);
+                Type listType = new TypeToken<List<GameQuestionModel>>(){}.getType();
+                List<GameQuestionModel> cachedQuestions = gson.fromJson(json, listType);
                 
                 if (!cachedQuestions.isEmpty()) {
                     firestoreQuestions = cachedQuestions;
@@ -681,10 +681,10 @@ public class MaramuresGameActivity extends AppCompatActivity {
      * Crează întrebări locale pentru Maramureș când nu există alte surse
      */
     private void createLocalQuestionsForMigration() {
-        List<QuestionModel> questions = new ArrayList<>();
+        List<GameQuestionModel> questions = new ArrayList<>();
         
         // Întrebări despre Maramureș pentru migrare în Firestore
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Care este capitala județului Maramureș?",
             "Baia Mare", 
             Arrays.asList("Sighetu Marmației", "Borșa", "Vișeu de Sus"), 
@@ -692,7 +692,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Baia Mare este reședința județului Maramureș și un important centru istoric minier."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Ce biserică din Maramureș este inclusă în patrimoniul UNESCO?",
             "Biserica de lemn din Budești", 
             Arrays.asList("Biserica de piatră din Baia Mare", "Biserica Sf. Nicolae din Sighet", "Biserica Neagră"), 
@@ -700,7 +700,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Biserica de lemn din Budești, construită în 1643, face parte din cele 8 biserici de lemn din Maramureș incluse în patrimoniul UNESCO."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Ce tradiție de iarnă este specifică Maramureșului?",
             "Colindatul Feciorilor", 
             Arrays.asList("Capra", "Ursul", "Viflaimul"), 
@@ -708,7 +708,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Colindatul Feciorilor este o veche tradiție maramureșeană ce se păstrează din vremuri străvechi, tinerii colindând casele din sat în perioada sărbătorilor de iarnă."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "În ce an a fost eliberat ultimul deținut politic din închisoarea Sighet?",
             "1964", 
             Arrays.asList("1955", "1989", "1977"), 
@@ -716,7 +716,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "În 1964 au fost eliberați ultimii deținuți politici din închisoarea Sighet, locul unde elita intelectuală și politică interbelică a fost exterminată."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Ce materie primă a stat la baza dezvoltării orașului Baia Mare?",
             "Aurul și argintul", 
             Arrays.asList("Sarea", "Lemnul", "Cărbunele"), 
@@ -724,7 +724,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Bogăția în aur și argint a zonei a făcut ca Baia Mare să devină un important centru minier încă din Evul Mediu."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Cimitirul Vesel se află în localitatea:",
             "Săpânța", 
             Arrays.asList("Bârsana", "Botiza", "Ieud"), 
@@ -732,7 +732,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Cimitirul Vesel din Săpânța este renumit pentru crucile colorate și epitafurile pline de umor care narează viața defunctului."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Ce râu traversează Maramureșul Istoric?",
             "Tisa", 
             Arrays.asList("Someș", "Iza", "Vișeu"), 
@@ -740,7 +740,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Râul Tisa formează granița naturală între România și Ucraina, marcând limita nordică a Maramureșului Istoric."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Care dintre următoarele este un port tradițional maramureșean?",
             "Clop, gaci, zadie", 
             Arrays.asList("Suman, iţari, opinci", "Cojoc, cioareci, bundă", "Pieptar, șubă, leucă"), 
@@ -748,7 +748,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Portul tradițional maramureșean include clop (pălărie), gaci (pantaloni din pânză) și zadie (fustă) pentru femei."
         ));
 
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Ce meșteșug tradițional este specific Maramureșului?",
             "Prelucrarea lemnului", 
             Arrays.asList("Olăritul", "Țesutul covoarelor", "Încondeierea ouălor"), 
@@ -756,7 +756,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
             "Prelucrarea lemnului este un meșteșug de bază în Maramureș, cunoscut ca 'țara lemnului', cu porți monumentale și case tradiționale din lemn."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
                 "Ce munte se află în Maramureș?",
             "Pietrosul Rodnei", 
             Arrays.asList("Ceahlău", "Făgăraș", "Moldoveanu"), 
@@ -797,15 +797,15 @@ public class MaramuresGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Convertește întrebările simple în enhanced questions
      */
-    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuestionModel> questions) {
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<GameQuestionModel> questions) {
         List<EnhancedQuestionModel> enhanced = new ArrayList<>();
         
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             // Mapează întrebările la categorii bazate pe conținut
             EnhancedQuestionModel.Category category = inferCategory(question.getQuestion());
             EnhancedQuestionModel.Difficulty difficulty = inferDifficulty(question);
             
-            EnhancedQuestionModel enhancedQuestion = EnhancedQuestionModel.fromQuestionModel(
+            EnhancedQuestionModel enhancedQuestion = EnhancedQuestionModel.fromGameQuestionModel(
                 question, category, difficulty);
             
             // Adaugă tag-uri bazate pe conținut
@@ -850,7 +850,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Inferă dificultatea unei întrebări
      */
-    private EnhancedQuestionModel.Difficulty inferDifficulty(QuestionModel question) {
+    private EnhancedQuestionModel.Difficulty inferDifficulty(GameQuestionModel question) {
         String text = question.getQuestion().toLowerCase();
         
         // Întrebări despre date specifice sau detalii tehnice = Hard
@@ -875,7 +875,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Generează tag-uri pentru căutare
      */
-    private String[] generateTags(QuestionModel question) {
+    private String[] generateTags(GameQuestionModel question) {
         List<String> tags = new ArrayList<>();
         String text = question.getQuestion().toLowerCase();
         
@@ -904,7 +904,7 @@ public class MaramuresGameActivity extends AppCompatActivity {
     /**
      * 💾 Salvează întrebările în cache local
      */
-    private void saveQuestionsToLocalCache(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCache(List<GameQuestionModel> questions) {
         try {
             Gson gson = new Gson();
             String json = gson.toJson(questions);

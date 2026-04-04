@@ -1,6 +1,6 @@
 package com.example.myapplication.repository;
 
-import com.example.myapplication.model.Ingredient;
+import com.example.myapplication.core.domain.model.Ingredient;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

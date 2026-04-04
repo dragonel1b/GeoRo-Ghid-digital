@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
-import com.example.myapplication.models.FirestoreQuestionModel;
+import com.example.myapplication.core.domain.model.FirestoreQuestionModel;
 import com.google.android.material.button.MaterialButton;
 import java.util.List;
 

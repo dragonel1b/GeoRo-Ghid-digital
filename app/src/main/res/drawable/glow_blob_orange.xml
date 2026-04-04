@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ambient glow blob — bottom-left orange (#F97316) accent tint -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:startColor="#1AF97316"
+        android:endColor="#00F97316"
+        android:gradientRadius="125dp"
+        android:type="radial"
+        android:centerX="0.5"
+        android:centerY="0.5"/>
+</shape>

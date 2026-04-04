@@ -20,13 +20,13 @@ import androidx.core.content.ContextCompat;
 import com.example.myapplication.BuildConfig;
 import com.example.myapplication.utils.SyncManager;
 
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.button.MaterialButton;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import com.example.myapplication.Joc1.AchievementManager;
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class DobrogeaGameActivity extends AppCompatActivity {
     private boolean isAnswerBeingProcessed = false;
     
     // Enhanced question management
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> firestoreQuestions;
     private List<EnhancedQuestionModel> enhancedQuestions;
     
     // Enhanced game systems specific to Dobrogea
@@ -209,7 +209,7 @@ public class DobrogeaGameActivity extends AppCompatActivity {
                 firestoreQuestions = new ArrayList<>();
                 querySnapshot.forEach(document -> {
                     try {
-                        QuestionModel question = document.toObject(QuestionModel.class);
+                        GameQuestionModel question = document.toObject(GameQuestionModel.class);
                         if (question != null) {
                             firestoreQuestions.add(question);
                         }
@@ -251,10 +251,10 @@ public class DobrogeaGameActivity extends AppCompatActivity {
     /**
      * Convertește întrebările simple în întrebări îmbunătățite pentru Dobrogea
      */
-    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuestionModel> questions) {
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<GameQuestionModel> questions) {
         List<EnhancedQuestionModel> enhanced = new ArrayList<>();
         
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             EnhancedQuestionModel.Category category = inferDobrogeaCategory(question.getQuestion());
             EnhancedQuestionModel.Difficulty difficulty = inferDifficulty(question);
             String[] tags = generateDobrogeaTags(question);
@@ -334,7 +334,7 @@ public class DobrogeaGameActivity extends AppCompatActivity {
     /**
      * Inferă dificultatea întrebării
      */
-    private EnhancedQuestionModel.Difficulty inferDifficulty(QuestionModel question) {
+    private EnhancedQuestionModel.Difficulty inferDifficulty(GameQuestionModel question) {
         String questionText = question.getQuestion();
         String correctAnswer = question.getCorrectAnswer();
         
@@ -369,7 +369,7 @@ public class DobrogeaGameActivity extends AppCompatActivity {
     /**
      * Generează tag-uri specifice pentru Dobrogea
      */
-    private String[] generateDobrogeaTags(QuestionModel question) {
+    private String[] generateDobrogeaTags(GameQuestionModel question) {
         List<String> tags = new ArrayList<>();
         String questionLower = question.getQuestion().toLowerCase();
         

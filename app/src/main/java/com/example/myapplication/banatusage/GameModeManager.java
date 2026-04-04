@@ -2,7 +2,7 @@ package com.example.myapplication.banatusage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;

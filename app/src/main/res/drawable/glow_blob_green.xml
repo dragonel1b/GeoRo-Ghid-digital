@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ambient glow blob — top-left green (#14532D) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:startColor="#3314532D"
+        android:endColor="#0014532D"
+        android:gradientRadius="140dp"
+        android:type="radial"
+        android:centerX="0.5"
+        android:centerY="0.5"/>
+</shape>

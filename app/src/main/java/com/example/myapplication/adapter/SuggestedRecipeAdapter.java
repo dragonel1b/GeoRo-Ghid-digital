@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.model.Recipe;
+import com.example.myapplication.core.domain.model.Recipe;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;

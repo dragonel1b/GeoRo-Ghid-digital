@@ -22,7 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.myapplication.utils.SyncManager;
 
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.DynamicColors;
@@ -30,8 +30,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Oltenia;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import com.example.myapplication.Joc1.AchievementManager;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class OlteniaGameActivity extends AppCompatActivity {
     private long questionStartTime = 0;
     
     // Enhanced question management
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> firestoreQuestions;
     private List<EnhancedQuestionModel> enhancedQuestions;
     
     // Enhanced game systems
@@ -1996,12 +1996,12 @@ public class OlteniaGameActivity extends AppCompatActivity {
     }
     
     /**
-     * ✅ ÎMBUNĂTĂȚIRE: Convertește QuestionModel în EnhancedQuestionModel
+     * ✅ ÎMBUNĂTĂȚIRE: Convertește GameQuestionModel în EnhancedQuestionModel
      */
-    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuestionModel> questions) {
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<GameQuestionModel> questions) {
         List<EnhancedQuestionModel> enhancedQuestions = new ArrayList<>();
         
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             EnhancedQuestionModel enhanced = new EnhancedQuestionModel(
                 question.getQuestion(),
                 question.getCorrectAnswer(),
@@ -2053,7 +2053,7 @@ public class OlteniaGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Inferă dificultatea pe baza complexității întrebării
      */
-    private EnhancedQuestionModel.Difficulty inferDifficulty(QuestionModel question) {
+    private EnhancedQuestionModel.Difficulty inferDifficulty(GameQuestionModel question) {
         String questionText = question.getQuestion();
         String fact = question.getFact();
         
@@ -2078,7 +2078,7 @@ public class OlteniaGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Generează tag-uri pentru întrebare
      */
-    private String[] generateTags(QuestionModel question) {
+    private String[] generateTags(GameQuestionModel question) {
         List<String> tags = new ArrayList<>();
         String text = (question.getQuestion() + " " + question.getFact()).toLowerCase();
         
@@ -2190,10 +2190,10 @@ public class OlteniaGameActivity extends AppCompatActivity {
     /**
      * 💾 CACHE LOCAL: Salvează întrebările în cache pentru utilizare offline
      */
-    private void saveQuestionsToLocalCache(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCache(List<GameQuestionModel> questions) {
         // Convertim întrebările într-un format compatibil cu JSON/Firestore
         List<Map<String, Object>> questionMaps = new ArrayList<>();
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             Map<String, Object> questionMap = new HashMap<>();
             questionMap.put("question", question.getQuestion());
             questionMap.put("correctAnswer", question.getCorrectAnswer());
@@ -2240,9 +2240,9 @@ public class OlteniaGameActivity extends AppCompatActivity {
         questionRepository.getQuestions(REGION, GAME_TYPE)
             .addOnSuccessListener(querySnapshot -> {
                 if (querySnapshot != null && !querySnapshot.isEmpty()) {
-                    List<QuestionModel> questions = new ArrayList<>();
+                    List<GameQuestionModel> questions = new ArrayList<>();
                     for (com.google.firebase.firestore.QueryDocumentSnapshot document : querySnapshot) {
-                        QuestionModel question = document.toObject(QuestionModel.class);
+                        GameQuestionModel question = document.toObject(GameQuestionModel.class);
                         if (question != null) {
                             questions.add(question);
                         }
@@ -2358,10 +2358,10 @@ public class OlteniaGameActivity extends AppCompatActivity {
                     // Extragem lista de întrebări din cache
                     @SuppressWarnings("unchecked")
                     List<Map<String, Object>> questionMaps = (List<Map<String, Object>>) cacheData.get("questions");
-                    List<QuestionModel> cachedQuestions = new ArrayList<>();
+                    List<GameQuestionModel> cachedQuestions = new ArrayList<>();
                     
                     for (Map<String, Object> questionMap : questionMaps) {
-                        // Reconstituim QuestionModel din Map
+                        // Reconstituim GameQuestionModel din Map
                         String question = (String) questionMap.get("question");
                         String correctAnswer = (String) questionMap.get("correctAnswer");
                         @SuppressWarnings("unchecked")
@@ -2369,7 +2369,7 @@ public class OlteniaGameActivity extends AppCompatActivity {
                         String fact = (String) questionMap.get("fact");
                         
                         // Folosim noul constructor cu List<String> pentru compatibilitate Firebase
-                        QuestionModel questionModel = new QuestionModel(question, correctAnswer, incorrectAnswersList, 0, fact);
+                        GameQuestionModel questionModel = new GameQuestionModel(question, correctAnswer, incorrectAnswersList, 0, fact);
                         cachedQuestions.add(questionModel);
                     }
                     

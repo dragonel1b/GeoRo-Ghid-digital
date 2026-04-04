@@ -1,9 +1,9 @@
 package com.example.myapplication.repository;
 
 import android.util.Log;
-import com.example.myapplication.model.LeaderboardEntry;
-import com.example.myapplication.model.QuizResult;
-import com.example.myapplication.model.UserProfile;
+import com.example.myapplication.core.domain.model.LeaderboardEntry;
+import com.example.myapplication.core.domain.model.QuizResult;
+import com.example.myapplication.core.domain.model.UserProfile;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

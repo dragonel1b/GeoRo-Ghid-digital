@@ -3,7 +3,7 @@ package com.example.myapplication.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.myapplication.model.DobrogeaGame;
+import com.example.myapplication.core.domain.model.DobrogeaGame;
 import java.util.ArrayList;
 import java.util.List;
 

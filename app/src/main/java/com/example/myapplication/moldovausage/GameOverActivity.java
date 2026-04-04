@@ -1,7 +1,7 @@
 package com.example.myapplication.moldovausage;
 
 import android.content.Intent;
-import com.example.myapplication.model.base.BaseGameOverActivity;
+import com.example.myapplication.core.domain.model.BaseGameOverActivity;
 
 /**
  * Activitate GameOver specifică pentru regiunea Moldova

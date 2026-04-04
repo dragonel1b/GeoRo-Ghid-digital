@@ -7,8 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.RegionMapDataProvider;
-import com.example.myapplication.model.base.BaseMapActivity;
+import com.example.myapplication.core.domain.model.RegionMapDataProvider;
+import com.example.myapplication.core.domain.model.BaseMapActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -167,3 +167,4 @@ public class DobrogeaMapActivity extends BaseMapActivity {
         startActivity(intent);
     }
 }
+

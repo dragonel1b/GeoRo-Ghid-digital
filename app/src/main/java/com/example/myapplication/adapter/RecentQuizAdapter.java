@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.QuizResult;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

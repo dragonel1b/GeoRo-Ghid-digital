@@ -30,15 +30,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import com.example.myapplication.utils.SyncManager;
 
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.DynamicColors;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Transilvania;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import com.example.myapplication.utils.GameOverHelper;
 import com.example.myapplication.Joc1.AchievementManager;
@@ -93,7 +93,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     private long questionStartTime = 0;
     
     // Enhanced question management
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> firestoreQuestions;
     private List<EnhancedQuestionModel> enhancedQuestions;
     
     // Enhanced game systems
@@ -859,10 +859,10 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     /**
      * 💾 CACHE LOCAL: Salvează întrebările în cache pentru utilizare offline
      */
-    private void saveQuestionsToLocalCache(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCache(List<GameQuestionModel> questions) {
         // Convertim întrebările într-un format compatibil cu JSON/Firestore
         List<Map<String, Object>> questionMaps = new ArrayList<>();
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             Map<String, Object> questionMap = new HashMap<>();
             questionMap.put("question", question.getQuestion());
             questionMap.put("correctAnswer", question.getCorrectAnswer());
@@ -914,10 +914,10 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
                     // Extragem lista de întrebări din cache
                     @SuppressWarnings("unchecked")
                     List<Map<String, Object>> questionMaps = (List<Map<String, Object>>) cacheData.get("questions");
-                    List<QuestionModel> cachedQuestions = new ArrayList<>();
+                    List<GameQuestionModel> cachedQuestions = new ArrayList<>();
                     
                     for (Map<String, Object> questionMap : questionMaps) {
-                        // Reconstituim QuestionModel din Map
+                        // Reconstituim GameQuestionModel din Map
                         String question = (String) questionMap.get("question");
                         String correctAnswer = (String) questionMap.get("correctAnswer");
                         @SuppressWarnings("unchecked")
@@ -925,7 +925,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
                         String fact = (String) questionMap.get("fact");
                         
                         // Folosim noul constructor cu List<String> pentru compatibilitate Firebase
-                        QuestionModel questionModel = new QuestionModel(question, correctAnswer, incorrectAnswersList, 0, fact);
+                        GameQuestionModel questionModel = new GameQuestionModel(question, correctAnswer, incorrectAnswersList, 0, fact);
                         cachedQuestions.add(questionModel);
                     }
                     
@@ -1038,7 +1038,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         
         // Creăm întrebările locale temporar doar pentru migrare
-        List<QuestionModel> localQuestions = createLocalQuestionsForMigration();
+        List<GameQuestionModel> localQuestions = createLocalQuestionsForMigration();
         
         if (localQuestions.isEmpty()) {
             Log.e(TAG, "❌ Nu avem întrebări locale pentru migrare");
@@ -1118,7 +1118,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     private void useLocalQuestionsDirectly() {
         Log.d(TAG, "🎮 Folosim întrebările locale direct, fără Firebase");
         
-        List<QuestionModel> localQuestions = createLocalQuestionsForMigration();
+        List<GameQuestionModel> localQuestions = createLocalQuestionsForMigration();
         
         if (localQuestions.isEmpty()) {
             Log.e(TAG, "❌ Nu avem întrebări locale");
@@ -1162,11 +1162,11 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     /**
      * Creează întrebările locale temporar doar pentru migrarea în Firestore
      */
-    private List<QuestionModel> createLocalQuestionsForMigration() {
-        List<QuestionModel> questions = new ArrayList<>();
+    private List<GameQuestionModel> createLocalQuestionsForMigration() {
+        List<GameQuestionModel> questions = new ArrayList<>();
         
         // Întrebări despre Transilvania pentru migrare în Firestore
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cel mai înalt vârf montan din Transilvania?",
             "Vârful Moldoveanu", 
             Arrays.asList("Vârful Omu", "Vârful Parâng", "Vârful Retezat"), 
@@ -1174,7 +1174,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Vârful Moldoveanu (2.544 m) este cel mai înalt vârf din România și din Transilvania."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care oraș din Transilvania este cunoscut ca 'Cetatea de pe Târnave'?",
             "Sighișoara", 
             Arrays.asList("Mediaș", "Sebeș", "Rupea"), 
@@ -1182,7 +1182,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Sighișoara este singura cetate medievală locuită din Transilvania, înscrisă în patrimoniul UNESCO."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care castel din Transilvania este cunoscut ca 'Castelul lui Dracula'?",
             "Castelul Bran", 
             Arrays.asList("Castelul Corvinilor", "Castelul Peleș", "Castelul Râșnov"), 
@@ -1190,7 +1190,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Castelul Bran este asociat cu legenda lui Dracula, deși Vlad Țepeș a locuit acolo doar scurt timp."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cea mai mare biserică gotică din Transilvania?",
             "Biserica Neagră din Brașov", 
             Arrays.asList("Catedrala din Cluj", "Biserica din Sibiu", "Catedrala din Alba Iulia"), 
@@ -1198,7 +1198,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Biserica Neagră din Brașov este cea mai mare biserică gotică din sud-estul Europei."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "În ce oraș din Transilvania s-a născut Vlad Țepeș?",
             "Sighișoara", 
             Arrays.asList("Brașov", "Cluj-Napoca", "Târgu Mureș"), 
@@ -1206,7 +1206,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Vlad Țepeș s-a născut în 1431 în Sighișoara, în casa care astăzi găzduiește un restaurant."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care universitate din Transilvania este cea mai veche?",
             "Universitatea Babeș-Bolyai din Cluj-Napoca", 
             Arrays.asList("Universitatea Transilvania din Brașov", "Universitatea din Sibiu", "Universitatea din Târgu Mureș"), 
@@ -1214,7 +1214,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Universitatea Babeș-Bolyai, fondată în 1581, este cea mai veche universitate din Transilvania."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care sat din Transilvania este cunoscut pentru bisericile sale fortificate?",
             "Viscri", 
             Arrays.asList("Biertan", "Prejmer", "Hărman"), 
@@ -1222,7 +1222,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Viscri este cunoscut pentru biserica sa fortificată din secolul XIII, restaurată cu sprijinul Prințului Charles."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cel mai mare lac natural din Transilvania?",
             "Lacul Sfânta Ana", 
             Arrays.asList("Lacul Roșu", "Lacul Balea", "Lacul Bucura"), 
@@ -1230,7 +1230,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Lacul Sfânta Ana este singurul lac de crater din România, situat în Munții Harghita."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care oraș din Transilvania este centrul regiunii Ținutul Secuiesc?",
             "Târgu Mureș", 
             Arrays.asList("Miercurea Ciuc", "Odorheiu Secuiesc", "Sfântu Gheorghe"), 
@@ -1238,7 +1238,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
             "Târgu Mureș este cel mai mare oraș din centrul Transilvaniei și important centru cultural maghiar."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care mâncare tradițională este specifică gastronomiei transilvănene?",
             "Varza à la Cluj", 
             Arrays.asList("Papanași", "Mici", "Ciorbă de burtă"), 
@@ -1253,15 +1253,15 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Convertește întrebările simple în enhanced questions
      */
-    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuestionModel> questions) {
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<GameQuestionModel> questions) {
         List<EnhancedQuestionModel> enhanced = new ArrayList<>();
         
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             // Mapează întrebările la categorii bazate pe conținut
             EnhancedQuestionModel.Category category = inferCategory(question.getQuestion());
             EnhancedQuestionModel.Difficulty difficulty = inferDifficulty(question);
             
-            EnhancedQuestionModel enhancedQuestion = EnhancedQuestionModel.fromQuestionModel(
+            EnhancedQuestionModel enhancedQuestion = EnhancedQuestionModel.fromGameQuestionModel(
                 question, category, difficulty);
             
             // Adaugă tag-uri bazate pe conținut
@@ -1306,7 +1306,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Inferă dificultatea unei întrebări
      */
-    private EnhancedQuestionModel.Difficulty inferDifficulty(QuestionModel question) {
+    private EnhancedQuestionModel.Difficulty inferDifficulty(GameQuestionModel question) {
         String text = question.getQuestion().toLowerCase();
         int questionLength = text.length();
         
@@ -1334,7 +1334,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
     /**
      * ✅ ÎMBUNĂTĂȚIRE: Generează tag-uri pentru o întrebare
      */
-    private String[] generateTags(QuestionModel question) {
+    private String[] generateTags(GameQuestionModel question) {
         List<String> tags = new ArrayList<>();
         String text = question.getQuestion().toLowerCase();
         
@@ -1638,7 +1638,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         // ✅ ÎMBUNĂTĂȚIRE: Afișăm răspunsul corect pentru timeout
         if (firestoreQuestions != null && !firestoreQuestions.isEmpty() && 
             currentQuestionIndex < firestoreQuestions.size()) {
-            QuestionModel currentQuestion = firestoreQuestions.get(currentQuestionIndex);
+            GameQuestionModel currentQuestion = firestoreQuestions.get(currentQuestionIndex);
             String correctAnswer = currentQuestion.getCorrectAnswer();
             String fact = currentQuestion.getFact();
             
@@ -2998,7 +2998,7 @@ public class TransilvaniaGameActivity extends AppCompatActivity {
         }
         
         // Obținem hint-ul din întrebarea curentă din Firestore
-        QuestionModel currentQuestion = firestoreQuestions.get(currentQuestionIndex);
+        GameQuestionModel currentQuestion = firestoreQuestions.get(currentQuestionIndex);
         String hint = currentQuestion.getFact();
         
         if (hint == null || hint.isEmpty()) {

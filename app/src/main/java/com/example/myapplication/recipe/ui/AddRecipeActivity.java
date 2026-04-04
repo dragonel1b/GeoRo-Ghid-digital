@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.EditableIngredientAdapter;
 import com.example.myapplication.adapter.EditableStepAdapter;
-import com.example.myapplication.model.UserProfile;
+import com.example.myapplication.core.domain.model.UserProfile;
 import com.example.myapplication.recipe.model.Ingredient;
 import com.example.myapplication.recipe.model.Recipe;
 import com.example.myapplication.recipe.repository.RecipeRepository;

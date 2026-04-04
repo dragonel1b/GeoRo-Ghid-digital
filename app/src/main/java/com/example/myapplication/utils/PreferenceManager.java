@@ -3,7 +3,7 @@ package com.example.myapplication.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.myapplication.model.UserProfile;
+import com.example.myapplication.core.domain.model.UserProfile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

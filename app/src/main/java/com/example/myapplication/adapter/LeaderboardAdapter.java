@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.myapplication.R;
-import com.example.myapplication.model.LeaderboardEntry;
+import com.example.myapplication.core.domain.model.LeaderboardEntry;
 import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
 import java.util.List;

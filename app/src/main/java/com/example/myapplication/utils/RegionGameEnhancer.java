@@ -10,7 +10,7 @@ import android.util.Log;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.myapplication.Joc1.AchievementManager;
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.example.myapplication.transilvaniausage.DifficultyManager;
 import com.example.myapplication.transilvaniausage.GameModeManager;
 import com.example.myapplication.transilvaniausage.PlayerProgressTracker;

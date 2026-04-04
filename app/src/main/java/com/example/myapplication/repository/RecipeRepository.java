@@ -1,6 +1,6 @@
 package com.example.myapplication.repository;
 
-import com.example.myapplication.model.Recipe;
+import com.example.myapplication.core.domain.model.Recipe;
 
 /**
  * Repository for recipe data operations

@@ -1,0 +1,2528 @@
+{
+  "cities": [
+    {
+      "id": "arad",
+      "name": "Arad",
+      "region": "Crișana",
+      "description": "Arad este un important centru economic, cultural și universitar din vestul României, situat pe malul Mureșului. Cu o arhitectură impresionantă și o istorie bogată, orașul este o poartă de intrare în țară dinspre Europa Centrală.",
+      "mapCoords": "46.1865,21.3122",
+      "weatherId": "686254",
+      "defaultImages": [
+        "dobrogea_constanta_1",
+        "dobrogea_constanta_casino",
+        "dobrogea_constanta_plaja",
+        "dobrogea_constanta_port",
+        "dobrogea_constanta_moschee"
+      ],
+      "events": [
+        "Festivalul Tomis - 15-17 Iulie 2024",
+        "Concert la Cazinou - 22 Iulie 2024",
+        "Expoziție de Artă - 5-20 August 2024",
+        "Festivalul Mării - 10-12 August 2024"
+      ],
+      "tips": [
+        "Vizitați Cazinoul la apus pentru cea mai frumoasă priveliște",
+        "Cea mai bună plăcintă dobrogeneană se găsește la 'La Doi Frați'",
+        "O plimbare pe Faleză dimineața devreme este o experiență de neuitat",
+        "Muzeul de Istorie este gratuit în prima duminică a lunii"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Arad este un important centru economic, cultural și universitar din vestul României, situat pe malul Mureșului. Cu o arhitectură impresionantă și o istorie bogată, orașul este o poartă de intrare în țară dinspre Europa Centrală.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul este așezat în câmpia Aradului, pe malul râului Mureș, la doar 20 km de granița cu Ungaria. Clima temperat-continentală cu influențe mediteraneene oferă veri călduroase și ierni blânde. Poziția strategică a făcut din Arad un important nod de transport și comunicații.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1028. De-a lungul istoriei, Aradul a fost sub stăpânire otomană, habsburgică și austro-ungară, înainte de a deveni parte a României în 1918. Orașul a jucat un rol important în Revoluția Română din 1848-1849 și în evenimentele din decembrie 1989.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Cetatea Aradului (impresionantă fortificație în stil Vauban din secolul al XVIII-lea), Palatul Administrativ (clădire emblematică în stil neo-renascentist), Palatul Cultural, Teatrul Clasic „Ioan Slavici, Biserica Roșie (biserica evanghelică-luterană), Turnul de Apă și podurile istorice peste Mureș sunt obiective turistice de neratat.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Aradul are o viață culturală bogată, cu instituții precum Filarmonica de Stat, Teatrul Clasic „Ioan Slavici, Muzeul de Artă și Muzeul Județean. Festivalul Internațional de Teatru Clasic, Zilele Culturale ale Aradului și Târgul de Carte „Arad sunt evenimente importante în calendarul cultural al orașului.",
+          "highlighted": false
+        },
+        {
+          "title": "Personalități",
+          "content": "Aradul a dat țării personalități marcante precum: Ioan Slavici (scriitor), Vasile Goldiș (om politic, membru al guvernului care a realizat Unirea de la 1918), Ștefan Augustin Doinaș (poet), Iuliu Maniu (om politic) și mulți alții care au contribuit la patrimoniul cultural și istoric național.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria arădeană îmbină armonios influențe românești, maghiare, germane și sârbești. Specialități precum șnițelul arădean, gulașul, langoșii, plăcinta cu dovleac și vinurile din podgoriile Miniș-Măderat sunt delicii culinare ce pot fi savurate în restaurantele tradiționale din oraș.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "bacau",
+      "name": "Bacau",
+      "region": "",
+      "description": "Bacău este un important centru urban și industrial din regiunea Moldovei, situat pe râul Bistrița. Cu o istorie de peste șase secole și o economie diversificată, orașul reprezintă un nod important de transport și un centru cultural pentru zona centrală a Moldovei.",
+      "mapCoords": "46.5670,26.9138",
+      "weatherId": "685948",
+      "defaultImages": [
+        "moldova_bacau_1",
+        "moldova_bacau_2",
+        "moldova_bacau_3",
+        "moldova_bacau_4",
+        "moldova_bacau_5",
+        "dobrogea_constanta_1",
+        "dobrogea_constanta_casino",
+        "dobrogea_constanta_plaja",
+        "dobrogea_constanta_port",
+        "dobrogea_constanta_moschee"
+      ],
+      "events": [
+        "Festivalul Tomis - 15-17 Iulie 2024",
+        "Concert la Cazinou - 22 Iulie 2024",
+        "Expoziție de Artă - 5-20 August 2024",
+        "Festivalul Mării - 10-12 August 2024"
+      ],
+      "tips": [
+        "Vizitați Cazinoul la apus pentru cea mai frumoasă priveliște",
+        "Cea mai bună plăcintă dobrogeneană se găsește la 'La Doi Frați'",
+        "O plimbare pe Faleză dimineața devreme este o experiență de neuitat",
+        "Muzeul de Istorie este gratuit în prima duminică a lunii"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Bacău este un important centru urban și industrial din regiunea Moldovei, situat pe râul Bistrița. Cu o istorie de peste șase secole și o economie diversificată, orașul reprezintă un nod important de transport și un centru cultural pentru zona centrală a Moldovei.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul Bacău este situat în partea central-vestică a Moldovei, pe malul drept al râului Bistrița, la confluența acestuia cu Siretul. Așezat la contactul dintre Podișul Moldovei și Subcarpații Orientali, orașul se bucură de un cadru natural variat, cu dealuri line, lunci fertile și păduri în împrejurimi.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară a Bacăului datează din 6 octombrie 1408, într-un document emis de Alexandru cel Bun. De-a lungul secolelor, orașul s-a dezvoltat ca un important centru comercial la intersecția drumurilor care legau Transilvania de Moldova. În perioada modernă, începând cu a doua jumătate a secolului XIX, Bacăul a cunoscut o dezvoltare industrială și economică semnificativă.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Printre obiectivele turistice importante se numără: Casa Memorială 'Vasile Alecsandri' din Mircești (la aproximativ 30 km), Casa Memorială 'George Bacovia', Observatorul Astronomic 'Victor Anestin', Muzeul de Științe ale Naturii 'Ion Borcea', Muzeul de Artă Contemporană 'George Apostu', Muzeul de Istorie și Arheologie, precum și Parcul Cancicov și Insula de Agrement.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Viața culturală este reprezentată de instituții precum Teatrul Municipal 'Bacovia', Filarmonica 'Mihail Jora', Teatrul de Animație pentru Copii și Tineret 'Vasile Alecsandri' și Biblioteca Județeană 'Costache Sturdza'. Bacăul este locul de naștere al poetului simbolist George Bacovia, al cărui nume este purtat de multiple instituții culturale din oraș.",
+          "highlighted": false
+        },
+        {
+          "title": "Personalități",
+          "content": "Bacăul a dat țării personalități de seamă precum: George Bacovia (poet simbolist), Nicu Enea (pictor), Solomon Marcus (matematician), Radu Beligan (actor), Gabriela Adameșteanu (scriitoare) și mulți sportivi renumiți precum Cristina Grigoraș (gimnastă) și Doina Melinte (atletă).",
+          "highlighted": false
+        },
+        {
+          "title": "Economie",
+          "content": "Economia orașului este dominată de industria alimentară, industria textilă, industria aeronautică (Aerostar Bacău), industria materialelor de construcții și sectorul serviciilor. De asemenea, Bacăul este un important nod feroviar și rutier, facilitând legăturile comerciale între diferite regiuni ale țării.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "baiamare",
+      "name": "Baia Mare",
+      "region": "Maramureș",
+      "description": "Baia Mare este reședința județului Maramureș și cel mai important centru urban din regiune. Orașului îmbină în mod armonios o bogată istorie minieră cu elemente de arhitectură medievală și modernă, fiind înconjurat de un peisaj natural deosebit.",
+      "mapCoords": "47.6531,23.5698",
+      "weatherId": "685948",
+      "defaultImages": [
+        "maramures_baia_mare_1",
+        "maramures_baia_mare_centru",
+        "maramures_baia_mare_turnul_stefan",
+        "maramures_baia_mare_muzeul_satului",
+        "maramures_baia_mare_dealul_florilor"
+      ],
+      "events": [],
+      "tips": [],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Baia Mare este reședința județului Maramureș și cel mai important centru urban din regiune. Orașului îmbină în mod armonios o bogată istorie minieră cu elemente de arhitectură medievală și modernă, fiind înconjurat de un peisaj natural deosebit.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în nord-vestul României, Baia Mare se află într-o depresiune la poalele Munților Gutâi, parte a lanțului vulcanic al Carpaților Orientali. Orașul este străbătut de râul Săsar și se bucură de un climat temperat-continental moderat, influențat de prezența munților din împrejurimi.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Baia Mare are o istorie îndelungată, fiind menționat pentru prima dată în documente în 1329 sub numele de Rivulus Dominarum. Orașul s-a dezvoltat ca un important centru minier pentru extracția și prelucrarea aurului, argintului și a altor metale neferoase, activitate ce a influențat profund istoria și cultura locală.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Centrul Vechi este principala atracție a orașului, cu Turnul Ștefan (simbol al orașului), Bastionul Măcelarilor și numeroase clădiri istorice. Alte obiective importante sunt Muzeul Județean de Artă, Muzeul de Mineralogie, Muzeul de Etnografie și Artă Populară, precum și Planetariul și Complexul Astronomic.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Baia Mare are o viață culturală vibrantă, cu instituții precum Teatrul Municipal, Biblioteca Județeană, Galeriile de Artă și Casa de Cultură. Orașul găzduiește anual diverse festivaluri și evenimente culturale, printre care Festivalul Castanelor, Sărbătoarea Mărcii și Festivalul de Jazz.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională maramureșeană poate fi savurată în restaurantele din oraș, cu specialități precum balmoșul, tocana de oaie, sarmalele în foi de varză acră, plăcintele cu brânză și cozonacul. Horinca, pălinca și afinata sunt băuturile tradiționale specifice zonei.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "baileherculane",
+      "name": "BaileHerculane",
+      "region": "",
+      "description": "Băile Herculane este una dintre cele mai vechi stațiuni balneare din Europa, cu o istorie ce datează din perioada romană. Apele termale cu proprietăți terapeutice și arhitectura impresionantă din perioada habsburgică sunt principalele atracții.",
+      "mapCoords": "44.8797,22.4119",
+      "weatherId": "685767",
+      "defaultImages": [
+        "baile_herculane_1",
+        "baile_herculane_cazino",
+        "baile_herculane_catedrala",
+        "baile_herculane_statiune",
+        "baile_herculane_apele_termale"
+      ],
+      "events": [
+        "Festivalul Apelor Termale - 15-17 Iulie 2024",
+        "Zilele Stațiunii Băile Herculane - 22-24 Iulie 2024",
+        "Expoziție 'Istoria Băilor Imperiale' - 5-20 August 2024",
+        "Festival Folcloric Valea Cernei - 10-12 August 2024"
+      ],
+      "tips": [
+        "Vizitați Băile Imperiale dimineața devreme pentru o experiență mai liniștită",
+        "Cea mai bună plăcintă bănățeană se găsește la 'Cofetăria Imperială'",
+        "Traseul spre Grota Haiducilor este cel mai accesibil dimineața",
+        "Parcul Național Domogled-Valea Cernei oferă ghidaje gratuite în weekend"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Băile Herculane este una dintre cele mai vechi stațiuni balneare din Europa, cu o istorie ce datează din perioada romană. Apele termale cu proprietăți terapeutice și arhitectura impresionantă din perioada habsburgică sunt principalele atracții.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Stațiunea este situată în sud-vestul României, în județul Caraș-Severin, în spectaculosul defileu al Cernei, la poalele Munților Domogled și Cernei. Această poziție privilegiată, protejată de munți și străbătută de râul Cerna, creează un microclimat submediteranean, cu ierni blânde și veri călduroase.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Istoria stațiunii începe în perioada romană, când împăratul Traian a descoperit proprietățile terapeutice ale izvoarelor termale și a fondat aici o stațiune balneară numită „Ad Aquas Herculi Sacras. Arheologii au descoperit numeroase artefacte romane, inclusiv monede, statui votive dedicate lui Hercules și băi romane. În perioada habsburgică (1718-1918), stațiunea a cunoscut o dezvoltare impresionantă, fiind frecventată de familia imperială și de aristocrația europeană.",
+          "highlighted": false
+        },
+        {
+          "title": "Ape Termale",
+          "content": "Băile Herculane este renumită pentru cele 16 izvoare termale cu temperaturi între 38-60°C și un conținut bogat în sulf, calciu, sodiu, potasiu, magneziu și oligoelemente. Aceste ape au proprietăți terapeutice deosebite, fiind recomandate pentru tratarea afecțiunilor reumatismale, neurologice, ginecologice și dermatologice. Băile termale, sauna și diverse terapii balneare sunt disponibile în complexele hoteliere și centrele de tratament din stațiune.",
+          "highlighted": false
+        },
+        {
+          "title": "Arhitectura",
+          "content": "Stațiunea impresionează prin arhitectura sa în stil baroc și neoclasic, cu clădiri monumentale construite în perioada habsburgică: Pavilionul Băilor Imperiale Austriece (1883), Hotelul Roman, Cazinoul, Baia Neptun, Baia Diana, Baia Apollo și Baia Venera. Din păcate, multe dintre aceste clădiri istorice se află într-o stare avansată de degradare, deși recent au început eforturi de restaurare.",
+          "highlighted": false
+        },
+        {
+          "title": "Natură",
+          "content": "Stațiunea este înconjurată de Parcul Național Domogled-Valea Cernei, cel mai mare parc național din România, care protejează ecosisteme unice și o biodiversitate remarcabilă. Pinul negru de Banat, o specie relictă, și numeroase specii de orhidee rare pot fi admirate în zonă. Excursiile montane, traseele de drumeție și speleoturismul sunt activități populare printre vizitatori.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Pe lângă băile termale și clădirile istorice, vizitatorii pot explora Peștera lui Adam, Grota Haiducilor, cascadele de pe Valea Cernei, Crucea Albă, Grota cu Aburi și inhalatorul natural. La mică distanță se află spectaculoasele Cheile Cernei și Vârful lui Stan.",
+          "highlighted": false
+        },
+        {
+          "title": "Legenda",
+          "content": "Conform legendei, zeul Hercules s-a oprit în această zonă pentru a se odihni și a face baie în apele termale, care i-au redat forțele pentru a lupta cu hidra, de unde și numele stațiunii. Numeroase statui și reprezentări ale lui Hercules pot fi văzute în întreaga stațiune.",
+          "highlighted": false
+        },
+        {
+          "title": "Introducere",
+          "content": "București, capitala României, este cel mai mare oraș al țării și un important centru cultural, economic și politic. Cunoscut drept 'Micul Paris', orașul impresionează prin amestecul unic de arhitectură veche și modernă, parcuri impresionante și viață culturală intensă.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "București este situat în sud-estul României, pe râul Dâmbovița. Orașul se întinde pe o suprafață de 228 km² și are o populație de peste 1,8 milioane de locuitori. Clima este temperat-continentală, cu veri calde și ierni reci. Orașul este împărțit în 6 sectoare administrative și are o rețea bine dezvoltată de transport public.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1459, când este menționat într-un document emis de Vlad Țepeș. În 1659 devine capitala Țării Românești. În perioada interbelică, cunoscută drept 'Epoca de Aur', Bucureștiul a cunoscut o dezvoltare urbană impresionantă, cu influențe arhitecturale franceze. În perioada comunistă, o parte semnificativă din centrul istoric a fost demolată pentru a face loc clădirilor administrative.",
+          "highlighted": false
+        },
+        {
+          "title": "Arhitectură",
+          "content": "Bucureștiul impresionează prin diversitatea arhitecturală: clădiri neoclasice și beaux-arts din perioada interbelică, arhitectură comunistă monumentală (Palatul Parlamentului), clădiri moderne și contemporane. Principalele atracții arhitecturale includ: Palatul Parlamentului, Ateneul Român, Arcul de Triumf, Palatul CEC, și numeroase biserici istorice.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Bucureștiul este un important centru cultural, cu instituții precum Opera Națională, Teatrul Național, Filarmonica George Enescu, și numeroase muzee. Orașul găzduiește festivaluri importante precum Festivalul Internațional George Enescu, Festivalul de Film NexT, și Festivalul de Teatru Bucureștiul Tânăr.",
+          "highlighted": false
+        },
+        {
+          "title": "Parcuri și Spații Verzi",
+          "content": "Orașul are numeroase parcuri și spații verzi, printre care: Parcul Herăstrău (cel mai mare parc din București), Parcul Carol, Grădina Botanică, Parcul Cișmigiu, și Parcul Tineretului. Acestea oferă spații de relaxare și recreere pentru locuitori și vizitatori.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "borsa",
+      "name": "Borșa",
+      "region": "Maramureș",
+      "description": "Borșa este o cunoscută stațiune montană din nordul Maramureșului, situată la poalele Munților Rodnei. Este o destinație populară atât pentru sporturile de iarnă, cât și pentru drumeții montane în sezonul cald, oferind peisaje naturale spectaculoase și aer curat.",
+      "mapCoords": "47.6551,24.6506",
+      "weatherId": "684410",
+      "defaultImages": [
+        "maramures_borsa_1",
+        "maramures_borsa_munte",
+        "maramures_borsa_statiune",
+        "maramures_borsa_partie",
+        "maramures_borsa_panorama"
+      ],
+      "events": [],
+      "tips": [],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Borșa este o cunoscută stațiune montană din nordul Maramureșului, situată la poalele Munților Rodnei. Este o destinație populară atât pentru sporturile de iarnă, cât și pentru drumeții montane în sezonul cald, oferind peisaje naturale spectaculoase și aer curat.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situată în extremitatea estică a județului Maramureș, la aproximativ 140 km de Baia Mare, Borșa se află la o altitudine de 850 metri, la poalele Vârfului Pietrosu Rodnei (2303 m), cel mai înalt vârf din Carpații Orientali. Stațiunea este străbătută de râul Vișeu și se bucură de un climat montan blând, cu ierni lungi bogate în zăpadă.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Localitatea Borșa este atestată documentar din 1365. A fost un important centru minier pentru extracția de aur, argint și alte minereuri. În perioada comunistă, zona a cunoscut o dezvoltare importantă a industriei miniere, dar după 1990, majoritatea minelor au fost închise, iar localitatea s-a reorientat spre turism și industria lemnului.",
+          "highlighted": false
+        },
+        {
+          "title": "Pârtii de Schi",
+          "content": "Complexul Turistic Borșa dispune de mai multe pârtii de schi de diferite grade de dificultate, dintre care cea mai cunoscută este pârtia olimpică de la Stiol, cu o lungime de peste 3 km și o diferență de nivel de 900 m. Instalațiile de transport pe cablu și sistemele de producere a zăpezii artificiale asigură condiții bune pentru practicarea sporturilor de iarnă.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Naturale",
+          "content": "Rezervația Naturală Pietrosu Mare, parte a Parcului Național Munții Rodnei, oferă oportunități pentru drumeții montane spectaculoase, cu peisaje alpine impresionante, lacuri glaciare, cascade și o biodiversitate remarcabilă. Cascada Cailor, cu o cădere de apă de peste 90 m, este una dintre cele mai spectaculoase cascade din România.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură și Tradiții",
+          "content": "Zona Borșa își păstrează vie cultura tradițională maramureșeană, cu port popular specific, arhitectură în lemn, meșteșuguri tradiționale și obiceiuri folclorice autentice. Zilele Orașului Borșa și Festivalul Flori de pe Coasta Borcutului sunt evenimente care pun în valoare folclorul și tradițiile locale.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "brasov",
+      "name": "Brasov",
+      "region": "Transilvania",
+      "description": "Brașov este un important centru turistic din Transilvania, cunoscut pentru Cetatea Medievală, Biserica Neagră și apropierea de stațiunile montane. Situat la poalele Munților Carpați, oferă un peisaj montan spectaculos.",
+      "mapCoords": "45.6426,25.5887",
+      "weatherId": "683844",
+      "defaultImages": [
+        "transilvania_brasov_1",
+        "transilvania_brasov_cetate",
+        "transilvania_brasov_muntii",
+        "transilvania_brasov_piata",
+        "transilvania_brasov_biserica"
+      ],
+      "events": [
+        "Festivalul Cerbul de Aur - 15-20 August 2024",
+        "Serbările Brașovului - 25-27 Aprilie 2024",
+        "Festivalul Filmului Românesc - 10-15 Iunie 2024",
+        "Maratonul Internațional Brașov - 2 Septembrie 2024"
+      ],
+      "tips": [
+        "Vizitați Biserica Neagră la răsărit pentru cele mai frumoase fotografii",
+        "Urcați cu telecabina pe Tâmpa pentru o panoramă incredibilă asupra orașului",
+        "Restaurantele de pe strada Republicii oferă cele mai autentice preparate transilvănene",
+        "Vizitați Poiana Brașov chiar și vara pentru activități în aer liber"
+      ],
+      "attractions": [
+        {
+          "name": "Biserica Neagră",
+          "imageRes": "brasov_biserica_neagra",
+          "prompt": "Cel mai mare edificiu gotic din România și sud-estul Europei."
+        },
+        {
+          "name": "Piața Sfatului",
+          "imageRes": "brasov_piata_sfatului",
+          "prompt": "Inima orașului medieval, înconjurată de clădiri istorice superbe."
+        },
+        {
+          "name": "Muntele Tâmpa",
+          "imageRes": "brasov_tampa",
+          "prompt": "Urcă cu telecabina pentru cea mai spectaculoasă vedere panoramică."
+        },
+        {
+          "name": "Poarta Șchei",
+          "imageRes": "brasov_poarta_schei",
+          "prompt": "Vechea poartă de intrare în cartierul istoric al românilor."
+        },
+        {
+          "name": "Strada Sforii",
+          "imageRes": "brasov_strada_sforii",
+          "prompt": "Explorează una dintre cele mai înguste străzi din Europa."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Brașov este un important centru turistic din Transilvania, cunoscut pentru Cetatea Medievală, Biserica Neagră și apropierea de stațiunile montane. Situat la poalele Munților Carpați, oferă un peisaj montan spectaculos.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Brașov este situat în centrul României, în depresiunea cu același nume, înconjurat de munți: Bucegi, Piatra Craiului și Postăvarul. Râul Timișa îl străbate, iar Poiana Brasov, la 10 km altitudine, este una dintre cele mai cunoscute stațiuni montane.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Fondat în 1211 de Cavalerii Teutoni, Brașovul medieval a fost un important centru comercial al Transilvaniei. Cetatea a rezistat atacurilor otomane datorită zidurilor sale puternice. Biserica Neagră, cel mai mare edificiu gothic din România, a fost construită în sec XIV-XV.",
+          "highlighted": false
+        },
+        {
+          "title": "Cetatea Medievală",
+          "content": "Cetatea Brașovului este una dintre cele mai bine conservate fortificații medievale din România. Turnul Alb, Turnul Negru, Bastionul Țesătorilor și zidurile de apărare pot fi vizitate și astăzi.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Piața Sfatului, centrul vechi al orașului, este înconjurată de clădiri medievale colorate. Casa Sfatului, azi muzeu, datează din 1420. Stradela Sforii, una dintre cele mai înguste alei din Europa, Biserica Neagră și telecabina spre Postăvarul sunt atracții principale.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Brașovul are o viață culturală activă, cu Filarmonica Brașov, Teatrul Dramatic 'Sică Alexandrescu', Teatrul de Operetă și Muzical, numeroase galerii de artă și festivaluri. Festivalul Golden Stag (Cerbul de Aur) a fost unul dintre cele mai mari festivaluri muzicale din Europa.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria specifică zonei combină influențe românești cu cele săsești și maghiare. Preparate populare: tochitură ardelenească, papricaș de pui, varză á la Cluj, sarmale, caltaboș și cârnați afumați. Berea locală (o tradiție săsească) și vinul de Dealu Mare completează oferta gastronomică.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "bucuresti",
+      "name": "Bucuresti",
+      "region": "Muntenia",
+      "description": "București, capitala României, este cel mai mare oraș al țării și un important centru cultural, economic și politic. Cunoscut drept 'Micul Paris', orașul impresionează prin amestecul unic de arhitectură veche și modernă, parcuri impresionante și viață culturală intensă.",
+      "mapCoords": "44.4268,26.1025",
+      "weatherId": "683506",
+      "defaultImages": [
+        "muntenia_bucuresti_parlament",
+        "muntenia_bucuresti_ateneu",
+        "muntenia_bucuresti_arctriumf",
+        "muntenia_bucuresti_centruvechi",
+        "muntenia_bucuresti_cismigiu"
+      ],
+      "events": [
+        "Festivalul Internațional 'George Enescu' - Ateneul Român",
+        "Expoziție de artă contemporană - Muzeul Național de Artă",
+        "Festivalul Luminii - Parcul Herăstrău",
+        "Târgul de Crăciun - Piața Constituției",
+        "Concerte în aer liber - Centrul Vechi"
+      ],
+      "tips": [
+        "Vizitați Palatul Parlamentului cu un ghid pentru a descoperi secrete fascinante ale clădirii",
+        "Explorați Centrul Vechi seara pentru a simți atmosfera autentică a orașului",
+        "Parcul Herăstrău oferă opțiuni excelente pentru plimbări cu barca în timpul verii",
+        "Evitați orele de vârf (8-10 și 17-19) pentru deplasări în oraș din cauza traficului intens"
+      ],
+      "attractions": [
+        {
+          "name": "Palatul Parlamentului",
+          "imageRes": "bucuresti_parlament",
+          "prompt": "Vizitează cea mai mare clădire administrativă din Europa."
+        },
+        {
+          "name": "Ateneul Român",
+          "imageRes": "bucuresti_ateneu",
+          "prompt": "Inima culturii bucureștene, un simbol al arhitecturii neoclasice."
+        },
+        {
+          "name": "Parcul Herăstrău",
+          "imageRes": "bucuresti_herastrau",
+          "prompt": "Relaxare pe malul lacului și vizită la Muzeul Satului."
+        },
+        {
+          "name": "Arcul de Triumf",
+          "imageRes": "bucuresti_arctriumf",
+          "prompt": "Monumentul victoriei și al unirii tuturor românilor."
+        },
+        {
+          "name": "Centrul Vechi",
+          "imageRes": "bucuresti_centru_vechi",
+          "prompt": "Istorie, cafenele și viață de noapte vibrantă în inima orașului."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "București, capitala României, este cel mai mare oraș al țării și un important centru cultural, economic și politic. Cunoscut drept 'Micul Paris', orașul impresionează prin amestecul unic de arhitectură veche și modernă, parcuri impresionante și viață culturală intensă.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "București este situat în sud-estul României, pe râul Dâmbovița. Orașul se întinde pe o suprafață de 228 km² și are o populație de peste 1,8 milioane de locuitori. Clima este temperat-continentală, cu veri calde și ierni reci. Orașul este împărțit în 6 sectoare administrative și are o rețea bine dezvoltată de transport public.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1459, când este menționat într-un document emis de Vlad Țepeș. În 1659 devine capitala Țării Românești. În perioada interbelică, cunoscută drept 'Epoca de Aur', Bucureștiul a cunoscut o dezvoltare urbană impresionantă, cu influențe arhitecturale franceze. În perioada comunistă, o parte semnificativă din centrul istoric a fost demolată pentru a face loc clădirilor administrative.",
+          "highlighted": false
+        },
+        {
+          "title": "Arhitectură",
+          "content": "Bucureștiul impresionează prin diversitatea arhitecturală: clădiri neoclasice și beaux-arts din perioada interbelică, arhitectură comunistă monumentală (Palatul Parlamentului), clădiri moderne și contemporane. Principalele atracții arhitecturale includ: Palatul Parlamentului, Ateneul Român, Arcul de Triumf, Palatul CEC, și numeroase biserici istorice.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Bucureștiul este un important centru cultural, cu instituții precum Opera Națională, Teatrul Național, Filarmonica George Enescu, și numeroase muzee. Orașul găzduiește festivaluri importante precum Festivalul Internațional George Enescu, Festivalul de Film NexT, și Festivalul de Teatru Bucureștiul Tânăr.",
+          "highlighted": false
+        },
+        {
+          "title": "Parcuri și Spații Verzi",
+          "content": "Orașul are numeroase parcuri și spații verzi, printre care: Parcul Herăstrău (cel mai mare parc din București), Parcul Carol, Grădina Botanică, Parcul Cișmigiu, și Parcul Tineretului. Acestea oferă spații de relaxare și recreere pentru locuitori și vizitatori.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "buzau",
+      "name": "Buzau",
+      "region": "Muntenia",
+      "description": "Buzău este un oraș cu tradiție culturală și industrială, situat la poalele Munților Buzăului. Cunoscut pentru peisajele naturale spectaculoase și pentru patrimoniul cultural bogat, orașul este un important centru al regiunii Muntenia.",
+      "mapCoords": "45.15,26.8167",
+      "weatherId": "683123",
+      "defaultImages": [
+        "muntenia_buzau_catedrala",
+        "muntenia_buzau_centru",
+        "muntenia_buzau_parc",
+        "muntenia_buzau_primarie",
+        "muntenia_buzau_vulcani"
+      ],
+      "events": [
+        "Zilele Orașului Buzău - 15-17 Iulie 2024",
+        "Festivalul Tradițiilor și Meșteșugurilor - 20 Iunie 2024",
+        "Concurs de Drumeție - Parcul Crâng - 5 August 2024",
+        "Expoziție de Artă Contemporană - Galeriile de Artă - 10-20 Mai 2024",
+        "Festivalul de Film Documentar - 1-3 Septembrie 2024"
+      ],
+      "tips": [
+        "Vizitați Vulcanii Noroioși din apropierea orașului pentru un fenomen natural unic",
+        "Parcul Crâng oferă un loc excelent pentru relaxare și activități în aer liber",
+        "Încercați produsele tradiționale la Piața Centrală, în special brânzeturile locale",
+        "Muzeul Județean Buzău găzduiește colecții valoroase de arheologie și istorie locală"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Buzău este un oraș cu tradiție culturală și industrială, situat la poalele Munților Buzăului. Cunoscut pentru peisajele naturale spectaculoase și pentru patrimoniul cultural bogat, orașul este un important centru al regiunii Muntenia.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Buzău este situat în județul omonim, la poalele Munților Buzăului, la aproximativ 120 km nord-est de București. Orașul se află într-o zonă de dealuri și câmpii, străbătută de râul Buzău. Clima este temperat-continentală, cu influențe montane.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1431. În perioada medievală, Buzăul a fost un important centru comercial și administrativ. În secolul al XIX-lea, orașul a cunoscut o dezvoltare semnificativă, devenind un important centru cultural și industrial al regiunii.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură și Educație",
+          "content": "Buzăul este un important centru cultural, cu instituții precum Teatrul Municipal, Filarmonica, și numeroase muzee. Orașul are o bogată tradiție literară, fiind locul de naștere al unor personalități precum Vasile Voiculescu și George Călinescu. Universitatea din Buzău oferă programe în diverse domenii.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele atracții includ: Muzeul Județean Buzău, Casa Memorială George Călinescu, Parcul Crâng, și numeroase biserici istorice. În apropiere se află stațiunile din Munții Buzăului, Cheile Buzăului, și rezervațiile naturale din zonă.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "campullung",
+      "name": "CampulLung",
+      "region": "Bucovina",
+      "description": "Câmpulung Moldovenesc este un orășel pitoresc din Bucovina, situat într-o depresiune de-a lungul văii râului Moldova, înconjurat de păduri de conifere și dealuri domoale. Este un important centru etnografic și cultural, păstrător al tradițiilor și meșteșugurilor bucovinene.",
+      "mapCoords": "47.5285,25.5649",
+      "weatherId": "680963",
+      "defaultImages": [
+        "dobrogea_constanta_1",
+        "dobrogea_constanta_casino",
+        "dobrogea_constanta_plaja",
+        "dobrogea_constanta_port",
+        "dobrogea_constanta_moschee"
+      ],
+      "events": [
+        "Festivalul Tomis - 15-17 Iulie 2024",
+        "Concert la Cazinou - 22 Iulie 2024",
+        "Expoziție de Artă - 5-20 August 2024",
+        "Festivalul Mării - 10-12 August 2024"
+      ],
+      "tips": [
+        "Vizitați Cazinoul la apus pentru cea mai frumoasă priveliște",
+        "Cea mai bună plăcintă dobrogeneană se găsește la 'La Doi Frați'",
+        "O plimbare pe Faleză dimineața devreme este o experiență de neuitat",
+        "Muzeul de Istorie este gratuit în prima duminică a lunii"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Câmpulung Moldovenesc este un orășel pitoresc din Bucovina, situat într-o depresiune de-a lungul văii râului Moldova, înconjurat de păduri de conifere și dealuri domoale. Este un important centru etnografic și cultural, păstrător al tradițiilor și meșteșugurilor bucovinene.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în județul Suceava, în partea de sud a Bucovinei, Câmpulung Moldovenesc se află la o altitudine de aproximativ 630 m, într-o depresiune intramontană între masivele Rarău și Giumalău. Poziția geografică și relieful variat, cu munți, dealuri și valea largă a Moldovei, oferă peisaje naturale spectaculoase și multiple oportunități pentru activități în aer liber.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1411, într-un document emis de domnitorul Alexandru cel Bun. Numele localității provine din configuraţia văii râului Moldova, care formează aici un \"câmp lung\". În perioada administrației austro-ungare (1775-1918), Câmpulung a cunoscut o dezvoltare semnificativă, devenind un important centru administrativ, meșteșugăresc și comercial al Bucovinei.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Muzeul \"Arta Lemnului\" (unic în România prin colecțiile sale de unelte tradiționale și obiecte din lemn), Muzeul Etnografic \"Ioan Grămadă\", Biserica Romano-Catolică (1864), Biserica Adormirea Maicii Domnului, vechile clădiri administrative și vile în stil austriac, precum și Parcul Central cu arhitectura sa specifică perioadei habsburgice.",
+          "highlighted": false
+        },
+        {
+          "title": "Masivul Rarău",
+          "content": "La aproximativ 15 km de Câmpulung se află Masivul Rarău, o destinație excepțională pentru iubitorii naturii. Aici se găsesc formațiuni geologice spectaculoase precum Pietrele Doamnei, rezervații naturale importante, o biodiversitate remarcabilă și trasee de drumeție pentru toate nivelurile de dificultate. Mănăstirea Rarău, situată la altitudine, oferă o priveliște panoramică impresionantă.",
+          "highlighted": false
+        },
+        {
+          "title": "Tradiții și Meșteșuguri",
+          "content": "Câmpulungul este cunoscut ca un important centru al meșteșugurilor tradiționale bucovinene: prelucrarea artistică a lemnului, țesutul, broderia, înconjoarea ouălor și prelucrarea fibrelor textile. Muzeul \"Arta Lemnului\" și atelierele meșterilor populari locali păstrează și promovează aceste tradiții seculare. Festivaluri precum \"Târgul Lăptarilor\" și \"Bujorul de Munte\" celebrează tradițiile pastorale și folclorice ale zonei.",
+          "highlighted": false
+        },
+        {
+          "title": "Turism Activ",
+          "content": "Zona oferă multiple posibilități pentru activități în aer liber: drumeții montane pe trasee marcate în Masivul Rarău, Munții Giumalău și Obcinele Bucovinei, sporturi de iarnă la pârtia Rarău, mountain biking, echitație, pescuit sportiv pe râul Moldova și parapantă de pe vârful Rarău. Peșterile din zonă, precum Peștera Liliecilor, sunt destinații apreciate de speologi.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională din Câmpulung Moldovenesc oferă delicii culinare precum: tochitura bucovineană, ciorba rădăuțeană, sarmalele moldovenești, cozonacul bucovinean, alivencile (plăcinte cu brânză dulce) și preparate din produse locale (ciuperci, fructe de pădure, brânzeturi de la stânele din Rarău). Afinata și țuica de prune sunt băuturile tradiționale locale.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "caransebes",
+      "name": "Caransebes",
+      "region": "",
+      "description": "Caransebeș este un oraș cu o istorie bogată, situat la confluența râurilor Timiș și Sebeș. Centrul său istoric păstrează arhitectură din perioada austro-ungară și are o importanță strategică și comercială încă din antichitate.",
+      "mapCoords": "45.4177,22.2192",
+      "weatherId": "682729",
+      "defaultImages": [
+        "caransebes_1",
+        "caransebes_panorama",
+        "caransebes_catedrala",
+        "caransebes_muzeul_etnografic",
+        "caransebes_centru"
+      ],
+      "events": [
+        "Zilele Orașului Caransebeș - 1-3 Septembrie 2024",
+        "Festival Folcloric 'Gugulan' - 15 August 2024",
+        "Expoziție de Istorie Militară - 12-20 Iulie 2024",
+        "Festivalul Fanfarelor - 10 Octombrie 2024"
+      ],
+      "tips": [
+        "Vizitați Muzeul de Etnografie dimineața pentru a evita aglomerația",
+        "Cea mai bună mâncare tradițională bănățeană se găsește la restaurantul 'Banatul'",
+        "O plimbare în Parcul Dragalina este recomandată în serile de vară",
+        "Catedrala Ortodoxă poate fi vizitată zilnic între orele 8:00-19:00"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Caransebeș este un oraș cu o istorie bogată, situat la confluența râurilor Timiș și Sebeș. Centrul său istoric păstrează arhitectură din perioada austro-ungară și are o importanță strategică și comercială încă din antichitate.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul este situat în partea de nord-est a județului Caraș-Severin, într-o zonă de contact între Munții Banatului și Culoarul Timiș-Cerna. Această poziție geografică i-a conferit dintotdeauna o importanță strategică, fiind un nod important de comunicații între Transilvania și Banat.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Teritoriul actual al Caransebeșului a fost locuit încă din antichitate, fiind atestat ca așezare romană sub numele de Tibiscum. Prima mențiune documentară a orașului datează din 1289. În Evul Mediu, Caransebeșul a fost un important centru militar și administrativ, iar în perioada habsburgică (1718-1918) a făcut parte din Granița Militară Bănățeană.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Muzeul Județean de Etnografie și al Regimentului de Graniță, Catedrala Episcopală „Învierea Domnului, Biserica Romano-Catolică, Turnul Sânzienei (monument din secolul al XVI-lea), Cazarma (construită în perioada graniței militare), Parcul Dragalina și centrul istoric cu clădirile sale în stil austro-ungar.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Viața culturală a orașului gravitează în jurul instituțiilor precum Casa de Cultură „George Suru, Biblioteca Municipală „Mihail Halici și Muzeul Județean. Festivalul Internațional de Folclor „Hercules, Zilele Orașulului Caransebeș și alte evenimente culturale animă viața comunității locale.",
+          "highlighted": false
+        },
+        {
+          "title": "Tradiții",
+          "content": "Zona Caransebeșului este cunoscută pentru păstrarea tradițiilor populare românești din Banat. Dansurile populare tradiționale (brâul, ardeleana, hora), costumele populare specifice și meșteșugurile tradiționale sunt componente importante ale identității culturale locale.",
+          "highlighted": false
+        },
+        {
+          "title": "Împrejurimi",
+          "content": "Caransebeșul este un punct de plecare ideal pentru explorarea atracțiilor turistice din zonă: stațiunea Muntele Mic, Munții Țarcu, Lacul Poiana Mărului, Cheile Caraşului, Parcul Național Semenic-Cheile Carașului și alte obiective naturale spectaculoase din Banatul Montan.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "cernavoda",
+      "name": "Cernavoda",
+      "region": "Dobrogea",
+      "description": "Cernavodă este un important oraș-port de pe Dunăre, situat în județul Constanța, cunoscut pentru centrala nuclearo-electrică și pentru poziția sa strategică, la capătul vestic al Canalului Dunăre-Marea Neagră.",
+      "mapCoords": "44.3436,28.0362",
+      "weatherId": "681799",
+      "defaultImages": [
+        "dobrogea_cernavoda_pod",
+        "dobrogea_cernavoda_muzeu",
+        "dobrogea_cernavoda_biserica",
+        "dobrogea_cernavoda_faleza",
+        "dobrogea_cernavoda_canal"
+      ],
+      "events": [
+        "Festivalul Dunării - 15-17 Iulie 2024",
+        "Concert în Cernavoda - 22 Iulie 2024",
+        "Expoziție de Fotografie Locală - 5-20 August 2024",
+        "Festivalul Centrală Nucleară - 25-27 August 2024"
+      ],
+      "tips": [
+        "Vizitați Podul lui Anghel Saligny pentru o priveliște panoramică",
+        "Explorați canalul Dunăre-Marea Neagră",
+        "Încercați produsele locale în piața din centrul orașului",
+        "Faceți o excursie la Muzeul Daciei Romane"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Cernavodă este un important oraș-port de pe Dunăre, situat în județul Constanța, cunoscut pentru centrala nuclearo-electrică și pentru poziția sa strategică, la capătul vestic al Canalului Dunăre-Marea Neagră.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul Cernavodă este situat în partea de vest a județului Constanța, pe malul drept al Dunării, la intersecția acesteia cu Canalul Dunăre-Marea Neagră. Peisajul este dominat de platoul dobrogean și de valea Dunării, oferind panorame spectaculoase asupra fluviului.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Zona Cernavodă a fost locuită încă din neolitic, fiind cunoscută pentru cultura Hamangia (descoperirea celebrelor statuete 'Gânditorul' și 'Femeie șezând'). În antichitate, aici se afla cetatea Axiopolis, un important punct strategic și comercial la granița Imperiului Roman. Orașul modern s-a dezvoltat în sec. XIX, odată cu construcția podului peste Dunăre de către inginerul Anghel Saligny (1895), o realizare inginerească remarcabilă pentru acea vreme.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Cernavodă oferă vizitatorilor numeroase puncte de interes: Muzeul de Istorie Națională și Arheologie, unde pot fi admirate artefacte din cultura Hamangia, vechiul pod al lui Saligny (monument istoric), portul comercial, precum și priveliști impresionante asupra Dunării și a Canalului. La 20 km se află situl arheologic Tropaeum Traiani din Adamclisi, un alt obiectiv turistic major din zonă.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Viața culturală a Cernavodei este influențată de poziția sa ca centru industrial și energetic, dar păstrează elemente tradiționale dobrogene. Festivalul 'Zilele Cernavodei' este principalul eveniment cultural anual, când orașul găzduiește concerte, expoziții și alte manifestări artistice.",
+          "highlighted": false
+        },
+        {
+          "title": "Economie",
+          "content": "Economia orașului este dominată de Centrala Nuclearo-Electrică (CNE) Cernavodă, prima și singura centrală nucleară din România, care furnizează aproximativ 20% din electricitatea țării. Portul comercial, industria materialelor de construcții și turismul sunt alte sectoare economice importante.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "clujnapoca",
+      "name": "ClujNapoca",
+      "region": "Transilvania",
+      "description": "Cluj-Napoca este cel mai important centru cultural, universitar și economic din Transilvania și al doilea oraș ca mărime din România. Găzduiește festivaluri internaționale de renume precum TIFF și Untold și are o viață culturală și de noapte vibrantă.",
+      "mapCoords": "46.7712,23.6236",
+      "weatherId": "681290",
+      "defaultImages": [
+        "cluj_napoca_1",
+        "cluj_napoca_piata",
+        "cluj_napoca_centru",
+        "cluj_napoca_universitate",
+        "cluj_napoca_botanica"
+      ],
+      "events": [
+        "Festivalul Internațional de Film TIFF - Iunie 2024",
+        "Untold Festival - August 2024",
+        "Jazz in the Park - Septembrie 2024",
+        "Zilele Culturale Maghiare - August 2024"
+      ],
+      "tips": [
+        "Vizitați Grădina Botanică dimineața pentru a evita aglomerația",
+        "Încercați cozonacul secuiesc (kürtőskalács) din centrul vechi",
+        "Salina Turda este la doar 30 de minute de mers cu mașina",
+        "Cafenelele din jurul Pieței Muzeului oferă priveliști deosebite"
+      ],
+      "attractions": [
+        {
+          "name": "Piața Unirii",
+          "imageRes": "cluj_piata_unirii",
+          "prompt": "Inima orașului, dominată de Catedrala Sf. Mihail și statuia lui Matei Corvin."
+        },
+        {
+          "name": "Grădina Botanică Alexandru Borza",
+          "imageRes": "cluj_botanica",
+          "prompt": "Oază de liniște cu sere tropicale și o grădină japoneză autentică."
+        },
+        {
+          "name": "Cetățuia",
+          "imageRes": "cluj_cetatuia",
+          "prompt": "Urcă pentru cea mai spectaculoasă vedere panoramică asupra Clujului."
+        },
+        {
+          "name": "Parcul Central",
+          "imageRes": "cluj_parc_central",
+          "prompt": "Locul ideal pentru o plimbare lungă pe malul Someșului."
+        },
+        {
+          "name": "Biserica Reformată",
+          "imageRes": "cluj_reformata",
+          "prompt": "Un monument gotic impunător cu o acustică deosebită."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Cluj-Napoca este cel mai important centru cultural, universitar și economic din Transilvania și al doilea oraș ca mărime din România. Găzduiește festivaluri internaționale de renume precum TIFF și Untold și are o viață culturală și de noapte vibrantă.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Cluj-Napoca este situat în nord-vestul Transilvaniei, pe râul Someșul Mic, într-o depresiune înconjurată de dealuri și păduri. Clima este temperat-continentală, cu veri calde și ierni moderate.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Atestat documentar din 1213, Clujul a fost un important centru comercial și cultural medieval al Transilvaniei. A aparținut succesiv regatului maghiar, Imperiului Otoman și celui Habsburg, înainte de a deveni parte a României în 1918 și temporar între 1940-1944 parte a Ungariei.",
+          "highlighted": false
+        },
+        {
+          "title": "Viața Universitară",
+          "content": "Cluj-Napoca este cel mai important centru universitar din România, cu peste 100.000 de studenți. Universitatea Babeș-Bolyai (una dintre cele mai mari din țară), Universitatea Tehnică, Universitatea de Medicină și Farmacie și alte instituții de  prestigiu atrag studenți din toată țara.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Piața Unirii cu statuia lui Matei Corvin, Catedrala Sf. Mihail, Palatul Banffy (Muzeul de Artă), Parcul Central cu casino și lac, Grădina Botanică Alexandru Borza, Teatrul Național, Muzeul Național de Istorie a Transilvaniei sunt principalele obiective.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură și Festivaluri",
+          "content": "Cluj-Napoca este capitala culturală neoficială a României. Festivalul Internațional de Film Transilvania (TIFF), Untold Festival, Electric Castle, Jazz in the Park, Festivalul Medieval și zeci de alte evenimente culturale anuale fac din Cluj un hub cultural european.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria clujeană reflectă moștenirea multiculturală: varză á la Cluj, papricaș de pui, gulaș ardelenesc. Scena gastronomică modernă din Cluj este una dintre cele mai dinamice din România, cu restaurante de fine dining, cafenele specialty coffee și piețe de producători locali.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "constanta",
+      "name": "Constanta",
+      "region": "Dobrogea",
+      "description": "Constanța, anticul Tomis, este cel mai mare port de la Marea Neagră și cel mai vechi oraș din România. O destinație unde briza mării se împletește cu istoria milenară, oferind o experiență multiculturală fascinantă.",
+      "mapCoords": "44.1598,28.6348",
+      "weatherId": "680963",
+      "defaultImages": [
+        "dobrogea_constanta_casino",
+        "dobrogea_constanta_moschee",
+        "dobrogea_constanta_port",
+        "dobrogea_constanta_plaja",
+        "dobrogea_constanta_centru"
+      ],
+      "events": [
+        "Festivalul de Muzică Neversea - Iulie",
+        "Zilele Marinei Române - August",
+        "Festivalul Internațional de Literatură la Țărmul Mării - Septembrie",
+        "Cupa Daciei la Yachting - Iunie"
+      ],
+      "tips": [
+        "Plimbă-te pe faleză la răsărit pentru a vedea Cazinoul în cea mai frumoasă lumină",
+        "Urcă în minaretul Moscheii Carol I pentru o panoramă de 360 grade asupra portului",
+        "Vizitează Muzeul de Istorie și Arheologie din Piața Ovidiu",
+        "Portul Tomis este locul ideal pentru o cină cu specific pescăresc"
+      ],
+      "attractions": [
+        {
+          "name": "Cazinoul din Constanța",
+          "imageRes": "constanta_casino",
+          "prompt": "O bijuterie Art Nouveau, simbolul incontestabil al orașului."
+        },
+        {
+          "name": "Moscheea Carol I",
+          "imageRes": "constanta_moschee",
+          "prompt": "Un monument splendid ce reflectă armonia multiculturală a Dobrogei."
+        },
+        {
+          "name": "Portul Tomis",
+          "imageRes": "constanta_port_tomis",
+          "prompt": "Locul perfect pentru relaxare și ambarcațiuni elegante."
+        },
+        {
+          "name": "Delfinariul Constanța",
+          "imageRes": "constanta_delfinariu",
+          "prompt": "Bucură-te de spectacolele inteligente ale mamiferelor marine."
+        },
+        {
+          "name": "Piața Ovidiu",
+          "imageRes": "constanta_piata_ovidiu",
+          "prompt": "Centrul istoric unde antichitatea întâlnește prezentul."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Constanța, cunoscută în antichitate sub numele de Tomis, este cel mai vechi oraș atestat de pe teritoriul României. Situată pe coasta Mării Negre, este un important centru economic, cultural și turistic al țării.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Constanța este situată în sud-estul României, pe coasta Mării Negre. Orașul se întinde pe o suprafață de aproximativ 124 km² și include numeroase lacuri precum Siutghiol și Tăbăcărie. Clima este temperat-continentală cu influențe maritime, cu veri călduroase și ierni blânde.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Fondată în secolul al VI-lea î.Hr. de coloniștii greci din Milet, Constanța a fost cunoscută inițial sub numele de Tomis. A fost un important centru comercial și cultural în perioada romană, iar mai târziu a devenit parte a Imperiului Bizantin. În perioada modernă, orașul a cunoscut o dezvoltare rapidă, devenind principalul port al României.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Cazinoul, Moscheea Carol I, Portul Tomis și plajele moderne sunt doar câteva dintre atracțiile care fac din Constanța o destinație turistică de top. Muzeul de Istorie Națională și Arheologie, Aquarium, Delfinariu și Piața Ovidiu sunt alte obiective importante.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Un oraș multicultural unde se împletesc influențele române, grecești, turcești și tătare, creând un mozaic cultural unic. Teatrul de Stat, Opera Română, Filarmonica și numeroase festivaluri culturale animă viața orașului.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria dobrogeneană combină influențe românești, turcești și grecești. Specialități: plăcintă dobrogeană cu brânză, kebap, miel la tavă, pește și fructe de mare proaspete din Marea Neagră, salată de icre și baclavale.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "craiova",
+      "name": "Craiova",
+      "region": "Oltenia",
+      "description": "Craiova, cunoscută și ca 'Orașul Băniei', este cel mai important centru urban din Oltenia și unul dintre cele mai mari orașe din România. Cu o bogată istorie, cultură vibrantă și arhitectură impresionantă, Craiova reprezintă inima economică și culturală a sud-vestului țării.",
+      "mapCoords": "44.3302,23.7949",
+      "weatherId": "681290",
+      "defaultImages": [
+        "oltenia_craiova_1",
+        "oltenia_craiova_parc",
+        "oltenia_craiova_centru",
+        "oltenia_craiova_universitate",
+        "oltenia_craiova_teatru"
+      ],
+      "events": [
+        "Festivalul Shakespeare - 15-25 Aprilie 2024",
+        "IntenCity Music Festival - 5-7 Iulie 2024",
+        "Zilele Craiovei - 1-7 Iunie 2024",
+        "Festivalul Maria Tănase - 20-25 Octombrie 2024"
+      ],
+      "tips": [
+        "Parcul Nicolae Romanescu este cel mai frumos la răsărit",
+        "Încercați Pâinea de Craiova de la Brutăria Tradicională",
+        "Terasele din Centrul Vechi oferă cele mai bune prețuri seara",
+        "Muzeul de Artă găzduiește lucrări ale lui Brâncuși și este gratuit în ultima joi din lună"
+      ],
+      "attractions": [
+        {
+          "name": "Parcul Nicolae Romanescu",
+          "imageRes": "craiova_parc_romanescu",
+          "prompt": "Cel mai mare și mai spectaculos parc natural din sud-estul Europei."
+        },
+        {
+          "name": "Palatul Jean Mihail (Muzeul de Artă)",
+          "imageRes": "craiova_muzeu_arta",
+          "prompt": "O capodoperă a arhitecturii academice, casă pentru operele lui Brâncuși."
+        },
+        {
+          "name": "Centrul Vechi Craiova",
+          "imageRes": "craiova_centru_vechi",
+          "prompt": "Explorați zona pietonală renovată, plină de istorie și cafenele."
+        },
+        {
+          "name": "Grădina Botanică",
+          "imageRes": "craiova_botanica",
+          "prompt": "O oază de liniște și biodiversitate în inima orașului."
+        },
+        {
+          "name": "Teatrul Național Marin Sorescu",
+          "imageRes": "craiova_teatru",
+          "prompt": "Una dintre cele mai prestigioase scene de teatru din România."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Craiova, cunoscută și ca 'Orașul Băniei', este cel mai important centru urban din Oltenia și unul dintre cele mai mari orașe din România. Cu o bogată istorie, cultură vibrantă și arhitectură impresionantă, Craiova reprezintă inima economică și culturală a sud-vestului țării.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situată în câmpia Olteniei, pe malul stâng al râului Jiu, Craiova se bucură de un climat temperat-continental cu influențe mediteraneene. Orașul se află la o altitudine medie de 100 m deasupra nivelului mării și este înconjurat de terenuri agricole fertile, fiind un important centru agricol al țării.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Originile Craiovei datează din antichitate, zona fiind locuită încă din perioada dacică (Pelendava). Prima mențiune documentară datează din 1475, iar numele orașului este legat de boierii Craioveşti, care au avut un rol important în istoria Țării Românești. În secolele XVIII-XIX, Craiova a fost un important centru comercial și cultural, fiind pentru scurt timp chiar capitala Olteniei sub ocupația austriacă (1718-1739).",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Centrul istoric al Craiovei impresionează prin clădirile în stil neoclasic și Art Nouveau. Printre cele mai importante atracții se numără: Parcul Nicolae Romanescu (unul dintre cele mai mari parcuri naturale urbane din Europa), Muzeul de Artă (care adăpostește opere ale lui Constantin Brâncuși), Teatrul Național 'Marin Sorescu', Palatul Jean Mihail (Muzeul de Artă), Casa Băniei (cea mai veche clădire din oraș), Biserica Sf. Dumitru și Grădina Botanică.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Craiova este un important centru cultural cu instituții precum Filarmonica 'Oltenia', Teatrul Național 'Marin Sorescu', Teatrul Liric 'Elena Teodorini' și Opera Română Craiova. Orașul găzduiește anual Festivalul Shakespeare și are o bogată tradiție literară, fiind legat de nume precum: Marin Sorescu, Ion D. Sîrbu, Traian Demetrescu și Elena Farago.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria oltenească din Craiova se remarcă prin preparate consistente și gustoase precum: ciorba de potroace, sarmalele oltenești în foi de viță, prazul cu măsline, plachia de fasole, pârjoalele cu mujdei și celebra plăcintă cu brânză (specialitatea locală). Acestea pot fi însoțite de vinuri din podgoriile Segarcea și Drăgășani.",
+          "highlighted": false
+        },
+        {
+          "title": "Dezvoltare Economică",
+          "content": "În ultimii ani, Craiova a cunoscut o dezvoltare economică semnificativă, fiind un important centru industrial (fabrica Ford), educațional (Universitatea din Craiova) și de servicii. Parcurile industriale din zonă și buna conectivitate cu restul țării au transformat orașul într-un hub economic regional.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "drobetaturnuseverin",
+      "name": "Drobetaturnuseverin",
+      "region": "Oltenia",
+      "description": "Drobeta-Turnu Severin, reședința județului Mehedinți, este un important oraș-port la Dunăre, cu o istorie de peste 1900 de ani. Situat la granița cu Serbia, orașul reprezintă un important punct strategic și comercial, fiind și o poartă de intrare în România.",
+      "mapCoords": "44.6302,22.6500",
+      "weatherId": "678817",
+      "defaultImages": [
+        "oltenia_drobeta_1",
+        "oltenia_drobeta_parc",
+        "oltenia_drobeta_centru",
+        "oltenia_drobeta_podul_traian",
+        "oltenia_drobeta_cetate"
+      ],
+      "events": [
+        "Festivalul de Blues de la Dunăre - August 2024",
+        "Ziua Dunării - 29 Iunie 2024",
+        "Zilele Cetății Severinului - Mai 2024",
+        "Târgul Meșterilor Populari - Septembrie 2024"
+      ],
+      "tips": [
+        "Ruinele Podului lui Traian se văd cel mai bine de pe malul sârbesc (necesită trecere frontieră) sau de pe apă",
+        "Muzeul Regiunii Porților de Fier găzduiește un acvariu cu pești din Dunăre",
+        "O plimbare cu vaporașul prin Clisura Dunării oferă priveliști spectaculoase",
+        "Castelul de Apă oferă o panoramă excelentă asupra orașului și Dunării"
+      ],
+      "attractions": [
+        {
+          "name": "Muzeul Regiunii Porților de Fier",
+          "imageRes": "muzeu_porti_fier",
+          "prompt": "Părerea ta despre Muzeul Porților de Fier"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Drobeta-Turnu Severin, reședința județului Mehedinți, este un important oraș-port la Dunăre, cu o istorie de peste 1900 de ani. Situat la granița cu Serbia, orașul reprezintă un important punct strategic și comercial, fiind și o poartă de intrare în România.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Așezat pe malul stâng al Dunării, în extremitatea sud-vestică a României, orașul beneficiază de un climat blând, submediteranean. Dunărea, care formează aici defileul Porțile de Fier, oferă peisaje spectaculoase și oportunități pentru activități nautice și de agrement.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie Antică",
+          "content": "Istoria orașului începe în anul 105 d.Hr., când împăratul Traian a construit aici podul peste Dunăre, proiectat de arhitectul Apolodor din Damasc, pentru a facilita cucerirea Daciei. Castrul roman Drobeta, construit pentru apărarea podului, a evoluat într-un important centru urban și militar al Imperiului Roman.",
+          "highlighted": false
+        },
+        {
+          "title": "Evoluție Istorică",
+          "content": "După perioada romană, localitatea a continuat să existe sub diverse nume. În Evul Mediu, regele maghiar Ladislau I a construit aici o cetate numită Severin (de unde și partea a doua a numelui actual). Orașul modern s-a dezvoltat după 1833, când a devenit port liber, cunoscând o expansiune economică importantă în perioada următoare.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: ruinele Podului lui Traian și Castrul Roman, Muzeul Regiunii Porților de Fier (unul dintre cele mai mari din România), Cetatea Medievală a Severinului, Castelul de Apă, Parcul Arheologic și Palatul Cultural \"Teodor Costescu\". La câțiva kilometri se află spectaculosul defileu Porțile de Fier și Hidrocentrala omonimă.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Viața culturală a orașului este reprezentată de instituții precum Palatul Culturii \"Teodor Costescu\", Teatrul \"Teodor Costescu\", Biblioteca Județeană \"I.G. Bibicescu\" și Casa de Cultură a Sindicatelor. Festivalurile locale celebrează atât istoria romană a orașului (Festivalul Antic Drobeta), cât și tradițiile populare mehedințene.",
+          "highlighted": false
+        },
+        {
+          "title": "Economie",
+          "content": "Economia orașului se bazează pe industria navală (Șantierul Naval Drobeta), producția de energie (Hidrocentrala Porțile de Fier I), industria materialelor de construcții, industria ușoară și turism. Portul Drobeta-Turnu Severin este un important punct de tranzit pentru mărfuri pe Dunăre.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "gurahumorului",
+      "name": "GuraHumorului",
+      "region": "",
+      "description": "Gura Humorului este un orășel pitoresc din Bucovina, situat într-un cadru natural spectaculos, la poalele Obcinilor Bucovinei. Este renumit ca poartă de intrare către mănăstirile pictate din zonă și ca o stațiune turistică în plină dezvoltare.",
+      "mapCoords": "47.5533,25.8902",
+      "weatherId": "680963",
+      "defaultImages": [
+        "bucovina_humor_1",
+        "bucovina_humor_manastire",
+        "bucovina_humor_voronet",
+        "bucovina_humor_parc",
+        "bucovina_humor_panorama"
+      ],
+      "events": [
+        "Festivalul de Film și Diaporamă - 15-17 Iulie 2024",
+        "Expo Artă Bucovineană - 22-24 Iulie 2024",
+        "Târgul Meșterilor Populari - 5-7 August 2024",
+        "Ziua Orașului Gura Humorului - 15 August 2024"
+      ],
+      "tips": [
+        "Vizitați Mănăstirea Voroneț dimineața pentru cea mai bună lumină pentru fotografii",
+        "Parcul Ariniș oferă activități pentru toate vârstele și budget-uri",
+        "Rezervația de urși este deschisă doar la anumite ore - verificați programul în avans",
+        "Încercați plăcintele poale-n brâu la Pensiunea Bucovina din centrul orașului"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Gura Humorului este un orășel pitoresc din Bucovina, situat într-un cadru natural spectaculos, la poalele Obcinilor Bucovinei. Este renumit ca poartă de intrare către mănăstirile pictate din zonă și ca o stațiune turistică în plină dezvoltare.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în județul Suceava, la confluența râurilor Humor și Moldova, orașul Gura Humorului se află la o altitudine de aproximativ 470 m, într-o depresiune înconjurată de dealuri împădurite.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele atracții includ: Mănăstirea Humor (UNESCO), Parcul Ariniș cu pârtia de schi Șoimul și Muzeul Obiceiurilor Populare din Bucovina.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "iasi",
+      "name": "Iasi",
+      "region": "Moldova",
+      "description": "Iași, 'Capitala Culturală a României', este un oraș al marilor iubiri, al istoriei și al poeziei. Cele șapte coline pe care este așezat ascund comori arhitecturale, grădini pline de tei și o vibrație academică unică.",
+      "mapCoords": "47.1585,27.6014",
+      "weatherId": "675810",
+      "defaultImages": [
+        "moldova_iasi_palatul_culturii",
+        "moldova_iasi_copou",
+        "moldova_iasi_trei_ierarhi",
+        "moldova_iasi_mitropolia",
+        "moldova_iasi_golia"
+      ],
+      "events": [
+        "Sărbătorile Iașului - Octombrie",
+        "Festivalul Internațional de Literatură și Traducere (FILIT) - Octombrie",
+        "Romanian Design Week (Iasi Edition)",
+        "FITPT - Festivalul Internațional de Teatru"
+      ],
+      "tips": [
+        "Fă o plimbare sub Teiul lui Eminescu în Grădina Copou",
+        "Palatul Culturii merită vizitat atât la interior, cât și pentru grădinile exterioare",
+        "Încearcă poale-n brâu la restaurantele din zona centrală",
+        "Biserica Trei Ierarhi este celebră pentru dantelăria în piatră de pe pereții exteriori"
+      ],
+      "attractions": [
+        {
+          "name": "Palatul Culturii",
+          "imageRes": "iasi_palatul_culturii",
+          "prompt": "Un simbol al arhitecturii neogotice flamboaiante din România."
+        },
+        {
+          "name": "Grădina Copou",
+          "imageRes": "iasi_copou",
+          "prompt": "Cel mai vechi parc din Iași, casa celebrului Tei al lui Eminescu."
+        },
+        {
+          "name": "Biserica Trei Ierarhi",
+          "imageRes": "iasi_trei_ierarhi",
+          "prompt": "O capodoperă a artei religioase cu motive sculptate în piatră."
+        },
+        {
+          "name": "Mitropolia Moldovei",
+          "imageRes": "iasi_mitropolia",
+          "prompt": "Cel mai important centru de pelerinaj ortodox din România."
+        },
+        {
+          "name": "Teatrul Național Vasile Alecsandri",
+          "imageRes": "iasi_teatru",
+          "prompt": "Unul dintre cele mai frumoase teatre din lume."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Iași este unul dintre cele mai vechi și mai importante orașe ale României, un simbol al culturii și istoriei moldovene.",
+          "highlighted": true
+        },
+        {
+          "title": "Istorie",
+          "content": "Fostă capitală a Moldovei timp de trei secole, Iași a fost locul unde s-au născut mari idei și unde s-a înfăptuit Unirea Mică.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "lugoj",
+      "name": "Lugoj",
+      "region": "",
+      "description": "Lugoj este un important centru cultural din Banat, cu o bogată istorie și arhitectură reprezentativă. Este cunoscut ca orașul lui Traian Vuia și pentru podul de fier, unul dintre simbolurile localității.",
+      "mapCoords": "45.6909,21.9031",
+      "weatherId": "673634",
+      "defaultImages": [
+        "lugoj_1",
+        "lugoj_podul_de_fier",
+        "lugoj_biserica",
+        "lugoj_primaria",
+        "lugoj_parc"
+      ],
+      "events": [
+        "Festivalul Internațional de Folclor 'Ana Lugojana' - 15-17 Iulie 2024",
+        "Concert Corul 'Ion Vidu' - 22 Iulie 2024",
+        "Zilele Lugojului - 5-7 August 2024",
+        "Expoziție Traian Vuia - 10-20 August 2024"
+      ],
+      "tips": [
+        "Vizitați Podul de Fier la apus pentru o priveliște spectaculoasă",
+        "Cea mai bună plăcintă bănățeană se găsește la 'Cofetăria Savarina'",
+        "O plimbare pe malul râului Timiș dimineața devreme este o experiență de neuitat",
+        "Biserica Ortodoxă 'Adormirea Maicii Domnului' este deschisă vizitatorilor zilnic"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Lugoj este un important centru cultural din Banat, cu o bogată istorie și arhitectură reprezentativă. Este cunoscut ca orașul lui Traian Vuia și pentru podul de fier, unul dintre simbolurile localității.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în partea de est a județului Timiș, pe malurile râului Timiș, Lugojul se bucură de o poziție geografică privilegiată, la contactul dintre câmpia Banatului și dealurile Poiana Ruscă. Orașul este împărțit în două de râul Timiș: Lugojul Român (pe malul drept) și Lugojul German (pe malul stâng).",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1334. Orașul a jucat un rol important în istoria românilor bănățeni, fiind un centru al luptei pentru emancipare națională în secolul al XIX-lea. În 1848, aici s-a constituit Legiunea Românească din Banat. Lugojul a fost, de asemenea, sediul Episcopiei Greco-Catolice a Lugojului începând cu 1853.",
+          "highlighted": false
+        },
+        {
+          "title": "Personalități",
+          "content": "Lugojul este orașul natal al lui Traian Vuia, inventator și pionier al aviației mondiale, care a realizat primul zbor autopropulsat cu un aparat mai greu decât aerul. Alte personalități importante născute aici includ pe: Ion Vidu (compozitor), Filaret Barbu (compozitor), Aurel Vlaicu (aviator) și Caius Brediceanu (diplomat).",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Catedrala Greco-Catolică „Coborârea Sfântului Spirit, Biserica Ortodoxă „Adormirea Maicii Domnului, Teatrul Municipal „Traian Grozăvescu, Muzeul de Istorie și Etnografie, Casa Bredicenilor, Podul de Fier (1902) și Monumentul lui Traian Vuia. Centrul istoric al orașului păstrează clădiri în stil baroc și secesion.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Lugojul este considerat un important centru cultural al Banatului, cu o bogată tradiție muzicală. Corul „Ion Vidu, înființat în 1810, este unul dintre cele mai vechi coruri din România. Teatrul Municipal, Biblioteca Municipală și Casa de Cultură a Sindicatelor sunt principalele instituții culturale. Festivalul Internațional de Folclor „Ana Lugojana și Zilele Lugojului sunt evenimente culturale anuale importante.",
+          "highlighted": false
+        },
+        {
+          "title": "Tradiții",
+          "content": "Tradițiile lugojene îmbină elemente românești cu influențe germane, maghiare și sârbești, reflectând caracterul multicultural al Banatului. Târgurile tradiționale, festivalurile folclorice și meșteșugurile locale (olărit, țesut, sculptura în lemn) sunt încă păstrate și promovate.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "oradea",
+      "name": "Oradea",
+      "region": "Crișana",
+      "description": "Oradea este un oraș cu o bogată istorie și un important centru cultural, economic și administrativ din vestul României. Situat pe râul Crișul Repede, în apropierea graniței cu Ungaria, orașul impresionează prin arhitectura Art Nouveau și baroc, precum și prin băile termale renumite.",
+      "mapCoords": "47.0465,21.9189",
+      "weatherId": "671768",
+      "defaultImages": [
+        "crisana_oradea_piata_unirii",
+        "crisana_oradea_vulturul_negru",
+        "crisana_oradea_cetate",
+        "crisana_oradea_primaria",
+        "crisana_oradea_palatul_moskovits"
+      ],
+      "events": [
+        "Oradea Festifall - Octombrie",
+        "Târgul de Crăciun Oradea - Decembrie",
+        "European Music Open - Iunie",
+        "Zilele Cetății Oradea - Iulie"
+      ],
+      "tips": [
+        "Admirați arhitectura Art Nouveau din Piața Unirii la ora 'albastră' (după apus)",
+        "Vizitați Pasajul Vulturul Negru pentru vitraliile sale superbe",
+        "Băile Felix sunt la doar câteva minute distanță pentru o zi de relaxare",
+        "Urcați în turnul Primăriei pentru o vedere panoramică a orașului"
+      ],
+      "attractions": [
+        {
+          "name": "Piața Unirii",
+          "imageRes": "oradea_piata_unirii",
+          "prompt": "Inima orașului, un spectacol de arhitectură Art Nouveau și Baroc."
+        },
+        {
+          "name": "Pasajul Vulturul Negru",
+          "imageRes": "oradea_vulturul_negru",
+          "prompt": "Cea mai emblematică galerie comercială din Oradea."
+        },
+        {
+          "name": "Cetatea Oradea",
+          "imageRes": "oradea_cetate",
+          "prompt": "Explorează istoria milenară a fortificației stelate."
+        },
+        {
+          "name": "Palatul Moskovits",
+          "imageRes": "oradea_moskovits",
+          "prompt": "O bijuterie arhitecturală de o culoare albastru-azuriu fascinantă."
+        },
+        {
+          "name": "Aquapark Nymphaea",
+          "imageRes": "oradea_nymphaea",
+          "prompt": "Cel mai modern complex acvatic din această regiune a Europei."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Oradea este un oraș cu o bogată istorie și un important centru cultural, economic și administrativ din vestul României. Situat pe râul Crișul Repede, în apropierea graniței cu Ungaria, orașul impresionează prin arhitectura Art Nouveau și baroc, precum și prin băile termale renumite.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Oradea este situată în câmpia de vest a României, pe malurile râului Crișul Repede. Orașul beneficiază de un climat temperat-continental cu influențe oceanice, fiind ferit de extreme climatice. Relieful predominant de câmpie și dealuri line face din Oradea un oraș prietenos pentru bicicliști și pietoni.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară a Oradiei datează din 1113, când a fost menționată sub numele de Varadinum. De-a lungul secolelor, orașul a fost sub diverse stăpâniri: maghiară, otomană, habsburgică și română (după 1918). În perioada austro-ungară, Oradea a cunoscut o dezvoltare urbanistică impresionantă, care se reflectă în arhitectura sa eclectică de astăzi.",
+          "highlighted": false
+        },
+        {
+          "title": "Arhitectură",
+          "content": "Oradea este renumită pentru ansamblul arhitectural Art Nouveau, unul dintre cele mai mari și mai bine conservate din Europa. Strada Republicii, Piața Unirii, Palatul Vulturul Negru, Palatul Moskovits, Palatul Apollo, Palatul Stern și Casa Darvas-La Roche sunt doar câteva dintre capodoperele arhitecturale ce pot fi admirate în Oradea.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Cetatea Oradea (una dintre cele mai mari cetăți de tip pentagonal din Europa Centrală), Catedrala Romano-Catolică (cea mai mare biserică barocă din România), Sinagoga Neologă Sion, Palatul Episcopal Baroc, Muzeul Țării Crișurilor, Parcul 1 Decembrie și Băile Felix (la doar 8 km de oraș) sunt principalele obiective turistice.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Orașul are o viață culturală vibrantă, cu instituții precum Teatrul de Stat, Filarmonica de Stat, Teatrul Regina Maria și Muzeul Țării Crișurilor. Festivalul Internațional de Teatru Scurt, Festivalul de Jazz și Festivalul Medieval al Cetății sunt evenimente culturale importante care atrag anual numeroși vizitatori.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria din Oradea reflectă caracterul multicultural al regiunii, cu influențe românești, maghiare și austriece. Specialități locale precum goulașul, ciorbele acrișoare, langalăul, cozonacul secuiesc și faimoasele prăjituri Gerbeaud pot fi savurate în restaurantele tradiționale din oraș.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "pitesti",
+      "name": "Pitesti",
+      "region": "Muntenia",
+      "description": "Pitești este un important centru universitar și industrial din Muntenia, cunoscut pentru industria auto și pentru viața culturală vibrantă. Orașul se află la intersecția unor importante rute de transport și este un nod economic important al regiunii.",
+      "mapCoords": "44.8560,24.8690",
+      "weatherId": "671492",
+      "defaultImages": [
+        "muntenia_pitesti_primarie",
+        "muntenia_pitesti_centru",
+        "muntenia_pitesti_parc",
+        "muntenia_pitesti_catedrala",
+        "muntenia_pitesti_trivale"
+      ],
+      "events": [
+        "Simfonia Lalelelor - 20-22 Aprilie 2024",
+        "Zilele Orașului Pitești - 15-17 Mai 2024",
+        "Festivalul Internațional de Folclor - 10-12 August 2024",
+        "Festivalul Underground - 5-6 Iulie 2024",
+        "Expoziție Auto Retro - 25-27 Septembrie 2024"
+      ],
+      "tips": [
+        "Vizitați Pădurea Trivale - un adevărat plămân verde al orașului, perfect pentru plimbări și picnic",
+        "Nu ratați evenimentul anual 'Simfonia Lalelelor' în luna aprilie - un spectacol floral deosebit",
+        "Centrul istoric oferă restaurante excelente cu preparate tradiționale argeșene",
+        "Muzeul Județean Argeș găzduiește colecții impresionante de artă populară și istorie locală"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Pitești este un important centru universitar și industrial din Muntenia, cunoscut pentru industria auto și pentru viața culturală vibrantă. Orașul se află la intersecția unor importante rute de transport și este un nod economic important al regiunii.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Pitești este situat în județul Argeș, la confluența râurilor Argeș și Doamnei, la aproximativ 120 km nord-vest de București. Orașul se află într-o zonă de câmpie, cu acces facil la Munții Făgăraș și la Transilvania. Clima este temperat-continentală.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1388. În secolul al XIX-lea, Piteștiul a cunoscut o dezvoltare semnificativă datorită poziției sale strategice pe ruta comercială dintre Transilvania și Muntenia. În perioada comunistă, orașul a devenit un important centru industrial, în special pentru industria auto.",
+          "highlighted": false
+        },
+        {
+          "title": "Industrie și Educație",
+          "content": "Piteștiul este cunoscut pentru fabrica Dacia, cea mai mare producătoare de automobile din România. Orașul este și un important centru universitar, cu Universitatea din Pitești, care oferă programe în diverse domenii, inclusiv inginerie auto și tehnologii informaționale.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele atracții includ: Muzeul Județean Argeș, Teatrul Municipal, Parcul Trivale, și numeroase biserici istorice. În apropiere se află Mănăstirea Curtea de Argeș și stațiunile din Valea Prahovei.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "ploiesti",
+      "name": "Ploiesti",
+      "region": "Muntenia",
+      "description": "Ploiești este un important centru industrial și cultural din Muntenia, cunoscut drept capitala petrolului din România. Orașul are o bogată istorie legată de industria petrolieră și o arhitectură impresionantă din perioada interbelică.",
+      "mapCoords": "44.9391,26.0299",
+      "weatherId": "670609",
+      "defaultImages": [
+        "muntenia_ploiesti_centru",
+        "muntenia_ploiesti_parc",
+        "muntenia_ploiesti_muzeu",
+        "muntenia_ploiesti_catedrala",
+        "muntenia_ploiesti_rafinarie"
+      ],
+      "events": [
+        "Festivalul Castanilor - 15-17 Septembrie 2024",
+        "Zilele Orașului Ploiești - 20-22 Mai 2024",
+        "Târgul de Toamnă - 10-15 Octombrie 2024",
+        "Festivalul de Jazz & Blues - 5-7 August 2024",
+        "Expoziția Industriei Petroliere - 1-3 Iunie 2024"
+      ],
+      "tips": [
+        "Vizitați Muzeul Național al Petrolului pentru a înțelege istoria industriei petroliere din România",
+        "Parcul Bucov este perfect pentru o zi de relaxare în natură, cu spații pentru picnic și activități în aer liber",
+        "Centrul Vechi oferă numeroase restaurante cu preparate tradiționale prahovene",
+        "Nu ratați Ceasul din centrul orașului, simbol al Ploieștiului, realizat în 1936"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Ploiești este un important centru industrial și cultural din Muntenia, cunoscut drept capitala petrolului din România. Orașul are o bogată istorie legată de industria petrolieră și o arhitectură impresionantă din perioada interbelică.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Ploiești este situat în județul Prahova, la poalele Carpaților, la aproximativ 60 km nord de București. Orașul se află într-o zonă de câmpie, cu acces facil la Munții Bucegi și Valea Prahovei. Clima este temperat-continentală, cu influențe montane.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1596. În secolul al XIX-lea, Ploieștiul a devenit centrul industriei petroliere din România, cu prima rafinărie modernă din lume construită în 1857. În timpul celui de-al Doilea Război Mondial, orașul a fost puternic bombardat datorită importanței strategice a industriei petroliere.",
+          "highlighted": false
+        },
+        {
+          "title": "Industrie și Economie",
+          "content": "Ploieștiul rămâne un important centru al industriei petroliere, cu rafinării moderne și companii de servicii petroliere. Orașul este și un important nod de transport, cu autostradă, cale ferată și aeroport. În ultimii ani, s-au dezvoltat și alte sectoare economice precum IT, construcții și comerț.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele atracții includ: Muzeul Național al Petrolului, Muzeul Județean de Istorie și Arheologie Prahova, Casa Memorială Ion Luca Caragiale, Biserica Sfântul Ioan, și numeroase clădiri istorice din perioada interbelică. În apropiere se află stațiunile din Valea Prahovei și Castelul Peleș.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "radauti",
+      "name": "Radauti",
+      "region": "Bucovina",
+      "description": "Rădăuți este unul dintre cele mai vechi orașe din Bucovina, cu o bogată istorie și tradiție. Situat într-o zonă de câmpie, orașul este renumit pentru hergheliile sale de cai, pentru mănăstirea medievală și pentru tradițiile culturale bine conservate.",
+      "mapCoords": "47.8428,25.9209",
+      "weatherId": "680963",
+      "defaultImages": [
+        "bucovina_radauti_1",
+        "bucovina_radauti_biserica",
+        "bucovina_radauti_muzeu",
+        "bucovina_radauti_herghelie",
+        "bucovina_radauti_centru"
+      ],
+      "events": [
+        "Festivalul Internațional de Folclor 'Arcanul' - 15-17 Iulie 2024",
+        "Târgul Olarilor - 22-24 Iulie 2024",
+        "Zilele Orașului Rădăuți - 5-7 August 2024",
+        "Expoziție de Artă Populară - 15-20 August 2024"
+      ],
+      "tips": [
+        "Vizitați Herghelia Rădăuți în timpul demonstrațiilor ecvestre",
+        "Cea mai bună ciorbă rădăuțeană se găsește la restaurantul 'Casa Veche'",
+        "Nu ratați Muzeul Etnografic pentru a descoperi tradițiile autentice ale zonei",
+        "În fiecare sâmbătă dimineața are loc un târg tradițional în centrul orașului"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Rădăuți este unul dintre cele mai vechi orașe din Bucovina, cu o bogată istorie și tradiție. Situat într-o zonă de câmpie, orașul este renumit pentru hergheliile sale de cai, pentru mănăstirea medievală și pentru tradițiile culturale bine conservate.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în nordul județului Suceava, la doar 12 km de granița cu Ucraina, Rădăuți se află într-o zonă de câmpie înaltă, străbătută de râul Topliţa. Poziția geografică a favorizat dezvoltarea orașului ca un important centru comercial și meșteșugăresc al zonei, cu acces facil către mănăstirile pictate din Bucovina.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1392, când este menționată Mănăstirea Bogdana (actuala Biserică Sf. Nicolae), ctitorită de Bogdan I, primul domn al Moldovei. Rădăuți a fost prima reședință episcopală a Moldovei, având o importanță religioasă și culturală deosebită. În perioada administrației austro-ungare (1775-1918), orașul a cunoscut o dezvoltare semnificativă, mai ales datorită hergheliei imperiale înființate aici.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Biserica \"Sf. Nicolae\" Bogdana (cea mai veche construcție religioasă din piatră din Moldova, unde sunt înmormântați primii voievozi moldoveni), Muzeul Etnografic \"Samuil și Eugenia Ioneţ\", Muzeul Tehnicii Populare, Sinagoga Mare, Templul Evreiesc și Herghelia Rădăuți (una dintre cele mai vechi din România, fondată în 1792 de habsburgi).",
+          "highlighted": false
+        },
+        {
+          "title": "Tradiții și Cultură",
+          "content": "Rădăuți este cunoscut ca un important centru al tradițiilor populare bucovinene: ceramica, lemnul sculptat, ouăle încondeiate, țesăturile și portul popular specific. \"Udeștii bătrâni\", una dintre cele mai vechi și valoroase forme de dans popular bucovinean, își are originea în această zonă. Festivaluri precum \"Arcanul\" și \"Zilele Rădăuțiului\" celebrează aceste tradiții bogate.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională din Rădăuți este renumită în toată țara prin \"ciorba rădăuțeană\" - o specialitate locală pe bază de legume, carne de pui și smântână, cu un gust unic datorat sosului de usturoi. Alte delicii locale includ tochitura bucovineană, sarmalele în foi de varză, plăcintele poale-n brâu, cozonacul bucovinean și diverse preparate din produse locale.",
+          "highlighted": false
+        },
+        {
+          "title": "Comunitatea Evreiască",
+          "content": "Înainte de Al Doilea Război Mondial, Rădăuți avea o comunitate evreiască înfloritoare, care a contribuit semnificativ la dezvoltarea economică și culturală a orașului. Patrimoniul evreiesc este reprezentat de Sinagoga Mare (construită în 1883), Templul Evreiesc, cimitirul evreiesc și diverse clădiri cu arhitectură specifică. Astăzi, comunitatea evreiască este foarte redusă ca număr, dar memoria sa este păstrată prin diverse proiecte culturale și evenimente comemorative.",
+          "highlighted": false
+        },
+        {
+          "title": "Împrejurimi",
+          "content": "Rădăuți este un punct de plecare ideal pentru explorarea mănăstirilor pictate din Bucovina (Putna, Sucevița, Moldovița, Arbore), toate situate la mai puțin de o oră de mers cu mașina. De asemenea, în apropiere se află rezervații naturale precum Codrii Seculari de la Slătioara și atracții turistice precum Cetatea de Scaun a Sucevei și Marginea (cunoscută pentru ceramica neagră).",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "resita",
+      "name": "Resita",
+      "region": "",
+      "description": "Reșița este unul dintre cele mai importante centre industriale din Banat, cu o tradiție în metalurgie și construcții de mașini. Orașul este înconjurat de dealuri și păduri, oferind și oportunități pentru turism în natură.",
+      "mapCoords": "45.2971,21.8906",
+      "weatherId": "668399",
+      "defaultImages": [
+        "resita_1",
+        "resita_furnale",
+        "resita_parc",
+        "resita_muzeul_locomotivelor",
+        "resita_centru"
+      ],
+      "events": [
+        "Zilele Reșiței - 1-3 Iulie 2024",
+        "Expoziție de locomotive istorice - 15 Iulie 2024",
+        "Festival Industrial - 5-7 August 2024",
+        "Târgul meșteșugarilor - 20-22 August 2024"
+      ],
+      "tips": [
+        "Vizitați Muzeul de Locomotive cu Abur la orele dimineții pentru mai puțini vizitatori",
+        "Cea mai bună mâncare bănățeană se găsește la 'Restaurant Semenic'",
+        "O plimbare în parcul Cărășana dimineața devreme este reconfortantă",
+        "Furnalele Istorice pot fi vizitate gratuit în prima duminică a lunii"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Reșița este unul dintre cele mai importante centre industriale din Banat, cu o tradiție în metalurgie și construcții de mașini. Orașul este înconjurat de dealuri și păduri, oferind și oportunități pentru turism în natură.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în sud-vestul României, în județul Caraș-Severin, orașul se află în Depresiunea Reșiței, fiind înconjurat de Munții Semenic și Munții Dognecei. Râul Bârzava străbate orașul, contribuind la dezvoltarea sa industrială istorică datorită forței apei.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Istoria Reșiței este strâns legată de dezvoltarea industriei metalurgice. Prima mențiune documentară datează din 1673, dar dezvoltarea modernă începe în 1771, când Imperiul Habsburgic a construit primele furnale pentru producția de fontă. De-a lungul secolelor, Reșița a devenit un simbol al industrializării în România.",
+          "highlighted": false
+        },
+        {
+          "title": "Patrimoniu Industrial",
+          "content": "Reșița este un adevărat muzeu în aer liber al patrimoniului industrial. Locomotive cu abur fabricate aici, vechile furnale, uzina cocso-chimică și alte instalații industriale conservate reprezintă atracții unice pentru pasionații de arheologie industrială.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Muzeul de Locomotive cu Abur (unic în Sud-Estul Europei), Muzeul Banatului Montan, Biserica Romano-Catolică Maria Zăpezii, Biserica Ortodoxă de pe Dealul Crucii și zona pietonală din centrul orașului. În apropiere se află Stațiunea Secu, Lacul Secu și Munții Semenic.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Viața culturală a orașului este reprezentată de instituții precum Teatrul de Vest, Casa de Cultură a Sindicatelor și Biblioteca Județeană „Paul Iorgovici. Festivalul Internațional de Jazz și Festivalul Berii sunt evenimente anuale care atrag numeroși participanți.",
+          "highlighted": false
+        },
+        {
+          "title": "Natură și Recreere",
+          "content": "Împrejurimile Reșiței oferă numeroase oportunități pentru activități în aer liber: drumeții montane în Munții Semenic, sporturi de iarnă la Stațiunea Semenic, ciclism montan, pescuit și agrement nautic pe Lacul Secu, precum și drumeții la Cheile Caraşului și Peștera Comarnic.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "sapanta",
+      "name": "Săpânța",
+      "region": "Maramureș",
+      "description": "Săpânța este o comună din Maramureș, faimoasă în întreaga lume pentru Cimitirul Vesel, un cimitir neobișnuit unde crucile multicolore cu epitafuri în versuri satirice transformă moartea dintr-un eveniment trist într-o celebrare a vieții celei care a trecut.",
+      "mapCoords": "47.9803,23.6962",
+      "weatherId": "667854",
+      "defaultImages": [
+        "maramures_sapanta_1",
+        "maramures_sapanta_cimitir",
+        "maramures_sapanta_cruce",
+        "maramures_sapanta_biserica",
+        "maramures_sapanta_traditional"
+      ],
+      "events": [],
+      "tips": [],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Săpânța este o comună din Maramureș, faimoasă în întreaga lume pentru Cimitirul Vesel, un cimitir neobișnuit unde crucile multicolore cu epitafuri în versuri satirice transformă moartea dintr-un eveniment trist într-o celebrare a vieții celei care a trecut.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situată în nord-vestul județului Maramureș, la aproximativ 20 km de Sighetu Marmației, comuna Săpânța se află pe malul râului Tisa, la granița cu Ucraina. Zona beneficiază de un cadru natural pitoresc, cu dealuri împădurite, pășuni și terenuri agricole.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară a localității datează din 1373. De-a lungul timpului, Săpânța s-a remarcat prin păstrarea autenticității tradițiilor maramureșene, a meșteșugurilor populare și a unei comunități puternic ancorate în valorile tradiționale românești.",
+          "highlighted": false
+        },
+        {
+          "title": "Cimitirul Vesel",
+          "content": "Creat în 1935 de meșterul popular Stan Ioan Pătraș, Cimitirul Vesel a devenit simbolul comunei și una dintre cele mai cunoscute atracții turistice din România. Crucile din stejar, viu colorate în albastru (culoarea predominantă, simbolizând speranța și libertatea), sunt decorate cu scene naive reprezentând momente din viața celui decedat și inscripționate cu epitafuri în versuri, adesea cu umor și ironie, care povestesc despre viața, ocupația și, uneori, despre modul în care a murit persoana respectivă.",
+          "highlighted": false
+        },
+        {
+          "title": "Casa Memorială Stan Ioan Pătraș",
+          "content": "Lângă Cimitirul Vesel se află casa-atelier a creatorului acestuia, transformată astăzi în muzeu. Aici se pot admira lucrări originale ale meșterului, unelte și obiecte personale, precum și procesul de creație a crucilor pictate. După moartea sa în 1977, tradiția a fost continuată de ucenicul său, Dumitru Pop Tincu.",
+          "highlighted": false
+        },
+        {
+          "title": "Alte Atracții",
+          "content": "Pe lângă Cimitirul Vesel, Săpânța oferă și alte atracții valoroase: Biserica de lemn din secolul al XVIII-lea, Muzeul de Etnografie, Complexul Monastic de la Săpânța-Peri (care include cea mai înaltă biserică de lemn din lume, cu 78 m), portul popular tradițional, meșteșugurile locale (țesut, sculptură în lemn) și frumoasele porți maramureșene sculptate.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie și Tradiții",
+          "content": "Vizitatorii pot experimenta gastronomia tradițională maramureșeană în gospodăriile localnicilor, cu specialități precum balmoșul, mămăliga cu brânză de burduf, tocana de oaie, sarmalele în foi de varză acră și horinca (țuica locală). Localnicii păstrează vii tradițiile și obiceiurile strămoșești, inclusiv portul popular, dansurile și cântecele tradiționale.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "sibiu",
+      "name": "Sibiu",
+      "region": "Transilvania",
+      "description": "Sibiu este inima culturală a Transilvaniei, un oraș medieval de o frumusețe rară, renumit pentru 'ochii' caselor sale și atmosfera sa boemă. Fostă Capitală Culturală Europeană, Sibiul îmbină istoria săsească cu un dinamism cultural modern.",
+      "mapCoords": "45.7983,24.1469",
+      "weatherId": "667268",
+      "defaultImages": [
+        "transilvania_sibiu_piata_mare",
+        "transilvania_sibiu_podul_minciunilor",
+        "transilvania_sibiu_turnul_sfatului",
+        "transilvania_sibiu_astra",
+        "transilvania_sibiu_evanghelica"
+      ],
+      "events": [
+        "Festivalul Internațional de Teatru (FITS) - Iunie",
+        "Târgul de Crăciun - Noiembrie-Decembrie",
+        "Astra Film Festival - Octombrie",
+        "Sibiu Jazz Festival - Mai",
+        "Art Mania Festival - Iulie"
+      ],
+      "tips": [
+        "Urcă în Turnul Sfatului pentru cea mai bună panoramă asupra orașului",
+        "Caută 'casele cu ochi' în Piața Mare și Piața Mică",
+        "Rezervă o zi întreagă pentru Muzeul în aer liber ASTRA",
+        "Nu traversa Podul Minciunilor dacă ai secrete de ascuns!"
+      ],
+      "attractions": [
+        {
+          "name": "Piața Mare",
+          "imageRes": "sibiu_piata_mare",
+          "prompt": "Centrul vital al orașului, locul unde istoria prinde viață."
+        },
+        {
+          "name": "Podul Minciunilor",
+          "imageRes": "sibiu_podul_minciunilor",
+          "prompt": "Legendarul pod de fontă, un simbol al Sibiului medieval."
+        },
+        {
+          "name": "Muzeul Național Brukenthal",
+          "imageRes": "sibiu_brukenthal",
+          "prompt": "Explorează prima pinacotecă deschisă publicului din Europa."
+        },
+        {
+          "name": "Muzeul ASTRA",
+          "imageRes": "sibiu_astra",
+          "prompt": "O călătorie fascinantă prin satele tradiționale ale României."
+        },
+        {
+          "name": "Turnul Sfatului",
+          "imageRes": "sibiu_turnul_sfatului",
+          "prompt": "Punctul de observație care leagă Piața Mare de Piața Mică."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Sibiu este unul dintre cele mai frumoase orașe din România, un centru cultural vibrant situat în inima Transilvaniei.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în Depresiunea Sibiului, la poalele Munților Făgăraș și Cindrel, orașul beneficiază de un peisaj montan superb.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Sibiu a fost primul oraș din România desemnat Capitală Culturală Europeană (în 2007) și continuă să fie un punct de referință pentru arta teatrală și cinematografică.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "sighetu",
+      "name": "Sighetu Marmației",
+      "region": "Maramureș",
+      "description": "Sighetu Marmației este al doilea oraș ca mărime din județul Maramureș, situat la granița cu Ucraina. Este un important centru cultural și istoric al Maramureșului, cunoscut pentru Memorialul Victimelor Comunismului și al Rezistenței, dar și pentru bogatul patrimoniu etnografic.",
+      "mapCoords": "47.9275,23.8902",
+      "weatherId": "667268",
+      "defaultImages": [
+        "maramures_sighetu_1",
+        "maramures_sighetu_memorial",
+        "maramures_sighetu_centru",
+        "maramures_sighetu_muzeu",
+        "maramures_sighetu_traditional"
+      ],
+      "events": [
+        "Festivalul Tomis - 15-17 Iulie 2024",
+        "Concert la Cazinou - 22 Iulie 2024",
+        "Expoziție de Artă - 5-20 August 2024",
+        "Festivalul Mării - 10-12 August 2024"
+      ],
+      "tips": [
+        "Vizitați Cazinoul la apus pentru cea mai frumoasă priveliște",
+        "Cea mai bună plăcintă dobrogeneană se găsește la 'La Doi Frați'",
+        "O plimbare pe Faleză dimineața devreme este o experiență de neuitat",
+        "Muzeul de Istorie este gratuit în prima duminică a lunii"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Sighetu Marmației este al doilea oraș ca mărime din județul Maramureș, situat la granița cu Ucraina. Este un important centru cultural și istoric al Maramureșului, cunoscut pentru Memorialul Victimelor Comunismului și al Rezistenței, dar și pentru bogatul patrimoniu etnografic.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul este situat în nordul României, în Depresiunea Maramureșului, pe malul drept al râului Tisa, care formează granița naturală cu Ucraina. Înconjurat de dealuri și munți împăduriți, Sighetul se bucură de un cadru natural pitoresc și de un climat temperat continental.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1326. De-a lungul timpului, orașul a fost un important centru administrativ, comercial și cultural al Maramureșului istoric. După al Doilea Război Mondial, închisoarea din Sighet a devenit un loc de detenție pentru elitele politice și intelectuale românești, transformată astăzi în Memorial pentru victimele regimului comunist.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Memorialul Victimelor Comunismului și al Rezistenței (fostă închisoare politică), Muzeul Etnografic al Maramureșului, Muzeul Culturii Evreiești din Maramureș, Casa Memorială Elie Wiesel, Casa Memorială \"Gheorghe Pop de Băsești\", centrul istoric și numeroasele biserici de lemn din împrejurimi sunt principalele atracții turistice.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Sighetul este un important centru cultural al Maramureșului, cu instituții precum Muzeul Etnografic, Casa de Cultură și Biblioteca Municipală. Festivalul de Datini și Obiceiuri de Iarnă \"Marmația\", Zilele Sighetului și Festivalul de Film și Istorie sunt evenimente culturale reprezentative.",
+          "highlighted": false
+        },
+        {
+          "title": "Turism Rural",
+          "content": "Zona Sighetului oferă multiple oportunități pentru turismul rural, cu sate tradiționale maramureșene precum Săpânța, Breb, Budești și Desești, unde se pot admira biserici de lemn incluse în patrimoniul UNESCO, porți maramureșene sculptate și case tradiționale, și unde se poate experimenta autenticitatea vieții rurale maramureșene.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "slatina",
+      "name": "Slatina",
+      "region": "Oltenia",
+      "description": "Slatina, reședința județului Olt, este un oraș cu o bogată istorie și tradiție, situat în sudul Olteniei. Cunoscut pentru industria aluminiului și pentru peisajul pitoresc oferit de râul Olt care traversează orașul, Slatina îmbină armonios patrimoniul istoric cu dezvoltarea industrială modernă.",
+      "mapCoords": "44.1500,24.3833",
+      "weatherId": "666767",
+      "defaultImages": [
+        "oltenia_slatina_1",
+        "oltenia_slatina_centru",
+        "oltenia_slatina_pod",
+        "oltenia_slatina_alro",
+        "oltenia_slatina_muzeu"
+      ],
+      "events": [
+        "Zilele Municipiului Slatina - Ianuarie 2024",
+        "Festivalul de Umor \\",
+        " - Mai 2024",
+        "Târgul Meșterilor Populari - August 2024",
+        "Festivalul Național de Colinde și Obiceiuri de Iarnă - Decembrie 2024"
+      ],
+      "tips": [
+        "Dealul Grădiște oferă o panoramă frumoasă asupra orașului și a râului Olt",
+        "Încercați halvița și braga de la cofetăria \\",
+        ", una dintre cele mai vechi din țară",
+        "Muzeul Județean Olt are colecții interesante de arheologie și etnografie",
+        "Podul peste Olt este un loc bun pentru fotografii, mai ales la apus"
+      ],
+      "attractions": [
+        {
+          "name": "Centrul Vechi",
+          "imageRes": "centru_vechi_slatina",
+          "prompt": "Părerea ta despre Centrul Vechi"
+        },
+        {
+          "name": "Strada Lipscani",
+          "imageRes": "str_lipscan",
+          "prompt": "Părerea ta despre Strada Lipscani"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Slatina, reședința județului Olt, este un oraș cu o bogată istorie și tradiție, situat în sudul Olteniei. Cunoscut pentru industria aluminiului și pentru peisajul pitoresc oferit de râul Olt care traversează orașul, Slatina îmbină armonios patrimoniul istoric cu dezvoltarea industrială modernă.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul este așezat pe malul stâng al râului Olt, în zona de câmpie a Olteniei. Relieful predominant de câmpie este întrerupt de terasele Oltului, care oferă panorame deosebite asupra râului și împrejurimilor. Clima temperat-continentală, cu influențe submediteraneene, oferă veri călduroase și ierni relativ blânde.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară a Slatinei datează din 20 ianuarie 1368, într-un hrisov emis de Vladislav I Vlaicu. De-a lungul secolelor, orașul s-a dezvoltat ca un important centru comercial și meșteșugăresc. În epoca modernă, Slatina a devenit un centru industrial important, mai ales după construirea Uzinei de Aluminiu în anii 1960-1970.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Centrul Istoric cu arhitectura sa specifică din secolele XIX-XX, Muzeul Județean Olt, Casa Memorială \"Eugen Ionescu\" (părinții dramaturgului s-au născut în Slatina), Parcul \"Eugen Ionescu\", Catedrala \"Sf. Gheorghe\", Podul Metalic peste Olt (monument de arhitectură industrială), precum și malurile amenajate ale râului Olt.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Viața culturală a orașului gravitează în jurul instituțiilor precum Centrul Cultural \"Eugen Ionescu\", Biblioteca Județeană \"Ion Minulescu\", Muzeul Județean Olt și Școala Populară de Arte și Meserii. Festivaluri precum \"Oltenii și Restu' Lumii\" și \"Eugen Ionescu\" atrag anual numeroși participanți și turiști, celebrând tradițiile locale și personalitățile născute în zonă.",
+          "highlighted": false
+        },
+        {
+          "title": "Personalități",
+          "content": "Din Slatina sau din județul Olt s-au ridicat personalități importante ale culturii române: Eugen Ionescu (părinții săi), poetul Ion Minulescu, istoricul și criticul literar Petre Pandrea, scriitorul Dumitru Caracostea, filozoful Petre Țuțea și mulți alții, care au contribuit la patrimoniul cultural național.",
+          "highlighted": false
+        },
+        {
+          "title": "Economie",
+          "content": "Economia orașului este dominată de industria aluminiului, Slatina fiind cunoscută drept \"Orașul Aluminiului\" datorită ALRO - cel mai mare producător de aluminiu din Europa Centrală și de Est. Alte sectoare importante sunt industria construcțiilor de mașini, industria textilă, industria alimentară și comerțul.",
+          "highlighted": false
+        },
+        {
+          "title": "Introducere",
+          "content": "Suceava, fosta capitală a Moldovei medievale, este un oraș cu o bogată istorie și un important centru cultural în nordul României. Cetatea de Scaun, mănăstirile pictate din împrejurimi și arhitectura tradițională bucovineană fac din această zonă o destinație turistică deosebită.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul Suceava este situat în nord-estul României, pe malurile râului Suceava, într-o zonă deluroasă, la poalele Obcinilor Bucovinei. Poziția sa geografică, la intersecția unor importante căi comerciale istorice, a contribuit la dezvoltarea sa ca centru administrativ și cultural al regiunii.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Suceava a fost capitala Principatului Moldovei între secolele XIV-XVI, cunoscând apogeul sub domnia lui Ștefan cel Mare (1457-1504). Cetatea de Scaun a Sucevei, fortificată de Ștefan cel Mare, a fost principala reședință domnească și simbolul puterii Moldovei medievale. După mutarea capitalei la Iași în secolul XVI, orașul și-a păstrat importanța ca centru comercial și cultural.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Cetatea de Scaun a Sucevei, unul dintre cele mai importante monumente istorice din România, Biserica Sfântul Gheorghe (patrimoniu UNESCO), Muzeul Național al Bucovinei, Muzeul Satului Bucovinean, Hanul Domnesc și centrul istoric cu arhitectura sa specifică sunt principalele atracții ale orașului. În împrejurimi se află mănăstirile pictate din Bucovina (patrimoniu UNESCO): Voroneț, Sucevița, Moldovița, Humor și Arbore.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Suceava este un important centru cultural, cu instituții precum Universitatea 'Ștefan cel Mare', Teatrul Municipal 'Matei Vișniec', Muzeul Național al Bucovinei și Biblioteca Bucovinei 'I.G. Sbiera'. Festivalul de Artă Medievală din Cetatea Sucevei și numeroase alte evenimente culturale păstrează vie tradiția istorică a orașului.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională bucovineană oferă preparate delicioase precum: borș de pui cu tăiței de casă, tochitura bucovineană, balmoș (mămăligă cu brânză și smântână), sarmale în foi de varză acră și diverse prăjituri tradiționale precum poale-n brâu. Produsele locale, precum brânzeturile de la stânele bucovinene și mierea de albine, completează oferta gastronomică a zonei.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "suceava",
+      "name": "Suceava",
+      "region": "",
+      "description": "Suceava, fosta capitală a Moldovei medievale, este un oraș cu o bogată istorie și un important centru cultural în nordul României. Cetatea de Scaun, mănăstirile pictate din împrejurimi și arhitectura tradițională bucovineană fac din această zonă o destinație turistică deosebită.",
+      "mapCoords": "47.6635,26.2732",
+      "weatherId": "680963",
+      "defaultImages": [
+        "bucovina_suceava_1",
+        "bucovina_suceava_cetate",
+        "bucovina_suceava_muzeu",
+        "bucovina_suceava_manastire",
+        "bucovina_suceava_panorama"
+      ],
+      "events": [
+        "Festivalul Medieval Ștefanian - 15-17 Iulie 2024",
+        "Zilele Sucevei - 22-24 Iulie 2024",
+        "Expoziție de Artă Tradițională - 5-20 August 2024",
+        "Festivalul Național de Folclor - 10-12 August 2024"
+      ],
+      "tips": [
+        "Vizitați Cetatea de Scaun seara pentru iluminatul special",
+        "Cea mai bună tochitura moldovenească se găsește la 'Casa Domnească'",
+        "O plimbare prin Muzeul Satului Bucovinean dimineața devreme este o experiență de neuitat",
+        "Muzeul Bucovinei este gratuit în prima duminică a lunii"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Suceava, fosta capitală a Moldovei medievale, este un oraș cu o bogată istorie și un important centru cultural în nordul României. Cetatea de Scaun, mănăstirile pictate din împrejurimi și arhitectura tradițională bucovineană fac din această zonă o destinație turistică deosebită.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul Suceava este situat în nord-estul României, pe malurile râului Suceava, într-o zonă deluroasă, la poalele Obcinilor Bucovinei. Poziția sa geografică, la intersecția unor importante căi comerciale istorice, a contribuit la dezvoltarea sa ca centru administrativ și cultural al regiunii.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Suceava a fost capitala Principatului Moldovei între secolele XIV-XVI, cunoscând apogeul sub domnia lui Ștefan cel Mare (1457-1504). Cetatea de Scaun a Sucevei, fortificată de Ștefan cel Mare, a fost principala reședință domnească și simbolul puterii Moldovei medievale. După mutarea capitalei la Iași în secolul XVI, orașul și-a păstrat importanța ca centru comercial și cultural.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Cetatea de Scaun a Sucevei, unul dintre cele mai importante monumente istorice din România, Biserica Sfântul Gheorghe (patrimoniu UNESCO), Muzeul Național al Bucovinei, Muzeul Satului Bucovinean, Hanul Domnesc și centrul istoric cu arhitectura sa specifică sunt principalele atracții ale orașului. În împrejurimi se află mănăstirile pictate din Bucovina (patrimoniu UNESCO): Voroneț, Sucevița, Moldovița, Humor și Arbore.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Suceava este un important centru cultural, cu instituții precum Universitatea 'Ștefan cel Mare', Teatrul Municipal 'Matei Vișniec', Muzeul Național al Bucovinei și Biblioteca Bucovinei 'I.G. Sbiera'. Festivalul de Artă Medievală din Cetatea Sucevei și numeroase alte evenimente culturale păstrează vie tradiția istorică a orașului.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională bucovineană oferă preparate delicioase precum: borș de pui cu tăiței de casă, tochitura bucovineană, balmoș (mămăligă cu brânză și smântână), sarmale în foi de varză acră și diverse prăjituri tradiționale precum poale-n brâu. Produsele locale, precum brânzeturile de la stânele bucovinene și mierea de albine, completează oferta gastronomică a zonei.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "targoviste",
+      "name": "Targoviste",
+      "region": "Muntenia",
+      "description": "Târgoviște este un oraș cu o bogată istorie, fiind fostă capitală a Țării Românești între secolele XIV-XVII. Cunoscut pentru Curtea Domnească și pentru faptul că aici a avut loc procesul și execuția lui Nicolae Ceaușescu, orașul păstrează numeroase monumente istorice și o atmosferă medievală.",
+      "mapCoords": "44.9253,25.4569",
+      "weatherId": "665010",
+      "defaultImages": [
+        "muntenia_targoviste_curtea",
+        "muntenia_targoviste_turnul",
+        "muntenia_targoviste_palat",
+        "muntenia_targoviste_manastire",
+        "muntenia_targoviste_panorama"
+      ],
+      "events": [
+        "Zilele Cetății Târgoviște - 7-9 Septembrie 2024",
+        "Festivalul Medieval Dracula - 15-17 Iulie 2024",
+        "Festivalul Pădurii - 1-2 Iunie 2024",
+        "Târgul de Crăciun - 6 Decembrie - 6 Ianuarie 2025",
+        "Festivalul Național de Romanțe 'Crizantema de Aur' - Octombrie 2024"
+      ],
+      "tips": [
+        "Vizitați Curtea Domnească dimineața devreme pentru a evita aglomerația și a beneficia de lumina bună pentru fotografii",
+        "Urcați în Turnul Chindiei pentru o panoramă spectaculoasă asupra orașului și a împrejurimilor",
+        "Nu ratați Muzeul Tiparului și al Cărții Vechi Românești, unic în țară",
+        "Rezervați timp pentru o plimbare în Parcul Chindia, ideal pentru relaxare după vizitarea obiectivelor istorice"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Târgoviște este un oraș cu o bogată istorie, fiind fostă capitală a Țării Românești între secolele XIV-XVII. Cunoscut pentru Curtea Domnească și pentru faptul că aici a avut loc procesul și execuția lui Nicolae Ceaușescu, orașul păstrează numeroase monumente istorice și o atmosferă medievală.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Târgoviște este situat în județul Dâmbovița, în sudul României, la aproximativ 80 km nord-vest de București. Orașul se află într-o zonă de câmpie, străbătută de râul Ialomița. Clima este temperat-continentală, cu veri calde și ierni reci.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Târgoviște a fost capitala Țării Românești din 1396 până în 1714. Aici au domnit figuri istorice importante precum Vlad Țepeș, Mircea cel Bătrân și Mihai Viteazul. În 1989, orașul a devenit cunoscut mondial ca locul unde a avut loc procesul și execuția lui Nicolae Ceaușescu.",
+          "highlighted": false
+        },
+        {
+          "title": "Monumente Istorice",
+          "content": "Principalele monumente includ: Curtea Domnească (cu Turnul Chindiei), Biserica Domnească, Mănăstirea Dealu, și Muzeul de Istorie. Orașul păstrează și numeroase clădiri istorice din perioadele ulterioare, inclusiv arhitectură din perioada interbelică.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Târgoviște este un important centru cultural, cu instituții precum Teatrul Municipal, Filarmonica, și numeroase muzee. Orașul găzduiește festivaluri culturale și evenimente istorice care reconstituie perioada medievală.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "targujiu",
+      "name": "TarguJiu",
+      "region": "Oltenia",
+      "description": "Târgu Jiu este reședința județului Gorj, un oraș cu profunde semnificații istorice și culturale, cunoscut în întreaga lume datorită ansamblului sculptural realizat de Constantin Brâncuși. Situat în partea de nord a Olteniei, orașul păstrează un farmec aparte, îmbinând armonios tradițiile locale cu modernitatea.",
+      "mapCoords": "45.0428,23.2712",
+      "weatherId": "665087",
+      "defaultImages": [
+        "oltenia_targujiu_1",
+        "oltenia_targujiu_coloana",
+        "oltenia_targujiu_poarta",
+        "oltenia_targujiu_masa",
+        "oltenia_targujiu_parc"
+      ],
+      "events": [
+        "Festivalul Internațional Brâncuși - 19-23 Februarie 2024",
+        "Ziua Municipiului Târgu Jiu - 21-23 Mai 2024",
+        "Festivalul Național de Folk și Baladă - 15-17 Iulie 2024",
+        "Festivalul Castanilor - 1-5 Octombrie 2024"
+      ],
+      "tips": [
+        "Ansamblul Monumental Brâncuși se vizitează cel mai bine dimineața devreme sau seara târziu pentru fotografii ideale",
+        "Cafeaua la Coloana Infinitului se savurează la cafeneaua din apropiere",
+        "Piața centrală oferă produse locale autentice în fiecare zi de sâmbătă",
+        "Muzeul Județean Gorj este gratuit în ultima vineri din lună"
+      ],
+      "attractions": [
+        {
+          "name": "Muzeul Județean Gorj",
+          "imageRes": "muzeu_jud_gorj",
+          "prompt": "Părerea ta despre Muzeul Județean"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Târgu Jiu este reședința județului Gorj, un oraș cu profunde semnificații istorice și culturale, cunoscut în întreaga lume datorită ansamblului sculptural realizat de Constantin Brâncuși. Situat în partea de nord a Olteniei, orașul păstrează un farmec aparte, îmbinând armonios tradițiile locale cu modernitatea.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul este așezat pe malurile râului Jiu, la poalele Carpaților Meridionali, într-o zonă de dealuri, având un cadru natural pitoresc. Clima este temperat-continentală cu influențe submediteraneene, oferind veri călduroase și ierni blânde, propice pentru turism pe tot parcursul anului.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Târgu Jiu a fost menționat documentar pentru prima dată în 1406, ca târg și punct vamal. În octombrie 1916, aici s-a desfășurat o importantă bătălie din Primul Război Mondial, când forțele române, sub comanda Ecaterinei Teodoroiu, au oprit înaintarea armatei germane, salvând orașul de la ocupație.",
+          "highlighted": false
+        },
+        {
+          "title": "Ansamblul Brâncuși",
+          "content": "Principala atracție a orașului este Ansamblul Monumental \"Calea Eroilor\" realizat de Constantin Brâncuși, care include: Masa Tăcerii, Poarta Sărutului, Aleea Scaunelor și Coloana Infinitului (Coloana fără Sfârșit). Aceste capodopere ale artei moderne, realizate între 1937-1938, au transformat Târgu Jiu într-un important centru cultural și un punct de atracție pentru turiștii din întreaga lume.",
+          "highlighted": false
+        },
+        {
+          "title": "Alte Atracții Turistice",
+          "content": "Pe lângă Ansamblul Brâncuși, orașul oferă și alte obiective turistice importante: Muzeul Județean Gorj \"Alexandru Ștefulescu\", Casa Memorială Ecaterina Teodoroiu, Biserica \"Sfinții Apostoli\", Parcul Central, Grădina Publică, precum și numeroase monumente istorice și arhitectonice care reflectă istoria bogată a zonei.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură și Tradiții",
+          "content": "Târgu Jiu este un important centru cultural al Olteniei, cu instituții precum Teatrul Dramatic \"Elvira Godeanu\", Școala Populară de Artă, Biblioteca Județeană \"Christian Tell\" și Centrul de Cercetare, Documentare și Promovare \"Constantin Brâncuși\". Tradițiile populare gorjenești sunt păstrate cu sfințenie, fiind reflectate în port, muzică, dans și artizanat.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională gorjenească oferă preparate delicioase precum: ciorbă de fasole cu ciolan afumat, sarmale în foi de viță cu afumătură, plăcintă cu brânză și mărar, păstrăv la grătar cu mămăliguță și diverse preparate din carne de vânat. Vinurile și țuica de prune completează oferta gastronomică locală.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "timisoara",
+      "name": "Timisoara",
+      "region": "Banat",
+      "description": "Timișoara, 'Orașul Florilor' și locul de pornire al Revoluției din 1989, este un centru multicultural vibrant. Prima capitală europeană a culturii din România (2023), orașul încântă prin piețele sale largi, arhitectura Secession și malurile verzi ale canalului Bega.",
+      "mapCoords": "45.7489,21.2087",
+      "weatherId": "665087",
+      "defaultImages": [
+        "banat_timisoara_piata_unirii",
+        "banat_timisoara_catedrala",
+        "banat_timisoara_opera",
+        "banat_timisoara_bega",
+        "banat_timisoara_bastion"
+      ],
+      "events": [
+        "JazzTM - Iulie",
+        "PLAI Festival - Septembrie",
+        "Festivalul de Operă și Operetă în Aer Liber - August",
+        "Timișoara Capitală Culturală - Programe moștenire"
+      ],
+      "tips": [
+        "Savurează o cafea în una din multele terase din Piața Unirii",
+        "Fă o plimbare cu vaporașul pe canalul Bega pentru o perspectivă diferită",
+        "Vizitează Memorialul Revoluției pentru a înțelege istoria recentă a României",
+        "Explorează cartierul Fabric pentru a vedea arhitectura industrială veche restaurată"
+      ],
+      "attractions": [
+        {
+          "name": "Piața Unirii",
+          "imageRes": "timisoara_piata_unirii",
+          "prompt": "Cea mai veche și mai spectaculoasă piață a orașului."
+        },
+        {
+          "name": "Catedrala Mitropolitană",
+          "imageRes": "timisoara_catedrala",
+          "prompt": "Un simbol iconic cu acoperiș de mozaic colorat."
+        },
+        {
+          "name": "Piața Victoriei",
+          "imageRes": "timisoara_piata_victoriei",
+          "prompt": "Locul unde Timișoara s-a declarat primul oraș liber de comunism."
+        },
+        {
+          "name": "Canalul Bega",
+          "imageRes": "timisoara_bega",
+          "prompt": "Artera verde a orașului, perfectă pentru plimbări și relaxare."
+        },
+        {
+          "name": "Bastionul Maria Theresia",
+          "imageRes": "timisoara_bastion",
+          "prompt": "Cea mai mare bucată păstrată din vechea cetate a Timișoarei."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Timișoara este considerat capitala Banatului și un important centru cultural și economic. Orașul este cunoscut pentru arhitectura sa eclectică, numeroasele parcuri și piețe, precum și pentru rolul său istoric în declanșarea Revoluției din 1989. În 2023, Timișoara a fost Capitală Culturală Europeană.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în vestul României, în câmpia Banatului, orașul este străbătut de râul Bega. Având un climat temperat-continental cu influențe mediteraneene, Timișoara se bucură de ierni blânde și veri călduroase, fiind unul dintre cele mai verzi orașe din România, cu numeroase parcuri și grădini.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1212. De-a lungul secolelor, Timișoara a fost sub diverse stăpâniri: otomană (1552-1716), habsburgică (1716-1918) și parte a României Mari după 1918. Un moment de referință este 16 decembrie 1989, când aici a izbucnit revoluția care a dus la căderea regimului comunist.",
+          "highlighted": false
+        },
+        {
+          "title": "Arhitectură",
+          "content": "Timișoara impresionează prin diversitatea stilurilor arhitecturale: baroc, art nouveau, secesion și modernism. Piața Unirii, Piața Victoriei și Piața Libertății formează un ansamblu urban de excepție. Domul Romano-Catolic, Palatul Baroc, Opera Națională și clădirile istorice din Cetate oferă o experiență arhitecturală unică.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Primul oraș european cu iluminat stradal electric (1884), Timișoara este un important centru cultural cu Opera Română, Teatrul Național, Filarmonica Banatul și numeroase muzee. Festivaluri precum JazzTM, PLAI, Festivalul de Operă și Operetă și Festivalul Filmului European animă viața culturală a orașului.",
+          "highlighted": false
+        },
+        {
+          "title": "Educație",
+          "content": "Timișoara este un centru universitar important, găzduind Universitatea de Vest, Universitatea Politehnica, Universitatea de Medicină și alte instituții de învățământ superior care atrag studenți din întreaga țară și din străinătate.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria bănățeană reflectă caracterul multicultural al regiunii. Specialități precum papricașul, supele consistente, sarmalele, cârnaţii bănăţeni și prăjiturile tradiționale germane și austro-ungare pot fi savurate în restaurantele locale.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "tulcea",
+      "name": "Tulcea",
+      "region": "Dobrogea",
+      "description": "Tulcea este un important oraș-port situat la poarta de intrare în Delta Dunării, unul dintre cele mai frumoase și biodiversificate ecosisteme naturale din Europa. Este un punct de plecare pentru explorarea minunilor Deltei și un centru cultural și istoric al regiunii Dobrogea.",
+      "mapCoords": "45.1667,28.8",
+      "weatherId": "683627",
+      "defaultImages": [
+        "dobrogea_tulcea_1",
+        "dobrogea_tulcea_delta",
+        "dobrogea_tulcea_muzeu",
+        "dobrogea_tulcea_cimitir",
+        "dobrogea_tulcea_biserica"
+      ],
+      "events": [
+        "Festivalul Deltei - 10-12 Iulie 2024",
+        "Concert la Tulcea - 18 Iulie 2024",
+        "Expoziție de Artă - 1-15 August 2024",
+        "Festivalul Pescăresc - 20-22 August 2024"
+      ],
+      "tips": [
+        "Vizitați Muzeul Deltei Dunării pentru o experiență unică",
+        "Faceți o plimbare cu barca pe canalele Deltei",
+        "Explorați rezervațiile naturale din apropiere",
+        "Încercați preparatele locale din pește proaspăt"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Tulcea este un important oraș-port situat la poarta de intrare în Delta Dunării, unul dintre cele mai frumoase și biodiversificate ecosisteme naturale din Europa. Este un punct de plecare pentru explorarea minunilor Deltei și un centru cultural și istoric al regiunii Dobrogea.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Tulcea este situată în partea de nord a Dobrogei, pe malul drept al Dunării, înainte ca fluviul să se împartă în cele trei brațe care formează Delta. Orașul se întinde pe dealuri domoale care oferă panorame impresionante asupra Dunării și a zonelor umede înconjurătoare.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Atestată documentar sub numele de Aegyssus în sec. VII î.Hr., Tulcea a fost pe rând cetate getică, colonie grecească, castru roman și cetate bizantină. De-a lungul secolelor, orașul a fost influențat de numeroase culturi, inclusiv otomană, fiind integrat României moderne în 1878, după Războiul de Independență.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Monumentul Independenței de pe Colnicul Hora, Acvariul și Complexul Muzeal de Științele Naturii Delta Dunării, Muzeul de Artă, Muzeul de Etnografie și Artă Populară, Moscheea Azzizie și numeroasele biserici ortodoxe precum Catedrala Sf. Nicolae sunt doar câteva din atracțiile culturale ale orașului.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Tulcea este un oraș multicultural, unde tradițiile românești se împletesc cu cele ale minorităților etnice (lipoveni, turci, tătari, ucraineni). Festivalul Internațional al Dunării, Sărbătoarea Borsului Lipovenesc și alte evenimente culturale anuale reflectă diversitatea orașului.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tulceană este dominată de preparate din pește de apă dulce și fructe de mare, specifice Deltei Dunării. Borsul lipovenesc, saramura de crap, storceagul și plachiile sunt delicii culinare ce pot fi savurate în restaurantele tradiționale din oraș.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "valcea",
+      "name": "Valcea",
+      "region": "Oltenia",
+      "description": "Râmnicu Vâlcea, cunoscut și ca \"orașul dintre vii\", este reședința județului Vâlcea și un important centru cultural, economic și turistic din nordul Olteniei. Așezat într-un cadru natural deosebit, la poalele Carpaților Meridionali, orașul oferă o îmbinare armonioasă între tradiție și modernitate.",
+      "mapCoords": "45.1000,24.3667",
+      "weatherId": "663118",
+      "defaultImages": [
+        "oltenia_valcea_1",
+        "oltenia_valcea_parc",
+        "oltenia_valcea_centru",
+        "oltenia_valcea_muzeu",
+        "oltenia_valcea_teatru"
+      ],
+      "events": [
+        "Festivalul Shakespeare - 15-25 Aprilie 2024",
+        "IntenCity Music Festival - 5-7 Iulie 2024",
+        "Zilele Craiovei - 1-7 Iunie 2024",
+        "Festivalul Maria Tănase - 20-25 Octombrie 2024"
+      ],
+      "tips": [
+        "Parcul Nicolae Romanescu este cel mai frumos la răsărit",
+        "Încercați Pâinea de Craiova de la Brutăria Tradicională",
+        "Terasele din Centrul Vechi oferă cele mai bune prețuri seara",
+        "Muzeul de Artă găzduiește lucrări ale lui Brâncuși și este gratuit în ultima joi din lună"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Râmnicu Vâlcea, cunoscut și ca \"orașul dintre vii\", este reședința județului Vâlcea și un important centru cultural, economic și turistic din nordul Olteniei. Așezat într-un cadru natural deosebit, la poalele Carpaților Meridionali, orașul oferă o îmbinare armonioasă între tradiție și modernitate.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Orașul este situat pe malul drept al râului Olt, la confluența acestuia cu râul Olănești, într-o depresiune înconjurată de dealuri acoperite cu livezi și vii. Poziția sa geografică privilegiată, la intersecția unor importante căi de comunicație, a contribuit la dezvoltarea sa ca centru comercial și cultural.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1388, într-un document emis de voievodul Mircea cel Bătrân. De-a lungul secolelor, Râmnicu Vâlcea a jucat un rol important în istoria Țării Românești, fiind menționat ca un centru comercial și meșteșugăresc important, precum și un loc unde s-au tipărit cărți bisericești de valoare.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Parcul Zăvoi (unul dintre cele mai vechi parcuri naturale din România), Muzeul Județean de Istorie, Muzeul de Artă \"Casa Simian\", Complexul Muzeal Etnografic Bujoreni, Filarmonica \"Ion Dumitrescu\", Episcopia Râmnicului cu Catedrala Episcopală și biblioteca sa cu cărți rare. În apropiere se află stațiunile balneoclimaterice Călimănești-Căciulata, Băile Olănești și Băile Govora.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Orașul are o bogată tradiție culturală, fiind un important centru tipografic în secolele XVIII-XIX. Astăzi, viața culturală este reprezentată de instituții precum Teatrul Municipal \"Ariel\", Filarmonica \"Ion Dumitrescu\", Biblioteca Județeană \"Antim Ivireanul\" și Casa de Cultură a Sindicatelor. Festivalul Internațional de Folclor \"Cântecele Oltului\" și Festivalul de Teatru \"Ariel Inter Fest\" sunt evenimente culturale importante.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională vâlceană se remarcă prin preparate precum: ciorbă de potroace, pastramă cu mămăliguță, sarmale în foi de viță, brânzeturi și produse lactate din zonele montane, precum și vinurile din podgoriile locale (Drăgășani). Dulcețurile și gemurile naturale, precum și pălinca de fructe, sunt alte specialități locale.",
+          "highlighted": false
+        },
+        {
+          "title": "Economie",
+          "content": "Economia județului Vâlcea și implicit a municipiului Râmnicu Vâlcea se bazează pe industria chimică, industria alimentară, exploatarea și prelucrarea lemnului, turism și servicii. Orașul este și un important nod rutier, fiind situat pe coridorul european care leagă București de Transilvania și Europa Centrală.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "vatradornei",
+      "name": "VatraDornei",
+      "region": "Bucovina",
+      "description": "Vatra Dornei este o renumită stațiune balneo-climaterică din sudul Bucovinei, cunoscută pentru apele minerale cu proprietăți terapeutice, aerul curat și peisajele montane spectaculoase. Numită și \"Perla Bucovinei\", stațiunea combină facilitățile de tratament cu multiple oportunități pentru turism activ și sportiv.",
+      "mapCoords": "47.3483,25.3594",
+      "weatherId": "662837",
+      "defaultImages": [
+        "bucovina_vatradornei_1",
+        "bucovina_vatradornei_parc",
+        "bucovina_vatradornei_schi",
+        "bucovina_vatradornei_izvoare",
+        "bucovina_vatradornei_panorama"
+      ],
+      "events": [
+        "Festivalul Usturoiului - 8-10 Iulie 2024",
+        "Târgul de produse tradiționale - 15 Iulie 2024",
+        "Festivalul Național de Folclor - 5-7 August 2024",
+        "Zilele orașului Vatra Dornei - 15-17 August 2024"
+      ],
+      "tips": [
+        "Cel mai bun moment pentru tratament balnear este primăvara sau toamna",
+        "Încercați apele minerale direct de la izvoare în Parcul Central",
+        "Vizitați pârtiile de schi dimineața pentru a evita aglomerația",
+        "Traseul către Vârful Ouşoru oferă cea mai bună panoramă asupra orașului"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Vatra Dornei este o renumită stațiune balneo-climaterică din sudul Bucovinei, cunoscută pentru apele minerale cu proprietăți terapeutice, aerul curat și peisajele montane spectaculoase. Numită și \"Perla Bucovinei\", stațiunea combină facilitățile de tratament cu multiple oportunități pentru turism activ și sportiv.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situată în județul Suceava, la confluența râurilor Dorna și Bistrița Aurie, la o altitudine de aproximativ 800 m, Vatra Dornei este înconjurată de masivele muntoase Suhard, Giumalău, Călimanilor și Bistriței. Această poziționare într-o depresiune intramontană îi conferă un climat subalpin cu proprietăți terapeutice, caracterizat prin aer pur, bogat în aerosoli și ionizat negativ.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară datează din 1592. Dezvoltarea localității ca stațiune balneară a început în perioada administrației austro-ungare (1775-1918), când Bucovina făcea parte din Imperiul Habsburgic. În această perioadă au fost construite primele stabilimente balneare, hoteluri și vile în stil arhitectonic specific, care dau și astăzi farmec orașului. Vatra Dornei a devenit una dintre cele mai elegante stațiuni din Imperiul Austro-Ungar, frecventată de aristocrația vremii.",
+          "highlighted": false
+        },
+        {
+          "title": "Turism Balnear",
+          "content": "Stațiunea este renumită pentru apele minerale carbogazoase, feruginoase, bicarbonatate, sodice, calcice și magneziene, precum și pentru nămolul de turbă, utilizate în tratarea afecțiunilor cardiovasculare, digestive, endocrine și reumatismale. Baza de tratament dispune de facilități moderne pentru băi carbogazoase, mofete, împachetări cu nămol, electroterapie, hidroterapie și kinetoterapie.",
+          "highlighted": false
+        },
+        {
+          "title": "Sporturi de Iarnă",
+          "content": "Vatra Dornei este o importantă stațiune montană pentru sporturi de iarnă, cu pârtii de schi pentru toate categoriile de schiori: pârtia Parc, pârtia Dealul Negru și pârtia Veverița. Stațiunea dispune de instalații de transport pe cablu moderne, școli de schi și snowboard, precum și trasee pentru schi fond și săniuș. În sezonul rece, Vatra Dornei găzduiește competiții naționale și internaționale de sporturi de iarnă.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Principalele obiective turistice includ: Cazinoul (clădire emblematică în stil baroc, construită în 1898), Muzeul Etnografic \"Gheorghe Șmira\", vechile vile și hoteluri în stil austro-ungar, Biserica Romano-Catolică (1905), Parcul Central cu foișorul de muzică și izvoarele minerale amenajate. În împrejurimi se află rezervațiile naturale Tinovul Mare și Parcul Național Călimani.",
+          "highlighted": false
+        },
+        {
+          "title": "Activități în Aer Liber",
+          "content": "Pe lângă sporturile de iarnă, Vatra Dornei oferă multiple posibilități pentru activități recreative: drumeții montane pe trasee marcate către vârfurile din jur, mountain biking, echitație, pescuit sportiv pe râurile Dorna și Bistrița, rafting și canyoning. Pădurile din împrejurimi sunt ideale pentru observarea faunei sălbatice și culesul ciupercilor și fructelor de pădure.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria tradițională dorneană oferă specialități locale precum: tochitura bucovineană cu mămăligă, ciorba rădăuțeană, sarmalele în foi de varză, pastrama de oaie, bulzul, afinata și diverse preparate din trufe, ciuperci și fructe de pădure. Brânzeturile locale (cașcaval, urdă, caș) și produsele apicole (miere, polen, propolis) sunt recunoscute pentru calitatea lor deosebită.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "viseu",
+      "name": "Vișeu de Sus",
+      "region": "Maramureș",
+      "description": "Vișeu de Sus este un oraș din Maramureșul istoric, cunoscut în special pentru Mocănița de pe Valea Vaserului, ultima cale ferată forestieră cu aburi din Europa care încă funcționează în scopuri comerciale. Acest tren turistic atrage anual mii de vizitatori din întreaga lume.",
+      "mapCoords": "47.7114,24.4418",
+      "weatherId": "662459",
+      "defaultImages": [
+        "maramures_viseu_1",
+        "maramures_viseu_mocanita",
+        "maramures_viseu_centru",
+        "maramures_viseu_biserica",
+        "maramures_viseu_traditional"
+      ],
+      "events": [
+        "Festivalul Tomis - 15-17 Iulie 2024",
+        "Concert la Cazinou - 22 Iulie 2024",
+        "Expoziție de Artă - 5-20 August 2024",
+        "Festivalul Mării - 10-12 August 2024"
+      ],
+      "tips": [
+        "Vizitați Cazinoul la apus pentru cea mai frumoasă priveliște",
+        "Cea mai bună plăcintă dobrogeneană se găsește la 'La Doi Frați'",
+        "O plimbare pe Faleză dimineața devreme este o experiență de neuitat",
+        "Muzeul de Istorie este gratuit în prima duminică a lunii"
+      ],
+      "attractions": [],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Vișeu de Sus este un oraș din Maramureșul istoric, cunoscut în special pentru Mocănița de pe Valea Vaserului, ultima cale ferată forestieră cu aburi din Europa care încă funcționează în scopuri comerciale. Acest tren turistic atrage anual mii de vizitatori din întreaga lume.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situat în nord-estul județului Maramureș, Vișeu de Sus se află în depresiunea Maramureșului, la confluența râurilor Vișeu și Vaser, la poalele Munților Maramureșului. Orașul este înconjurat de peisaje montane spectaculoase, acoperite cu păduri de conifere și foioase.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Prima atestare documentară a localității datează din 1365. De-a lungul secolelor, orașul s-a dezvoltat ca un centru pentru exploatări forestiere, iar în secolul XIX a fost construită calea ferată forestieră cu ecartament îngust de pe Valea Vaserului pentru transportul buștenilor.",
+          "highlighted": false
+        },
+        {
+          "title": "Mocănița",
+          "content": "Atracția principală a orașului este Mocănița, trenul cu aburi care străbate Valea Vaserului pe o distanță de 21 km până în Munții Maramureșului. Acest tren forestier, construit în 1932, este astăzi o atracție turistică unică în Europa, oferind o călătorie pitorească prin sălbăticia munților, pe o cale ferată care urmează cursul sinuos al râului Vaser.",
+          "highlighted": false
+        },
+        {
+          "title": "Atracții Turistice",
+          "content": "Pe lângă Mocăniță, Vișeu de Sus oferă și alte atracții: Muzeul de Locomotive cu Abur, Sinagoga evreiască, bisericile ortodoxe și greco-catolice, precum și peisajele naturale din împrejurimi. La aproximativ 40 km se află Cimitirul Vesel de la Săpânța, o altă atracție emblematică a Maramureșului.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură și Tradiții",
+          "content": "Zona Vișeului păstrează vii tradițiile și obiceiurile maramureșene: portul popular specific, arhitectura tradițională în lemn, meșteșugurile și gastronomia locală. Festivalul Văii Vaserului și Zilele Orașului sunt evenimente care celebrează această bogăție culturală, cu parade ale portului popular, muzică și dansuri tradiționale.",
+          "highlighted": false
+        }
+      ]
+    },
+    {
+      "id": "albaiulia",
+      "name": "Alba Iulia",
+      "region": "Transilvania",
+      "description": "Alba Iulia este unul dintre cele mai importante orașe istorice din România, supranumit 'Capitala Unirii'. Aici, pe 1 Decembrie 1918, s-a proclamat Marea Unire a Transilvaniei cu România, un moment definitoriu în istoria națională.",
+      "mapCoords": "46.0685,23.5714",
+      "weatherId": "686575",
+      "defaultImages": [
+        "cetate_alba",
+        "alba_1"
+      ],
+      "events": [
+        "Ziua Națională a României - 1 Decembrie",
+        "Festivalul Cetăților Dacice"
+      ],
+      "tips": [
+        "Schimbul de gardă la poarta Cetății este spectaculos.",
+        "Închiriază o bicicletă să te plimbi pe șanțurile cetății."
+      ],
+      "attractions": [
+        {
+          "name": "Cetatea Alba Carolina",
+          "imageRes": "alba_cetatea_alba_carolina",
+          "prompt": "Explorează cea mai mare și mai bine conservată cetate de tip Vauban din SE Europei."
+        },
+        {
+          "name": "Catedrala Încoronării",
+          "imageRes": "alba_catedrala",
+          "prompt": "Locul simbolic unde au fost încoronați regii României Mari."
+        },
+        {
+          "name": "Muzeul Național al Unirii",
+          "imageRes": "alba_muzeu",
+          "prompt": "Descoperă documentele și atmosfera momentului 1 Decembrie 1918."
+        },
+        {
+          "name": "Poarta a III-a a Cetății",
+          "imageRes": "alba_poarta_3",
+          "prompt": "Cea mai impunătoare poartă a fortificației, o capodoperă a barocului."
+        }
+      ],
+      "sections": [
+        {
+          "title": "Introducere",
+          "content": "Alba Iulia este unul dintre cele mai importante orașe istorice din România, supranumit 'Capitala Unirii'. Aici, pe 1 Decembrie 1918, s-a proclamat Marea Unire a Transilvaniei cu România, un moment definitoriu în istoria națională.",
+          "highlighted": true
+        },
+        {
+          "title": "Geografie",
+          "content": "Situată în centrul Transilvaniei, pe malul stâng al Mureșului, în Depresiunea Alba, orașul este accesibil din toate direcțiile. Clima este temperat-continentală, cu veri călduroase și ierni moderate.",
+          "highlighted": false
+        },
+        {
+          "title": "Istorie",
+          "content": "Alba Iulia are o istorie de peste 2000 de ani, începând ca așezare dacică Apulum, devenind apoi cel mai important centru roman din Dacia. În Evul Mediu a fost capitala principatului Transilvaniei și reședința episcopiei catolice. Punctul culminant al istoriei orașului este 1 Decembrie 1918, când s-a proclamat unirea Transilvaniei cu România.",
+          "highlighted": false
+        },
+        {
+          "title": "Cetatea Alba Carolina",
+          "content": "Cetatea de tip Vauban, construită de habsburgi între 1716-1733, este cea mai mare și mai bine conservată cetate stelată din România. Cu 7 bastioane și 6 intrări monumentale, cetatea adăpostește catedrala încoronării, palatul apusean și Muzeul Național al Unirii.",
+          "highlighted": false
+        },
+        {
+          "title": "Catedrala Încoronării",
+          "content": "Construită în stil neo-românesc (1921-1922), Catedrala Reîntregirii Neamului a găzduit încoronarea regelui Ferdinand I și a reginei Maria în 1922, devenind simbol al Marii Uniri. Este una dintre cele mai frumoase catedrale ortodoxe din România.",
+          "highlighted": false
+        },
+        {
+          "title": "Cultură",
+          "content": "Alba Iulia găzduiește Muzeul Național al Unirii (unul dintre cele mai importante muzee de istorie din România), Bibliotecă Batthyaneum (cu manuscrise și incunabule prețioase), Teatrul Municipal. Schimbarea Gărzii în fața cetății este o atracție turistică deosebită.",
+          "highlighted": false
+        },
+        {
+          "title": "Gastronomie",
+          "content": "Bucătăria specifică zonei Alba combină preparate tradiționale românești și ardelenești: tochitură cu mămăligă, sarmale, ciorbe, preparate din carne de porc. Vinurile din podgoriile Aiudului și Sebeșului sunt recunoscute pentru calitate.",
+          "highlighted": false
+        }
+      ]
+    }
+  ]
+}

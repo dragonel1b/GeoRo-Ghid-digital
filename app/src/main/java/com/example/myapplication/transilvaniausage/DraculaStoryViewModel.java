@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.model.TransilvaniaStoryNode;
+import com.example.myapplication.core.domain.model.TransilvaniaStoryNode;
 import java.util.HashMap;
 import java.util.Map;
 import android.util.Log;

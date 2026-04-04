@@ -1,0 +1,7 @@
+{
+  "name": "Cluj Spirit - City Guide",
+  "description": "An interactive guide to Cluj-Napoca featuring events, attractions, and weather.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

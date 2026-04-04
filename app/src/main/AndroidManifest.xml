@@ -1,17 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-    <!-- Permissions -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    
+    <queries>
+        <!-- Package visibility for Google Maps — fixes resolveActivity and intent failures -->
+        <package android:name="com.google.android.apps.maps" />
+        <!-- Package visibility for Google Play Services — fixes some SecurityException / broker failures -->
+        <package android:name="com.google.android.gms" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
+    </queries>
+
+    
     <uses-feature android:name="android.hardware.camera.any" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -22,542 +28,166 @@
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
-    <application
-        android:name=".RomApplication"
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/app_logo"
-        android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/app_logo"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
-        tools:targetApi="31">
+    <application android:name=".RomApplication" android:allowBackup="true" android:dataExtractionRules="@xml/data_extraction_rules" android:fullBackupContent="@xml/backup_rules" android:icon="@drawable/app_logo" android:label="@string/app_name" android:requestLegacyExternalStorage="true" android:roundIcon="@drawable/app_logo" android:supportsRtl="true" android:theme="@style/Theme.MyApplication" tools:targetApi="31">
             
-        <!-- Configure Maps logging -->
+        
         <meta-data android:name="com.google.android.gms.maps.LoggingEnabled" android:value="false" />
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBsoY5hE-eR586h6sn1TOj_J21_Y1I2mKY" />
         
-        <!-- Google Play Services configuration -->
+        
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
         
-        <!-- Completely disable Flogger logging -->
+        
         <meta-data android:name="flogger.backend_factory" android:value="com.example.myapplication.config.NoOpBackendFactory" />
         <meta-data android:name="flogger.level" android:value="OFF" />
         <meta-data android:name="flogger.config" android:value="OFF" />
         <meta-data android:name="flogger.backend.level" android:value="OFF" />
         <meta-data android:name="loggingEnabled" android:value="${loggingEnabled}" />
         
-        <!-- System-level Flogger suppression -->
+        
         <meta-data android:name="log.tag.ProxyAndroidLoggerBackend" android:value="SILENT" />
         <meta-data android:name="log.tag.VRI" android:value="SILENT" />
         <meta-data android:name="log.tag.BLASTBufferQueue" android:value="SILENT" />
         <meta-data android:name="log.tag.libc" android:value="SILENT" />
         
+        <activity android:name=".TaraTara.TaraTaraVremOstasi" android:exported="false" />
+        <activity android:name=".RomApp.TuristiActivity" android:exported="false" />
+        <activity android:name=".viewmodel.CityFeaturesActivity" android:exported="false" />
+        <activity android:name=".RomApp.Bucovina" android:exported="false" />
+        <activity android:name=".RomApp.Maramures" android:exported="false" />
+        <activity android:name=".RomApp.Crisana" android:exported="false" />
+        <activity android:name=".RomApp.Banat" android:exported="false" />
+        <activity android:name=".RomApp.CityDetailActivity" android:exported="false" android:theme="@style/Theme.MyApplication.CluJCity" />
+        <!-- ✅ Jetpack Compose entry point — Opțiunea A (Hibrid)
+             Launch this instead of CityDetailActivity for new Compose UI.
+             Receives same EXTRA_CITY_ID intent extra. -->
         <activity
-            android:name=".RomApp.Sapanta"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Viseu"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Borsa"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Sighetu"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.BaiaMare"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Buzau"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Pitesti"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Targoviste"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Ploiesti"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Bucuresti"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.VatraDornei"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.CampulLung"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Radauti"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.GuraHumorului"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Oradea"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Arad"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Lugoj"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Timisoara"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Resita"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.BaileHerculane"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Caransebes"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Suceava"
-            android:exported="false" />
-        <activity
-            android:name=".TaraTara.TaraTaraVremOstasi"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.TuristiActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.PiatraNeamt"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Bacau"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Iasi"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.AlbaIulia"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.TarguMures"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Sibiu"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Brasov"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.ClujNapoca"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Cernavoda"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Tulcea"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Constanta"
-            android:exported="false" />
-        <activity
-            android:name=".viewmodel.CityFeaturesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Valcea"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Slatina"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Bucovina"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Maramures"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Crisana"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Banat"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Muntenia"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Moldova"
-            android:exported="false" />
-        <activity
-            android:name=".moldovausage.GameModeSelectionActivity"
+            android:name=".ui.ComposeEntryActivity"
             android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".moldovausage.MoldovaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".moldovausage.MoldovaGameResultActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".moldovausage.GameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".RomApp.Dobrogea"
-            android:exported="false" />
-        <activity
-            android:name=".dobrogeausage.DobrogeaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".dobrogeausage.GameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".dobrogeausage.CasinoStoryActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".dobrogeausage.DobrogeaMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".viewmodel.AppShowcaseActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="Prezentare Aplicație" />
-        <activity
-            android:name=".RomApp.Transilvania"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Craiova"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.UserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Joc1.RomSplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MyApplication.NoActionBar">
+            android:theme="@style/Theme.MyApplication.CluJCity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".RomApp.Muntenia" android:exported="false" />
+        <activity android:name=".RomApp.Moldova" android:exported="false" />
+        <activity android:name=".moldovausage.GameModeSelectionActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".moldovausage.MoldovaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".moldovausage.MoldovaGameResultActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".moldovausage.GameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".RomApp.Dobrogea" android:exported="false" />
+        <activity android:name=".dobrogeausage.DobrogeaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".dobrogeausage.GameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".dobrogeausage.CasinoStoryActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".dobrogeausage.DobrogeaMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".viewmodel.AppShowcaseActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" android:label="Prezentare Aplicație" />
+        <activity android:name=".RomApp.Transilvania" android:exported="false" />
+        <activity android:name=".RomApp.UserActivity" android:exported="false" />
+        <activity android:name=".RomApp.LoginActivity" android:exported="false" />
+        <activity android:name=".Joc1.RomSplashActivity" android:exported="true" android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RomApp.Oltenia"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Joc1.RomMainActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".Joc1.RomMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.RomCityActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.RomQuizActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.RomQuestActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".RomApp.Oltenia" android:exported="false" />
+        <activity android:name=".RomApp.MainActivity" android:exported="false" />
+        <activity android:name=".Joc1.RomMainActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".Joc1.RomMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".Joc1.RomCityActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".Joc1.RomQuizActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".Joc1.RomQuestActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
 
-        <activity
-            android:name=".Joc1.RomQuestChallengeActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".Joc1.RomQuestChallengeActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
 
-        <activity
-            android:name=".Joc1.RomAchievementsActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".Joc1.MinigameOpenWorldActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".RomApp.TarguJiu"
-            android:exported="false" />
-        <activity
-            android:name=".RomApp.Drobetaturnuseverin"
-            android:exported="false" />
-        <activity
-            android:name=".viewmodel.SectionPreviewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".viewmodel.CityListActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".Joc1.RomAchievementsActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".Joc1.MinigameOpenWorldActivity" android:configChanges="orientation|screenSize|keyboardHidden" android:exported="false" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".viewmodel.SectionPreviewActivity" android:exported="false" />
+        <activity android:name=".viewmodel.CityListActivity" android:exported="false" android:theme="@style/Theme.MyApplication" />
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.myapplication.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+        <provider android:name="androidx.core.content.FileProvider" android:authorities="com.example.myapplication.fileprovider" android:exported="false" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
 
-        <activity
-            android:name=".olteniausage.OlteniaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".olteniausage.OlteniaStoryActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".olteniausage.OlteniaMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".olteniausage.OlteniaGameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".olteniausage.OlteniaGameResultActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".transilvaniausage.TransilvaniaMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".transilvaniausage.TransilvaniaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".transilvaniausage.TransilvaniaGameResultActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".transilvaniausage.PlayerStatsActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".transilvaniausage.GameModeSelectionActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".transilvaniausage.GameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".transilvaniausage.DraculaStoryActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".moldovausage.MoldovaStoryActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".moldovausage.MoldovaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".moldovausage.MoldovaMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".banatusage.BanatGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".banatusage.BanatStoryActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".banatusage.BanatMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".banatusage.BanatGameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".banatusage.BanatGameResultActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication" />
-        <activity
-            android:name=".crisanausage.CrisanaMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".crisanausage.CrisanaStoryActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".crisanausage.CrisanaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".crisanausage.CrisanaGameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".bucovinausage.BucovinaStoryActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".bucovinausage.BucovinaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication.Game" />
-        <activity
-            android:name=".bucovinausage.BucovinaGameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication.Game" />
-        <activity
-            android:name=".bucovinausage.BucovinaMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".munteniausage.MunteniaTourActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".munteniausage.MunteniaGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".munteniausage.MunteniaMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".munteniausage.MunteniaGameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".maramuresusage.MaramuresMapActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".maramuresusage.MaramuresGameActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".maramuresusage.MaramuresGameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".maramuresusage.MaramuresStoryActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".recipe.ui.RecipeListActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+        <activity android:name=".olteniausage.OlteniaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".olteniausage.OlteniaStoryActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".olteniausage.OlteniaMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".olteniausage.OlteniaGameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".olteniausage.OlteniaGameResultActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".transilvaniausage.TransilvaniaMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".transilvaniausage.TransilvaniaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".transilvaniausage.TransilvaniaGameResultActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".transilvaniausage.PlayerStatsActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".transilvaniausage.GameModeSelectionActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".transilvaniausage.GameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".transilvaniausage.DraculaStoryActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".moldovausage.MoldovaStoryActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".moldovausage.MoldovaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".moldovausage.MoldovaMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".banatusage.BanatGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".banatusage.BanatStoryActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".banatusage.BanatMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".banatusage.BanatGameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".banatusage.BanatGameResultActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
+        <activity android:name=".crisanausage.CrisanaMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".crisanausage.CrisanaStoryActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".crisanausage.CrisanaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".crisanausage.CrisanaGameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".bucovinausage.BucovinaStoryActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".bucovinausage.BucovinaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication.Game" />
+        <activity android:name=".bucovinausage.BucovinaGameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication.Game" />
+        <activity android:name=".bucovinausage.BucovinaMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".munteniausage.MunteniaTourActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".munteniausage.MunteniaGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".munteniausage.MunteniaMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".munteniausage.MunteniaGameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".maramuresusage.MaramuresMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".maramuresusage.MaramuresGameActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".maramuresusage.MaramuresGameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".maramuresusage.MaramuresStoryActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".recipe.ui.RecipeListActivity" android:exported="true" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".recipe.ui.AddRecipeActivity"
-            android:exported="false"
-            android:parentActivityName=".recipe.ui.RecipeListActivity" />
-        <activity
-            android:name=".recipe.ui.RecipeDetailActivity"
-            android:exported="false"
-            android:parentActivityName=".recipe.ui.RecipeListActivity" />
-        <activity
-            android:name=".recipe.ui.CulinaryMapActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication">
+        <activity android:name=".recipe.ui.AddRecipeActivity" android:exported="false" android:parentActivityName=".recipe.ui.RecipeListActivity" />
+        <activity android:name=".recipe.ui.RecipeDetailActivity" android:exported="false" android:parentActivityName=".recipe.ui.RecipeListActivity" />
+        <activity android:name=".recipe.ui.CulinaryMapActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.RomaniaMapLauncher"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MyApplication">
+        <activity android:name=".ui.RomaniaMapLauncher" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.FirebaseManagerLauncherActivity"
-            android:label="Manager Întrebări Quiz"
-            android:exported="true">
+        <activity android:name=".ui.FirebaseManagerLauncherActivity" android:label="Manager Întrebări Quiz" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.FirebaseQuizManagerActivity"
-            android:label="Manager Întrebări"
-            android:exported="true">
+        <activity android:name=".ui.FirebaseQuizManagerActivity" android:label="Manager Întrebări" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.LeaderboardActivity"
-            android:theme="@style/Theme.MyApplication.Leaderboard"
-            android:exported="false" />
+        <activity android:name=".ui.LeaderboardActivity" android:theme="@style/Theme.MyApplication.Leaderboard" android:exported="false" />
         
-        <activity android:name=".ui.UserProfileActivity"
-            android:label="Profil Utilizator"
-            android:exported="true">
+        <activity android:name=".ui.UserProfileActivity" android:label="Profil Utilizator" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".dobrogeausage.DobrogeaGameResultActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".munteniausage.GameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".bucovinausage.GameOverActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".dobrogeausage.DobrogeaGameResultActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".munteniausage.GameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".bucovinausage.GameOverActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity android:name=".ui.LocalAIActivity" />
     </application>
 

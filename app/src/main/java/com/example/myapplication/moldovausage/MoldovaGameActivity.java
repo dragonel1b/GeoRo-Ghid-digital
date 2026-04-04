@@ -31,15 +31,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import com.example.myapplication.utils.SyncManager;
 
-import com.example.myapplication.models.EnhancedQuestionModel;
+import com.example.myapplication.core.domain.model.EnhancedQuestionModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.DynamicColors;
 import com.example.myapplication.R;
 import com.example.myapplication.RomApp.Moldova;
 import com.example.myapplication.utils.PointsManager;
-import com.example.myapplication.models.QuestionModel;
-import com.example.myapplication.model.QuizResult;
+import com.example.myapplication.core.domain.model.GameQuestionModel;
+import com.example.myapplication.core.domain.model.QuizResult;
 import com.example.myapplication.repository.FirestoreQuestionRepository;
 import com.example.myapplication.utils.GameOverHelper;
 import com.example.myapplication.Joc1.AchievementManager;
@@ -99,7 +99,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
     private boolean answerSelected = false;
     
     // Enhanced question management
-    private List<QuestionModel> firestoreQuestions;
+    private List<GameQuestionModel> firestoreQuestions;
     private List<EnhancedQuestionModel> enhancedQuestions;
     
     // Enhanced game systems - following Transilvania pattern
@@ -649,11 +649,11 @@ public class MoldovaGameActivity extends AppCompatActivity {
     /**
      * Create local questions for fallback
      */
-    private List<QuestionModel> createLocalQuestionsForMigration() {
-        List<QuestionModel> questions = new ArrayList<>();
+    private List<GameQuestionModel> createLocalQuestionsForMigration() {
+        List<GameQuestionModel> questions = new ArrayList<>();
         
         // Enhanced Moldova questions with better categorization
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este capitala istorică a Moldovei?",
             "Iași", 
             Arrays.asList("Bacău", "Suceava", "Chișinău"), 
@@ -661,7 +661,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Iași a fost capitala Principatului Moldovei între 1564 și 1859 și rămâne centrul cultural al regiunii."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cel mai important râu care traversează Moldova?",
             "Prut", 
             Arrays.asList("Siret", "Olt", "Mureș"), 
@@ -669,7 +669,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Râul Prut are o lungime de 953 km și formează granița naturală între România și Republica Moldova."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Ce mănăstire din Moldova este inclusă în patrimoniul UNESCO?",
             "Mănăstirea Voroneț", 
             Arrays.asList("Mănăstirea Putna", "Mănăstirea Cozia", "Mănăstirea Bistrița"), 
@@ -677,7 +677,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Mănăstirea Voroneț, cunoscută pentru 'albastrul de Voroneț', a fost construită în 1488 de Ștefan cel Mare."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Cine a fost domnitorul cel mai important al Moldovei?",
             "Ștefan cel Mare", 
             Arrays.asList("Mihai Viteazul", "Mircea cel Bătrân", "Alexandru Ioan Cuza"), 
@@ -685,7 +685,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Ștefan cel Mare a domnit între 1457 și 1504 și este considerat un erou național în România și Republica Moldova."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cel mai mare oraș din Moldova românească în prezent?",
             "Iași", 
             Arrays.asList("Galați", "Bacău", "Suceava"), 
@@ -693,7 +693,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Iașiul este al doilea oraș ca mărime din România după București, cu o populație de aproximativ 380.000 locuitori."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care personalitate culturală importantă s-a născut la Humulești, Moldova?",
             "Ion Creangă", 
             Arrays.asList("Mihai Eminescu", "Vasile Alecsandri", "George Enescu"), 
@@ -701,7 +701,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Ion Creangă (1837-1889) este unul dintre cei mai importanți scriitori români, cunoscut pentru 'Amintiri din copilărie'."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Ce monument istoric important se află la Ruginoasa, în Moldova?",
             "Palatul Cuza", 
             Arrays.asList("Cetatea Neamț", "Cetatea Sucevei", "Casa Pogor"), 
@@ -709,7 +709,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Palatul de la Ruginoasa a fost reședința lui Alexandru Ioan Cuza, primul domnitor al Principatelor Unite."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cel mai vechi oraș din Moldova?",
             "Suceava", 
             Arrays.asList("Roman", "Iași", "Bârlad"), 
@@ -717,7 +717,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Suceava datează din secolul al XIV-lea și a fost capitala Moldovei între 1388 și 1564."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care este cea mai importantă universitate din Moldova?",
             "Universitatea 'Alexandru Ioan Cuza' din Iași", 
             Arrays.asList("Universitatea din Galați", "Universitatea din Bacău", "Universitatea 'Ștefan cel Mare' din Suceava"), 
@@ -725,7 +725,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
             "Universitatea 'Alexandru Ioan Cuza' din Iași, fondată în 1860, este cea mai veche universitate din România."
         ));
         
-        questions.add(new QuestionModel(
+        questions.add(new GameQuestionModel(
             "Care localitate este cunoscută ca 'Poarta Moldovei'?",
             "Focșani", 
             Arrays.asList("Târgu Neamț", "Pașcani", "Tescani"), 
@@ -1059,9 +1059,9 @@ public class MoldovaGameActivity extends AppCompatActivity {
         questionRepository.getQuestions(REGION, "general")
             .addOnSuccessListener(querySnapshot -> {
                 if (querySnapshot != null && !querySnapshot.isEmpty()) {
-                    List<QuestionModel> questions = new ArrayList<>();
+                    List<GameQuestionModel> questions = new ArrayList<>();
                     for (var doc : querySnapshot) {
-                        QuestionModel question = doc.toObject(QuestionModel.class);
+                        GameQuestionModel question = doc.toObject(GameQuestionModel.class);
                         if (question != null) {
                             questions.add(question);
                         }
@@ -1101,11 +1101,11 @@ public class MoldovaGameActivity extends AppCompatActivity {
     }
     
     /**
-     * Convert QuestionModel to EnhancedQuestionModel
+     * Convert GameQuestionModel to EnhancedQuestionModel
      */
-    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<QuestionModel> questions) {
+    private List<EnhancedQuestionModel> convertToEnhancedQuestions(List<GameQuestionModel> questions) {
         List<EnhancedQuestionModel> enhanced = new ArrayList<>();
-        for (QuestionModel q : questions) {
+        for (GameQuestionModel q : questions) {
             EnhancedQuestionModel enhanced1 = new EnhancedQuestionModel(
                 q.getQuestion(),
                 q.getCorrectAnswer(),
@@ -1140,7 +1140,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
     /**
      * Infer difficulty from question
      */
-    private EnhancedQuestionModel.Difficulty inferDifficulty(QuestionModel question) {
+    private EnhancedQuestionModel.Difficulty inferDifficulty(GameQuestionModel question) {
         String text = question.getQuestion().toLowerCase();
         if (text.length() > 100 || text.contains("secolul")) {
             return EnhancedQuestionModel.Difficulty.HARD;
@@ -1154,7 +1154,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
     /**
      * Generate tags for question
      */
-    private String[] generateTags(QuestionModel question) {
+    private String[] generateTags(GameQuestionModel question) {
         List<String> tags = new ArrayList<>();
         String text = question.getQuestion().toLowerCase();
         
@@ -1860,10 +1860,10 @@ public class MoldovaGameActivity extends AppCompatActivity {
     /**
      * 💾 CACHE LOCAL: Salvează întrebările în cache pentru utilizare offline
      */
-    private void saveQuestionsToLocalCache(List<QuestionModel> questions) {
+    private void saveQuestionsToLocalCache(List<GameQuestionModel> questions) {
         // Convertim întrebările într-un format compatibil cu JSON/Firestore
         List<Map<String, Object>> questionMaps = new ArrayList<>();
-        for (QuestionModel question : questions) {
+        for (GameQuestionModel question : questions) {
             Map<String, Object> questionMap = new HashMap<>();
             questionMap.put("question", question.getQuestion());
             questionMap.put("correctAnswer", question.getCorrectAnswer());
@@ -1915,10 +1915,10 @@ public class MoldovaGameActivity extends AppCompatActivity {
                     // Extragem lista de întrebări din cache
                     @SuppressWarnings("unchecked")
                     List<Map<String, Object>> questionMaps = (List<Map<String, Object>>) cacheData.get("questions");
-                    List<QuestionModel> cachedQuestions = new ArrayList<>();
+                    List<GameQuestionModel> cachedQuestions = new ArrayList<>();
                     
                     for (Map<String, Object> questionMap : questionMaps) {
-                        // Reconstituim QuestionModel din Map
+                        // Reconstituim GameQuestionModel din Map
                         String question = (String) questionMap.get("question");
                         String correctAnswer = (String) questionMap.get("correctAnswer");
                         @SuppressWarnings("unchecked")
@@ -1926,7 +1926,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
                         String fact = (String) questionMap.get("fact");
                         
                         // Folosim noul constructor cu List<String> pentru compatibilitate Firebase
-                        QuestionModel questionModel = new QuestionModel(question, correctAnswer, incorrectAnswersList, 0, fact);
+                        GameQuestionModel questionModel = new GameQuestionModel(question, correctAnswer, incorrectAnswersList, 0, fact);
                         cachedQuestions.add(questionModel);
                     }
                     
@@ -1999,7 +1999,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
         Log.d(TAG, "🔄 Începem migrarea întrebărilor locale în Firestore pentru " + REGION);
         
         // Creăm întrebările locale temporar doar pentru migrare
-        List<QuestionModel> localQuestions = createLocalQuestionsForMigration();
+        List<GameQuestionModel> localQuestions = createLocalQuestionsForMigration();
         
         if (localQuestions.isEmpty()) {
             Log.e(TAG, "❌ Nu avem întrebări locale pentru migrare");
@@ -2109,7 +2109,7 @@ public class MoldovaGameActivity extends AppCompatActivity {
                     return;
                 }
                 
-                firestoreQuestions = querySnapshot.toObjects(QuestionModel.class);
+                firestoreQuestions = querySnapshot.toObjects(GameQuestionModel.class);
                 
                 Log.d(TAG, "✅ Încărcate " + firestoreQuestions.size() + " întrebări din baza de date");
                 

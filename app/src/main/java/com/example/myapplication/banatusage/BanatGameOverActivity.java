@@ -2,7 +2,7 @@ package com.example.myapplication.banatusage;
 
 import android.content.Intent;
 
-import com.example.myapplication.model.base.BaseGameOverActivity;
+import com.example.myapplication.core.domain.model.BaseGameOverActivity;
 
 /**
  * Activitate GameOver specifică pentru regiunea Banat
