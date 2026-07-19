@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.example.myapplication.Joc1.RomCityActivity;
+import com.example.myapplication.ui.ComposeEntryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.munteniausage.MunteniaGameActivity;
 import com.example.myapplication.munteniausage.MunteniaTourActivity;
@@ -391,20 +391,16 @@ public class Muntenia extends RegionTemplate {
 
     public void showPopup1(View view) {
         showPopup("București", cityDescriptions[0]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "București");
-        intent.putExtra("city_lat", 44.4268);
-        intent.putExtra("city_lng", 26.1025);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "bucuresti");
         startActivity(intent);
     }
 
     public void showPopup2(View view) {
         if (cityDescriptions.length > 1) {
             showPopup("Ploiești", cityDescriptions[1]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Ploiești");
-            intent.putExtra("city_lat", 44.9436);
-            intent.putExtra("city_lng", 26.0279);
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "ploiesti");
             startActivity(intent);
         }
     }
@@ -412,10 +408,8 @@ public class Muntenia extends RegionTemplate {
     public void showPopup3(View view) {
         if (cityDescriptions.length > 2) {
             showPopup("Târgoviște", cityDescriptions[2]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Târgoviște");
-            intent.putExtra("city_lat", 44.9254);
-            intent.putExtra("city_lng", 25.4569);
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "targoviste");
             startActivity(intent);
         }
     }
@@ -423,10 +417,8 @@ public class Muntenia extends RegionTemplate {
     public void showPopup4(View view) {
         if (cityDescriptions.length > 3) {
             showPopup("Sinaia", cityDescriptions[3]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Sinaia");
-            intent.putExtra("city_lat", 45.3500);
-            intent.putExtra("city_lng", 25.5667);
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sinaia");
             startActivity(intent);
         }
     }
@@ -434,10 +426,8 @@ public class Muntenia extends RegionTemplate {
     public void showPopup5(View view) {
         if (cityDescriptions.length > 4) {
             showPopup("Curtea de Argeș", cityDescriptions[4]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Curtea de Argeș");
-            intent.putExtra("city_lat", 45.1487);
-            intent.putExtra("city_lng", 24.6736);
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "curteadearges");
             startActivity(intent);
         }
     }
@@ -499,18 +489,16 @@ public class Muntenia extends RegionTemplate {
                 startActivity(MunteniaTourActivity.class);
                 break;
             case 3: // Târgoviște
-                Intent intent = new Intent(this, RomCityActivity.class);
-                intent.putExtra("CITY_NAME", "Târgoviște");
-                intent.putExtra("city_lat", 44.9254);
-                intent.putExtra("city_lng", 25.4569);
+                Intent intent = new Intent(this, ComposeEntryActivity.class);
+                intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "targoviste");
                 startActivity(intent);
                 break;
             case 4: // Sinaia
-                Intent intent2 = new Intent(this, RomCityActivity.class);
-                intent2.putExtra("CITY_NAME", "Sinaia");
-                intent2.putExtra("city_lat", 45.3500);
-                intent2.putExtra("city_lng", 25.5667);
-                startActivity(intent2);
+                if (pointsManager.getPoints(this) >= 20) {
+                    Intent intent2 = new Intent(this, ComposeEntryActivity.class);
+                    intent2.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sinaia");
+                    startActivity(intent2);
+                }
                 break;
             case 5: // Curtea de Argeș
                 Toast.makeText(this, "Această funcționalitate nu este disponibilă momentan", Toast.LENGTH_SHORT).show();

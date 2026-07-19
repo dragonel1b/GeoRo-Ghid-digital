@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.example.myapplication.Joc1.RomCityActivity;
+import com.example.myapplication.ui.ComposeEntryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.banatusage.BanatStoryActivity;
 import com.example.myapplication.banatusage.BanatGameActivity;
@@ -37,10 +37,7 @@ public class Banat extends RegionTemplate {
         return "Banat";
     }
 
-    @Override
-    protected String getCityName() {
-        return "Regiunea Banat";
-    }
+
 
     @Override
     protected ArrayList<String> getCityImages() {
@@ -470,15 +467,15 @@ public class Banat extends RegionTemplate {
                 startActivity(BanatStoryActivity.class);
                 break;
             case 3: // Lugoj
-                Intent intent = new Intent(this, RomCityActivity.class);
-                intent.putExtra("CITY_NAME", "Lugoj");
+                Intent intent = new Intent(this, ComposeEntryActivity.class);
+                intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "lugoj");
                 intent.putExtra("city_lat", 45.6909);
                 intent.putExtra("city_lng", 21.9031);
                 startActivity(intent);
                 break;
             case 4: // Caransebeș
-                Intent intent2 = new Intent(this, RomCityActivity.class);
-                intent2.putExtra("CITY_NAME", "Caransebeș");
+                Intent intent2 = new Intent(this, ComposeEntryActivity.class);
+                intent2.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "caransebes");
                 intent2.putExtra("city_lat", 45.4177);
                 intent2.putExtra("city_lng", 22.2192);
                 startActivity(intent2);

@@ -6,18 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
-import com.example.myapplication.RomApp.CityDetailActivity
 import com.example.myapplication.ui.navigation.CityNavGraph
 import com.example.myapplication.ui.theme.ClujTheme
 
 /**
- * Entry point for the Compose city screens.
+ * Unified entry point for the modern data-driven city dashboard.
  *
- * Launch this Activity instead of [CityDetailActivity] for cities
- * that should show the new Compose UI. Receives the same Intent extra:
- *   Intent.putExtra(EXTRA_CITY_ID, cityId)
+ * This Activity replaces the legacy city activities by providing a unified
+ * dynamic UI powered by Jetpack Compose.
  *
- * All legacy Java activities remain untouched (Opțiunea A — Hibrid).
+ * Intent Extras:
+ *   - EXTRA_CITY_ID: The normalized ID of the city (e.g., "cluj-napoca", "suceava").
  */
 class ComposeEntryActivity : ComponentActivity() {
 

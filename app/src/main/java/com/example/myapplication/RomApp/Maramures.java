@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.example.myapplication.Joc1.RomCityActivity;
+import com.example.myapplication.ui.ComposeEntryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.maramuresusage.MaramuresGameActivity;
 import com.example.myapplication.maramuresusage.MaramuresMapActivity;
@@ -347,46 +347,36 @@ public class Maramures extends RegionTemplate {
 
     public void showPopup1(View view) {
         showPopup("Baia Mare", cityDescriptions[0]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra(RomCityActivity.CITY_NAME, "Baia Mare");
-        intent.putExtra(RomCityActivity.CITY_REGION, "Maramureș");
-        intent.putExtra(RomCityActivity.CITY_DESC, "Baia Mare este municipiul reședință al județului Maramureș, și un important centru economic, cultural și universitar din nordul României.");
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "baiamare");
         startActivity(intent);
     }
 
     public void showPopup2(View view) {
         showPopup("Sighetu Marmației", cityDescriptions[1]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Sighetu Marmației");
-        intent.putExtra("city_lat", 47.9287);
-        intent.putExtra("city_lng", 23.8915);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sighetumarmatiei");
         startActivity(intent);
     }
 
     public void showPopup3(View view) {
         showPopup("Săpânța", cityDescriptions[2]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Săpânța");
-        intent.putExtra("city_lat", 47.9831);
-        intent.putExtra("city_lng", 23.6967);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sapanta");
         startActivity(intent);
     }
 
     public void showPopup4(View view) {
         showPopup("Bârsana", cityDescriptions[3]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Bârsana");
-        intent.putExtra("city_lat", 47.8036);
-        intent.putExtra("city_lng", 24.0631);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "barsana");
         startActivity(intent);
     }
 
     public void showPopup5(View view) {
         showPopup("Borșa", cityDescriptions[4]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Borșa");
-        intent.putExtra("city_lat", 47.6599);
-        intent.putExtra("city_lng", 24.6577);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "borsa");
         startActivity(intent);
     }
 
@@ -445,8 +435,11 @@ public class Maramures extends RegionTemplate {
                 break;
             case 3: // Săpânța
                 if (pointsManager.getPoints(this) >= 20) {
-                    Intent cityIntent = new Intent(this, RomCityActivity.class);
+                if (pointsManager.getPoints(this) >= 20) {
+                    Intent cityIntent = new Intent(this, ComposeEntryActivity.class);
+                    cityIntent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sapanta");
                     startActivity(cityIntent);
+                }
                 } else {
                     Toast.makeText(this, "Ai nevoie de 20 de puncte pentru a debloca acest oraș!", Toast.LENGTH_SHORT).show();
                 }

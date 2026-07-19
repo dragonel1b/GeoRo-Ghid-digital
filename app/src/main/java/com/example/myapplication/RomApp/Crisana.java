@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.example.myapplication.Joc1.RomCityActivity;
+import com.example.myapplication.ui.ComposeEntryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.crisanausage.CrisanaStoryActivity;
 import com.example.myapplication.crisanausage.CrisanaGameActivity;
@@ -340,28 +340,36 @@ public class Crisana extends RegionTemplate {
     }
 
     public void showPopup1(View view) {
-        showPopup("Oradea", 
-                  "Oradea este un oraș cu o bogată istorie și un important centru cultural și economic din vestul României. Arhitectura Art Nouveau și băile termale sunt printre principalele atracții.");
+        showPopup("Oradea", cityDescriptions[0]);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "oradea");
+        startActivity(intent);
     }
 
     public void showPopup2(View view) {
-        showPopup("Arad", 
-                  "Arad este un important centru economic și cultural din vestul României, cu o istorie bogată și o arhitectură impresionantă, inclusiv Cetatea Aradului și Palatul Cultural.");
+        showPopup("Arad", cityDescriptions[1]);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "arad");
+        startActivity(intent);
     }
 
     public void showPopup3(View view) {
-        showPopup("Salonta", 
-                  "Salonta este un oraș cu bogate tradiții culturale, locul de naștere al poetului maghiar Arany János. Turnul Ciunt, simbol al orașului, datează din secolul al XVII-lea.");
+        showPopup("Salonta", cityDescriptions[2]);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "salonta");
+        startActivity(intent);
     }
 
     public void showPopup4(View view) {
-        showPopup("Băile Felix", 
-                  "Băile Felix este cea mai mare stațiune balneoclimaterică permanentă din România, renumită pentru apele termale cu proprietăți terapeutice și pentru nufărul termal unic în Europa.");
+        showPopup("Băile Felix", cityDescriptions[4]);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "bailefelix");
+        startActivity(intent);
     }
 
     public void showPopup5(View view) {
-        showPopup("Peștera Urșilor", 
-                  "Peștera Urșilor este una dintre cele mai spectaculoase peșteri din România, cu formațiuni carstice impresionante și fosile de urs de cavernă de acum 15.000 de ani.");
+        showPopup("Peștera Urșilor", "Peștera Urșilor este una dintre cele mai spectaculoase peșteri din România, cu formațiuni carstice impresionante.");
+        // This is a landmark, maybe not a city dashboard yet, but we'll use city dashboard if available or just the popup
     }
 
     private void showPopup(String title, String description) {

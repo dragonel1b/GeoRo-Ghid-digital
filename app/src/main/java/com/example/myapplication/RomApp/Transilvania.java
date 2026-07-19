@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.example.myapplication.Joc1.RomCityActivity;
+import com.example.myapplication.ui.ComposeEntryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.transilvaniausage.DraculaStoryActivity;
 import com.example.myapplication.transilvaniausage.TransilvaniaGameActivity;
@@ -380,8 +380,8 @@ public class Transilvania extends RegionTemplate {
 
     public void showPopup1(View view) {
         showPopup("Craiova", cityDescriptions[0]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Craiova");
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "craiova");
         intent.putExtra("city_lat", 44.3190);
         intent.putExtra("city_lng", 23.7967);
         startActivity(intent);
@@ -390,8 +390,8 @@ public class Transilvania extends RegionTemplate {
     public void showPopup2(View view) {
         if (cityDescriptions.length > 1) {
             showPopup("Brașov", cityDescriptions[1]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Brașov");
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "brasov");
             intent.putExtra("city_lat", 45.6427);
             intent.putExtra("city_lng", 25.5887);
             startActivity(intent);
@@ -401,8 +401,8 @@ public class Transilvania extends RegionTemplate {
     public void showPopup3(View view) {
         if (cityDescriptions.length > 2) {
             showPopup("Sibiu", cityDescriptions[2]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Sibiu");
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sibiu");
             intent.putExtra("city_lat", 45.7983);
             intent.putExtra("city_lng", 24.1256);
             startActivity(intent);
@@ -412,8 +412,8 @@ public class Transilvania extends RegionTemplate {
     public void showPopup4(View view) {
         if (cityDescriptions.length > 3) {
             showPopup("Sighișoara", cityDescriptions[3]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Sighișoara");
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sighisoara");
             intent.putExtra("city_lat", 46.2198);
             intent.putExtra("city_lng", 24.7965);
             startActivity(intent);
@@ -423,8 +423,8 @@ public class Transilvania extends RegionTemplate {
     public void showPopup5(View view) {
         if (cityDescriptions.length > 4) {
             showPopup("Alba Iulia", cityDescriptions[4]);
-            Intent intent = new Intent(this, RomCityActivity.class);
-            intent.putExtra("CITY_NAME", "Alba Iulia");
+            Intent intent = new Intent(this, ComposeEntryActivity.class);
+            intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "albaiulia");
             intent.putExtra("city_lat", 46.0685);
             intent.putExtra("city_lng", 23.5709);
             startActivity(intent);
@@ -488,15 +488,15 @@ public class Transilvania extends RegionTemplate {
                 startActivity(DraculaStoryActivity.class);
                 break;
             case 3: // Sibiu
-                Intent intent = new Intent(this, RomCityActivity.class);
-                intent.putExtra("CITY_NAME", "Sibiu");
+                Intent intent = new Intent(this, ComposeEntryActivity.class);
+                intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sibiu");
                 intent.putExtra("city_lat", 45.7983);
                 intent.putExtra("city_lng", 24.1256);
                 startActivity(intent);
                 break;
             case 4: // Sighișoara
-                Intent intent2 = new Intent(this, RomCityActivity.class);
-                intent2.putExtra("CITY_NAME", "Sighișoara");
+                Intent intent2 = new Intent(this, ComposeEntryActivity.class);
+                intent2.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sighisoara");
                 intent2.putExtra("city_lat", 46.2198);
                 intent2.putExtra("city_lng", 24.7965);
                 startActivity(intent2);

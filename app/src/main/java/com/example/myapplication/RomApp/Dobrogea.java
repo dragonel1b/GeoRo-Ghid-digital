@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.example.myapplication.Joc1.RomCityActivity;
+import com.example.myapplication.ui.ComposeEntryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.dobrogeausage.CasinoStoryActivity;
 import com.example.myapplication.dobrogeausage.DobrogeaGameActivity;
@@ -321,46 +321,36 @@ public class Dobrogea extends RegionTemplate {
 
     public void showPopup1(View view) {
         showPopup("Constanța", cityDescriptions[0]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Constanța");
-        intent.putExtra("city_lat", 44.1733);
-        intent.putExtra("city_lng", 28.6383);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "constanta");
         startActivity(intent);
     }
 
     public void showPopup2(View view) {
         showPopup("Tulcea", cityDescriptions[1]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Tulcea");
-        intent.putExtra("city_lat", 45.1792);
-        intent.putExtra("city_lng", 28.7969);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "tulcea");
         startActivity(intent);
     }
 
     public void showPopup3(View view) {
         showPopup("Mamaia", cityDescriptions[2]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Mamaia");
-        intent.putExtra("city_lat", 44.2500);
-        intent.putExtra("city_lng", 28.6333);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "mamaia");
         startActivity(intent);
     }
 
     public void showPopup4(View view) {
         showPopup("Histria", cityDescriptions[3]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Histria");
-        intent.putExtra("city_lat", 44.5469);
-        intent.putExtra("city_lng", 28.7750);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "histria");
         startActivity(intent);
     }
 
     public void showPopup5(View view) {
         showPopup("Sulina", cityDescriptions[4]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Sulina");
-        intent.putExtra("city_lat", 45.1556);
-        intent.putExtra("city_lng", 29.6539);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "sulina");
         startActivity(intent);
     }
 

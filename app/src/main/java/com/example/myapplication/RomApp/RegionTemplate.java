@@ -1,41 +1,66 @@
 package com.example.myapplication.RomApp;
 
 import android.os.Bundle;
-import java.util.ArrayList;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.viewmodel.EnhancedCityActivity;
+import java.util.ArrayList;
 
-public abstract class RegionTemplate extends EnhancedCityActivity {
+/**
+ * Base class for regional activities.
+ * Refactored to be independent of the deleted legacy city classes.
+ */
+public abstract class RegionTemplate extends AppCompatActivity {
+    
+    protected ArrayList<String> cityImages;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // Set up custom carousel
-        androidx.viewpager2.widget.ViewPager2 viewPager = findViewById(R.id.imageCarousel);
-        viewPager.setPageTransformer(new androidx.viewpager2.widget.MarginPageTransformer(16));
-        viewPager.setOffscreenPageLimit(3);
     }
 
-    @Override
     protected void initializeSpecificContent() {
-        super.initializeSpecificContent();
-
+        ViewGroup container = findViewById(R.id.cityContentContainer);
+        if (container == null) return;
+        
         // Standard sections for all regions
-        addSection(findViewById(R.id.cityContentContainer), "Introducere", getIntroductionText(), true);
-        addSection(findViewById(R.id.cityContentContainer), "Istorie și Geografie", getHistoryGeographyText(), true);
-        addSection(findViewById(R.id.cityContentContainer), "Cultură și Tradiții", getCultureTraditionsText(), false);
-        addSection(findViewById(R.id.cityContentContainer), "Atracții Turistice", getAttractionsText(), false);
+        addSection(container, "Introducere", getIntroductionText(), true);
+        addSection(container, "Istorie și Geografie", getHistoryGeographyText(), true);
+        addSection(container, "Cultură și Tradiții", getCultureTraditionsText(), false);
+        addSection(container, "Atracții Turistice", getAttractionsText(), false);
         
         // Optional sections
         if (hasGastronomy()) {
-            addSection(findViewById(R.id.cityContentContainer), "Gastronomie", getGastronomyText(), false);
+            addSection(container, "Gastronomie", getGastronomyText(), false);
         }
         if (hasPersonalitiesEvents()) {
-            addSection(findViewById(R.id.cityContentContainer), "Personalități/Evenimente", getPersonalitiesEventsText(), false);
+            addSection(container, "Personalități/Evenimente", getPersonalitiesEventsText(), false);
         }
         if (hasCuriosities()) {
-            addSection(findViewById(R.id.cityContentContainer), "Curiozități", getCuriositiesText(), false);
+            addSection(container, "Curiozități", getCuriositiesText(), false);
         }
+    }
+    
+    /**
+     * Dynamically adds a content section to the container.
+     */
+    protected void addSection(ViewGroup container, String title, String content, boolean isImportant) {
+        if (container == null || content == null) return;
+        
+        View sectionView = LayoutInflater.from(this).inflate(R.layout.section_layout, container, false);
+        TextView titleView = sectionView.findViewById(R.id.sectionTitle);
+        TextView contentView = sectionView.findViewById(R.id.sectionContent);
+        View importantBadge = sectionView.findViewById(R.id.importantBadge);
+        
+        if (titleView != null) titleView.setText(title);
+        if (contentView != null) contentView.setText(content);
+        if (importantBadge != null) {
+            importantBadge.setVisibility(isImportant ? View.VISIBLE : View.GONE);
+        }
+        
+        container.addView(sectionView);
     }
 
     // Abstract methods to be implemented by each region
@@ -54,15 +79,5 @@ public abstract class RegionTemplate extends EnhancedCityActivity {
     protected boolean hasPersonalitiesEvents() { return getPersonalitiesEventsText() != null; }
     protected boolean hasCuriosities() { return getCuriositiesText() != null; }
 
-    @Override
-    protected ArrayList<String> getCityImages() {
-        if (cityImages == null) {
-            cityImages = new ArrayList<>();
-        // Default images - can be overridden
-            cityImages.add("default_region_1");
-            cityImages.add("default_region_2");
-            cityImages.add("default_region_3");
-        }
-        return cityImages;
-    }
+    protected abstract ArrayList<String> getCityImages();
 }

@@ -57,10 +57,7 @@
         <activity android:name=".RomApp.Maramures" android:exported="false" />
         <activity android:name=".RomApp.Crisana" android:exported="false" />
         <activity android:name=".RomApp.Banat" android:exported="false" />
-        <activity android:name=".RomApp.CityDetailActivity" android:exported="false" android:theme="@style/Theme.MyApplication.CluJCity" />
-        <!-- ✅ Jetpack Compose entry point — Opțiunea A (Hibrid)
-             Launch this instead of CityDetailActivity for new Compose UI.
-             Receives same EXTRA_CITY_ID intent extra. -->
+        <!-- ✅ modern data-driven city guide entry point -->
         <activity
             android:name=".ui.ComposeEntryActivity"
             android:exported="false"
@@ -93,7 +90,6 @@
         <activity android:name=".RomApp.MainActivity" android:exported="false" />
         <activity android:name=".Joc1.RomMainActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".Joc1.RomMapActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
-        <activity android:name=".Joc1.RomCityActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
         <activity android:name=".Joc1.RomQuizActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
         <activity android:name=".Joc1.RomQuestActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden" android:theme="@style/Theme.MyApplication" />
 

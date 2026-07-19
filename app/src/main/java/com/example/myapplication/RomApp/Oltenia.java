@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.example.myapplication.Joc1.RomCityActivity;
+import com.example.myapplication.ui.ComposeEntryActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.olteniausage.OlteniaStoryActivity;
 import com.example.myapplication.olteniausage.OlteniaGameActivity;
@@ -367,46 +367,36 @@ public class Oltenia extends RegionTemplate {
 
     public void showPopup1(View view) {
         showPopup("Craiova", cityDescriptions[0]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Craiova");
-        intent.putExtra("city_lat", 44.3190);
-        intent.putExtra("city_lng", 23.7967);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "craiova");
         startActivity(intent);
     }
 
     public void showPopup2(View view) {
         showPopup("Drobeta-Turnu Severin", cityDescriptions[1]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Drobeta-Turnu Severin");
-        intent.putExtra("city_lat", 44.6253);
-        intent.putExtra("city_lng", 22.6599);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "drobetaturnuseverin");
         startActivity(intent);
     }
 
     public void showPopup3(View view) {
         showPopup("Târgu Jiu", cityDescriptions[2]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Târgu Jiu");
-        intent.putExtra("city_lat", 45.0364);
-        intent.putExtra("city_lng", 23.2747);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "targujiu");
         startActivity(intent);
     }
 
     public void showPopup4(View view) {
         showPopup("Călimănești", cityDescriptions[3]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Călimănești");
-        intent.putExtra("city_lat", 45.2392);
-        intent.putExtra("city_lng", 24.3374);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "calimanesti");
         startActivity(intent);
     }
 
     public void showPopup5(View view) {
         showPopup("Râmnicu Vâlcea", cityDescriptions[4]);
-        Intent intent = new Intent(this, RomCityActivity.class);
-        intent.putExtra("CITY_NAME", "Râmnicu Vâlcea");
-        intent.putExtra("city_lat", 45.1006);
-        intent.putExtra("city_lng", 24.3671);
+        Intent intent = new Intent(this, ComposeEntryActivity.class);
+        intent.putExtra(ComposeEntryActivity.EXTRA_CITY_ID, "ramnicuvalcea");
         startActivity(intent);
     }
 

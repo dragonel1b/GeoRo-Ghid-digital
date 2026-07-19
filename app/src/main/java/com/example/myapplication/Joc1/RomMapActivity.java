@@ -650,7 +650,7 @@ public class RomMapActivity extends AppCompatActivity implements OnMapReadyCallb
      * Open the appropriate activity for a city
      */
     private void openCityActivity(String cityName) {
-        Intent intent = new Intent(this, com.example.myapplication.RomApp.CityDetailActivity.class);
+        Intent intent = new Intent(this, com.example.myapplication.ui.ComposeEntryActivity.class);
         
         // Deducem id-ul curatant și scriind tot cu litere mici
         String cityId = cityName.toLowerCase().replace(" ", "").replace("-", "");
@@ -659,7 +659,7 @@ public class RomMapActivity extends AppCompatActivity implements OnMapReadyCallb
         cityId = java.text.Normalizer.normalize(cityId, java.text.Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         
-        intent.putExtra(com.example.myapplication.RomApp.CityDetailActivity.EXTRA_CITY_ID, cityId);
+        intent.putExtra(com.example.myapplication.ui.ComposeEntryActivity.EXTRA_CITY_ID, cityId);
         startActivity(intent);
         Toast.makeText(this, "Vizitare " + cityName, Toast.LENGTH_SHORT).show();
     }

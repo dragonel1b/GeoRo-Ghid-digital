@@ -21,13 +21,13 @@ public class TransilvaniaGameOverActivity extends AppCompatActivity {
         int score = getIntent().getIntExtra("score", 0);
         
         // Afișăm scorul
-        TextView scoreText = findViewById(R.id.scoreText);
+        TextView scoreText = findViewById(R.id.scoreTextView);
         if (scoreText != null) {
             scoreText.setText("Scor: " + score);
         }
         
         // Configurăm butonul de restart
-        Button restartButton = findViewById(R.id.restartButton);
+        Button restartButton = findViewById(R.id.playAgainButton);
         if (restartButton != null) {
             restartButton.setOnClickListener(v -> {
                 Intent intent = new Intent(this, TransilvaniaGameActivity.class);
@@ -37,7 +37,7 @@ public class TransilvaniaGameOverActivity extends AppCompatActivity {
         }
         
         // Configurăm butonul de întoarcere la hartă
-        Button mapButton = findViewById(R.id.mapButton);
+        Button mapButton = findViewById(R.id.backToMapButton);
         if (mapButton != null) {
             mapButton.setOnClickListener(v -> {
                 Intent intent = new Intent(this, TransilvaniaMapActivity.class);

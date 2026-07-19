@@ -15,7 +15,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.viewmodel.CityViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.myapplication.RomApp.PointsManager;
-import com.example.myapplication.viewmodel.EnhancedCityActivity;
 
 public class CityInfoBottomSheet extends BottomSheetDialogFragment {
     private CityViewModel viewModel;
@@ -86,12 +85,8 @@ public class CityInfoBottomSheet extends BottomSheetDialogFragment {
             cityTitle.setText(cityName);
         }
         if (cityDescription != null) {
-            // If we're being shown from an EnhancedCityActivity, get the description from there
-            if (getActivity() instanceof EnhancedCityActivity) {
-                String descriptionText = ((EnhancedCityActivity) getActivity()).getCityDescription();
-                cityDescription.setText(descriptionText);
-            } else if (description != null) {
-                // Otherwise use the provided description
+            if (description != null) {
+                // Use the provided description
                 cityDescription.setText(description);
             }
         }
