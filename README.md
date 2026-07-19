@@ -158,4 +158,3 @@ Combinarea AI cu educația culturală este inovatoare în contextul românesc. N
 
 **Călătorie Prin România** - Păstrând cultura românească pentru generațiile viitoare, o aplicație educațională la un moment dat. 🇷🇴
       
-https://drive.google.com/file/d/1op6Hj2SASIXLXrMqubhFT-pBtZkeT1Mq/view?usp=drive_link
